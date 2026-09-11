@@ -10,6 +10,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+using Content.Shared._Stalker.PullDoAfter; // ST:OW
 
 namespace Content.Shared.Item;
 
@@ -18,6 +19,7 @@ public abstract class SharedItemSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private   readonly SharedHandsSystem _handsSystem = default!;
     [Dependency] protected readonly SharedContainerSystem Container = default!;
+    [Dependency] private readonly SharedPullDoAfterSystem _pullDoAfter = default!; // ST:OW
 
     public override void Initialize()
     {
@@ -123,8 +125,7 @@ public abstract class SharedItemSystem : EntitySystem
             return;
 
         InteractionVerb verb = new();
-        verb.Act = () => _handsSystem.TryPickupAnyHand(args.User, args.Target, checkActionBlocker: false,
-            handsComp: args.Hands, item: component);
+        verb.Act = () => PickUpItem(args.User, args.Target); // ST:OW
         verb.Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/pickup.svg.192dpi.png"));
 
         // if the item already in a container (that is not the same as the user's), then change the text.
@@ -137,7 +138,33 @@ public abstract class SharedItemSystem : EntitySystem
 
         args.Verbs.Add(verb);
     }
+    // ST:OW begin
+    // All this does it make it so if you click or use "Put in hand"
+    // Then it will always respect the wait time for pulling out certain items (i.e. Most guns)
+    private void PickUpItem(EntityUid user, EntityUid target)
+    {
+        if (TryComp<PullDoAfterComponent>(target, out var pullComp) &&
+            Container.TryGetContainingContainer((target, null, null), out var container) &&
+            container != null)
+        {
+            var containerOwner = container.Owner;
 
+            if (HasComp<StorageComponent>(containerOwner))
+            {
+                _pullDoAfter.StartInteractDoAfter(
+                    (target, pullComp),
+                    user,
+                    containerOwner);
+
+                return;
+            }
+        }
+        _handsSystem.TryPickupAnyHand(
+            user,
+            target,
+            checkActionBlocker: false);
+    }
+    // ST:OW end
     private void OnExamine(EntityUid uid, ItemComponent component, ExaminedEvent args)
     {
         // show at end of message generally
