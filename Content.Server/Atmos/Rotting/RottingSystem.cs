@@ -12,6 +12,7 @@ using Robust.Shared.Timing;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Containers;
+using Content.Shared.Storage.EntitySystems; // ST:OW
 
 namespace Content.Server.Atmos.Rotting;
 
@@ -25,6 +26,8 @@ public sealed class RottingSystem : SharedRottingSystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly IPlayerManager _players = default!; // Stalker-Changes
     [Dependency] private readonly IConsoleHost _console = default!; // Stalker-Changes
+    [Dependency] private readonly SharedStorageSystem _storage = default!; // ST:OW
+    [Dependency] private readonly SharedTransformSystem _transform = default!; // ST:OW
 
     public override void Initialize()
     {
@@ -123,7 +126,7 @@ public sealed class RottingSystem : SharedRottingSystem
                 var stage = RotStage(uid, rotting, perishable);
                 if (stage >= rotInto.Stage)
                 {
-                    Spawn(rotInto.Entity, xform.Coordinates);
+                    ReplaceRotInto(uid, rotInto.Entity, xform); // ST:OW
                     QueueDel(uid);
                     continue;
                 }
@@ -152,6 +155,51 @@ public sealed class RottingSystem : SharedRottingSystem
             tileMix?.AdjustMoles(Gas.Ammonia, molRate * physics.FixturesMass);
         }
     }
+    
+    // ST:OW begin
+    private void ReplaceRotInto(
+        EntityUid uid,
+        string prototype,
+        TransformComponent xform)
+    {
+        var hadContainer = _container.TryGetContainingContainer(
+            (uid, xform, null),
+            out var containingContainer);
+
+        var mapCoords = _transform.GetMapCoordinates(uid, xform);
+        var replacement = Spawn(prototype, mapCoords);
+
+        Transform(replacement).LocalRotation = xform.LocalRotation;
+
+        if (!hadContainer || containingContainer == null)
+            return;
+
+        var hadStorageLocation = _storage.TryGetStorageLocation(
+            uid,
+            out var storageContainer,
+            out var storage,
+            out var storageLocation);
+
+        _container.Remove(uid, containingContainer, force: true);
+    
+        if (hadStorageLocation &&
+            storageContainer != null &&
+            storage != null &&
+            _storage.InsertAt(
+                (storageContainer.Owner, storage),
+                replacement,
+                storageLocation,
+                out _,
+                playSound: false,
+                stackAutomatically: false))
+        {
+            return;
+        }
+
+        _container.Insert(replacement, containingContainer);
+    }
+    // ST:OW end
+    
     private void Respawn(EntityUid uid) // Stalker-Changes-Start
     {
         if (!_players.TryGetSessionByEntity(uid, out var session))

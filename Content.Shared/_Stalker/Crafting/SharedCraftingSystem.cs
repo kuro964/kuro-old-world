@@ -4,9 +4,12 @@ using Content.Shared._Stalker.Crafting.Components;
 using Content.Shared.Crafting.Events;
 using Content.Shared.Crafting.Prototypes;
 using Content.Shared.DoAfter;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Prototypes;
 using Content.Shared.Storage;
+using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Tag;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
@@ -20,6 +23,8 @@ public sealed class SharedCraftingSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly SharedStorageSystem _storage = default!;
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -127,14 +132,16 @@ public sealed class SharedCraftingSystem : EntitySystem
             if (CheckStepForTargetOrUsed(prototype.Steps, args.Target, args.Used))
             {
                 StartLightDoAfter(args.User, args.Target, args.Used, prototype, prototype.Steps);
-                _sawmill.Debug("Started light without tags");
+                if (!_net.IsClient)
+                    _sawmill.Debug("Started light without tags");
                 return;
             }
 
             if (CheckStepForTag(prototype.Steps, args.Target, args.Used))
             {
                 StartLightDoAfter(args.User, args.Target, args.Used, prototype, prototype.Steps);
-                _sawmill.Debug($"Started light with tags");
+                if (!_net.IsClient)
+                    _sawmill.Debug($"Started light with tags");
                 return;
             }
         }
@@ -142,8 +149,19 @@ public sealed class SharedCraftingSystem : EntitySystem
 
     private void StartLightDoAfter(EntityUid user, EntityUid target, EntityUid used, LightCraftingPrototype prototype, StepDetails step)
     {
-        var time = step.Time;
-        var args = new DoAfterArgs(EntityManager, user, time, new LightCraftDoAfterEvent(prototype, step), target, target, used);
+        // ST:OW begin
+        var args = new DoAfterArgs(EntityManager, user, step.Time, new LightCraftDoAfterEvent(prototype, step), target, target, used)
+        {
+            NeedHand = true,
+
+            BreakOnHandChange = false,
+
+            BreakOnDropItem = true,
+
+            BlockDuplicate = true
+        };
+        // ST:OW end
+
         _doAfter.TryStartDoAfter(args);
     }
 
@@ -348,65 +366,118 @@ public sealed class SharedCraftingSystem : EntitySystem
         }
     }
 
-    private void LightCraft(EntityUid target, EntityUid used, LightCraftingPrototype prototype, StepDetails step)
+    // ST:OW begin
+    private void LightCraft(EntityUid user, EntityUid target, EntityUid used, LightCraftingPrototype prototype,
+        StepDetails step)
     {
-        if (_net.IsClient)
+        if (_net.IsClient || TerminatingOrDeleted(target) || TerminatingOrDeleted(used))
+        {
             return;
+        }
 
         var targetId = GetItemProtoID(target);
         var usedId = GetItemProtoID(used);
-        var xform = _transform.GetMapCoordinates(target);
+        var forward = IsEqualOrHasParent(targetId, step.FirstIngredient, step.ExactFirst) &&
+                      IsEqualOrHasParent(usedId, step.SecondIngredient, step.ExactSecond);
 
-        // ST:OW start
-        var targetIsFirst = IsEqualOrHasParent(targetId, step.FirstIngredient, step.ExactFirst);
-        var targetIsSecond = IsEqualOrHasParent(targetId, step.SecondIngredient, step.ExactSecond);
-        var usedIsFirst = IsEqualOrHasParent(usedId, step.FirstIngredient, step.ExactFirst);
-        var usedIsSecond = IsEqualOrHasParent(usedId, step.SecondIngredient, step.ExactSecond);
-        var forward = targetIsFirst && usedIsSecond;
-        var reverse = usedIsFirst && targetIsSecond;
+        var reverse = !forward && 
+                      IsEqualOrHasParent(usedId, step.FirstIngredient, step.ExactFirst) &&
+                      IsEqualOrHasParent(targetId, step.SecondIngredient, step.ExactSecond);
 
         if (!forward && !reverse)
             return;
 
-        if (step.FirstIngredient.Id == step.SecondIngredient.Id)
+        var firstEntity = forward ? target : used;
+        var secondEntity = forward ? used : target;
+
+        if (firstEntity == secondEntity && step.FirstIngredient.Id == step.SecondIngredient.Id)
+            return;
+
+        EntityUid? replacementSource = !step.KeepFirst ? firstEntity 
+            : !step.KeepSecond ? secondEntity 
+            : null;
+
+        var positionSource = replacementSource ?? target;
+        var spawnCoords = _transform.GetMapCoordinates(positionSource);
+        var previousRotation = Transform(positionSource).LocalRotation;
+
+        BaseContainer? storageContainer = null;
+        StorageComponent? storageComp = null;
+        ItemStorageLocation storageLocation = default;
+        HandsComponent? hands = null;
+        string? originalHand = null;
+
+        var hadStorageLocation = false;
+        var wasHeld = false;
+
+        if (replacementSource != null)
         {
-            // Need two distinct entities when recipe is A + A
-            if (target == used)
-                return;
+            hadStorageLocation = _storage.TryGetStorageLocation(
+                (replacementSource.Value, null),
+                out storageContainer,
+                out storageComp,
+                out storageLocation);
             
-            // If KeepFirst & KeepSecond are false, then delete both items
-            if (!step.KeepFirst && !step.KeepSecond)
+            if (!hadStorageLocation)
             {
-                QueueDel(target);
-                QueueDel(used);
+                wasHeld = TryComp(user, out hands) &&
+                          _hands.IsHolding((user, hands), replacementSource.Value, out originalHand);
+            }
+            
+            if (hadStorageLocation && storageContainer != null)
+            {
+                _container.Remove(replacementSource.Value, storageContainer, force: true);
+            }
+            
+            else if (wasHeld && _container.TryGetContainingContainer(replacementSource.Value, out var handContainer))
+            {
+                _container.Remove(replacementSource.Value, handContainer, force: true);
             }
         }
-        else
-        {
-            var firstEntity = forward ? target : used;
-            var secondEntity = forward ? used : target;
 
-            if (!step.KeepFirst)
-                QueueDel(firstEntity);
+        if (!step.KeepFirst)
+            QueueDel(firstEntity);
         
-            if (!step.KeepSecond)
-                QueueDel(secondEntity);
-        }
-        // ST:OW end
+        if (!step.KeepSecond && (step.KeepFirst || secondEntity != firstEntity))
+            QueueDel(secondEntity);
+
+        var firstResult = true;
+
         foreach (var item in prototype.Results)
         {
-            var newEntity = Spawn(item, xform);
-            if (TryComp(newEntity, out TransformComponent? newTransfromComp) && TryComp(target, out TransformComponent? prevTransformComp))
+            var newEntity = Spawn(item, spawnCoords);
+            Transform(newEntity).LocalRotation = previousRotation;
+
+            if (firstResult && replacementSource != null)
             {
-                if (newTransfromComp != null && prevTransformComp != null)
+                if (hadStorageLocation && storageContainer != null && storageComp != null)
                 {
-                    newTransfromComp.LocalRotation = prevTransformComp.LocalRotation;
+                    _storage.InsertAt(
+                        (storageContainer.Owner, storageComp),
+                        newEntity,
+                        storageLocation,
+                        out _,
+                        playSound: false,
+                        stackAutomatically: false);
+                }
+                else if (wasHeld && hands != null && originalHand != null)
+                {
+                    _hands.TryPickup(
+                        user,
+                        newEntity,
+                        originalHand,
+                        checkActionBlocker: false,
+                        animate: false,
+                        handsComp: hands);
                 }
             }
-            var id = newEntity.Id;
-            _sawmill.Debug($"Id: {id}");
+
+            firstResult = false;
+            
+            _sawmill.Debug("Id: {Entity}", newEntity);
         }
     }
+    // ST:OW end
 
     private void Disassemble(EntityUid user, EntityUid workbench, BaseContainer container, CraftingPrototype proto)
     {
@@ -602,7 +673,7 @@ public sealed class SharedCraftingSystem : EntitySystem
         if (args.Cancelled || args.Target == null || args.Used == null)
             return;
 
-        LightCraft(args.Target.Value, args.Used.Value, args.Proto, args.Step);
+        LightCraft(args.User, args.Target.Value, args.Used.Value, args.Proto, args.Step);
     }
 }
 [Serializable, NetSerializable]

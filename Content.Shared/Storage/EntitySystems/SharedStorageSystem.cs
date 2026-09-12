@@ -684,7 +684,8 @@ public abstract class SharedStorageSystem : EntitySystem
             var entity = GetEntity(args.Entities[i]);
 
             // Check again, situation may have changed for some entities, but we'll still pick up any that are valid
-            if (ContainerSystem.IsEntityInContainer(entity)
+            if (TerminatingOrDeleted(entity) // ST:OW
+                || ContainerSystem.IsEntityInContainer(entity) // ST:OW
                 || entity == args.Args.User
                 || !_itemQuery.HasComponent(entity))
             {
@@ -1309,10 +1310,14 @@ public abstract class SharedStorageSystem : EntitySystem
     /// <returns>true if inserted, false otherwise</returns>
     public bool PlayerInsertEntityInWorld(Entity<StorageComponent?> uid, EntityUid player, EntityUid toInsert, bool playSound = true)
     {
+        // ST:OW begin
+        if (TerminatingOrDeleted(toInsert))
+            return false;
+
         if (!Resolve(uid, ref uid.Comp) || !_interactionSystem.InRangeUnobstructed(player, uid.Owner))
             return false;
 
-        if (!Insert(uid, toInsert, out _, user: player, uid.Comp, playSound: playSound))
+        if (!Insert(uid, toInsert, out _, user: player, storageComp: uid.Comp, playSound: playSound)) // ST:OW end
         {
             _popupSystem.PopupClient(Loc.GetString("comp-storage-cant-insert"), uid, player);
             return false;
