@@ -1,4 +1,6 @@
 ﻿using Robust.Shared.GameStates;
+using Content.Shared.Movement.Components; // ST:OW
+using Content.Shared.Movement.Systems; // ST:OW
 
 namespace Content.Shared._Stalker.Stamina;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
@@ -25,16 +27,45 @@ public sealed partial class StaminaActiveComponent : Component
     public float RunStaminaDamage = 0.2f;
 
     /// <summary>
-    /// Modifier to set entity sprint speed to a walking speed. Counts himself.
-    /// Nothing will happen if you'll set it manually
-    /// </summary>
-    public float SprintModifier = 0.5f;
-
-    public bool Change;
-
-    /// <summary>
     /// If our entity is slowed already.
     /// Nothing will happen if you'll set it manually.
     /// </summary>
     public bool Slowed = false;
 }
+    // ST:OW begin
+    /// <summary>
+    /// Slow down effect is applied client and server side
+    /// </summary>
+    public sealed class StaminaActiveMovementSystem : EntitySystem
+        {
+            private EntityQuery<MovementSpeedModifierComponent> _movementQuery;
+
+            public override void Initialize()
+            {
+                base.Initialize();
+
+                _movementQuery = GetEntityQuery<MovementSpeedModifierComponent>();
+
+                SubscribeLocalEvent<StaminaActiveComponent, RefreshMovementSpeedModifiersEvent>(OnRefresh);
+            }
+
+            private void OnRefresh(
+                EntityUid uid,
+                StaminaActiveComponent component,
+                RefreshMovementSpeedModifiersEvent args)
+            {
+                if (!component.Slowed)
+                    return;
+
+                if (!_movementQuery.TryGetComponent(uid, out var movement))
+                    return;
+
+                if (movement.BaseSprintSpeed <= 0f)
+                    return;
+
+                args.ModifySpeed(
+                    1f,
+                    movement.BaseWalkSpeed / movement.BaseSprintSpeed);
+            }
+        }
+    // ST:OW end

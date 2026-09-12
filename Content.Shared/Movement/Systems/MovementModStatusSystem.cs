@@ -168,9 +168,18 @@ public sealed class MovementModStatusSystem : EntitySystem
         if (!Resolve(status, ref status.Comp))
             return false;
 
+        // ST:OW start - Fix to prevent continual movement modifier changes
+        if (MathHelper.CloseTo(status.Comp.WalkSpeedModifier, walkSpeedModifier) &&
+            MathHelper.CloseTo(status.Comp.SprintSpeedModifier, sprintSpeedModifier))
+        {
+            return true;
+        }
+
         status.Comp.SprintSpeedModifier = sprintSpeedModifier;
         status.Comp.WalkSpeedModifier = walkSpeedModifier;
-
+        
+        Dirty(status);
+        // ST:OW end
         _movementSpeedModifier.RefreshMovementSpeedModifiers(uid);
 
         return true;
