@@ -85,7 +85,7 @@
   id: FoodSTSpice
   suffix: Stalker, Food, Ingredient
   components:
-    - STBulkBuyable: # ST:OW
+    - type: STBulkBuyable # ST:OW
       maxQuantity: 10 # ST:OW
     - type: STWeight
       self: 0.1
