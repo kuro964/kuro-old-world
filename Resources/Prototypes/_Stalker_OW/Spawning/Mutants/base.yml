@@ -27,3 +27,4 @@
 
       chance: 1 # x100, 1x100 = 100% spawn rate
       cooldown: 1800 # In seconds, 30 minutes
+      timeoutOnRoll: true # Cooldown always applies
