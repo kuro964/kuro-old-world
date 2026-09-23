@@ -1,7 +1,7 @@
 - type: craftRecipe
   id: newrecipeClothingHeadAssaultHelmet
   resultProtos:
-    - ClothingHeadAssaultHelmet
+    - STOWClothingHeadHelmetT3PVPStalker
   craftTime: 6
   items:
     ClothingHeadAssaultHelmetBlueprint:
@@ -24,7 +24,7 @@
 - type: craftRecipe
   id: newrecipeSTClothingHeadHelmetMakeshiftTacticalT3
   resultProtos:
-    - STClothingHeadHelmetMakeshiftTacticalT3
+    - STOWClothingHeadHelmetT2PVEStalker
   craftTime: 6
   items:
     STClothingHeadHelmetMakeshiftTacticalT3Blueprint:
@@ -45,7 +45,7 @@
 - type: craftRecipe
   id: newrecipeClothingHeadHelmetVityaz1C
   resultProtos:
-    - ClothingHeadHelmetVityaz1C
+    - STOWClothingHeadHelmetT3PVEStalker
   craftTime: 6
   items:
     ClothingHeadHelmetVityaz1CBlueprint:
