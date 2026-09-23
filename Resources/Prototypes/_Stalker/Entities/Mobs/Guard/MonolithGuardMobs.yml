@@ -54,6 +54,7 @@
         Compression: -1000 # ST:OW Change Start
         Shock: -100
         Caustic: -100
+        Bloodloss: -100
   - type: Armor
     hiddenExamine: true
     armorClass: 2
@@ -64,7 +65,7 @@
         Asphyxiation: 0.1
         Psy: 0.1
         Radiation: 0.1
-        Compression: 0.9
+        Compression: 0.1
         Shock: 0.1
         Caustic: 0.1 # ST:OW Change End : WHY THE FUCK DOES IT STILL DIE TO MEGA MULCHERS GOD??
         Mutant: 1

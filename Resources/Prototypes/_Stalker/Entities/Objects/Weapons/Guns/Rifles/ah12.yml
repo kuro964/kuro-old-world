@@ -16,8 +16,8 @@
     sprite: _Stalker/Objects/Weapons/Guns/Rifles/ah12.rsi
     equipDelay: 1
   - type: Gun
-    minAngle: 51
-    maxAngle: 75
+    minAngle: 50
+    maxAngle: 100
     angleIncrease: 2
     selectedMode: FullAuto
     availableModes:
