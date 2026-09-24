@@ -231,6 +231,8 @@
         BaseAPSMag: 100
         GlockMag17: 75
         GlockMag33: 500
+        545Mag30: 400
+        739Mag30: 500
     - name: shop-category-ammunition
       priority: 3
       items:
