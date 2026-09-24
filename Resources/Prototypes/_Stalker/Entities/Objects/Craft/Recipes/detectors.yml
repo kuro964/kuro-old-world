@@ -236,9 +236,9 @@
       catalyzer: true
     TrashDetectorTier3:
       amount: 1
-    STCraftPlasticFittingT2:
+    STCraftPlasticFittingT3:
       amount: 2
-    STCraftMultilayerPCBT3:
+    STCraftMultilayerPCBT4:
       amount: 1
     STCraftTapeKitT2:
       amount: 2
