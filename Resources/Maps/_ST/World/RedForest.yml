@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 09/17/2026 08:24:35
-  entityCount: 22738
+  time: 09/24/2026 09:45:20
+  entityCount: 22733
 maps:
 - 1
 grids:
@@ -78441,15 +78441,11 @@ entities:
     - type: Transform
       pos: -9.5,-31.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 183
     components:
     - type: Transform
       pos: 22.5,142.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 184
     components:
     - type: MetaData
@@ -78458,29 +78454,21 @@ entities:
     - type: Transform
       pos: 236.5,-86.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 185
     components:
     - type: Transform
       pos: 244.5,-86.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 186
     components:
     - type: Transform
       pos: -8.5,-26.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 187
     components:
     - type: Transform
       pos: 38.5,108.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 845
     components:
     - type: Transform
@@ -78500,29 +78488,21 @@ entities:
     - type: Transform
       pos: -6.5,-44.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 189
     components:
     - type: Transform
       pos: -18.5,-25.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 190
     components:
     - type: Transform
       pos: 22.5,139.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 191
     components:
     - type: Transform
       pos: -19.5,-25.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 1078
     components:
     - type: Transform
@@ -78536,15 +78516,11 @@ entities:
     - type: Transform
       pos: -8.5,-31.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 193
     components:
     - type: Transform
       pos: 93.5,79.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 194
     components:
     - type: MetaData
@@ -78553,8 +78529,6 @@ entities:
     - type: Transform
       pos: 235.5,-86.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 686
     components:
     - type: Transform
@@ -78580,22 +78554,16 @@ entities:
     - type: Transform
       pos: -10.5,-31.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 196
     components:
     - type: Transform
       pos: 92.5,79.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 197
     components:
     - type: Transform
       pos: 35.5,108.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
 - proto: BrokenMachineS4
   entities:
   - uid: 198
@@ -78603,15 +78571,11 @@ entities:
     - type: Transform
       pos: -7.5,-44.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 199
     components:
     - type: Transform
       pos: -18.5,-43.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 200
     components:
     - type: MetaData
@@ -78620,8 +78584,6 @@ entities:
     - type: Transform
       pos: 234.5,-86.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 201
     components:
     - type: MetaData
@@ -78630,22 +78592,16 @@ entities:
     - type: Transform
       pos: 237.5,-86.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 202
     components:
     - type: Transform
       pos: -3.5,-25.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 203
     components:
     - type: Transform
       pos: 40.5,97.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
 - proto: BrokenMachineS5
   entities:
   - uid: 204
@@ -78653,15 +78609,11 @@ entities:
     - type: Transform
       pos: -20.5,-41.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 205
     components:
     - type: Transform
       pos: 86.5,75.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 206
     components:
     - type: MetaData
@@ -78670,8 +78622,6 @@ entities:
     - type: Transform
       pos: 235.5,-87.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 207
     components:
     - type: MetaData
@@ -78680,23 +78630,17 @@ entities:
     - type: Transform
       pos: 236.5,-87.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 208
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 242.5,-88.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 209
     components:
     - type: Transform
       pos: -1.5,-27.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
 - proto: BrokenMachineS6
   entities:
   - uid: 210
@@ -78704,15 +78648,11 @@ entities:
     - type: Transform
       pos: -18.5,-42.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 211
     components:
     - type: Transform
       pos: -2.5,-26.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
 - proto: BrokenMachineS7
   entities:
   - uid: 214
@@ -78720,36 +78660,26 @@ entities:
     - type: Transform
       pos: -19.5,-42.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 216
     components:
     - type: Transform
       pos: 21.5,139.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 217
     components:
     - type: Transform
       pos: 20.5,139.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 218
     components:
     - type: Transform
       pos: 245.5,-86.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 219
     components:
     - type: Transform
       pos: -18.5,-29.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
 - proto: BrokenMachineS8
   entities:
   - uid: 221
@@ -78757,8 +78687,6 @@ entities:
     - type: Transform
       pos: 243.5,-86.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 846
     components:
     - type: Transform
@@ -78772,22 +78700,16 @@ entities:
     - type: Transform
       pos: -12.5,-34.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 223
     components:
     - type: Transform
       pos: -21.5,-29.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 224
     components:
     - type: Transform
       pos: 32.5,105.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -2808.3445
 - proto: BulletHoles1Stalker
   entities:
   - uid: 225
@@ -107546,7 +107468,7 @@ entities:
       pos: -11.5,-45.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -4906.825
+      secondsUntilStateChange: -6215.526
       state: Opening
 - proto: HermoDverTypeOneCNClosed
   entities:
@@ -128617,6 +128539,13 @@ entities:
     - type: Transform
       pos: 25.5,-45.5
       parent: 1
+- proto: MutantSpawnerBloodsucker_1_100
+  entities:
+  - uid: 381
+    components:
+    - type: Transform
+      pos: 27.5,24.5
+      parent: 1
 - proto: MutantSpawnerBloodsucker_1to2_01
   entities:
   - uid: 8854
@@ -128633,20 +128562,6 @@ entities:
     components:
     - type: Transform
       pos: 31.5,-16.5
-      parent: 1
-- proto: MutantSpawnerBloodsucker_1to2_10
-  entities:
-  - uid: 430
-    components:
-    - type: Transform
-      pos: 27.5,24.5
-      parent: 1
-- proto: MutantSpawnerBloodsucker_1to2_25
-  entities:
-  - uid: 4799
-    components:
-    - type: Transform
-      pos: 13.5,44.5
       parent: 1
 - proto: MutantSpawnerBloodsucker_1to2_50
   entities:
@@ -128688,15 +128603,17 @@ entities:
       parent: 1
 - proto: MutantSpawnerBurer_1to2_10
   entities:
-  - uid: 3735
-    components:
-    - type: Transform
-      pos: 150.5,28.5
-      parent: 1
   - uid: 10471
     components:
     - type: Transform
       pos: 133.5,-23.5
+      parent: 1
+- proto: MutantSpawnerBurer_1to2_100
+  entities:
+  - uid: 430
+    components:
+    - type: Transform
+      pos: 150.5,28.5
       parent: 1
 - proto: MutantSpawnerCanineT2_1to4_50
   entities:
@@ -128710,24 +128627,29 @@ entities:
     - type: Transform
       pos: 36.5,-10.5
       parent: 1
+- proto: MutantSpawnerController_1_100
+  entities:
+  - uid: 472
+    components:
+    - type: Transform
+      pos: -3.5,-29.5
+      parent: 1
+  - uid: 473
+    components:
+    - type: Transform
+      pos: 166.5,139.5
+      parent: 1
+  - uid: 4799
+    components:
+    - type: Transform
+      pos: 162.5,139.5
+      parent: 1
 - proto: MutantSpawnerController_1_25
   entities:
   - uid: 4705
     components:
     - type: Transform
       pos: 188.5,68.5
-      parent: 1
-  - uid: 14178
-    components:
-    - type: Transform
-      pos: -3.5,-29.5
-      parent: 1
-- proto: MutantSpawnerController_1_50
-  entities:
-  - uid: 3580
-    components:
-    - type: Transform
-      pos: 169.5,141.5
       parent: 1
 - proto: MutantSpawnerMatureBear_1to2_50
   entities:
@@ -128743,20 +128665,10 @@ entities:
     - type: Transform
       pos: 181.5,81.5
       parent: 1
-  - uid: 1116
-    components:
-    - type: Transform
-      pos: 159.5,140.5
-      parent: 1
   - uid: 6933
     components:
     - type: Transform
       pos: 128.5,89.5
-      parent: 1
-  - uid: 8853
-    components:
-    - type: Transform
-      pos: 1.5,1.5
       parent: 1
 - proto: MutantSpawnerNorthernWildcardT2_1to3_50
   entities:
@@ -128778,11 +128690,6 @@ entities:
     components:
     - type: Transform
       pos: 12.5,28.5
-      parent: 1
-  - uid: 4285
-    components:
-    - type: Transform
-      pos: 67.5,118.5
       parent: 1
 - proto: MutantSpawnerOldBear_1to2_25
   entities:
@@ -128997,6 +128904,13 @@ entities:
     components:
     - type: Transform
       pos: 92.5,-46.5
+      parent: 1
+- proto: MutantSpawnerZombie_1to2_100
+  entities:
+  - uid: 476
+    components:
+    - type: Transform
+      pos: 1.5,2.5
       parent: 1
 - proto: MutantSpawnerZombie_1to2_50
   entities:
@@ -149830,22 +149744,16 @@ entities:
     - type: Transform
       pos: 232.5,-115.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 13261
     components:
     - type: Transform
       pos: -3.5,13.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 13262
     components:
     - type: Transform
       pos: -4.5,20.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -2808.3445
 - proto: StalkerTrashPile2
   entities:
   - uid: 461
@@ -149858,22 +149766,16 @@ entities:
     - type: Transform
       pos: 226.5,-115.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 13264
     components:
     - type: Transform
       pos: 227.5,-116.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -2808.3445
   - uid: 13265
     components:
     - type: Transform
       pos: 228.5,-120.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -2808.3445
 - proto: StalkerWorkbench
   entities:
   - uid: 13267
@@ -150672,31 +150574,6 @@ entities:
     - type: Transform
       pos: -14.5,-25.5
       parent: 1
-  - uid: 381
-    components:
-    - type: Transform
-      pos: 142.5,-32.5
-      parent: 1
-  - uid: 472
-    components:
-    - type: Transform
-      pos: 36.5,108.5
-      parent: 1
-  - uid: 475
-    components:
-    - type: Transform
-      pos: 149.5,30.5
-      parent: 1
-  - uid: 476
-    components:
-    - type: Transform
-      pos: 151.5,30.5
-      parent: 1
-  - uid: 680
-    components:
-    - type: Transform
-      pos: 136.5,-34.5
-      parent: 1
   - uid: 688
     components:
     - type: Transform
@@ -150716,26 +150593,6 @@ entities:
     components:
     - type: Transform
       pos: 124.5,93.5
-      parent: 1
-  - uid: 13292
-    components:
-    - type: Transform
-      pos: -0.5,-32.5
-      parent: 1
-  - uid: 13358
-    components:
-    - type: Transform
-      pos: 165.5,140.5
-      parent: 1
-  - uid: 13359
-    components:
-    - type: Transform
-      pos: 164.5,140.5
-      parent: 1
-  - uid: 13360
-    components:
-    - type: Transform
-      pos: 163.5,140.5
       parent: 1
   - uid: 13362
     components:
@@ -150777,16 +150634,6 @@ entities:
     - type: Transform
       pos: 105.5,86.5
       parent: 1
-  - uid: 13370
-    components:
-    - type: Transform
-      pos: 23.5,141.5
-      parent: 1
-  - uid: 13371
-    components:
-    - type: Transform
-      pos: 27.5,21.5
-      parent: 1
   - uid: 13372
     components:
     - type: Transform
@@ -150797,25 +150644,10 @@ entities:
     - type: Transform
       pos: 11.5,46.5
       parent: 1
-  - uid: 13374
-    components:
-    - type: Transform
-      pos: 13.5,53.5
-      parent: 1
-  - uid: 13375
-    components:
-    - type: Transform
-      pos: 24.5,33.5
-      parent: 1
   - uid: 13376
     components:
     - type: Transform
       pos: 10.5,39.5
-      parent: 1
-  - uid: 13377
-    components:
-    - type: Transform
-      pos: -3.5,22.5
       parent: 1
   - uid: 13378
     components:
@@ -150831,16 +150663,6 @@ entities:
     components:
     - type: Transform
       pos: 90.5,155.5
-      parent: 1
-  - uid: 13382
-    components:
-    - type: Transform
-      pos: 74.5,161.5
-      parent: 1
-  - uid: 13383
-    components:
-    - type: Transform
-      pos: 78.5,161.5
       parent: 1
   - uid: 13384
     components:
@@ -150909,25 +150731,10 @@ entities:
     - type: Transform
       pos: -19.5,-39.5
       parent: 1
-  - uid: 10454
-    components:
-    - type: Transform
-      pos: -9.5,-35.5
-      parent: 1
-  - uid: 13301
-    components:
-    - type: Transform
-      pos: -0.5,-39.5
-      parent: 1
   - uid: 13410
     components:
     - type: Transform
       pos: 27.5,-37.5
-      parent: 1
-  - uid: 14150
-    components:
-    - type: Transform
-      pos: -21.5,-27.5
       parent: 1
   - uid: 22072
     components:
@@ -150936,11 +150743,6 @@ entities:
       parent: 1
 - proto: STCacheT4Spawner25
   entities:
-  - uid: 473
-    components:
-    - type: Transform
-      pos: 23.5,142.5
-      parent: 1
   - uid: 474
     components:
     - type: Transform
@@ -154926,6 +154728,11 @@ entities:
     - type: Transform
       pos: 77.5,149.5
       parent: 1
+  - uid: 680
+    components:
+    - type: Transform
+      pos: 63.5,171.5
+      parent: 1
   - uid: 6257
     components:
     - type: Transform
@@ -155392,6 +155199,92 @@ entities:
     components:
     - type: Transform
       pos: 220.5,-107.5
+      parent: 1
+- proto: STOWCacheT3Spawner100
+  entities:
+  - uid: 3580
+    components:
+    - type: Transform
+      pos: 149.5,30.5
+      parent: 1
+  - uid: 4285
+    components:
+    - type: Transform
+      pos: -0.5,-32.5
+      parent: 1
+  - uid: 8101
+    components:
+    - type: Transform
+      pos: 24.5,33.5
+      parent: 1
+  - uid: 8845
+    components:
+    - type: Transform
+      pos: 13.5,53.5
+      parent: 1
+  - uid: 9628
+    components:
+    - type: Transform
+      pos: -3.5,22.5
+      parent: 1
+  - uid: 9629
+    components:
+    - type: Transform
+      pos: 74.5,161.5
+      parent: 1
+  - uid: 9638
+    components:
+    - type: Transform
+      pos: -21.5,-27.5
+      parent: 1
+- proto: STOWCacheT3Spawner50
+  entities:
+  - uid: 3735
+    components:
+    - type: Transform
+      pos: 151.5,30.5
+      parent: 1
+  - uid: 7149
+    components:
+    - type: Transform
+      pos: 23.5,140.5
+      parent: 1
+  - uid: 8853
+    components:
+    - type: Transform
+      pos: 27.5,21.5
+      parent: 1
+  - uid: 9631
+    components:
+    - type: Transform
+      pos: -9.5,-35.5
+      parent: 1
+  - uid: 9633
+    components:
+    - type: Transform
+      pos: -0.5,-39.5
+      parent: 1
+- proto: STOWCacheT4Spawner100
+  entities:
+  - uid: 475
+    components:
+    - type: Transform
+      pos: 164.5,145.5
+      parent: 1
+  - uid: 1116
+    components:
+    - type: Transform
+      pos: 36.5,107.5
+      parent: 1
+  - uid: 9630
+    components:
+    - type: Transform
+      pos: 78.5,161.5
+      parent: 1
+  - uid: 9639
+    components:
+    - type: Transform
+      pos: 23.5,142.5
       parent: 1
 - proto: STOxygenTanksFractionalFreedom
   entities:
@@ -196640,7 +196533,7 @@ entities:
       pos: 85.5,93.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -7432.584
+      secondsUntilStateChange: -8741.284
       state: Opening
   - uid: 22662
     components:
