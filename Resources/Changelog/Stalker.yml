@@ -4014,5 +4014,12 @@
   id: 444
   time: '2026-09-23T19:11:05.934493+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/85
+- author: kuro964
+  changes:
+  - message: Made T4 garbage detector recipe more difficult
+    type: Tweak
+  id: 445
+  time: '2026-09-24T08:12:43.666309+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/86
 Name: Stalker
 Order: -1
