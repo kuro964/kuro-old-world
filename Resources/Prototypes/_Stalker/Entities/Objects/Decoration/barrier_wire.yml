@@ -4,6 +4,7 @@
   description: Вам, кажется, не стоит в неё наступать.
   suffix: ST, Mapping, End
   components:
+  - type: IgnorePredictionHit # ST:OW
   - type: SpriteFade
   - type: Clickable
   - type: Sprite
@@ -24,7 +25,7 @@
           bounds: "-0.35,-0.35,0.35,0.35"
         density: 1000
         layer:
-        - WallLayer
+        - SlipLayer # ST:OW
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Wood
