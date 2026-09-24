@@ -4032,5 +4032,14 @@
   id: 446
   time: '2026-09-24T08:23:30.740827+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/87
+- author: Allias12
+  changes:
+  - message: new RP area to Rostok
+    type: Add
+  - message: Replaced some Caches in RF with the new caches
+    type: Tweak
+  id: 447
+  time: '2026-09-24T15:24:15.156508+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/89
 Name: Stalker
 Order: -1
