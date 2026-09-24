@@ -15,7 +15,7 @@
   components:
   - type: Action
     startDelay: true
-    useDelay: 120
+    useDelay: 10
     icon:
       sprite: Mobs/Ghosts/ghost_human.rsi
       state: icon
@@ -44,7 +44,7 @@
   components:
   - type: Action
     startDelay: true
-    useDelay: 120
+    useDelay: 10
     icon:
       sprite: Interface/Actions/actions_crit.rsi
       state: lastwords

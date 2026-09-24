@@ -43,6 +43,7 @@
         groups:
           Brute: -125
           Burn: -125
+          Airloss: -125
         ModifyBloodLevel: 133
     - type: DamageStateVisuals
       states:

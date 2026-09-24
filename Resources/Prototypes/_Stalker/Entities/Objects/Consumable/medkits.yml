@@ -248,7 +248,7 @@
         Blunt: -0
         Compression: -0
     bloodlossModifier: -10
-    delay: 0.5
+    delay: 0.7
     healingBeginSound:
       path: "/Audio/Items/Medical/brutepack_begin.ogg"
     healingEndSound:

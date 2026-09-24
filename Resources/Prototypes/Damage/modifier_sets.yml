@@ -266,11 +266,11 @@
     Cold: 0.0
     Heat: -0.5 # heat damage cauterizes wounds, but will still hurt obviously.
     Holy: 0
-    Piercing: 0.2
+    Piercing: 0.3
     Poison: 0.0
     Radiation: 0.0
     Shock: 0.0
-    Slash: 0.25
+    Slash: 0.6
     Structural: 0.0
     Psy: 0.0
     Compression: 0.1

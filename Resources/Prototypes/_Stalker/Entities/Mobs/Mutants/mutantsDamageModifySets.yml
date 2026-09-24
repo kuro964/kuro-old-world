@@ -104,9 +104,11 @@
     Compression: 5
     Psy: 0
     Mutant: .45
+    Bloodloss: -0.5
   flatReductions:
     Blunt: 5
     Slash: 5
+    Bloodloss: 5
 
 - type: damageModifierSet
   id: STMutantT4DamageModifierSet
@@ -147,11 +149,11 @@
   flatReductions:
     Blunt: 5
     Slash: 5
-    Piercing: 10
+    Piercing: 5
     Mutant: 200
     Heat: 200
     Poison: 200
-    Asphyxiation: 200
+    Bloodloss: 5
     Psy: 200
     Compression: 200
     Shock: 200

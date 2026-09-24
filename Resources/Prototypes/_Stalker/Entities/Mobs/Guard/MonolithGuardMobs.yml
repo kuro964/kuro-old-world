@@ -78,7 +78,21 @@
       - !type:TriggerBehavior
       - !type:DoActsBehavior
         acts: ["Destruction"]
-
+  - type: Butcherable
+    spawned:
+      - id: 918PSTBox
+        maxAmount: 1
+        prob: 0.3
+      - id: 556FMJBox
+        maxAmount: 1
+        prob: 0.3
+      - id: 545FMJBox
+        maxAmount: 1
+        prob: 0.3
+      - id: 919PSTBox
+        maxAmount: 1
+        prob: 0.3
+        
 - type: entity
   name: Неизвестный монолитовец
   suffix: Stalker, NPC, T3
