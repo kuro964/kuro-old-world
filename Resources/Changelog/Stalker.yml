@@ -4041,5 +4041,14 @@
   id: 447
   time: '2026-09-24T15:24:15.156508+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/89
+- author: kuro964
+  changes:
+  - message: Shooting through barbed wire no longer makes you a brick
+    type: Fix
+  - message: Springboard anomalies should no longer fling you into stuck positions
+    type: Fix
+  id: 448
+  time: '2026-09-24T18:44:24.207506+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/90
 Name: Stalker
 Order: -1
