@@ -11,7 +11,7 @@
       materialComposition:
         Brass: 100
     - type: Stack
-      stackType: STBrass
+      stackType: STOWBallisticPlates
       count: 1
     - type: Sprite
       sprite: _Stalker_OW/Objects/Materials/ballisticplate.rsi

@@ -1,0 +1,6 @@
+﻿- type: stack
+  id: STOWBallisticPlates
+  name: stack-stow-BP
+  icon: { sprite: _Stalker_OW/Objects/Materials/ballisticplate.rsi, state: plate }
+  spawn: STOWCraftBallisticPlateT3
+  maxCount: 5
