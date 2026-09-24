@@ -4050,5 +4050,20 @@
   id: 448
   time: '2026-09-24T18:44:24.207506+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/90
+- author: Allias12
+  changes:
+  - message: Lowered succumb timer (finally)
+    type: Tweak
+  - message: Increased bloodloss damage per tick
+    type: Tweak
+  - message: lowered use speed of bandages to incentivize use of the tourniquet
+    type: Tweak
+  - message: T3 Mutants no longer bleed out
+    type: Tweak
+  - message: Monolith guards can drop low and mid caliber T2 ammo
+    type: Tweak
+  id: 449
+  time: '2026-09-24T22:20:09.237580+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/88
 Name: Stalker
 Order: -1
