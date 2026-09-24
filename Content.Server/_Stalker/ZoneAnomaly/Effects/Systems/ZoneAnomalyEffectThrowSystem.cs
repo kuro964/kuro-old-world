@@ -43,7 +43,6 @@ public sealed class ZoneAnomalyEffectThrowSystem : EntitySystem
             // ST:OW begin
             var entityTransform = Transform(entity);
             var entityPosition = _transform.GetWorldPosition(entity);
-
             var offset = entityPosition - anomalyPosition;
             var distance = offset.Length();
 
@@ -51,7 +50,6 @@ public sealed class ZoneAnomalyEffectThrowSystem : EntitySystem
                 continue;
 
             var throwDirection = offset / distance;
-
             var throwDistance = FindThrowDistance(entity, entityTransform.MapID, entityPosition, throwDirection, effect.Comp.Distance);
 
             if (throwDistance <= 0.1f)
