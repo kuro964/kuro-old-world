@@ -4021,5 +4021,16 @@
   id: 445
   time: '2026-09-24T08:12:43.666309+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/86
+- author: Allias12
+  changes:
+  - message: Monoguard Defense better AGAIN
+    type: Tweak
+  - message: Fixed SKS
+    type: Fix
+  - message: Moved Magazines from Freedom to Kesha
+    type: Tweak
+  id: 446
+  time: '2026-09-24T08:23:30.740827+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/87
 Name: Stalker
 Order: -1
