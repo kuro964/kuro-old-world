@@ -1,0 +1,45 @@
+﻿- type: entity
+  name: Scientist Artifact Container
+  parent: BoxCardboard
+  id: BoxArtcontEco
+  description: An experimental artifact container developed by scientists.
+  suffix: STOW, Artifact, Container
+  components:
+    - type: PersonalDamageBlock
+    - type: RadiationBlockingContainer
+      resistance: 4
+    - type: SuppressArtifactContainer
+    - type: Sprite
+      layers:
+        - map: [ base ]
+          sprite: _Stalker_OW\Objects\Misc\ArtContainerOW\eco.rsi
+          state: icon
+          scale: 1, 1
+    - type: Item
+      size: Large
+      shape:
+        - 0,0,3,3
+    - type: Storage
+      maxItemSize: Large
+      grid:
+        - 0,0,3,3
+      blacklist:
+        tags:
+          - Plate
+      whitelist:
+        tags:
+          - STArtifact
+    - type: GenericVisualizer
+      visuals:
+        enum.StorageVisuals.Open:
+          base:
+            True: { state: icon-open }
+            False: { state: icon }
+    - type: Appearance
+    - type: STWeight
+      self: 6
+    - type: Clothing
+      quickEquip: false
+      slots:
+        - BELT
+  
