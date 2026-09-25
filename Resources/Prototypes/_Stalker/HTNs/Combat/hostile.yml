@@ -151,4 +151,21 @@
     - tasks:
         - !type:HTNCompoundTask
           task: IdleCompound
+# Chimera Combat
+- type: htnCompound
+  id: STChimeraHostileCompound
+  branches:
+    # Normal melee attack
+    - tasks:
+        - !type:HTNCompoundTask
+          task: MeleeCombatCompound
+
+    # Finish off critical targets
+    - tasks:
+        - !type:HTNCompoundTask
+          task: STSimpleMeleeCombatCritCompound
+
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound          
 # ST:OW end
