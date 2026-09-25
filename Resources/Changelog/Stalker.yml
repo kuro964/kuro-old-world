@@ -4072,5 +4072,12 @@
   id: 450
   time: '2026-09-25T00:55:34.236958+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/93
+- author: Allias12
+  changes:
+  - message: Added Ecologist container to store
+    type: Add
+  id: 451
+  time: '2026-09-25T01:17:28.989535+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/95
 Name: Stalker
 Order: -1
