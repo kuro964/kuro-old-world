@@ -4065,5 +4065,12 @@
   id: 449
   time: '2026-09-24T22:20:09.237580+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/88
+- author: Remminia
+  changes:
+  - message: Scientist Artifact Container
+    type: Add
+  id: 450
+  time: '2026-09-25T00:55:34.236958+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/93
 Name: Stalker
 Order: -1
