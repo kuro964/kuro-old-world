@@ -74,7 +74,7 @@
     damage: 15
   - type: HTN
     rootTask:
-     task: SimpleRangedHostileCompound
+     task: STChimeraHostileCompound
     blackboard:
       VisionRadius: !type:Single
        80
