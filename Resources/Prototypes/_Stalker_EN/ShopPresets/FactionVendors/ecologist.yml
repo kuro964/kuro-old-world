@@ -293,6 +293,7 @@
         BoxArtcontBlue: 250
         BoxArtcontYellow: 250
         BoxArtcontOrange: 250
+        BoxArtcontEco: 1500
         ZoneAnomalyDetectorAD1: 250 # T1
         ZoneAnomalyDetectorAD2: 1000 # T2
         ZoneAnomalyDetectorAD3: 2400 # Т3
