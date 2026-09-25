@@ -236,15 +236,17 @@
       catalyzer: true
     TrashDetectorTier3:
       amount: 1
-    STCraftPlasticFittingT3:
-      amount: 2
-    STCraftMultilayerPCBT4:
+    STCraftPlasticFittingT3: # ST:OW
+      amount: 4
+    STCraftHighPerformanceChipT4: # ST:OW
       amount: 1
     STCraftTapeKitT2:
       amount: 2
     ZoneArtifactVyvert:
       amount: 1
     STCraftSheetCopperT1:
+      amount: 2
+    STCraftSheetIronT2: # ST:OW
       amount: 2
     STCraftCoil:
       amount: 1
@@ -260,14 +262,16 @@
       catalyzer: true
     TrashDetectorTier4:
       amount: 1
-    STCraftPlasticFittingT2:
-      amount: 5
-    STCraftHighPerformanceChipT4:
+    STCraftPlasticFittingT4: # ST:OW
+      amount: 4
+    STCraftNanoChipT5: # ST:OW
+      amount: 1
+    STCraftIndustrialThreadStaplesKitT4: # ST:OW
       amount: 1
     ZoneArtifactAmoeba:
       amount: 1
-    STCraftSheetIronT2:
-      amount: 1
+    STCraftSheetBrassT3: # ST:OW
+      amount: 4
     STCraftTransformer:
       amount: 1
 
