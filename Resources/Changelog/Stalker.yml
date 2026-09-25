@@ -4079,5 +4079,12 @@
   id: 451
   time: '2026-09-25T01:17:28.989535+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/95
+- author: Allias12
+  changes:
+  - message: Chimera Kills Critties
+    type: Add
+  id: 452
+  time: '2026-09-25T06:46:21.719684+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/96
 Name: Stalker
 Order: -1
