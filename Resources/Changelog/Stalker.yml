@@ -4095,5 +4095,12 @@
   id: 453
   time: '2026-09-25T18:19:44.937548+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/104
+- author: kuro964
+  changes:
+  - message: Fixed eco container sprites
+    type: Fix
+  id: 454
+  time: '2026-09-25T19:39:15.517892+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/105
 Name: Stalker
 Order: -1
