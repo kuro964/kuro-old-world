@@ -1,0 +1,7 @@
+﻿- type: entity
+  parent: MapTeleportBase
+  id: Test-Test
+  name: Test-Test
+  components:
+    - type: Portal
+      cooldown: 5
