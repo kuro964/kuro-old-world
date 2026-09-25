@@ -12,7 +12,7 @@
     - type: Sprite
       layers:
         - map: [ base ]
-          sprite: _Stalker_OW\Objects\Misc\ArtContainerOW\eco.rsi
+          sprite: _Stalker_OW/Objects/Misc/ArtContainerOW/eco.rsi
           state: icon
           scale: 1, 1
     - type: Item
