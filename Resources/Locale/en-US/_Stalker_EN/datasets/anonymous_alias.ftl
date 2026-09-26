@@ -80,7 +80,7 @@ st-alias-adjective-78 = Mangy
 st-alias-adjective-79 = Raspy
 st-alias-adjective-80 = Stony
 
-## Anonymous Alias Nouns (80)
+## Anonymous Alias Nouns (81)
 st-alias-noun-1 = Stalker
 st-alias-noun-2 = Wanderer
 st-alias-noun-3 = Scavenger
@@ -161,3 +161,5 @@ st-alias-noun-77 = Eremite
 st-alias-noun-78 = Footpad
 st-alias-noun-79 = Grifter
 st-alias-noun-80 = Husk
+# OW
+st-alias-noun-81 = Witch
