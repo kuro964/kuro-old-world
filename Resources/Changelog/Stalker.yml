@@ -4102,5 +4102,12 @@
   id: 454
   time: '2026-09-25T19:39:15.517892+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/105
+- author: SquishyEmmaaaa
+  changes:
+  - message: Adds a new alias noun for characters.
+    type: Add
+  id: 455
+  time: '2026-09-26T12:43:05.769954+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/107
 Name: Stalker
 Order: -1
