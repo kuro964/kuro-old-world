@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "hair_elegantbun taken from Monkestation2.0 at https://github.com/Monkestation/Monkestation2.0/blob/67175e73aa192336cd69ad61f2c4b42423a87969/monkestation/icons/mob/sprite_accessories/hair.dmi, https://github.com/Monkestation/Monkestation2.0/blob/cc984e4c53fc489f762fd36c8ca5c5c14670a9e7/icons/mob/species/human/human_face.dmi; mediumbraid, fluffy_short, jessica, longovereye_alt, veryshortovereye taken from Skyrat-tg at https://github.com/Skyrat-SS13/Skyrat-tg/commit/ad654e76b4c5dd3972cd2a07eb2d4f9658965807; braidtail, emo, floorlength_bedhead, long_bedhead, longovereye, longwithbangs by Futuristic (and Pyvik), oneshoulder, shortovereye, country, stail, sidetail, sidetail2, sidetail4, ponytail7, b_alt modified and sprited by KingFroozy (github), tressshoulder, vlong, longest, longest2, vlongfringe, veryshortovereyealternate taken from https://github.com/tgstation/tgstation/blob/05ec94e46349c35e29ca91e5e97d0c88ae26ad44/icons/mob/species/human/human_face.dmi; Everything mirrored by Kirisune",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "mediumbraid_mirror",
+      "directions": 4
+    },
+    {
+      "name": "braidtail_mirror",
+      "directions": 4
+    },
+    {
+      "name": "elegantbun_mirror",
+      "directions": 4
+    },
+    {
+      "name": "emo_mirror",
+      "directions": 4
+    },
+    {
+      "name": "floorlength_bedhead_mirror",
+      "directions": 4
+    },
+    {
+      "name": "fluffy_short_mirror",
+      "directions": 4
+    },
+    {
+      "name": "jessica_mirror",
+      "directions": 4
+    },
+    {
+      "name": "long_bedhead_mirror",
+      "directions": 4
+    },
+    {
+      "name": "longovereye_mirror",
+      "directions": 4
+    },
+    {
+      "name": "longwithbangs_mirror",
+      "directions": 4
+    },
+    {
+      "name": "longovereye_alt_mirror",
+      "directions": 4
+    },
+    {
+      "name": "oneshoulder_mirror",
+      "directions": 4
+    },
+    {
+      "name": "shortovereye_mirror",
+      "directions": 4
+    },
+    {
+      "name": "veryshortovereye_mirror",
+      "directions": 4
+    },
+    {
+      "name": "country_mirror",
+      "directions": 4
+    },
+    {
+      "name": "stail_mirror",
+      "directions": 4
+    },
+    {
+      "name": "sidetail_mirror",
+      "directions": 4
+    },
+    {
+      "name": "sidetail2_mirror",
+      "directions": 4
+    },
+    {
+      "name": "sidetail4_mirror",
+      "directions": 4
+    },
+    {
+      "name": "ponytail7_mirror",
+      "directions": 4
+    },
+    {
+      "name": "b_alt_mirror",
+      "directions": 4
+    },
+    {
+      "name": "spicy_mirror",
+      "directions": 4
+    },
+    {
+      "name": "tressshoulder_mirror",
+      "directions": 4
+    },
+    {
+      "name": "vlong_mirror",
+      "directions": 4
+    },
+    {
+      "name": "longest_mirror",
+      "directions": 4
+    },
+    {
+      "name": "longest2_mirror",
+      "directions": 4
+    },
+    {
+      "name": "vlongfringe_mirror",
+      "directions": 4
+    },
+    {
+      "name": "veryshortovereyealternate_mirror",
+      "directions": 4
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+# hair
+- type: marking
+  id: HumanHairMediumbraid_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+  - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+    state: mediumbraid_mirror
+
+- type: marking
+  id: HumanHairBraidtail_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: braidtail_mirror
+
+- type: marking
+  id: HumanHairElegantbun_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: elegantbun_mirror
+
+- type: marking
+  id: HumanHairEmo_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: emo_mirror
+
+- type: marking
+  id: HumanHairFloorlength_bedhead_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: floorlength_bedhead_mirror
+
+- type: marking
+  id: HumanHairFluffy_short_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: fluffy_short_mirror
+
+- type: marking
+  id: HumanHairJessica_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: jessica_mirror
+
+- type: marking
+  id: HumanHairLong_bedhead_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: long_bedhead_mirror
+
+- type: marking
+  id: HumanHairLongovereye_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: longovereye_mirror
+
+- type: marking
+  id: HumanHairLongwithbangs_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: longwithbangs_mirror
+
+- type: marking
+  id: HumanHairLongovereye_alt_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: longovereye_alt_mirror
+
+- type: marking
+  id: HumanHairOneshoulder_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: oneshoulder_mirror
+
+- type: marking
+  id: HumanHairShortovereye_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: shortovereye_mirror
+
+- type: marking
+  id: HumanHairVeryshortovereye_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: veryshortovereye_mirror
+
+- type: marking
+  id: HumanHairCountry_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: country_mirror
+
+- type: marking
+  id: HumanHairStail_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: stail_mirror
+
+- type: marking
+  id: HumanHairSidetail_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: sidetail_mirror
+
+- type: marking
+  id: HumanHairSidetail2_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: sidetail2_mirror
+
+- type: marking
+  id: HumanHairSidetail4_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: sidetail4_mirror
+
+- type: marking
+  id: HumanHairPonytail7_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: ponytail7_mirror
+
+- type: marking
+  id: HumanHairB_alt_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: b_alt_mirror
+
+- type: marking
+  id: HumanHairSpicy_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: spicy_mirror
+
+- type: marking
+  id: HumanHairTressshoulder_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: tressshoulder_mirror
+
+- type: marking
+  id: HumanHairVlong_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: vlong_mirror
+
+- type: marking
+  id: HumanHairLongest_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: longest_mirror
+
+- type: marking
+  id: HumanHairLongest2_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: longest2_mirror
+
+- type: marking
+  id: HumanHairVlongfringe_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: vlongfringe_mirror
+
+- type: marking
+  id: HumanHairVeryshortovereyealternate_mirror
+  bodyPart: Hair
+  markingCategory: Hair
+  sprites:
+    - sprite: _Stalker_OW/Mobs/Customization/hair.rsi
+      state: veryshortovereyealternate_mirror
+
