@@ -329,6 +329,7 @@
       radioprotectpill: 20
       Bloodpack: 20
       psyblock: 75
+      STTourniquet: 40
       Defibrillator: 200
 
   - name: shop-category-provisions

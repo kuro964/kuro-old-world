@@ -79,6 +79,8 @@
         MedkitScience: 999
         MedkitAI2: 999
         Defibrillator: 999
+        STTourniquet: 999
+        Bloodpack: 999
 
     - category: storage
       entries:
@@ -106,6 +108,10 @@
         Pen: 999
         Candle: 999
         Matchbox: 999
+        STModuleScopeRiflesT1Ru: 999
+        STModuleScopeRiflesT1Nato: 999
+        STModuleSniperSightT1: 999
+        STModuleSMGGripT1: 999
 
     - category: clothing
       entries:
