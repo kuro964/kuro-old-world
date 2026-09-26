@@ -4109,5 +4109,13 @@
   id: 455
   time: '2026-09-26T12:43:05.769954+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/107
+- author: Kirisune
+  changes:
+  - message: 28 mirrored hairstyles. Search for "Mirrored" in the hair selection to
+      find them.
+    type: Add
+  id: 456
+  time: '2026-09-26T23:54:59.166993+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/108
 Name: Stalker
 Order: -1
