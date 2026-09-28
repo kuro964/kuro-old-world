@@ -39,6 +39,18 @@
     - Common
   - type: TimedDespawn
     lifetime: 1800
+    # ST:OW begin
+  - type: SpawnOnApproach
+    prototypes:
+      - NPCForesterCordonEN
+    restricted:
+      - NPCForesterCordonEN
+    minAmount: 1
+    maxAmount: 1
+    minOffset: 0
+    maxOffset: 0
+    chance: 1
+    # ST:OW end
 
 - type: entity
   parent: NPCForesterCordonEN
