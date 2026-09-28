@@ -5,6 +5,8 @@
   description: A pouch that attaches to your pocket
   suffix: ST
   components:
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-equipment-category
   - type: Clothing
     quickEquip: true
     slots:

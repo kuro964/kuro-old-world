@@ -434,7 +434,12 @@ public sealed class SharedCraftingSystem : EntitySystem
     private void LightCraft(EntityUid user, EntityUid target, EntityUid used, LightCraftingPrototype prototype,
         StepDetails step)
     {
-        if (_net.IsClient || TerminatingOrDeleted(target) || TerminatingOrDeleted(used))
+        // Safeguards against duping
+        if (_net.IsClient ||
+            TerminatingOrDeleted(target) ||
+            EntityManager.IsQueuedForDeletion(target) ||
+            TerminatingOrDeleted(used) ||
+            EntityManager.IsQueuedForDeletion(used))
             return;
 
         var targetId = GetItemProtoID(target);

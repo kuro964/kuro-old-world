@@ -553,6 +553,8 @@
   name: бутылка с лимонадом «Дюшес»
   description: "Один из сортов советского лимонада: безалкогольный сильногазированный тонизирующий напиток светло-жёлтого цвета. Помимо обычной лимонадной основы, оригинальный напиток содержит сироп-настой десертной южной груши сорта «Дюшес»"
   components:
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-consumables-category
   - type: STWeight
     self: 1.5
   - type: SolutionContainerManager

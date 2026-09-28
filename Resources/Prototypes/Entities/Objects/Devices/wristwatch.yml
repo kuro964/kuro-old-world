@@ -4,6 +4,8 @@
   name: wristwatch
   description: A cheap watch for telling time. How much did you waste playing Space Station 14?
   components:
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-miscellaneous-category
   - type: Sprite
     sprite: Objects/Devices/wristwatch.rsi
     scale: 0.5, 0.5
