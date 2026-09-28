@@ -462,7 +462,11 @@ public sealed partial class ShopSystem : SharedShopSystem
         var result = new List<ListingData>();
         foreach (var item in items)
         {
-            if (AddCount(item, ref result))
+            var itemCount = GetItemCount(item); // ST:OW
+            if (itemCount <= 0)
+                continue;
+
+            if (AddCount(item, itemCount, ref result))
                 continue;
 
             if (!TryComp<CurrencyComponent>(item, out var currency) || TryComp<BodyPartComponent>(item, out _))
@@ -504,7 +508,7 @@ public sealed partial class ShopSystem : SharedShopSystem
                 Priority = 0,
                 ProductAction = null,
                 ProductEntity = meta.EntityPrototype?.ID,
-                Count = 1 // Initialize count to 1 for the first item
+                Count = itemCount // ST:OW
             };
 
             // stalker-changes-en: skip items below minimum sell price
@@ -517,14 +521,23 @@ public sealed partial class ShopSystem : SharedShopSystem
         return result;
     }
 
-    private bool AddCount(EntityUid item, ref List<ListingData> listings)
+    // ST:OW - Keeps count of items in stacks
+    private int GetItemCount(EntityUid item)
+    {
+        if (!TryComp<StackComponent>(item, out var stack) || stack.Unlimited)
+            return 1;
+
+        return stack.Count;
+    }
+
+    private bool AddCount(EntityUid item, int count, ref List<ListingData> listings)
     {
         foreach (var listing in listings)
         {
             if (listing.ProductEntity != GetItemProtoId(item))
                 continue;
 
-            listing.Count++;
+            listing.Count += count;
             return true;
         }
 
@@ -587,7 +600,7 @@ public sealed partial class ShopSystem : SharedShopSystem
             return;
 
         // What are we selling lol?
-        if (listing.ProductEntity == null)
+        if (listing.ProductEntity == null || msg.Count <= 0)
             return;
 
         // Check that user has Permit for that shop
@@ -601,28 +614,72 @@ public sealed partial class ShopSystem : SharedShopSystem
             return;
         }
 
-        var itemsToSell = GetItemInHandsOrInventory(seller, listing.ProductEntity, msg.Count);
+        // ST:OW - One entity may have several units because it has StackComponent,
+        // so account for that as well when selling
+        var itemsToSell = GetItemInHandsOrInventory(seller, listing.ProductEntity, msg.Count)
+            .Distinct()
+            .ToList();
+
         if (itemsToSell.Count == 0)
         {
             _popup.PopupEntity(Loc.GetString("st-shop-item-not-found"), uid, seller);
             return;
         }
-
+        // ST:OW begin
+        var shopPrototype = _proto.Index<ShopPresetPrototype>(component.ShopPresetPrototype);
+        var itemsToDelete = new List<EntityUid>();
+        var remaining = msg.Count;
+        var soldCount = 0;
         var cost = 0;
+
         foreach (var item in itemsToSell)
         {
+            if (remaining <= 0)
+                break;
+
+            if (TryComp<StackComponent>(item, out var stack) && !stack.Unlimited)
+            {
+                var amountToSell = Math.Min(stack.Count, remaining);
+                if (amountToSell <= 0)
+                    continue;
+
+                if (amountToSell == stack.Count)
+                {
+                    cost += GetCost(item, component, listing);
+                    itemsToDelete.Add(item);
+                }
+                else
+                {
+                    var unitPrice = GetBaseItemCost(item, component, shopPrototype, listing);
+                    cost += unitPrice * amountToSell;
+                    _stack.SetCount((item, stack), stack.Count - amountToSell);
+                }
+
+                soldCount += amountToSell;
+                remaining -= amountToSell;
+                continue;
+            }
+
             cost += GetCost(item, component, listing);
+            itemsToDelete.Add(item);
+    
+            soldCount++;
+            remaining--;
+        }
+        // ST:OW end
+
+        if (soldCount == 0)
+        {
+            _popup.PopupEntity(Loc.GetString("st-shop-item-not-found"), uid, seller);
+            return;
         }
 
-        // Delete sold entity
-        var isSellSuccessful = DeleteSpecificItems(itemsToSell);
-
-        if (!isSellSuccessful)
+        if (!DeleteSpecificItems(itemsToDelete))
             return;
 
         IncreaseBalance(seller, component, cost);
 
-        // stalker-changes-en: track sold items for buyback
+        // ST:OW - Track the units of items sold for buyback system
         if (listing.OriginalCost.TryGetValue(component.MoneyId, out var perItemPrice))
         {
             AddBuybackEntry(
@@ -633,7 +690,7 @@ public sealed partial class ShopSystem : SharedShopSystem
                 listing.Name ?? "",
                 listing.Description ?? "",
                 perItemPrice.Int(),
-                msg.Count);
+                soldCount);
         }
 
         UpdateShopUI(seller, uid, null, component);
