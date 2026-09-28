@@ -4128,5 +4128,13 @@
   id: 457
   time: '2026-09-28T09:41:36.672965+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/110
+- author: kuro964
+  changes:
+  - message: Forester should now spawn in his lovely chair rather than in a random
+      radius around it
+    type: Fix
+  id: 458
+  time: '2026-09-28T21:10:09.483986+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/111
 Name: Stalker
 Order: -1
