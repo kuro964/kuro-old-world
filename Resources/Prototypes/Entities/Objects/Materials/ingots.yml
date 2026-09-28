@@ -4,8 +4,10 @@
   id: IngotBase
   description: A lightly weathered metal ingot. # ST:OW
   components:
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-materials-category
   - type: STWeight # ST:OW
-    self: 30 # ST:OW
+    self: 30
   - type: Sprite
     sprite: Objects/Materials/ingots.rsi
   - type: Item

@@ -91,6 +91,8 @@
   description: Made of junk and sticks, but if you rummage through large piles of garbage, you might find something.
   suffix: Stalker, metal detector
   components:
+    - type: RepositoryItem # ST:OW
+      categoryName: repository-detectors-category
     - type: STWeight
       self: 6
     - type: Item
@@ -116,6 +118,8 @@
   description: A good, well-made metal detector. If you rummage through large piles of garbage, you might find something.
   suffix: Stalker, metal detector
   components:
+    - type: RepositoryItem # ST:OW
+      categoryName: repository-detectors-category
     - type: STWeight
       self: 5
     - type: Item
@@ -141,6 +145,8 @@
   description: An expensive imported metal detector, straight from Germany. If you rummage through large piles of garbage, you will most likely find something.
   suffix: Stalker, metal detector
   components:
+    - type: RepositoryItem # ST:OW
+      categoryName: repository-detectors-category
     - type: STWeight
       self: 4
     - type: Item
@@ -166,6 +172,8 @@
   description: A very expensive metal detector modified with gravity artifact parts. If you rummage through large piles of garbage, you will definitely find some amazing items.
   suffix: Stalker, metal detector
   components:
+    - type: RepositoryItem # ST:OW
+      categoryName: repository-detectors-category
     - type: STWeight
       self: 3
     - type: Item
@@ -194,6 +202,8 @@
   description: An extremely expensive metal detector and an improved version of "Nakhodka". It has exceptional properties for finding crafting components. If you rummage through large piles of garbage, you will definitely find something.
   suffix: Stalker, metal detector
   components:
+    - type: RepositoryItem # ST:OW
+      categoryName: repository-detectors-category
     - type: STWeight
       self: 2
     - type: Item

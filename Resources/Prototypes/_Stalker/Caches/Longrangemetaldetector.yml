@@ -5,6 +5,8 @@
   description: Аномальный ручной металлодетектор, был узконаправленно модифицирован для поиска тайников.
   suffix: ST
   components:
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-detectors-category
   - type: Sprite
     sprite: _Stalker/Objects/Devices/longrangemetaldetector.rsi
     layers:
