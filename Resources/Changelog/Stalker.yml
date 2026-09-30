@@ -4147,5 +4147,12 @@
   id: 459
   time: '2026-09-30T01:28:00.979323+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/116
+- author: Whiffets
+  changes:
+  - message: Tweaked sprites for all 3 rostok ponchos and color-matched scarves
+    type: Tweak
+  id: 460
+  time: '2026-09-30T02:42:09.475666+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/114
 Name: Stalker
 Order: -1
