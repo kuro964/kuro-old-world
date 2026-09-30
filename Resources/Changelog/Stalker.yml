@@ -4136,5 +4136,16 @@
   id: 458
   time: '2026-09-28T21:10:09.483986+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/111
+- author: Kirisune
+  changes:
+  - message: Rostok ponchos turned in to utility coats
+    type: Tweak
+  - message: Increased Rostok poncho prices to match the change
+    type: Tweak
+  - message: Renamed Rostok ponchos to generic black utility ponchos
+    type: Tweak
+  id: 459
+  time: '2026-09-30T01:28:00.979323+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/116
 Name: Stalker
 Order: -1
