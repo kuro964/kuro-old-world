@@ -428,9 +428,9 @@
         ClothingOuterCoatLoyalistLight: 2500
         ClothingOuterCoatLoyalist: 3000
         STClothingCapeArmorChainmailSeva: 2000
-        ClothingOuterCoatRostokPonchoLoose: 1000 # T2
-        ClothingOuterCoatRostokPonchoRipped: 1000 # T2
-        ClothingOuterCoatRostokPonchoHeavy: 1000 # T2
+        ClothingOuterCoatRostokPonchoLoose: 2500 #OW - Turned in to utility coat, price increased to match the change
+        ClothingOuterCoatRostokPonchoRipped: 2500 #OW - Turned in to utility coat, price increased to match the change
+        ClothingOuterCoatRostokPonchoHeavy: 2500 #OW - Turned in to utility coat, price increased to match the change.
         # Gas Masks
         ClothingMaskGasZarya: 600 # T1
         ClothingMaskGasZaryaMono: 600 # T1

@@ -232,9 +232,9 @@
     sprite: _Stalker_EN/Objects/Clothing/cloak/duty_pvt_poncho.rsi
 
 - type: entity
-  parent: STClothingCapeT2Base
+  parent: ClothingOuterCoatLoyalist #OW - Turning Rostok ponchos in to utility ones.
   id: ClothingOuterCoatRostokPonchoLoose
-  name: Rostok loose poncho
+  name: loose black utility poncho #OW - Turning Rostok ponchos in to utility ones. Changed the name as it is not exclusive to Rostok.
   suffix: ST, T2
   description: A plain black poncho worn by stalkers of the Zone. It won't help against dangerous mutants or deadly anomalies but at least it'll keep the rain off of your gear.
   components:
@@ -248,7 +248,7 @@
 - type: entity
   parent: ClothingOuterCoatRostokPonchoLoose
   id: ClothingOuterCoatRostokPonchoRipped
-  name: Rostok ripped poncho
+  name: ripped black utility poncho #OW - Turning Rostok ponchos in to utility ones. Changed the name as it is not exclusive to Rostok.
   components:
   - type: Sprite
     sprite: _Stalker_EN/Objects/Clothing/cloak/rostok_poncho2.rsi
@@ -258,7 +258,7 @@
 - type: entity
   parent: ClothingOuterCoatRostokPonchoLoose
   id: ClothingOuterCoatRostokPonchoHeavy
-  name: Rostok heavy poncho
+  name: heavy black utility poncho #OW - Turning Rostok ponchos in to utility ones. Changed the name as it is not exclusive to Rostok.
   components:
   - type: Sprite
     sprite: _Stalker_EN/Objects/Clothing/cloak/rostok_poncho3.rsi

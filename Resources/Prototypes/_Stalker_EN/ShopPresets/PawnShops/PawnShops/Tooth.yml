@@ -283,9 +283,9 @@
       ClothingOuterCoatStalker: 1000
       ClothingOuterCoatLoyalistLight: 3000
       ClothingOuterCoatLoyalist: 3500
-      ClothingOuterCoatRostokPonchoLoose: 1300 # T2
-      ClothingOuterCoatRostokPonchoRipped: 1300 # T2
-      ClothingOuterCoatRostokPonchoHeavy: 1300 # T2
+      ClothingOuterCoatRostokPonchoLoose: 3000 #OW - Turned in to utility coat, price increased to match the change
+      ClothingOuterCoatRostokPonchoRipped: 3000 #OW - Turned in to utility coat, price increased to match the change
+      ClothingOuterCoatRostokPonchoHeavy: 3000 #OW - Turned in to utility coat, price increased to match the change
 
   - name: shop-category-research-equipment
     priority: 10
