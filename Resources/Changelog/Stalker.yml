@@ -4154,5 +4154,14 @@
   id: 460
   time: '2026-09-30T02:42:09.475666+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/114
+- author: Whiffets
+  changes:
+  - message: New items to the Lost Gear bag
+    type: Add
+  - message: New items to Lost Toy bag
+    type: Add
+  id: 461
+  time: '2026-10-01T08:11:49.114882+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/120
 Name: Stalker
 Order: -1
