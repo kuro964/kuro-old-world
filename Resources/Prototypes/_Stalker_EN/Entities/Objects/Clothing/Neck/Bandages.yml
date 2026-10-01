@@ -54,6 +54,6 @@
   suffix: Stalker, Armband
   components:
   - type: Sprite
-    sprite: _Stalker_EN/Objects/Clothing/Neck/Bandages/bandage_brown.rsi
+    sprite: _Stalker_EN/Objects/Clothing/Neck/Bandages/bandage_band.rsi
   - type: Clothing
-    sprite: _Stalker_EN/Objects/Clothing/Neck/Bandages/bandage_brown.rsi
+    sprite: _Stalker_EN/Objects/Clothing/Neck/Bandages/bandage_band.rsi
