@@ -1169,10 +1169,10 @@
       prob: .1
       orGroup: GiftPool
     - id: ClothingTorsoJacketPolice
-      prob: .01
+      prob: .1
       orGroup: GiftPool
     - id: ClothingLegsJeansProjectPeshka
-      prob: .001
+      prob: .01
       orGroup: GiftPool
     - id: ClothingTorsoJaba
       prob: .1
@@ -1181,7 +1181,7 @@
       prob: .1
       orGroup: GiftPool
     - id: ClothingHandsGlovesJabs
-      prob: .01
+      prob: .1
       orGroup: GiftPool
     - id: DrinkLongIslandIcedTeaGlass
       prob: .01
@@ -1194,6 +1194,24 @@
       orGroup: GiftPool
     - id: Hryvnias25
       prob: .05
+      orGroup: GiftPool
+    - id: ClothingEyesBinoclardLenses
+      prob: .01
+      orGroup: GiftPool
+    - id: ClothingHeadCapDeserter
+      prob: .1
+      orGroup: GiftPool
+    - id: ClothingHeadCapDeserterRadio
+      prob: .1
+      orGroup: GiftPool
+    - id: ClothingHeadHatPoliceHat
+      prob: .1
+      orGroup: GiftPool
+    - id: ClothingHandsGlovesMitts
+      prob: .1
+      orGroup: GiftPool
+    - id: ClothingLegsBoxersMilitary
+      prob: .01
       orGroup: GiftPool
     sound:
       path: /Audio/Effects/unwrap.ogg
@@ -1237,6 +1255,9 @@
     - id: PlushieLizardJobMedicaldoctor
       prob: .01
       orGroup: GiftPool
+    - id: PlushieLizardJobReporter
+      prob: .01
+      orGroup: GiftPool
     - id: PlushiePenguin
       prob: .05
       orGroup: GiftPool
@@ -1244,10 +1265,10 @@
       prob: .05
       orGroup: GiftPool
     - id: PlushieVulp
-      prob: .001
+      prob: .005
       orGroup: GiftPool
     - id: PlushieXeno
-      prob: .001
+      prob: .005
       orGroup: GiftPool
     - id: ToyFigurineBartender
       prob: .05
@@ -1270,9 +1291,6 @@
     - id: ToyRubberDuck
       prob: .08
       orGroup: GiftPool
-    - id: ToySeraph
-      prob: .007
-      orGroup: GiftPool
     - id: HelicopterInstrument
       prob: .01
       orGroup: GiftPool
@@ -1293,6 +1311,15 @@
       orGroup: GiftPool
     - id: ClothingMaskFox
       prob: .02
+      orGroup: GiftPool
+    - id: PlushieSharkBlue
+      prob: .05
+      orGroup: GiftPool
+    - id: PlushieSharkGrey
+      prob: .05
+      orGroup: GiftPool
+    - id: PlushieSharkPink
+      prob: .05
       orGroup: GiftPool
     sound:
       path: /Audio/Effects/unwrap.ogg
