@@ -4172,5 +4172,12 @@
   id: 462
   time: '2026-10-01T08:15:05.693338+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/119
+- author: Allias12
+  changes:
+  - message: MONO NERF
+    type: Tweak
+  id: 463
+  time: '2026-10-01T23:09:14.070859+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/122
 Name: Stalker
 Order: -1
