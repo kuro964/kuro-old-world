@@ -4163,5 +4163,14 @@
   id: 461
   time: '2026-10-01T08:11:49.114882+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/120
+- author: Whiffets
+  changes:
+  - message: Covenant shirt (lost gear bag) now correctly displays.
+    type: Fix
+  - message: Change Bandit armband from brown to bandit.
+    type: Tweak
+  id: 462
+  time: '2026-10-01T08:15:05.693338+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/119
 Name: Stalker
 Order: -1
