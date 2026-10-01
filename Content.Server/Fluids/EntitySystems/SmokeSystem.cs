@@ -23,6 +23,7 @@ using Robust.Shared.Timing;
 using System.Linq;
 using Content.Shared.EntityEffects.Effects.Solution;
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
+using Content.Shared.Popups; // ST:OW
 
 namespace Content.Server.Fluids.EntitySystems;
 
@@ -44,6 +45,7 @@ public sealed class SmokeSystem : EntitySystem
     [Dependency] private readonly SharedBroadphaseSystem _broadphase = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!; // ST:OW
 
     private EntityQuery<SmokeComponent> _smokeQuery;
     private EntityQuery<SmokeAffectedComponent> _smokeAffectedQuery;
@@ -98,6 +100,17 @@ public sealed class SmokeSystem : EntitySystem
     {
         if (_smokeAffectedQuery.HasComponent(args.OtherEntity))
             return;
+
+        // ST:OW begin
+        if (entity.Comp.EntryPopup is { } entryPopup)
+        {
+            _popup.PopupEntity(
+                Loc.GetString(entryPopup),
+                args.OtherEntity,
+                args.OtherEntity,
+                PopupType.LargeCaution);
+        }
+        // ST:OW end
 
         var smokeAffected = AddComp<SmokeAffectedComponent>(args.OtherEntity);
         smokeAffected.SmokeEntity = entity;

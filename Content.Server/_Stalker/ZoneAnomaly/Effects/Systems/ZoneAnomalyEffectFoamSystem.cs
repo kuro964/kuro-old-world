@@ -10,7 +10,7 @@ public sealed class ZoneAnomalyEffectFoamSystem : EntitySystem
 {
     [Dependency] private readonly SmokeSystem _smoke = default!;
 
-    private readonly EntProtoId _foamPrototypeId = "Foam";
+    private readonly EntProtoId _foamPrototypeId = "ZoneAnomalyFoam"; // ST:OW
 
     public override void Initialize()
     {

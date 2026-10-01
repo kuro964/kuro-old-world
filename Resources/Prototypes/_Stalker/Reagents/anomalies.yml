@@ -13,16 +13,13 @@
   metabolisms:
     Poison:
       effects:
+        - !type:SatiateThirst # ST:OW
+          factor: -20
         - !type:HealthChange
           damage:
             types:
-              Cellular: 2
-              Poison: 2
-        - !type:PopupMessage
-          visualType: MediumCaution
-          type: Local
-          messages: [ "generic-reagent-effect-parched" ]
-          probability: 0.5
+              Cellular: 5 # ST:OW
+              Poison: 5 # ST:OW
   reactiveEffects:
     Acidic:
       methods: [ Touch ]
@@ -32,4 +29,4 @@
           ignoreResistances: false
           damage:
             types:
-              Caustic: 2.5
+              Caustic: 5 # ST:OW

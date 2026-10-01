@@ -1,0 +1,1 @@
+﻿zone-anomaly-foam-dehydration = The chemical mass violently desiccates your flesh!

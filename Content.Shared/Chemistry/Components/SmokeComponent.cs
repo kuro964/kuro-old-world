@@ -1,6 +1,7 @@
 using Content.Shared.FixedPoint;
 using Content.Shared.Fluids.Components;
 using Robust.Shared.GameStates;
+using Robust.Shared.Localization;
 
 namespace Content.Shared.Chemistry.Components;
 
@@ -37,4 +38,10 @@ public sealed partial class SmokeComponent : Component
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public float Duration = 10;
+
+    /// <summary>
+    /// ST:OW - Local popup for when an entity enters a smoke cloud
+    /// </summary>
+    [DataField]
+    public LocId? EntryPopup;
 }
