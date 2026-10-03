@@ -4179,5 +4179,12 @@
   id: 463
   time: '2026-10-01T23:09:14.070859+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/122
+- author: SquishyEmmaaaa
+  changes:
+  - message: Adds insulated pouch to let chefs carry raw meat without it spoiling.
+    type: Add
+  id: 464
+  time: '2026-10-03T03:29:30.886992+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/113
 Name: Stalker
 Order: -1
