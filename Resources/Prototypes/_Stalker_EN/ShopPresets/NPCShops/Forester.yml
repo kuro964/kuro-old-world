@@ -178,6 +178,7 @@
         ClothingBackpackTacticBeigeStalker: 450 # T2
         ClothingBeltPocketPouch: 500
         ClothingBeltHerbalistPouch: 500
+        ClothingBeltColdPouch: 500 # OW
     - name: shop-category-research-equipment
       priority: 7
       items:

@@ -409,6 +409,7 @@
         # Containers
         ClothingBeltPocketPouch: 450
         ClothingBeltHerbalistPouch: 450
+        ClothingBeltColdPouch: 450 # OW
         ClothingBeltCrafterStalker: 3000
         StalkerGunCaseStandard: 1200
         StalkerGunCaseDouble: 2550

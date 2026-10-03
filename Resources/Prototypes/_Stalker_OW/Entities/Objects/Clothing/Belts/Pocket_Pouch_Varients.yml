@@ -1,0 +1,18 @@
+- type: entity
+  parent: ClothingBeltPocketPouch
+  id: ClothingBeltColdPouch
+  name: Insulated Pouch
+  description: A small pouch with thick insulation that attaches to your pocket. Having this inside another container seems to warm the contents too much.
+  suffix: ST
+  components:
+  - type: Sprite
+    sprite: _Stalker_EN/Objects/Clothing/belt/pocket_pouch.rsi
+    state: ColdPouch
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,1,0,1
+    - 1,0,1,0
+    - 3,0,3,0
+    - 4,1,4,1
+  - type: AntiRottingContainer

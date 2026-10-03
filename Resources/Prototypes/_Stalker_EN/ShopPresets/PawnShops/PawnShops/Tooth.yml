@@ -271,6 +271,7 @@
       STClothingBeltThrowingKnifes: 150
       ClothingBeltPocketPouch: 350
       ClothingBeltHerbalistPouch: 350
+      ClothingBeltColdPouch: 350 # OW
       ClothingBeltWebbingHolsterStalkerZarya: 1350
       ClothingBeltCrafterStalker: 4000
 
