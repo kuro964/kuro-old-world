@@ -4186,5 +4186,12 @@
   id: 464
   time: '2026-10-03T03:29:30.886992+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/113
+- author: A-Mimic1
+  changes:
+  - message: Removed the Dark Green Hunting Backpack from the Military premium shop.
+    type: Remove
+  id: 465
+  time: '2026-10-03T03:33:14.599616+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/124
 Name: Stalker
 Order: -1
