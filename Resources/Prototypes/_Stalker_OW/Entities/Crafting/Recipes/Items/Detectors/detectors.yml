@@ -1,0 +1,147 @@
+﻿- type: craftRecipe
+  id: ecorecipeZoneArtifactDetectorBear
+  resultProtos:
+    - ZoneArtifactDetectorBear
+  craftTime: 20
+  items:
+    STOWEcoZoneArtifactDetectorBearBlueprint:
+      amount: 1
+      catalyzer: true
+    ZoneArtifactDetectorSpruce:
+      amount: 1
+    STCraftHighPerformanceChipT4:
+      amount: 2
+    STCraftSheetAluminumT4:
+      amount: 3
+    STCraftMultilayerPCBT3:
+      amount: 3
+    STCraftGlueKitT3:
+      amount: 4
+    STCraftQuartzCrystalT3:
+      amount: 4
+    STCraftPlasticFittingT2:
+      amount: 3
+    STCraftCapacitor:
+      amount: 3
+      
+- type: craftRecipe
+  id: csrecipeZoneArtifactDetectorBear
+  resultProtos:
+    - ZoneArtifactDetectorBear
+  craftTime: 20
+  items:
+    STOWCSZoneArtifactDetectorBearBlueprint:
+      amount: 1
+      catalyzer: true
+    ZoneArtifactDetectorSpruce:
+      amount: 1
+    STCraftHighPerformanceChipT4:
+      amount: 3
+    STCraftSheetAluminumT4:
+      amount: 4
+    STCraftMultilayerPCBT3:
+      amount: 5
+    STCraftGlueKitT3:
+      amount: 5
+    STCraftQuartzCrystalT3:
+      amount: 5
+    STCraftPlasticFittingT2:
+      amount: 5
+    STCraftCapacitor:
+      amount: 5
+      
+- type: craftRecipe
+  id: ecorecipeDetectorSvarog
+  resultProtos:
+    - Svarog
+  craftTime: 15
+  items:
+    DetectorSvarogBlueprint:
+      amount: 1
+      catalyzer: true
+    Veles:
+      amount: 1
+    STCraftSheetAluminumT4:
+      amount: 3
+    STCraftHighPerformanceChipT4:
+      amount: 2
+    STCraftQuartzCrystalT3:
+      amount: 3
+    STCraftPlasticFittingT3:
+      amount: 3
+    STCraftCoil:
+      amount: 3
+    STCraftBattery:
+      amount: 3
+      
+- type: craftRecipe
+  id: ecorecipeZoneArtifactDetectorWolfhound
+  resultProtos:
+    - ZoneArtifactDetectorWolfhound
+  craftTime: 60
+  items:
+    STOWEcoZoneArtifactDetectorWolfhoundBlueprint:
+      amount: 1
+      catalyzer: true
+    ZoneArtifactDetectorBear:
+      amount: 1
+    STCraftNanoChipT5:
+      amount: 2
+    STCraftSheetSteelT5:
+      amount: 4
+    STCraftIndustrialThreadStaplesKitT4:
+      amount: 2
+    ZoneArtifactNightStar:
+      amount: 1
+    STCraftTransformer:
+      amount: 3
+    STCraftQuartzCrystalT3:
+      amount: 3
+      
+- type: craftRecipe
+  id: csrecipeZoneArtifactDetectorWolfhound
+  resultProtos:
+    - ZoneArtifactDetectorWolfhound
+  craftTime: 60
+  items:
+    STOWCSZoneArtifactDetectorWolfhoundBlueprint:
+      amount: 1
+      catalyzer: true
+    ZoneArtifactDetectorBear:
+      amount: 1
+    STCraftNanoChipT5:
+      amount: 3
+    STCraftSheetSteelT5:
+      amount: 4
+    STCraftIndustrialThreadStaplesKitT4:
+      amount: 5
+    ZoneArtifactNightStar:
+      amount: 1
+    STCraftTransformer:
+      amount: 4
+    STCraftQuartzCrystalT3:
+      amount: 3
+      
+- type: craftRecipe
+  id: csrecipeDetectorSeaDevil
+  resultProtos:
+    - ZoneArtifactDetectorSeaDevil
+  craftTime: 15
+  items:
+    STOWCSDetectorSeaDevilBlueprint:
+      amount: 1
+      catalyzer: true
+    ZoneArtifactDetectorBarracuda:
+      amount: 1
+    STCraftSheetAluminumT4:
+      amount: 4
+    STCraftHighPerformanceChipT4:
+      amount: 3
+    STCraftQuartzCrystalT3:
+      amount: 3
+    STCraftPlasticFittingT3:
+      amount: 4
+    STCraftCoil:
+      amount: 3
+    STCraftBattery:
+      amount: 3

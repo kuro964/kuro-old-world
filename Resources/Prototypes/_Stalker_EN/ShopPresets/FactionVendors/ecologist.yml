@@ -136,7 +136,6 @@
         STWeaponRifleM16M203: 4000 # T2
         STWeaponRifleAKS74: 3800
         STWeaponRifleSIG739: 5000 # DMR for you guys
-        STWeaponRifleAK74M: 6000 # real gun for them
     - name: shop-category-magazines
       priority: 2
       items:
@@ -146,7 +145,6 @@
         Base545Mag10: 50 #T1
         545Mag20: 100 #T2
         545Mag30: 220 #T3
-        545Mag45: 300
         VityazMag: 300
         556Mag30: 330
         739Mag30: 330
@@ -233,7 +231,7 @@
         #STPsyHelm1: 7500
           # OuterClothing #
         ClothingOuterJacketSCI: 60 # T1 - PVE
-        ClothingOuterArmorSSP99Amber: 20000
+        ClothingOuterArmorSSP99Amber: 14000
         ClothingOuterArmorSSP99: 14000
         ClothingOuterArmorSSP24Topaz: 8000
         ClothingOuterArmorSSP99White: 14000
@@ -252,6 +250,7 @@
         ClothingBackpackMercStalker: 650 # T3
         ClothingBackpackDuffelCommonStalker: 750 #T3
         ClothingBackpackDuffelMilitaryBlue: 1200
+        STOWEcoGunCaseStandard: 3000
           # Containers
         MedkitCMSStalker: 450 # T1
         MedkitGrizzlyStalker: 850 # T2
@@ -302,7 +301,6 @@
         ZoneArtifactDetectorHunter: 100 # T2
         ZoneArtifactDetectorResponse: 700 # T2
         ZoneArtifactDetectorSpruce: 2200 # T2
-        ZoneArtifactDetectorBarracuda: 3500 # T3
         Veles: 4500 # T3
         #ZoneArtifactDetectorBear: 16000 #T4 I'm good with adding this
 
@@ -472,9 +470,9 @@
         STZoneArtifactDetectorResponseBlueprint: 6000
         STZoneArtifactDetectorSpruceBlueprint: 12000
         DetectorVelesBlueprint: 10000
-        STZoneArtifactDetectorBarracudaBlueprint: 18000
-        STZoneArtifactDetectorBearBlueprint: 25000
-        STZoneArtifactDetectorWolfhoundBlueprint: 55000
+        STOWEcoZoneArtifactDetectorBearBlueprint: 40000
+        STOWEcoDetectorSvarogBlueprint: 50000
+        STOWEcoZoneArtifactDetectorWolfhoundBlueprint: 80000
 
     - name: shop-category-tools
       priority: 14

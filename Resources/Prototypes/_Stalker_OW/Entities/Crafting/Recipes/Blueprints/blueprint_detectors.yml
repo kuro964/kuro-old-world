@@ -1,0 +1,56 @@
+﻿# Ecology Detectors
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Eco
+  id: STOWEcoZoneArtifactDetectorBearBlueprint
+  name: Recipe for the 'Bear' Artifact Detector.
+  components:
+    - type: STBlueprint
+      blueprint: ecorecipeZoneArtifactDetectorBear
+          
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Eco
+  id: STOWEcoZoneArtifactDetectorWolfhoundBlueprint
+  name: Recipe for the 'Wolfhound' Artifact Detector
+  components:
+    - type: STBlueprint
+      blueprint: ecorecipeZoneArtifactDetectorWolfhound
+      
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Eco
+  id: STOWEcoDetectorSvarogBlueprint
+  name: Recipe for the 'Svarog' Artifact Detector
+  components:
+    - type: STBlueprint
+      blueprint: ecorecipeDetectorSvarog
+      
+# CS Detectors
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, CS
+  id: STOWCSDetectorSeaDevilBlueprint
+  name: Recipe for the 'SeaDevil' Artifact Detector
+  components:
+    - type: STBlueprint
+      blueprint: csrecipeDetectorSeaDevil
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, CS
+  id: STOWCSZoneArtifactDetectorBearBlueprint
+  name: Recipe for the 'Bear' Artifact Detector.
+  components:
+    - type: STBlueprint
+      blueprint: csrecipeZoneArtifactDetectorBear
+      
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, CS
+  id: STOWCSZoneArtifactDetectorWolfhoundBlueprint
+  name: Recipe for the 'Wolfhound' Artifact Detector
+  components:
+    - type: STBlueprint
+      blueprint: csrecipeZoneArtifactDetectorWolfhound

@@ -1,5 +1,5 @@
 ﻿- type: entity
-  parent: [ BaseStorageItem, BaseBagOpenClose ]
+  parent: [ STClothingBackBase, BaseBagOpenClose ]
   id: StalkerGunCaseBase
   name: gun case
   description: A sturdy case for storing large firearms. The lining has been modified for use in the zone and is highly radiation resistant.
@@ -30,7 +30,8 @@
       tags:
       - HandGrenade
   - type: Clothing
-    slots: BACK
+    slots:
+      - Back
   - type: Item
     size: Ginormous
     shape:

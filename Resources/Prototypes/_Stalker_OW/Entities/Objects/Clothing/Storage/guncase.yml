@@ -1,0 +1,18 @@
+﻿- type: entity
+  parent: StalkerGunCaseBase
+  id: STOWEcoGunCaseStandard
+  suffix: STOW, GunCase
+  name: Ecologist Gun Case
+  description: A case made to fit SSP Shoulders. Manufactured after Ecologists wanted to research the lingering radiation from weapons.
+  components:
+  - type: Sprite
+    sprite: _Stalker_OW/Objects/Storage/ecocase.rsi
+    layers:
+    - state: icon
+      map: [ "closedLayer" ]
+    - state: icon-open
+      map: [ "openLayer" ]
+      visible: false
+  - type: Clothing
+    slots: 
+    - Back2

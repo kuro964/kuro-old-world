@@ -91,21 +91,7 @@
       # T3
       - STCraftQuartzCrystalT3
       - STCraftSheetBrassT3
-      - STCraftMultilayerPCBT3
     rareChance: 0.08 # 8%
-
-    epicPrototypes:
-      # T4
-      - STCraftHighPerformanceChipT4
-      - STCraftSheetAluminumT4
-      - STCraftSapphireCrystalT4
-    epicChance: 0.005 # 0.5%
-    
-    legendaryPrototypes:
-      # T5
-      - STCraftNanoChipT5
-      - STCraftSheetSteelT5
-      - STCraftAluminumOxideT5
 
     legendaryChance: 0.0015 # 0.15% (about 1 in 667 successful spawns)
     # ST:OW end
