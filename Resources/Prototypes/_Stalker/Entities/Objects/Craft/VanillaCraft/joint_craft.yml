@@ -2,9 +2,9 @@
 
 - type: seed
   id: STcannabisGrow
-  name: каннабис сатива
+  name: seeds-STcannabis-name #OW - Making it actually possible to translate
   #suffix: ST, Stalker, ботаника # This field does not exist!
-  displayName: каннабис сатива
+  displayName: seeds-STcannabis-display-name #OW - Making it actually possible to translate
   plantRsi: Objects/Specific/Hydroponics/cannabis.rsi
   packetPrototype: CannabisSeeds
   productPrototypes:
@@ -24,7 +24,7 @@
       Min: 1
       Max: 10
       PotencyDivisor: 10
-
+      
 - type: entity
   id: CannabisSeedsStalker
   parent: SeedBase
@@ -123,7 +123,7 @@
     - Trash
   - type: SpaceGarbage
   - type: Craftable
-
+    
 - type: entity
   id: STJoint
   suffix: ST, Stalker, craft

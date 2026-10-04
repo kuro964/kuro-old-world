@@ -17,9 +17,11 @@
     priority: 2
     items:
       RobustHarvestChemistryBottleStalker: 50
+      EZNutrientChemistryBottleStalker: 50 #OW - Making growing weed possible more then once per restart. For restoring soil nutrients.
       CannabisSeedsStalker: 70
       HydroponicsToolMiniHoe: 70
-      Bucket: 60
+      HydroponicsToolSpade: 70 #OW - Making growing weed possible more then once per restart. For plant removal.
+      STBucket: 60 #OW - Changed from base game plastic bucket to stalker metal bucket
   - name: Miscellaneous
     priority: 3
     items:

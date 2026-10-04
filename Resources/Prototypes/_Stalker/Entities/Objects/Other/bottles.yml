@@ -13,3 +13,19 @@
           Quantity: 30
   - type: RepositoryItem # stalker-en change
     categoryName: repository-tools-category
+
+- type: entity #OW start
+  id: EZNutrientChemistryBottleStalker
+  name: nutrients
+  description: Give your plants some of those nutrients!
+  parent: BaseChemistryBottleFilled
+  components:
+    - type: SolutionContainerManager
+      solutions:
+        drink:
+          maxVol: 30
+          reagents:
+            - ReagentId: EZNutrient
+              Quantity: 30
+    - type: RepositoryItem
+      categoryName: repository-tools-category #OW end
