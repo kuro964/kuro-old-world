@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/03/2026 05:30:09
-  entityCount: 24146
+  time: 10/04/2026 23:26:44
+  entityCount: 24145
 maps:
 - 1
 grids:
@@ -118071,7 +118071,7 @@ entities:
       pos: -44.5,180.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -155396.27
+      secondsUntilStateChange: -155423.03
       state: Opening
   - uid: 20960
     components:
@@ -118224,7 +118224,7 @@ entities:
       pos: -57.5,131.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -559948.4
+      secondsUntilStateChange: -559975.1
       state: Opening
   - uid: 4234
     components:
@@ -118278,7 +118278,7 @@ entities:
       pos: -66.5,125.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -559957.7
+      secondsUntilStateChange: -559984.44
       state: Opening
   - uid: 4238
     components:
@@ -118402,7 +118402,7 @@ entities:
       pos: -93.5,140.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -48973.246
+      secondsUntilStateChange: -49000.016
       state: Opening
   - uid: 9377
     components:
@@ -118469,7 +118469,7 @@ entities:
       pos: -25.5,91.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -364260.53
+      secondsUntilStateChange: -364287.3
       state: Opening
   - uid: 4254
     components:
@@ -118615,7 +118615,7 @@ entities:
       pos: -67.5,199.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -3187.0007
+      secondsUntilStateChange: -3213.77
       state: Opening
     - type: DoorSignalControl
     - type: DeviceLinkSink
@@ -146589,7 +146589,7 @@ entities:
       pos: -299.5,224.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -123381.18
+      secondsUntilStateChange: -123407.945
       state: Opening
   - uid: 26338
     components:
@@ -146746,7 +146746,7 @@ entities:
       pos: -298.5,224.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -123383.04
+      secondsUntilStateChange: -123409.805
       state: Opening
   - uid: 26343
     components:
@@ -176990,12 +176990,12 @@ entities:
     - STWeaponAccuracy
     - FarGunshot
     - GunWieldBonus
-    - PullDoAfter
-    - ContainerContainer
     - AmmoCounter
+    - ContainerContainer
+    - PullDoAfter
+    - ItemSlots
     - Appearance
     - Craftable
-    - ItemSlots
     - STWeaponModuleContainer
     - RepositoryItem
     - MovedByPressure
@@ -178300,15 +178300,6 @@ entities:
       parent: 1
     missingComponents:
     - Item
-  - uid: 27742
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -283.38644,221.22632
-      parent: 1
-    missingComponents:
-    - Item
-    - Pullable
 - proto: TrashBakedBananaPeel
   entities:
   - uid: 9468
