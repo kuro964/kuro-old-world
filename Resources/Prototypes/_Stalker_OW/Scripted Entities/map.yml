@@ -5,3 +5,19 @@
   components:
     - type: Portal
       cooldown: 5
+### Dark Hollow - Clear Sky Base Portals
+- type: entity
+  parent: MapTeleportBase
+  id: DH-CS-Stairs
+  name: Dark Hollow ClearSky Base Stairs
+  components:
+    - type: Portal
+      cooldown: 5
+
+- type: entity
+  parent: MapTeleportBase
+  id: DH-CS-Ladder
+  name: Dark Hollow ClearSky Base Ladder
+  components:
+    - type: Portal
+      cooldown: 5
