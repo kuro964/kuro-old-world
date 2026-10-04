@@ -4193,5 +4193,14 @@
   id: 465
   time: '2026-10-03T03:33:14.599616+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/124
+- author: kuro964
+  changes:
+  - message: Greatly reduced number of T3 caches in Great Swamps
+    type: Tweak
+  - message: Reaching T3 caches is now more dangerous in Great Swamps
+    type: Tweak
+  id: 466
+  time: '2026-10-04T22:47:20.465689+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/126
 Name: Stalker
 Order: -1
