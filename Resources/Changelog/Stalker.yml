@@ -4202,5 +4202,12 @@
   id: 466
   time: '2026-10-04T22:47:20.465689+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/126
+- author: Allias12
+  changes:
+  - message: Hell bag
+    type: Remove
+  id: 467
+  time: '2026-10-04T23:41:00.171713+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/127
 Name: Stalker
 Order: -1
