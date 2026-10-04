@@ -1,0 +1,12 @@
+﻿# Kesha's Bar
+- type: entity
+  id: StalkerDuplicateKesha
+  parent: StalkerDuplicateTeleportBase
+  name: Personal Storage
+  description: Store items in your repository to save them between rounds. Also starting 2k roubles inside!
+  suffix: Teleport, Portal, Duplicate, Kesha
+  components:
+    - type: DuplicateTeleport
+      prefix: Kesha
+      maxWeight: 500
+    - type: NoobDenyer
