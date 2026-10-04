@@ -39,13 +39,13 @@
       amount: 1
       catalyzer: true
     STOWCraftBallisticPlateT3:
-      amount: 4
+      amount: 7
     STCraftSturdyHideT3:
-      amount: 5
+      amount: 4
     STCraftPlasticFittingT3:
-      amount: 3
+      amount: 4
     STCraftGlueKitT3:
-      amount: 2
+      amount: 3
     # ST:OW end
     
 # Севы
@@ -90,7 +90,7 @@
       amount: 1
       catalyzer: true
     STOWCraftBallisticPlateT3:
-      amount: 5
+      amount: 4
     STCraftSturdyHideT3:
       amount: 4
     STCraftGlueKitT3:

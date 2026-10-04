@@ -192,12 +192,11 @@
         MedkitScience: 175
         MedkitMilitary: 100
         Defibrillator: 700
-        DefibrillatorCompact: 1400
         MedkitElite: 500
         MedkitLAR: 650
         STPillboxProbud: 350
         STPillboxAntirad: 200
-        STPillboxShiza: 6500
+        STPillboxShiza: 5000
         # Crates
         SaviorCrate: 2150
         BulkArmyMedCrate: 2500
@@ -304,12 +303,6 @@
         Veles: 4500 # T3
         #ZoneArtifactDetectorBear: 16000 #T4 I'm good with adding this
 
-        # RP Items / Anomaly Destructors
-        BaseMachineAnomalyDestructorFolded: 450
-        BaseMachineAnomalyDestructorFolded1: 450
-        BaseMachineAnomalyDestructorFolded2: 450
-        BaseMachineAnomalyDestructorFolded3: 450
-        BaseMachineAnomalyDestructorFolded4: 450
 
     - name: shop-category-utilities
       priority: 10
@@ -523,3 +516,30 @@
         STOnionSeeds: 70
         STRiceSeeds: 70
         STCornSeeds: 70
+
+- type: shopPreset
+  id: NpcResearchInstituteTagSTOW # 1.25x
+  minSellPrice: 1
+  itemsForSale:
+
+    #Other
+    STJunkTag: 1
+    STJunkTagWhite: 2
+    STJunkTracker: 3
+
+  categories:
+    - name: shop-category-research-equipment
+      priority: 1
+      items:
+        # RP Items / Anomaly Destructors
+        BaseMachineAnomalyDestructorFolded: 1
+        BaseMachineAnomalyDestructorFolded1: 1
+        BaseMachineAnomalyDestructorFolded2: 1
+        BaseMachineAnomalyDestructorFolded3: 1
+        BaseMachineAnomalyDestructorFolded4: 1
+
+    - name: shop-category-medicine
+      priority: 2
+      items:
+        DefibrillatorCompact: 2
+        

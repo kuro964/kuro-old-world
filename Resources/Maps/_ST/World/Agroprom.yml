@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 09/10/2026 00:30:25
-  entityCount: 16384
+  time: 10/03/2026 07:24:53
+  entityCount: 16387
 maps:
 - 1
 grids:
@@ -40319,8 +40319,6 @@ entities:
     - type: Transform
       pos: -89.5,-10.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1279
     components:
     - type: Transform
@@ -40334,8 +40332,6 @@ entities:
     - type: Transform
       pos: 29.5,22.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 11026
     components:
     - type: Transform
@@ -40365,30 +40361,22 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -109.5,-13.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1271
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: -128.5,-18.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1272
     components:
     - type: Transform
       pos: -99.5,-10.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1273
     components:
     - type: Transform
       pos: -168.5,-73.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 11027
     components:
     - type: Transform
@@ -40407,29 +40395,21 @@ entities:
     - type: Transform
       pos: -88.5,-10.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1276
     components:
     - type: Transform
       pos: -168.5,-72.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1277
     components:
     - type: Transform
       pos: 29.5,20.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1278
     components:
     - type: Transform
       pos: -126.5,-16.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 8221
     components:
     - type: Transform
@@ -40442,15 +40422,11 @@ entities:
     - type: Transform
       pos: -168.5,-76.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1281
     components:
     - type: Transform
       pos: -88.5,-14.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
 - proto: BrokenMachineS7
   entities:
   - uid: 1282
@@ -40458,15 +40434,11 @@ entities:
     - type: Transform
       pos: -94.5,-13.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1283
     components:
     - type: Transform
       pos: 29.5,9.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 11024
     components:
     - type: Transform
@@ -40479,29 +40451,21 @@ entities:
     - type: Transform
       pos: -100.5,-10.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1286
     components:
     - type: Transform
       pos: -96.5,-12.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1287
     components:
     - type: Transform
       pos: -92.5,-12.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 1288
     components:
     - type: Transform
       pos: -164.5,-74.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 16082
     components:
     - type: Transform
@@ -44805,6 +44769,12 @@ entities:
     components:
     - type: Transform
       pos: -196.5,-92.5
+      parent: 1
+  - uid: 8622
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -165.5,-72.5
       parent: 1
   - uid: 12336
     components:
@@ -72951,6 +72921,9 @@ entities:
     - type: Transform
       pos: -166.5,-69.5
       parent: 1
+    - type: Door
+      secondsUntilStateChange: -198.39824
+      state: Opening
     - type: AccessReader
       accessListsOriginal:
       - - SciBase
@@ -73786,6 +73759,20 @@ entities:
           showEnts: False
           occludes: False
           ent: null
+- proto: NPCResearchInstitutesTrackerSTOW
+  entities:
+  - uid: 8617
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -199.5,-142.5
+      parent: 1
+  - uid: 8633
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -165.5,-72.5
+      parent: 1
 - proto: OldBlackTable
   entities:
   - uid: 536
@@ -99516,29 +99503,21 @@ entities:
     - type: Transform
       pos: -33.5,-90.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 12776
     components:
     - type: Transform
       pos: -30.5,-90.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 12777
     components:
     - type: Transform
       pos: -25.5,-70.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -5382.2866
   - uid: 12778
     components:
     - type: Transform
       pos: -82.5,-33.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -5382.2866
 - proto: StalkerTrashPile2
   entities:
   - uid: 12779
@@ -99546,8 +99525,6 @@ entities:
     - type: Transform
       pos: -31.5,-89.5
       parent: 1
-    - type: TrashSerchable
-      timeBeforeNextSearch: -5382.2866
 - proto: StalkerWorkbench
   entities:
   - uid: 12780

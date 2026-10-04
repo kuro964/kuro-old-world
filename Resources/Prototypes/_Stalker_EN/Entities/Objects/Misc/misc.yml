@@ -54,6 +54,10 @@
     - 0,0,0,0
   - type: RepositoryItem # stalker-en change
     categoryName: repository-miscellaneous-category
+  - type: Currency
+    price:
+      PremiumSupplyTalons: 1
+      Roubles: 1
 
 - type: entity
   name: tag
@@ -73,6 +77,10 @@
     - 0,0,0,0
   - type: RepositoryItem # stalker-en change
     categoryName: repository-miscellaneous-category
+  - type: Currency
+    price:
+      PremiumSupplyTalons: 2
+      Roubles: 1      
 
 - type: entity
   name: tracker
@@ -96,6 +104,10 @@
     - 0,0,0,0
   - type: RepositoryItem # stalker-en change
     categoryName: repository-miscellaneous-category
+  - type: Currency
+    price:
+      PremiumSupplyTalons: 3
+      Roubles: 1
 
 - type: entity
   name: photograph

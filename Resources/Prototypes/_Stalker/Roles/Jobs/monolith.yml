@@ -23,11 +23,6 @@
         tags:
           - Monolith
       - type: Bands
-        altBand: stalker
-        canChange: true
-        # ST:OW begin
-        startDisguised: false
-        # ST:OW end
         band: Stalker
         bandIcon: monolith
         bandProto: STMonolithBand
@@ -99,11 +94,6 @@
       tags:
       - Monolith
     - type: Bands
-      altBand: stalker
-      canChange: true
-      # ST:OW begin
-      startDisguised: false
-      # ST:OW end
       band: Stalker
       bandIcon: monolith
       bandProto: STMonolithBand
