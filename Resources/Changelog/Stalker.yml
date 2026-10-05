@@ -4209,5 +4209,12 @@
   id: 467
   time: '2026-10-04T23:41:00.171713+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/127
+- author: Whiffets
+  changes:
+  - message: Blueprint for the flower wreath in Sido's shop
+    type: Add
+  id: 468
+  time: '2026-10-05T05:54:27.491914+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/128
 Name: Stalker
 Order: -1
