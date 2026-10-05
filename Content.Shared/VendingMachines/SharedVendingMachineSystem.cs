@@ -65,21 +65,18 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
             foreach (var weh in component.Inventory)
             {
                 var e = new VendingMachineInventoryEntry(weh.Value);
-                e.Category = component.InventoryCategories.GetValueOrDefault(weh.Key, "misc");
                 inventory[weh.Key] = e;
             }
 
             foreach (var weh in component.EmaggedInventory)
             {
                 var e = new VendingMachineInventoryEntry(weh.Value);
-                e.Category = component.InventoryCategories.GetValueOrDefault(weh.Key, "misc");
                 emaggedInventory[weh.Key] = e;
             }
 
             foreach (var weh in component.ContrabandInventory)
             {
                 var e = new VendingMachineInventoryEntry(weh.Value);
-                e.Category = component.InventoryCategories.GetValueOrDefault(weh.Key, "misc");
                 contrabandInventory[weh.Key] = e;
             }
             // ST:OW end
@@ -196,13 +193,17 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return null;
 
-        if (type == InventoryType.Emagged && HasComp<EmaggedComponent>(uid))
-            return component.EmaggedInventory.GetValueOrDefault(entryId);
-
-        if (type == InventoryType.Contraband && component.Contraband)
-            return component.ContrabandInventory.GetValueOrDefault(entryId);
-
-        return component.Inventory.GetValueOrDefault(entryId);
+        // ST:OW begin
+        return type switch
+        {
+            InventoryType.Regular => component.Inventory.GetValueOrDefault(entryId),
+            InventoryType.Emagged when _emag.CheckFlag(uid, EmagType.Interaction)
+                => component.EmaggedInventory.GetValueOrDefault(entryId),
+            InventoryType.Contraband when component.Contraband
+                => component.ContrabandInventory.GetValueOrDefault(entryId),
+            _ => null
+        };
+        // ST:OW end
     }
 
     /// <summary>
@@ -336,49 +337,32 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
         if (!PrototypeManager.TryIndex(component.PackPrototypeId, out VendingMachineInventoryPrototype? packPrototype))
             return;
         
-        // ST:OW begin
-        component.InventoryCategories.Clear();
+        // ST: begin
+        AddInventoryFromPrototype(uid, packPrototype.GetStartingInventory(), InventoryType.Regular, component, restockQuality);
+        foreach (var entry in component.Inventory.Values)
+            entry.Category = "misc";
 
-        if (packPrototype.CategoryGroups is { Count: > 0 })
+        if (packPrototype.CategoryGroups != null)
         {
-            var totalEntries = 0;
             foreach (var group in packPrototype.CategoryGroups)
             {
-                totalEntries += group.Entries.Count;
-            }
-
-            var flattened = new Dictionary<string, uint>(totalEntries);
-
-            foreach (var group in packPrototype.CategoryGroups)
-            {
-                var cat = string.IsNullOrWhiteSpace(group.Category) ? "misc" : group.Category;
-
-                foreach (var (id, amount) in group.Entries)
+                var category = string.IsNullOrWhiteSpace(group.Category)
+                    ? "misc"
+                    : group.Category.Trim().ToLowerInvariant();
+                foreach (var id in group.Entries.Keys)
                 {
-                    flattened[id] = amount;
-                    component.InventoryCategories[id] = cat;
+                    if (component.Inventory.TryGetValue(id, out var entry))
+                        entry.Category = category;
                 }
             }
-
-            AddInventoryFromPrototype(uid, flattened, InventoryType.Regular, component, restockQuality);
         }
-        else
-        {
-            // Fallback legacy path
-            AddInventoryFromPrototype(uid, packPrototype.StartingInventory, InventoryType.Regular, component, restockQuality);
-
-            foreach (var (id, _) in packPrototype.StartingInventory)
-            {
-                component.InventoryCategories[id] = "misc";
-            }
-        }
+        // ST:OW end
 
         AddInventoryFromPrototype(uid, packPrototype.EmaggedInventory, InventoryType.Emagged, component, restockQuality);
         AddInventoryFromPrototype(uid, packPrototype.ContrabandInventory, InventoryType.Contraband, component, restockQuality);
 
         Dirty(uid, component);
     }
-        // ST:OW end
 
     private void OnEmagged(EntityUid uid, VendingMachineComponent component, ref GotEmaggedEvent args)
     {

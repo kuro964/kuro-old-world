@@ -10,8 +10,6 @@ using FancyWindow = Content.Client.UserInterface.Controls.FancyWindow;
 using Robust.Client.UserInterface;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.IdentityManagement;
-using Robust.Client.Graphics;
-using Robust.Shared.Utility;
 
 namespace Content.Client.VendingMachines.UI
 {
@@ -22,10 +20,13 @@ namespace Content.Client.VendingMachines.UI
         [Dependency] private readonly IEntityManager _entityManager = default!;
 
         private readonly Dictionary<EntProtoId, EntityUid> _dummies = [];
-        private readonly Dictionary<EntProtoId, (ListContainerButton Button, VendingMachineItem Item)> _listItems = new();
-        private readonly Dictionary<EntProtoId, uint> _amounts = new();
-        private string _selectedCategory = "all"; // ST:OW
-        private List<VendorItemsListData> _cachedListData = new(); // ST:OW
+        // ST:OW begin
+        private readonly Dictionary<(InventoryType Type, EntProtoId ID), (ListContainerButton Button, VendingMachineItem Item)> _listItems = new();
+        private readonly Dictionary<(InventoryType Type, EntProtoId ID), uint> _amounts = new();
+        private readonly Dictionary<string, Button> _categoryButtons = new();
+        private string _selectedCategory = "all";
+        private List<VendorItemsListData> _cachedListData = new();
+        // ST:OW end
 
         /// <summary>
         /// Whether the vending machine is able to be interacted with or not.
@@ -44,19 +45,6 @@ namespace Content.Client.VendingMachines.UI
             VendingContents.DataFilterCondition += DataFilterCondition;
             VendingContents.GenerateItem += GenerateButton;
             VendingContents.ItemKeyBindDown += (args, data) => OnItemSelected?.Invoke(args, data);
-            
-            // ST:OW begin
-            // Category button wiring
-            CategoryAllButton.OnPressed += _ => SetCategory("all");
-            CategoryArmorButton.OnPressed += _ => SetCategory("armor");
-            CategoryWeaponsButton.OnPressed += _ => SetCategory("weapons");
-            CategoryAmmoButton.OnPressed += _ => SetCategory("ammo");
-            CategoryMagazineButton.OnPressed += _ => SetCategory("magazines");
-            CategoryClothingButton.OnPressed += _ => SetCategory("clothing");
-            CategoryStorageButton.OnPressed += _ => SetCategory("storage");
-            CategoryMedicineButton.OnPressed += _ => SetCategory("medicine");
-            CategoryUtilityButton.OnPressed += _ => SetCategory("utility");
-            // ST:OW end
         }
 
         protected override void Dispose(bool disposing)
@@ -76,34 +64,26 @@ namespace Content.Client.VendingMachines.UI
         }
 
         private bool DataFilterCondition(string filter, ListData data)
-            // ST:OW begin
         {
-            if (data is not VendorItemsListData { ItemText: var text, Category: var category })
-                return false;
-            
-            var itemCategory = string.IsNullOrWhiteSpace(category) ? "misc" : category.Trim().ToLowerInvariant();
-
-            if (_selectedCategory != "all" && itemCategory != _selectedCategory)
-                return false;
-            // ST:OW end
-            
-            if (string.IsNullOrEmpty(filter))
-                return true;
-
-            return text.Contains(filter, StringComparison.CurrentCultureIgnoreCase);
+            return data is VendorItemsListData item &&
+                   item.ItemText.Contains(filter, StringComparison.CurrentCultureIgnoreCase); // ST:OW
         }
 
         private void GenerateButton(ListData data, ListContainerButton button)
         {
-            if (data is not VendorItemsListData { ItemProtoID: var protoID, ItemText: var text })
+            // ST:OW begin
+            if (data is not VendorItemsListData entry)
                 return;
 
-            var item = new VendingMachineItem(protoID, text);
-            _listItems[protoID] = (button, item);
+            var key = (entry.Type, entry.ItemProtoID);
+            var amount = _amounts.GetValueOrDefault(key);
+            var item = new VendingMachineItem(entry.ItemProtoID, $"{entry.ItemText} [{amount}]");
+            _listItems[key] = (button, item);
             button.AddChild(item);
             button.AddStyleClass(StyleClass.ButtonSquare);
-            button.Disabled = !_enabled || _amounts[protoID] == 0;
+            button.Disabled = !_enabled || amount == 0;
         }
+        // ST:OW end
 
         /// <summary>
         /// Populates the list of available items on the vending machine interface
@@ -115,45 +95,13 @@ namespace Content.Client.VendingMachines.UI
             _listItems.Clear();
             _amounts.Clear();
 
-            if (inventory.Count == 0 && VendingContents.Visible)
-            {
-                SearchBar.Visible = false;
-                VendingContents.Visible = false;
-
-                var outOfStockLabel = new Label()
-                {
-                    Text = Loc.GetString("vending-machine-component-try-eject-out-of-stock"),
-                    Margin = new Thickness(4, 4),
-                    HorizontalExpand = true,
-                    VerticalAlignment = VAlignment.Stretch,
-                    HorizontalAlignment = HAlignment.Center
-                };
-
-                MainContainer.AddChild(outOfStockLabel);
-
-                SetSizeAfterUpdate(outOfStockLabel.Text.Length, 0);
-
-                return;
-            }
-
             var longestEntry = string.Empty;
             var listData = new List<VendorItemsListData>();
 
-            for (var i = 0; i < inventory.Count; i++)
+            foreach (var entry in inventory) // ST:OW
             {
-                var entry = inventory[i];
-
-                // ST:OW begin
-                // If no category is set then default to "all"
-                if (string.IsNullOrWhiteSpace(_selectedCategory))
-                    _selectedCategory = "all";
-                // ST:OW end
-                
                 if (!_prototypeManager.Resolve(entry.ID, out var prototype))
-                {
-                    _amounts[entry.ID] = 0;
                     continue;
-                }
 
                 if (!_dummies.TryGetValue(entry.ID, out var dummy))
                 {
@@ -163,84 +111,150 @@ namespace Content.Client.VendingMachines.UI
 
                 var itemName = Identity.Name(dummy, _entityManager);
                 var itemText = $"{itemName} [{entry.Amount}]";
-                _amounts[entry.ID] = entry.Amount;
+                _amounts[(entry.Type, entry.ID)] = entry.Amount; // ST:OW
 
                 if (itemText.Length > longestEntry.Length)
                     longestEntry = itemText;
 
-                listData.Add(new VendorItemsListData(prototype.ID, i)
+                // ST:OW begin
+                listData.Add(new VendorItemsListData(prototype.ID, entry.Type)
                 {
-                    ItemText = itemText,
-                    Category = string.IsNullOrWhiteSpace(entry.Category) ? "misc" : entry.Category.Trim().ToLowerInvariant() // ST:OW
+                    ItemText = itemName,
+                    Category = NormalizeCategory(entry.Category)
                 });
             }
 
-            _cachedListData = listData; // ST:OW
-            VendingContents.PopulateList(_cachedListData); // ST:OW
+            _cachedListData = listData;
+            UpdateCategories();
+            SetCategory(_selectedCategory);
 
-            SetSizeAfterUpdate(longestEntry.Length, inventory.Count);
+            OutOfStockLabel.Visible = listData.Count == 0;
+            SearchBar.Visible = VendingContents.Visible = listData.Count > 0;
+            SetSizeAfterUpdate(longestEntry.Length, listData.Count);
+            // ST:OW end
         }
 
         /// <summary>
         /// Updates text entries for vending data in place without modifying the list controls.
         /// </summary>
-        public void UpdateAmounts(List<VendingMachineInventoryEntry> cachedInventory, bool enabled)
+        // ST:OW begin
+        public void UpdateAmounts(List<VendingMachineInventoryEntry> inventory, bool enabled)
         {
+            // Update cached amounts & open tabs to prevent stale stock
             _enabled = enabled;
-
-            foreach (var proto in _dummies.Keys)
+            _amounts.Clear();
+            var index = 0;
+            foreach (var entry in inventory)
             {
-                if (!_listItems.TryGetValue(proto, out var button))
+                // Populate already skips unresolved prototypes
+                // Compare that same list here
+                if (!_prototypeManager.HasIndex<EntityPrototype>(entry.ID))
                     continue;
 
-                var dummy = _dummies[proto];
-                if (!cachedInventory.TryFirstOrDefault(o => o.ID == proto, out var entry))
-                    continue;
-                var amount = entry.Amount;
-                // Could be better? Problem is all inventory entries get squashed.
-                var text = GetItemText(dummy, amount);
+                if (index >= _cachedListData.Count ||
+                    _cachedListData[index].Type != entry.Type ||
+                    _cachedListData[index].ItemProtoID != entry.ID ||
+                    _cachedListData[index].Category != NormalizeCategory(entry.Category))
+                {
+                    Populate(inventory, enabled);
+                    return;
+                }
 
-                button.Item.SetText(text);
+                _amounts[(entry.Type, entry.ID)] = entry.Amount;
+                index++;
+            }
+
+            if (index != _cachedListData.Count)
+            {
+                Populate(inventory, enabled);
+                return;
+            }
+
+            foreach (var data in _cachedListData)
+            {
+                var key = (data.Type, data.ItemProtoID);
+                if (!_listItems.TryGetValue(key, out var button))
+                    continue;
+                
+                if (button.Button.Disposed)
+                {
+                    _listItems.Remove(key);
+                    continue;
+                }
+
+                var amount = _amounts.GetValueOrDefault(key);
+                button.Item.SetText($"{data.ItemText} [{amount}]");
                 button.Button.Disabled = !enabled || amount == 0;
             }
         }
-        // ST:OW begin
+        
+        private static string NormalizeCategory(string? category)
+        {
+            return string.IsNullOrWhiteSpace(category) ? "misc" : category.Trim().ToLowerInvariant();
+        }
+
+        // Ordinary vending machines do not use item category tabs
+        // Tabs remain visible even if items are sold-out
+        private void UpdateCategories()
+        {
+            var categories = _cachedListData.Select(data => data.Category).Distinct().ToArray();
+            CategoryContainer.DisposeAllChildren();
+            _categoryButtons.Clear();
+            CategoryContainer.Visible = categories.Any(category => category != "misc");
+
+            if (!CategoryContainer.Visible)
+            {
+                _selectedCategory = "all";
+                return;
+            }
+
+            if (!categories.Contains(_selectedCategory))
+                _selectedCategory = "all";
+
+            AddCategoryButton("all");
+            foreach (var category in categories)
+            {
+                if (category != "all")
+                    AddCategoryButton(category);
+            }
+        }
+
+        private void AddCategoryButton(string category)
+        {
+            var text = category switch
+            {
+                "all" or "armor" or "weapons" or "ammo" or "magazines" or
+                "clothing" or "storage" or "medicine" or "utility" or "misc"
+                    => Loc.GetString($"vending-machine-category-{category}"),
+                _ => category
+            };
+            var button = new Button { Text = text, ToggleMode = true };
+            button.OnPressed += _ => SetCategory(category);
+            _categoryButtons.Add(category, button);
+            CategoryContainer.AddChild(button);
+        }
+
         public void SetCategory(string category)
         {
-            _selectedCategory = string.IsNullOrWhiteSpace(category)
-                ? "all"
-                : category.Trim().ToLowerInvariant();
-
-            List<VendorItemsListData> filtered;
-
-            if (_selectedCategory == "all")
-            {
-                filtered = _cachedListData;
-            }
-            else
-            {
-                filtered = _cachedListData
-                    .Where(x => (x.Category ?? "misc").Trim().ToLowerInvariant() == _selectedCategory)
-                    .ToList();
-            }
-
-            VendingContents.PopulateList(filtered);
+            _selectedCategory = string.IsNullOrWhiteSpace(category) ? "all" : NormalizeCategory(category);
+            foreach (var (key, button) in _categoryButtons)
+                button.Pressed = key == _selectedCategory;
+            
+            _listItems.Clear();
+            VendingContents.PopulateList(_selectedCategory == "all"
+                ? _cachedListData
+                : _cachedListData.Where(data => data.Category == _selectedCategory).ToList());
         }
         // ST:OW end
-        private string GetItemText(EntityUid dummy, uint amount)
-        {
-            var itemName = Identity.Name(dummy, _entityManager);
-            return $"{itemName} [{amount}]";
-        }
 
         private void SetSizeAfterUpdate(int longestEntryLength, int contentCount)
         {
             SetSize = new Vector2(Math.Clamp((longestEntryLength + 2) * 12, 250, 400),
-                Math.Clamp(contentCount * 50, 150, 350));
+                Math.Clamp(contentCount * 50, 150, CategoryContainer.Visible ? 450 : 350)); // ST:OW
         }
     }
 
-    public record VendorItemsListData(EntProtoId ItemProtoID, int ItemIndex) : ListData
+    public record VendorItemsListData(EntProtoId ItemProtoID, InventoryType Type) : ListData
     {
         public string ItemText = string.Empty;
         public string Category = "misc"; // ST:OW

@@ -5,19 +5,10 @@
     xmlns:co="clr-namespace:Content.Client.UserInterface.Controls"
     MinHeight="210">
     <BoxContainer Name="MainContainer" Orientation="Vertical">
-        <!-- Categories -->
-        <BoxContainer Orientation="Horizontal" Margin="4 4 4 0">
-            <Button Name="CategoryAllButton" Text="All" />
-            <Button Name="CategoryArmorButton" Text="Armor" Margin="4 0 0 0" />
-            <Button Name="CategoryWeaponsButton" Text="Weapons" Margin="4 0 0 0" />
-            <Button Name="CategoryAmmoButton" Text="Ammo" Margin="4 0 0 0" />
-            <Button Name="CategoryMagazineButton" Text="Magazines" Margin="4 0 0 0" />
-            <Button Name="CategoryClothingButton" Text="Clothing" Margin="4 0 0 0" />
-            <Button Name="CategoryStorageButton" Text="Storage" Margin="4 0 0 0" />
-            <Button Name="CategoryMedicineButton" Text="Medicine" Margin="4 0 0 0" />
-            <Button Name="CategoryUtilityButton" Text="Utility" Margin="4 0 0 0" />
-        </BoxContainer>
+        <GridContainer Name="CategoryContainer" Columns="3" Margin="4 4 4 0" Visible="False" />
 
+        <Label Name="OutOfStockLabel" Text="{Loc 'vending-machine-component-try-eject-out-of-stock'}"
+               Margin="4 4" HorizontalAlignment="Center" Visible="False" />
         <LineEdit Name="SearchBar" PlaceHolder="{Loc 'vending-machine-component-search-filter'}" HorizontalExpand="True" Margin="4 4"/>
         <co:SearchListContainer Name="VendingContents" VerticalExpand="True" Margin="4 4"/>
 

@@ -90,14 +90,6 @@ namespace Content.Shared.VendingMachines
         /// </summary>
         [DataField("prefillMagazines")] public bool PrefillMagazines = false;
 
-        /// <summary>
-        /// Will display if an item is infinitely available from vendor
-        /// </summary>
-        [DataField("infiniteStock")]
-        public HashSet<string> InfiniteStock = new();
-
-        // id >>> category for UI
-        public Dictionary<string, string> InventoryCategories = new();
         // ST:OW end
 
         /// <summary>
@@ -241,11 +233,9 @@ namespace Content.Shared.VendingMachines
 
         [DataField]
         public uint Amount;
+        
+        [DataField] public string Category = "misc"; // ST:OW
 
-        // ST:OW begin
-        [DataField] public string Category = "misc";
-        [DataField] public bool Infinite = false;
-        // ST:OW end
         public VendingMachineInventoryEntry(InventoryType type, string id, uint amount)
         {
             Type = type;
@@ -258,7 +248,6 @@ namespace Content.Shared.VendingMachines
             ID = entry.ID;
             Amount = entry.Amount;
             Category = entry.Category;
-            Infinite = entry.Infinite;
         }
     }
 

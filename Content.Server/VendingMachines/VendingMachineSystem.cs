@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.Cargo.Systems;
 using Content.Server.Power.Components;
@@ -19,6 +18,7 @@ using Robust.Shared.Random;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
+using Content.Shared.Interaction;
 using Content.Shared.Weapons.Ranged.Components;
 // ST:OW end
 
@@ -31,7 +31,8 @@ namespace Content.Server.VendingMachines
         [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
         [Dependency] private readonly InventorySystem _inventory = default!; // ST:OW
         [Dependency] private readonly SharedHandsSystem _hands = default!; // ST:OW
-        [Dependency] private readonly Content.Server.Weapons.Ranged.Systems.GunSystem _gun = default!; // ST:OW
+        [Dependency] private readonly Weapons.Ranged.Systems.GunSystem _gun = default!; // ST:OW
+        [Dependency] private readonly SharedInteractionSystem _interaction = default!; // ST:OW
 
         private const float WallVendEjectDistanceFromWall = 1f;
 
@@ -174,16 +175,18 @@ namespace Content.Server.VendingMachines
             var item = _random.Pick(availableItems);
 
             if (forceEject)
+            // ST:OW begin
             {
-                // Forced ejections do not belong to the player
-                vendComponent.NextBuyer = null; // ST:OW
-                vendComponent.NextItemToEject = item.ID;
-                vendComponent.ThrowNextItem = throwItem;
                 var entry = GetEntry(uid, item.ID, item.Type, vendComponent);
-                if (entry != null)
-                    entry.Amount--;
-                EjectItem(uid, vendComponent, forceEject);
+                if (entry == null || entry.Amount == 0)
+                    return;
+                
+                entry.Amount--;
+                Dirty(uid, vendComponent);
+                DispenseItem(uid, item.ID, throwItem, null, vendComponent);
+                UpdateUI((uid, vendComponent));
             }
+            // ST:OW end
             else
             {
                 TryEjectVendorItem(uid, item.Type, item.ID, throwItem, user: null, vendComponent: vendComponent);
@@ -209,11 +212,26 @@ namespace Content.Server.VendingMachines
                 return;
             }
 
+            // ST:OW begin
+            var itemId = vendComponent.NextItemToEject;
+            var throwItem = vendComponent.ThrowNextItem;
+            var buyer = vendComponent.NextBuyer;
+            vendComponent.NextItemToEject = null;
+            vendComponent.ThrowNextItem = false;
+            vendComponent.NextBuyer = null;
+
+            DispenseItem(uid, itemId, throwItem, buyer, vendComponent);
+        }
+        // ST:OW end
+
+        private void DispenseItem(EntityUid uid, string itemId, bool throwItem, EntityUid? buyer,
+            VendingMachineComponent vendComponent)
+        {
             // Default spawn coordinates
             var xform = Transform(uid);
             var spawnCoordinates = xform.Coordinates;
 
-            //Make sure the wallvends spawn outside of the wall.
+            // Items dispensed are not inside any wall tiles
             if (TryComp<WallMountComponent>(uid, out var wallMountComponent))
             {
                 var offset = (wallMountComponent.Direction + xform.LocalRotation - Math.PI / 2).ToVec() *
@@ -221,11 +239,10 @@ namespace Content.Server.VendingMachines
                 spawnCoordinates = spawnCoordinates.Offset(offset);
             }
 
-            var ent = Spawn(vendComponent.NextItemToEject, spawnCoordinates);
+            var ent = Spawn(itemId, spawnCoordinates); // ST:OW
             TryPrefillMonolithMagazine(uid, ent, vendComponent); // ST:OW
             
-            // ST:OW begin
-            if (vendComponent.ThrowNextItem)
+            if (throwItem)
             {
                 var range = vendComponent.NonLimitedEjectRange;
                 var direction = new Vector2(
@@ -235,15 +252,12 @@ namespace Content.Server.VendingMachines
                 _throwingSystem.TryThrow(ent, direction, vendComponent.NonLimitedEjectForce);
             }
             else if (vendComponent.AutoEquipDispensed &&
-                     vendComponent.NextBuyer is { } buyer &&
-                     !Deleted(buyer))
+                     buyer is { } user && // ST:OW
+                     !Deleted(user) &&
+                     _interaction.InRangeUnobstructed(user, uid)) // ST:OW
             {
-                TryAutoEquipOrHand(ent, buyer);
+                TryAutoEquipOrHand(ent, user); // ST:OW
             }
-
-            vendComponent.NextItemToEject = null;
-            vendComponent.ThrowNextItem = false;
-            vendComponent.NextBuyer = null;
         }
 
         // Magazines are filled! (For Monolith at least)
@@ -259,12 +273,14 @@ namespace Content.Server.VendingMachines
             if (itemProto == null)
                 return;
 
+            // This ammo is specific to Monolith because they ONLY use T3 ammo
+            // Do not enable this for other factions
             EntProtoId? tier3Ammo = itemProto switch
             {
                 "BaseAPSMag"      => "STCartridge918PBM",
                 "VityazMag"       => "STCartridge919PBM",
                 "545Mag30"        => "STCartridge545PC",
-                "556Mag30"        => "STCartridge556M855",
+                "556Mag30"        => "Cartridge556M855",
                 "739Mag30"        => "STCartridge739FMJ",
                 "754Mag10"        => "STCartridge754FMJ",
                 "BaseTommyGunMag" => "Cartridge45ACPAP",
@@ -297,47 +313,18 @@ namespace Content.Server.VendingMachines
             if (Deleted(item) || Deleted(user))
                 return false;
             
-            // Put guns in your hand instead of anywhere else
-            if (HasComp<GunComponent>(item))
+            // Guns go straight to hands even w/ ClothingComponent
+            if (!HasComp<GunComponent>(item) && HasComp<ClothingComponent>(item))
             {
-                return _hands.TryPickupAnyHand(
-                    user,
-                    item,
-                    checkActionBlocker: false,
-                    animateUser: false,
-                    animate: false);
-            }
-            
-            // Only try inventory slots for clothing
-           if (HasComp<ClothingComponent>(item))
-           {
-               foreach (var slot in PrioritySlots)
-               {
-                  if (_inventory.TryEquip(user, item, slot, silent: true, force: false))
-                      return true;
+                foreach (var slot in PrioritySlots)
+                {
+                    if (_inventory.TryEquip(user, item, slot, silent: true, force: false))
+                        return true;
                 }
             }
-            
-            // Try each slot by priority
-            foreach (var slot in PrioritySlots)
-            {
-                if (_inventory.TryEquip(user, item, slot, silent: true, force: false))
-                    return true;
-            }
 
-            // Try to equip to hands
-            if (_hands.TryPickupAnyHand(
-                    user,
-                    item,
-                    checkActionBlocker: false,
-                    animateUser: false,
-                    animate: false))
-            {
-                return true;
-            }
-
-            // If equip or hold both fail then drop on ground
-            return false;
+            // If equip & pickup fail then leave the item at the machine
+            return _hands.TryPickupAnyHand(user, item, animateUser: false, animate: false);
         }
         // ST:OW end
         
@@ -358,7 +345,7 @@ namespace Content.Server.VendingMachines
 
         private void OnPriceCalculation(EntityUid uid, VendingMachineRestockComponent component, ref PriceCalculationEvent args)
         {
-            List<double> priceSets = new();
+            var highestPrice = 0.0;
 
             // Find the most expensive inventory and use that as the highest price.
             foreach (var vendingInventory in component.CanRestock)
@@ -367,17 +354,17 @@ namespace Content.Server.VendingMachines
 
                 if (PrototypeManager.TryIndex(vendingInventory, out VendingMachineInventoryPrototype? inventoryPrototype))
                 {
-                    foreach (var (item, amount) in inventoryPrototype.StartingInventory)
+                    foreach (var (item, amount) in inventoryPrototype.GetStartingInventory())
                     {
                         if (PrototypeManager.TryIndex(item, out EntityPrototype? entity))
                             total += _pricing.GetEstimatedPrice(entity) * amount;
                     }
                 }
 
-                priceSets.Add(total);
+                highestPrice = Math.Max(highestPrice, total);
             }
 
-            args.Price += priceSets.Max();
+            args.Price += highestPrice;
         }
 
         private void OnTryVocalize(Entity<VendingMachineComponent> ent, ref TryVocalizeEvent args)
