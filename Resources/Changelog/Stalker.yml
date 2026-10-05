@@ -4234,5 +4234,12 @@
   id: 470
   time: '2026-10-05T17:24:46.206903+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/130
+- author: Allias12
+  changes:
+  - message: Bloodloss
+    type: Tweak
+  id: 471
+  time: '2026-10-05T18:59:58.116086+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/133
 Name: Stalker
 Order: -1
