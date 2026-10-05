@@ -39,8 +39,8 @@
     - name: FAMINE
       priority: 2
       items:
-        #FoodMeatHuman: 3
-        ClothingHeadHatBeretMerc: 6
-        NewtonCradle: 10
+        FoodMeatHuman: 3
+        FoodBadRecipe: 1
+        STClothingHeadHatFoma: 6
         STSharpenedKnife: 13
-        KhattabkaGrenade: 5
+        SpikyBallBat: 13
