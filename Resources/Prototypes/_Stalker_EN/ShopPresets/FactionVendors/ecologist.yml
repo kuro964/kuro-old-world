@@ -187,6 +187,7 @@
         antiradpill: 50
         radioprotectpill: 70
         Bloodpack: 90
+        STTourniquet: 300
         psyblock: 200
         MedkitAI2: 20
         MedkitScience: 175

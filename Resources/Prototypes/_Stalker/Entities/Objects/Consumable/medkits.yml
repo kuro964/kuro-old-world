@@ -80,7 +80,7 @@
 - type: entity
   parent: STBaseHealingItem
   id: STTourniquet
-  name: жгут
+  name: Tourniquet
   description: Сильно давит на конечность, перекрывая кровоток, если накладывать неумеючи может содрать кожу и оставить синяки.
   components:
     - type: Sprite
@@ -104,6 +104,18 @@
         path: "/Audio/Items/Medical/brutepack_begin.ogg"
       healingEndSound:
         path: "/Audio/Items/Medical/brutepack_end.ogg"
+    - type: Stack
+      stackType: STOWTourniquet
+      count: 4            
+
+- type: stack
+  id: STOWTourniquet
+  name: stack-tourniquet
+  icon:
+    sprite: _Stalker/Objects/Specific/Medical/Other.rsi
+    state: esmarch
+  spawn: STTourniquet
+  maxCount: 4
 
 - type: entity
   parent: STBrutepack
@@ -247,7 +259,7 @@
         Piercing: -0
         Blunt: -0
         Compression: -0
-    bloodlossModifier: -10
+    bloodlossModifier: -3
     delay: 0.7
     healingBeginSound:
       path: "/Audio/Items/Medical/brutepack_begin.ogg"
