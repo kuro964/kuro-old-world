@@ -269,7 +269,7 @@
   - type: Bloodstream
     bloodlossDamage:
       types:
-        Bloodloss: 5 # OW: Finally bloodloss matters
+        Bloodloss: 3 # OW: Finally bloodloss matters
     bloodlossHealDamage:
       types:
         Bloodloss: -1

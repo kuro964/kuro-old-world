@@ -98,6 +98,7 @@
           Piercing: -0
           Blunt: -0
           Compression: -0
+          Bloodloss: -10
       bloodlossModifier: -20
       delay: 0.1
       healingBeginSound:
@@ -259,6 +260,7 @@
         Piercing: -0
         Blunt: -0
         Compression: -0
+        Bloodloss: -10
     bloodlossModifier: -3
     delay: 0.7
     healingBeginSound:
