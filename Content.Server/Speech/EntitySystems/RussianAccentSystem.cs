@@ -12,13 +12,18 @@ public sealed class RussianAccentSystem : EntitySystem
         SubscribeLocalEvent<RussianAccentComponent, AccentGetEvent>(OnAccent);
     }
 
-    public string Accentuate(string message)
+    public string Accentuate(string message, bool isWhisper = false)
     {
         var accentedMessage = new StringBuilder(_replacement.ApplyReplacements(message, "russian"));
 
         for (var i = 0; i < accentedMessage.Length; i++)
         {
             var c = accentedMessage[i];
+
+            // STOW - Lowercase Cyrillic italic letters make it illegible when whispering
+            // This fixes that issue entirely
+            if (isWhisper && c is >= 'a' and <= 'z')
+                continue;
 
             accentedMessage[i] = c switch
             {
@@ -45,6 +50,6 @@ public sealed class RussianAccentSystem : EntitySystem
 
     private void OnAccent(EntityUid uid, RussianAccentComponent component, AccentGetEvent args)
     {
-        args.Message = Accentuate(args.Message);
+        args.Message = Accentuate(args.Message, args.IsWhisper);
     }
 }

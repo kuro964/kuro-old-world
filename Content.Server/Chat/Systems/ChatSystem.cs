@@ -35,9 +35,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Replays;
 using Robust.Shared.Utility;
-// ST:OW begin
-using Content.Shared._Stalker_OW.Monolith;
-// ST:OW end
+using Content.Shared._Stalker_OW.Monolith; // ST:OW
 
 namespace Content.Server.Chat.Systems;
 
@@ -513,7 +511,7 @@ public new const int VoiceRange = 15; // how far voice goes in world units
         if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
             return;
 
-        var message = TransformSpeech(source, FormattedMessage.RemoveMarkupOrThrow(originalMessage));
+        var message = TransformSpeech(source, FormattedMessage.RemoveMarkupOrThrow(originalMessage), isWhisper: true); // ST:OW
         if (message.Length == 0)
             return;
 
@@ -830,9 +828,9 @@ public new const int VoiceRange = 15; // how far voice goes in world units
         return newMessage;
     }
 
-    public string TransformSpeech(EntityUid sender, string message)
+    public string TransformSpeech(EntityUid sender, string message, bool isWhisper = false) // ST:OW
     {
-        var ev = new TransformSpeechEvent(sender, message);
+        var ev = new TransformSpeechEvent(sender, message, isWhisper);
         RaiseLocalEvent(ev);
 
         return ev.Message;

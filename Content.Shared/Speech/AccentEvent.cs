@@ -13,9 +13,16 @@ public sealed class AccentGetEvent : EntityEventArgs
     /// </summary>
     public string Message { get; set; }
 
-    public AccentGetEvent(EntityUid entity, string message)
+    /// <summary>
+    /// STOW
+    /// Used to make certain accents (i.e. Russian) readable when lowercase & italicized
+    /// </summary>
+    public bool IsWhisper { get; }
+
+    public AccentGetEvent(EntityUid entity, string message, bool isWhisper = false)
     {
         Entity = entity;
         Message = message;
+        IsWhisper = isWhisper;
     }
 }
