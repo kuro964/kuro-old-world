@@ -83,28 +83,4 @@ public sealed partial class GunSystem : SharedGunSystem
             Audio.PlayPvs(weaponSound, otherEntity);
         }
     }
-    // ST:OW begin
-    public bool TryFillBallisticMagazine(EntityUid uid, EntProtoId ammoProto)
-    {
-        if (!TryComp<BallisticAmmoProviderComponent>(uid, out var ballistic))
-            return false;
-
-        var missing = ballistic.Capacity - ballistic.Count;
-        if (missing <= 0)
-            return false;
-
-        ballistic.Proto = ammoProto;
-        ballistic.UnspawnedCount += missing;
-
-        ballistic.EntProtos.Capacity = Math.Max(ballistic.EntProtos.Capacity, ballistic.EntProtos.Count + missing);
-        for (var i = 0; i < missing; i++)
-        {
-            ballistic.EntProtos.Add(ammoProto);
-        }
-
-        Dirty(uid, ballistic);
-    
-        return true;
-    }
-    // ST:OW end
 }

@@ -4,20 +4,6 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 
 namespace Content.Shared.VendingMachines
 {
-    // ST:OW begin
-    [DataDefinition]
-    public sealed partial class VendingInventoryCategoryEntry
-    {
-        [DataField("id", required: true)]
-        public string ID = default!;
-
-        [DataField("amount", required: true)]
-        public uint Amount;
-
-        [DataField("category")]
-        public string Category = "misc";
-    }
-    // ST:OW end
     [Prototype]
     public sealed partial class VendingMachineInventoryPrototype : IPrototype
     {
@@ -38,6 +24,21 @@ namespace Content.Shared.VendingMachines
         [DataField("categoryGroups")]
         public List<VendingCategoryGroup>? CategoryGroups { get; private set; }
         
+        public Dictionary<string, uint> GetStartingInventory()
+        {
+            if (CategoryGroups is not { Count: > 0 })
+                return StartingInventory;
+
+            var inventory = new Dictionary<string, uint>();
+            foreach (var group in CategoryGroups)
+            {
+                foreach (var (id, amount) in group.Entries)
+                    inventory[id] = amount;
+            }
+
+            return inventory;
+        }
+
         [DataDefinition]
         public sealed partial class VendingCategoryGroup
         {

@@ -32,10 +32,16 @@ public sealed class TransformSpeechEvent : EntityEventArgs
     public EntityUid Sender;
     public string Message;
 
-    public TransformSpeechEvent(EntityUid sender, string message)
+    /// <summary>
+    /// ST:OW - Whether this speech will use italicized & lowercase lettering
+    /// </summary>
+    public bool IsWhisper { get; }
+
+    public TransformSpeechEvent(EntityUid sender, string message, bool isWhisper = false)
     {
         Sender = sender;
         Message = message;
+        IsWhisper = isWhisper;
     }
 }
 

@@ -35,6 +35,17 @@
     secondIngredient: STDrinkJar
     time: 3
 
+# ST:OW change
+- type: lightCraftingRecipe
+  id: STJarMoonshineCraftReuse
+  results:
+    - MoonshineStill
+    - STDrinkJarMoonshine
+  steps:
+    firstIngredient: MoonshineStillFull
+    secondIngredient: STDrinkJarMoonshine
+    time: 3
+
 # im zen actually. i dont even care. look at how much i dont care.
 - type: constructionGraph
   id: MoonshineStillActive

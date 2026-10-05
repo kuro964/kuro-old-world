@@ -159,7 +159,7 @@
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/bread.rsi
   - type: RepositoryItem
-    categoryName: repository-miscellaneous-category
+    categoryName: repository-consumables-category # ST:OW
   - type: SolutionContainerManager
     solutions:
       food:

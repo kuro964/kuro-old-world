@@ -33,6 +33,7 @@
   physicalDesc: reagent-physical-desc-bubbly
   flavor: AnomalyBeer
   color: "#fbf236"
+  evaporationSpeed: 0.5 # ST:OW
   recognizable: true
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/beerglass.rsi

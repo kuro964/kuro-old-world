@@ -8,6 +8,7 @@
   color: "#9aff38"
   boilingPoint: 55.5
   meltingPoint: -50.0
+  evaporationSpeed: 0.5 # ST:OW
   slipData:
     requiredSlipSpeed: 3.5
   metabolisms:

@@ -55,6 +55,8 @@
           tags:
             - STElasticRubberBlue
     sprite: _Stalker/Objects/Weapons/Guns/Ammunition/Magazines/725/elastic_rubber.rsi
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-magazines-category
 
 - type: entity
   id: BasePPSHMag
@@ -124,6 +126,8 @@
           tags:
             - STElasticRubberBlue
     sprite: _Stalker/Objects/Weapons/Guns/Ammunition/Magazines/725/elastic_rubber.rsi
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-magazines-category
 
 - type: entity
   id: PPSHDrum
@@ -177,6 +181,8 @@
           tags:
             - STElasticRubberBlue
     sprite: _Stalker/Objects/Weapons/Guns/Ammunition/Magazines/725/elastic_rubber.rsi
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-magazines-category
 
 - type: entity
   id: BasePPSMag
@@ -247,3 +253,5 @@
           tags:
             - STElasticRubberBlue
     sprite: _Stalker/Objects/Weapons/Guns/Ammunition/Magazines/725/elastic_rubber.rsi
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-magazines-category

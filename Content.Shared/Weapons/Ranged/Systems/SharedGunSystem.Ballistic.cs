@@ -329,6 +329,13 @@ public abstract partial class SharedGunSystem
         if (missing <= 0)
             return false;
 
+        // Validate rounds before spawning to avoid unusable and broken magazines
+        if (!ProtoManager.TryIndex<EntityPrototype>(ammoProto, out var ammoPrototype) || ammoPrototype.Abstract)
+        {
+            Log.Error($"Cannot prefill {ToPrettyString(uid)}: ammunition prototype '{ammoProto}' is missing or abstract.");
+            return false;
+        }
+
         ballistic.Proto = ammoProto;
         ballistic.UnspawnedCount += missing;
 
@@ -338,9 +345,11 @@ public abstract partial class SharedGunSystem
             ballistic.EntProtos.Add(ammoProto);
         }
 
-        DirtyField(uid, ballistic, nameof(BallisticAmmoProviderComponent.Proto));
-        DirtyField(uid, ballistic, nameof(BallisticAmmoProviderComponent.UnspawnedCount));
-        DirtyField(uid, ballistic, nameof(BallisticAmmoProviderComponent.EntProtos));
+        // Refresh ammo visuals after spawning in prefilled magazine
+        // This just fixes a small visual bug so the filled magazines have the correct sprite
+        UpdateBallisticAppearance(uid, ballistic);
+        UpdateAmmoCount(uid);
+        Dirty(uid, ballistic);
     
         return true;
     }

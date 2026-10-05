@@ -26,7 +26,8 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
         public void Execute(EntityUid owner, DestructibleSystem system, EntityUid? cause = null)
         {
             if (!system.EntityManager.TryGetComponent<VendingMachineRestockComponent>(owner, out var packagecomp) ||
-                !system.EntityManager.TryGetComponent<TransformComponent>(owner, out var xform))
+                !system.EntityManager.TryGetComponent<TransformComponent>(owner, out var xform) ||
+                packagecomp.CanRestock.Count == 0) // ST:OW
                 return;
 
             var randomInventory = system.Random.Pick(packagecomp.CanRestock);
@@ -34,7 +35,7 @@ namespace Content.Server.Destructible.Thresholds.Behaviors
             if (!system.PrototypeManager.TryIndex(randomInventory, out VendingMachineInventoryPrototype? packPrototype))
                 return;
 
-            foreach (var (entityId, count) in packPrototype.StartingInventory)
+            foreach (var (entityId, count) in packPrototype.GetStartingInventory()) // ST:OW
             {
                 var toSpawn = (int) Math.Round(count * Percent);
 

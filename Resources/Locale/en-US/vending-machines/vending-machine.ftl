@@ -1,3 +1,13 @@
 vending-machine-thanks-1 = Thanks for using { $name }!
 vending-machine-flavor-left = Request refills at cargo
 vending-machine-flavor-right = v1.1
+vending-machine-category-all = All
+vending-machine-category-armor = Armor
+vending-machine-category-weapons = Weapons
+vending-machine-category-ammo = Ammo
+vending-machine-category-magazines = Magazines
+vending-machine-category-clothing = Clothing
+vending-machine-category-storage = Storage
+vending-machine-category-medicine = Medicine
+vending-machine-category-utility = Utility
+vending-machine-category-misc = Other
