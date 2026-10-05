@@ -4223,5 +4223,16 @@
   id: 469
   time: '2026-10-05T08:42:16.918741+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/129
+- author: Allias12
+  changes:
+  - message: Tourniquets Stack
+    type: Tweak
+  - message: bleed heal from Bandages worse
+    type: Tweak
+  - message: Tourniquets to Kesha and Ecology
+    type: Add
+  id: 470
+  time: '2026-10-05T17:24:46.206903+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/130
 Name: Stalker
 Order: -1
