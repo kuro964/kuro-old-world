@@ -4241,5 +4241,30 @@
   id: 471
   time: '2026-10-05T18:59:58.116086+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/133
+- author: kuro964
+  changes:
+  - message: Fixed Forester spawning randomly in a 8x8 radius around his spawner
+    type: Fix
+  - message: Fixed foam anomalies not apply dehydration effect & buffed foam anomaly
+      damage over time
+    type: Fix
+  - message: Categorized more items properly in personal stashes
+    type: Fix
+  - message: Optimized Military & Monolith free kit vendors
+    type: Tweak
+  - message: Fixed 5.56 magazines in Monolith vendor
+    type: Fix
+  - message: Made whispering with a Russian accent legible
+    type: Tweak
+  - message: Jar of Moonshine can now be refilled at distilleries
+    type: Fix
+  - message: Arf artifact can no longer be put into gun cases
+    type: Fix
+  - message: Hopefully fixed the weird green puddles that occur when mutants bleed
+      w/ reagents that don't evaporate
+    type: Fix
+  id: 472
+  time: '2026-10-05T19:16:08.376675+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/134
 Name: Stalker
 Order: -1
