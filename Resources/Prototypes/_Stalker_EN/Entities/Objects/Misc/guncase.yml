@@ -29,6 +29,9 @@
       - STWeaponModule
       tags:
       - HandGrenade
+    blacklist: # ST:OW
+      tags:
+      - STArtifact
   - type: Clothing
     slots: BACK
   - type: Item
