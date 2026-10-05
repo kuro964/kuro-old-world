@@ -4216,5 +4216,12 @@
   id: 468
   time: '2026-10-05T05:54:27.491914+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/128
+- author: Whiffets
+  changes:
+  - message: Change meatman inventory for event reasons
+    type: Tweak
+  id: 469
+  time: '2026-10-05T08:42:16.918741+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/129
 Name: Stalker
 Order: -1
