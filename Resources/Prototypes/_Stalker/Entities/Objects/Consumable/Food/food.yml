@@ -167,6 +167,8 @@
         reagents:
         - ReagentId: Nutriment
           Quantity: 20
+  - type: RepositoryItem # ST:OW
+    categoryName: repository-consumables-category
 
 - type: entity
   parent: STFoodBreadBase
