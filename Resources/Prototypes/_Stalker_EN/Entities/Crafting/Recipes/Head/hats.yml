@@ -13,3 +13,28 @@
       amount: 1
     STCraftBasicThreadKitT1:
       amount: 1
+
+#ST:OW additional recipe
+- type: craftRecipe
+  id: recipeClothingHeadHatFlowerWreath
+  resultProtos:
+    - ClothingHeadHatFlowerWreath
+  craftTime: 7
+  items:
+    ClothingHeadHatFlowerWreathBlueprint:
+      amount: 1
+      catalyzer: true
+    StalkerFoodYatrishnik:
+      amount: 1
+    StalkerFoodAir:
+      amount: 1
+    StalkerFoodlapchatka:
+      amount: 1
+    StalkerFoodLipa:
+      amount: 1
+    StalkerFoodLandish:
+      amount: 1
+    StalkerFoodVoronec:
+      amount: 1
+    StalkerFoodOchanka:
+      amount: 1

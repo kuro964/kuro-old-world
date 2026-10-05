@@ -5,3 +5,12 @@
   components:
     - type: STBlueprint
       blueprint: recipeClothingHeadHatSmuggler
+
+#ST:OW additional blueprint
+- type: entity
+  parent: STBaseBlueprint
+  id: ClothingHeadHatFlowerWreathBlueprint
+  name: flower wreath blueprint
+  components:
+    - type: STBlueprint
+      blueprint: recipeClothingHeadHatFlowerWreath
