@@ -42,4 +42,5 @@
       quickEquip: false
       slots:
         - BELT
-  
+    - type: RepositoryItem
+      categoryName: repository-artifacts-category
