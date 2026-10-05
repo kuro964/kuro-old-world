@@ -1213,6 +1213,12 @@
     - id: ClothingLegsBoxersMilitary
       prob: .01
       orGroup: GiftPool
+    - id: ClothingEyesGlassesRedRound
+      prob: .1
+      orGroup: GiftPool
+    - id: ClothingMaskGasM40Hunter
+      prob: .01
+      orGroup: GiftPool
     sound:
       path: /Audio/Effects/unwrap.ogg
 
