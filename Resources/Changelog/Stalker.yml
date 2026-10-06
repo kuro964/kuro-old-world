@@ -4280,5 +4280,12 @@
   id: 474
   time: '2026-10-06T11:02:45.545948+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/138
+- author: Allias12
+  changes:
+  - message: Scientist Jackets
+    type: Add
+  id: 475
+  time: '2026-10-06T20:51:09.203945+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/139
 Name: Stalker
 Order: -1
