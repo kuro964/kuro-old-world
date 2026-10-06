@@ -278,6 +278,12 @@
         ClothingOuterCoatLoyalistLight: 2500
         ClothingOuterCoatLoyalist: 3000
         ClothingOuterCoatEmergencyResourcePouch: 1750
+        STOWClothingOuterCoatLabChem: 2500
+        STOWClothingOuterCoatLabSeniorResearcher: 2500
+        STOWClothingOuterCoatLabSeniorPhysician: 2500
+        STOWClothingOuterCoatRobo: 2500
+        STOWClothingOuterCoatLabCmo: 2500
+        STOWClothingOuterCoatRD: 2500
           # Gasmasks
         ClothingMaskXoma: 300 # T1
         STClothingMaskGasPPM88: 1000 # T2

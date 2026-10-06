@@ -1,0 +1,120 @@
+﻿- type: entity
+  parent: [STClothingCapeBase, ClothingOuterStorageFoldableBase]
+  id: STOWClothingOuterCoatLabChem
+  name: Chemist's Lab Coat
+  description: A jacket designed to fit over SSPs. Chemist variant to denote specialties in the Institute.
+  suffix: STOW, T3  
+  components:
+    - type: Sprite
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoatchem.rsi
+    - type: Clothing
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoatchem.rsi
+    - type: Storage
+      maxItemSize: Normal
+      blacklist:
+        tags:
+          - STArtifact
+      grid:
+        - 0,4,0,5
+        - 0,0,0,2
+        - 2,4,2,5
+        - 2,1,3,2
+        - 4,4,4,5
+        - 5,1,6,2
+        - 6,4,6,5
+        - 8,4,8,5
+        - 8,0,8,2
+    - type: UserInterface
+      interfaces:
+        enum.StorageUiKey.Key:
+          type: StorageBoundUserInterface
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, STOWClothingOuterCoatLabChem]
+  id: STOWClothingOuterCoatLabChemOpened
+  name: Chemist Lab Coat
+
+- type: entity
+  parent: [STOWClothingOuterCoatLabChem, ClothingOuterStorageFoldableBase]
+  id: STOWClothingOuterCoatLabSeniorResearcher
+  name: Senior Researcher's Lab Coat
+  description: A jacket designed to fit over SSPs. Senior Researcher variant to denote specialties in the Institute.
+  suffix: STOW, T3  
+  components:
+    - type: Sprite
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_senior_researcher.rsi
+    - type: Clothing
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_senior_researcher.rsi
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, STOWClothingOuterCoatLabSeniorResearcher]
+  id: STOWClothingOuterCoatLabSeniorResearcherOpened
+  name: Senior Researcher's Lab Coat
+    
+- type: entity
+  parent: [STOWClothingOuterCoatLabChem, ClothingOuterStorageFoldableBase]
+  id: STOWClothingOuterCoatLabSeniorPhysician
+  name: Senior Physician's Lab Coat
+  description: A jacket designed to fit over SSPs. Senior Physician variant to denote specialties in the Institute.
+  suffix: STOW, T3
+  components:
+    - type: Sprite
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoatseniorphys.rsi
+    - type: Clothing
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoatseniorphys.rsi
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, STOWClothingOuterCoatLabSeniorPhysician]
+  id: STOWClothingOuterCoatLabSeniorPhysicianOpened
+  name: Senior Physician's Lab Coat
+
+- type: entity
+  parent: [STOWClothingOuterCoatLabChem, ClothingOuterStorageFoldableBase]
+  id: STOWClothingOuterCoatRobo
+  name: Engineer's Lab Coat
+  description: A jacket designed to fit over SSPs. Engineer variant to denote specialties in the Institute.
+  suffix: STOW, T3
+  components:
+    - type: Sprite
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_robo.rsi
+    - type: Clothing
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_robo.rsi
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, STOWClothingOuterCoatRobo]
+  id: STOWClothingOuterCoatRoboOpened
+  name: Engineer's Lab Coat
+  
+- type: entity
+  parent: [STOWClothingOuterCoatLabChem, ClothingOuterStorageFoldableBase]
+  id: STOWClothingOuterCoatLabCmo
+  name: Chief Medical Officer's Lab Coat
+  description: A jacket designed to fit over SSPs. CMO variant to denote specialties in the Institute.
+  suffix: STOW, T3  
+  components:
+    - type: Sprite
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_cmo.rsi
+    - type: Clothing
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_cmo.rsi
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, STOWClothingOuterCoatLabCmo]
+  id: STOWClothingOuterCoatLabCmoOpened
+  name: Chief Medical Officer's Lab Coat
+
+- type: entity
+  parent: [STOWClothingOuterCoatLabChem, ClothingOuterStorageFoldableBase]
+  id: STOWClothingOuterCoatRD
+  name: Research Director's Lab Coat
+  description: A jacket designed to fit over SSPs. Research Director's variant to denote specialties in the Institute.
+  suffix: STOW, T3  
+  components:
+    - type: Sprite
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_rd.rsi
+    - type: Clothing
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_rd.rsi
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, STOWClothingOuterCoatRD]
+  id: STOWClothingOuterCoatRDOpened
+  name: Research Director's Lab Coat
