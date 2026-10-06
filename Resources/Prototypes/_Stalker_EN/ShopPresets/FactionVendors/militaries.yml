@@ -9,7 +9,6 @@
     priority: 1
     items:
       # ow changes begin
-      STWeaponRifleAKMC: 1
       STWeaponRifleAK74M: 3
       STWeaponRifleRPK74: 6
       STWeaponRifleOC14: 5
@@ -257,8 +256,7 @@
       # STWeaponRifleStalkerAbakan: 2500
       # 7.62
       STWeaponSniperSKS: 800
-      STWeaponRifleAKMC: 600
-      STWeaponRifleAKM: 1200
+      STWeaponRifleAKMC: 1200
       # Snipers
       STWeaponSniperMosin: 850
 
@@ -328,7 +326,7 @@
       radioprotectpill: 20
       Bloodpack: 20
       psyblock: 75
-      STTourniquet: 40
+      STTourniquet: 600
       Defibrillator: 200
 
   - name: shop-category-provisions
