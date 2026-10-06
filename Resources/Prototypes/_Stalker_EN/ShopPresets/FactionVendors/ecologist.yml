@@ -357,6 +357,9 @@
         Pen: 5
         BoxFolderClipboardEmpty: 20 # Clipboard
         STEcoClipboard: 20 # Cool Clipboard
+        BoxFolderBlue: 250
+        BoxFolderWhite: 250
+        BoxFolderBlack: 250
 
     - name: shop-category-customization
       priority: 12

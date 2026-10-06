@@ -396,8 +396,6 @@
       STFlashlightSeclite: 50
       PowerCellHyper: 50
       HandheldGPSBasic: 50
-      Paper: 2
-      Pen: 5
       Binocularus1: 1000
       BoxFlare: 60
       ClothingBackpackDuffelGreenStalkerHydroponic: 500
@@ -544,9 +542,19 @@
       CraftChemicalCleaningKit: 8000
       ElectronicDetectorT1: 2000 # EN
       ElectronicDetectorT2: 15000 # OW Shop Change End
+      
+  - name: shop-category-paperwork
+    priority: 15
+    items:
+      BoxFolderClipboardEmpty: 20 # Clipboard
+      Paper: 2
+      Pen: 5
+      BoxFolderBlue: 250
+      BoxFolderWhite: 250
+      BoxFolderBlack: 250
 
   - name: Smokables #explained using D&D lifestyle expenses
-    priority: 15
+    priority: 16
     items:
       CigPackBub: 250 #comfortable
       CigPackGreen: 150 #poor
