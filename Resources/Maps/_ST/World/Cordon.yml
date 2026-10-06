@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 09/17/2026 08:36:15
-  entityCount: 22701
+  time: 10/06/2026 03:38:28
+  entityCount: 22707
 maps:
 - 1
 grids:
@@ -108817,15 +108817,11 @@ entities:
     - type: Transform
       pos: -150.5,-4.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -34.566254
   - uid: 1739
     components:
     - type: Transform
       pos: -160.5,0.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -34.566254
 - proto: BrokenMachineS6
   entities:
   - uid: 1740
@@ -108833,15 +108829,11 @@ entities:
     - type: Transform
       pos: -151.5,-4.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -34.566254
   - uid: 1741
     components:
     - type: Transform
       pos: -159.5,-0.5
       parent: 1
-    - type: ElectronicsSearchable
-      timeBeforeNextSearch: -34.566254
 - proto: BulletHoles1Stalker
   entities:
   - uid: 1743
@@ -114818,6 +114810,41 @@ entities:
     - type: Fixtures
       fixtures: {}
   - uid: 4334
+    components:
+    - type: Transform
+      pos: 65.5,353.5
+      parent: 1
+    - type: Fixtures
+      fixtures: {}
+  - uid: 4336
+    components:
+    - type: Transform
+      pos: 51.5,331.5
+      parent: 1
+    - type: Fixtures
+      fixtures: {}
+  - uid: 4337
+    components:
+    - type: Transform
+      pos: 61.5,331.5
+      parent: 1
+    - type: Fixtures
+      fixtures: {}
+  - uid: 4338
+    components:
+    - type: Transform
+      pos: 81.5,344.5
+      parent: 1
+    - type: Fixtures
+      fixtures: {}
+  - uid: 4339
+    components:
+    - type: Transform
+      pos: 41.5,350.5
+      parent: 1
+    - type: Fixtures
+      fixtures: {}
+  - uid: 4340
     components:
     - type: Transform
       pos: 65.5,353.5
@@ -142457,6 +142484,13 @@ entities:
     components:
     - type: Transform
       pos: 75.5,439.5
+      parent: 1
+- proto: Lobby-Clear-Sky
+  entities:
+  - uid: 4341
+    components:
+    - type: Transform
+      pos: -154.5,-7.5
       parent: 1
 - proto: Lobby-Kordon-SciBase
   entities:
@@ -203737,8 +203771,8 @@ entities:
       pos: 182.5,280.5
       parent: 1
     - type: SpawnOnApproach
-      minOffset: 2
       maxOffset: 4
+      minOffset: 2
   - uid: 57856
     components:
     - type: Transform

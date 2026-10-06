@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/04/2026 04:22:12
-  entityCount: 27280
+  time: 10/06/2026 03:37:47
+  entityCount: 27302
 maps:
 - 1
 grids:
@@ -132050,6 +132050,13 @@ entities:
     - type: Transform
       pos: -39.6366,-63.639706
       parent: 1
+- proto: Lobby-Clear-SkyUncollide
+  entities:
+  - uid: 27281
+    components:
+    - type: Transform
+      pos: 2.5,-103.5
+      parent: 1
 - proto: LockerBig
   entities:
   - uid: 3911
@@ -161524,6 +161531,53 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 197.5,65.5
       parent: 1
+- proto: StalkerPaciTriggerOut
+  entities:
+  - uid: 27282
+    components:
+    - type: Transform
+      pos: 2.5,-104.5
+      parent: 1
+  - uid: 27283
+    components:
+    - type: Transform
+      pos: 1.5,-104.5
+      parent: 1
+  - uid: 27284
+    components:
+    - type: Transform
+      pos: 1.5,-103.5
+      parent: 1
+  - uid: 27285
+    components:
+    - type: Transform
+      pos: 1.5,-102.5
+      parent: 1
+  - uid: 27286
+    components:
+    - type: Transform
+      pos: 2.5,-102.5
+      parent: 1
+  - uid: 27287
+    components:
+    - type: Transform
+      pos: 2.5,-103.5
+      parent: 1
+  - uid: 27288
+    components:
+    - type: Transform
+      pos: 3.5,-103.5
+      parent: 1
+  - uid: 27289
+    components:
+    - type: Transform
+      pos: 3.5,-102.5
+      parent: 1
+  - uid: 27290
+    components:
+    - type: Transform
+      pos: 3.5,-104.5
+      parent: 1
 - proto: StalkerPassTrain
   entities:
   - uid: 9104
@@ -183498,6 +183552,70 @@ entities:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 214.12408,16.245094
+      parent: 1
+- proto: STPvpZoneTriggerFactionIn
+  entities:
+  - uid: 27291
+    components:
+    - type: Transform
+      pos: 3.5,-104.5
+      parent: 1
+  - uid: 27292
+    components:
+    - type: Transform
+      pos: 2.5,-104.5
+      parent: 1
+  - uid: 27293
+    components:
+    - type: Transform
+      pos: 1.5,-104.5
+      parent: 1
+  - uid: 27294
+    components:
+    - type: Transform
+      pos: 1.5,-103.5
+      parent: 1
+  - uid: 27295
+    components:
+    - type: Transform
+      pos: 1.5,-102.5
+      parent: 1
+  - uid: 27296
+    components:
+    - type: Transform
+      pos: 2.5,-102.5
+      parent: 1
+  - uid: 27297
+    components:
+    - type: Transform
+      pos: 3.5,-102.5
+      parent: 1
+  - uid: 27298
+    components:
+    - type: Transform
+      pos: 3.5,-102.5
+      parent: 1
+  - uid: 27299
+    components:
+    - type: Transform
+      pos: 3.5,-103.5
+      parent: 1
+  - uid: 27300
+    components:
+    - type: Transform
+      pos: 2.5,-103.5
+      parent: 1
+  - uid: 27302
+    components:
+    - type: Transform
+      pos: 30.5,46.5
+      parent: 1
+- proto: STPvpZoneTriggerFactionOut
+  entities:
+  - uid: 27301
+    components:
+    - type: Transform
+      pos: 30.5,44.5
       parent: 1
 - proto: STReinforcedWindow
   entities:
