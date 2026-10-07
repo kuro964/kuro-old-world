@@ -340,6 +340,12 @@
   - name: shop-category-raincoats-and-gasmasks
     priority: 8
     items:
+      #Scientist Cloaks
+      STOWClothingOuterCoatLabChem: 2500
+      STOWClothingOuterCoatLabSeniorPhysician: 2500
+      STOWClothingOuterCoatRobo: 2500
+      STOWClothingOuterCoatLabCmo: 2500
+      STOWClothingOuterCoatLabMeteorologist: 2500
       # Cloaks
       ClothingOuterCoatDoshdevik: 60 # T1
       ClothingOuterCoatStalker: 350 # T2

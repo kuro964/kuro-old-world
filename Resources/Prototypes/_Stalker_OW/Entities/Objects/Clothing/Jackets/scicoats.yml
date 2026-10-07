@@ -118,3 +118,20 @@
   parent: [ClothingOuterStorageFoldableBaseOpened, STOWClothingOuterCoatRD]
   id: STOWClothingOuterCoatRDOpened
   name: Research Director's Lab Coat
+
+- type: entity
+  parent: [ STOWClothingOuterCoatLabChem, ClothingOuterStorageFoldableBase ]
+  id: STOWClothingOuterCoatLabMeteorologist
+  name: Meteorologist's Lab Coat
+  description: A jacket designed by scientists to fit over armor.
+  suffix: STOW, T3
+  components:
+    - type: Sprite
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_CS.rsi
+    - type: Clothing
+      sprite: _Stalker_OW/Objects/Clothing/Coats/labcoat_CS.rsi
+
+- type: entity
+  parent: [ ClothingOuterStorageFoldableBaseOpened, STOWClothingOuterCoatLabMeteorologist ]
+  id: STOWClothingOuterCoatLabMeteorologistOpened
+  name: Meteorologist's Lab Coat
