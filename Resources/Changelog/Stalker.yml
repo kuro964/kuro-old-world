@@ -4287,5 +4287,12 @@
   id: 475
   time: '2026-10-06T20:51:09.203945+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/139
+- author: Remminia
+  changes:
+  - message: Added Labcoats to the CS store.
+    type: Add
+  id: 476
+  time: '2026-10-07T13:53:17.952701+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/141
 Name: Stalker
 Order: -1
