@@ -4294,5 +4294,12 @@
   id: 476
   time: '2026-10-07T13:53:17.952701+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/141
+- author: Allias12
+  changes:
+  - message: Guaranteed Caches in Jupiter and Agroprom
+    type: Add
+  id: 477
+  time: '2026-10-07T20:58:09.550744+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/142
 Name: Stalker
 Order: -1
