@@ -4308,5 +4308,12 @@
   id: 478
   time: '2026-10-08T04:18:19.555466+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/143
+- author: Allias12
+  changes:
+  - message: reduced talon gain for Mili
+    type: Fix
+  id: 479
+  time: '2026-10-08T04:52:56.190195+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/144
 Name: Stalker
 Order: -1
