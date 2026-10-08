@@ -5,33 +5,33 @@
     # Thermal group - 1
     ZoneArtifactFireball: 400
     ZoneArtifactEye: 600
-    ZoneArtifactFlame: 1200
-    ZoneArtifactBunch: 1150
+    ZoneArtifactFlame: 1000
+    ZoneArtifactBunch: 1000
     ZoneArtifactRock: 1000
     ZoneArtifactSun: 1900
     ZoneArtifactRoot: 2100
     ZoneArtifactConflagration: 400
     # Thermal group - 2
-    ZoneArtifactCristall: 2400
-    ZoneArtifactLithosphere: 4800
+    ZoneArtifactCristall: 2000
+    ZoneArtifactLithosphere: 4000
     # Electrical group - 1
     ZoneArtifactSparkler: 400
-    ZoneArtifactBattery: 600
-    ZoneArtifactFlash: 1200
+    ZoneArtifactBattery: 400
+    ZoneArtifactFlash: 1000
     ZoneArtifactAccumulator: 900
     ZoneArtifactDiamond: 1900
-    ZoneArtifactCharger: 1900
-    ArtMoon: 2400
-    ZoneArtifactTesla: 3600
-    ZoneArtifactIce: 4800
+    ZoneArtifactCharger: 475
+    ArtMoon: 2000
+    ZoneArtifactTesla: 3000
+    ZoneArtifactIce: 4000
     # Gravity group - 1
-    ArtMedusa: 400
+    ArtMedusa: 300
     ZoneArtifactFlower: 600
     ZoneArtifactNightStar: 2400
     ZoneArtifactWhirlwind: 450
     ZoneArtifactPebble: 400
     ZoneArtifactRosin: 600
-    ZoneArtifactStoneCube: 1200
+    ZoneArtifactStoneCube: 800
     ZoneArtifactDarkCube: 2800
     # Gravity group - 2
     ZoneArtifactVyvert: 400
@@ -39,20 +39,20 @@
     ZoneArtifactFloodlight: 600
     ZoneArtifactGravi: 1200
     ZoneArtifactGoldfish: 4800
-    ZoneArtifactSpring: 3600
+    ZoneArtifactSpring: 2700
     ZoneArtifactFocus: 3600
     ZoneArtifactStuntman: 4800
     ZoneArtifactDistorter: 4800
     ZoneArtifactSoul: 3600
     ZoneArtifactCompass: 2450
     ZoneArtifactCrucifix: 2800
-    ZoneArtifactThorn: 2500 # kesha whimsy
+    ZoneArtifactThorn: 1915 # kesha whimsy
     ZoneArtifactArf: 410
     # Acidic group - 1
     ZoneArtifactToxic: 500
-    ZoneArtifactCytoplasm: 2100
+    ZoneArtifactCytoplasm: 1215
     ZoneArtifactBlood: 1200
-    ZoneArtifactMeat: 2400
+    ZoneArtifactMeat: 2000
     ZoneArtifactKolobok: 3600
     ZoneArtifactBeer: 750
     # Acidic group - 2

@@ -5,7 +5,7 @@
     # Tier 1
     STCraftSheetCopperT1: 120
     STCraftPlasticFittingT1: 120
-    STCraftPinePlankT1: 120
+    STCraftPinePlankT1: 90
     STCraftGlassT1: 120
     STCraftCottonFabricT1: 120
     STCraftBasicThreadKitT1: 120
@@ -14,7 +14,7 @@
     # Tier 2
     STCraftSheetIronT2: 240
     STCraftPlasticFittingT2: 240
-    STCraftBirchPlankT2: 240
+    STCraftBirchPlankT2: 180
     STCraftGlassT2: 240
     STCraftHideT2: 240
     STCraftTapeKitT2: 240
@@ -23,7 +23,7 @@
     # Tier 3
     STCraftSheetBrassT3: 480
     STCraftPlasticFittingT3: 480
-    STCraftOakPlankT3: 480
+    STCraftOakPlankT3: 280
     STCraftQuartzCrystalT3: 480
     STCraftSturdyHideT3: 480
     STCraftGlueKitT3: 480
@@ -32,7 +32,7 @@
     # Tier 4
     STCraftSheetAluminumT4: 960
     STCraftPlasticFittingT4: 960
-    STCraftYewPlankT4: 960
+    STCraftYewPlankT4: 680
     STCraftSapphireCrystalT4: 960
     STCraftPolymerFabricT4: 960
     STCraftIndustrialThreadStaplesKitT4: 960

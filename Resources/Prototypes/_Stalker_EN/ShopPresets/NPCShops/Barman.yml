@@ -17,11 +17,11 @@
     ZoneArtifactLithosphere: 4860
     # Electrical group - 1
     ZoneArtifactSparkler: 405
-    ZoneArtifactBattery: 475
+    ZoneArtifactBattery: 600
     ZoneArtifactFlash: 1215
     ZoneArtifactAccumulator: 1215
     ZoneArtifactDiamond: 2210
-    ZoneArtifactCharger: 475
+    ZoneArtifactCharger: 1900
     ArtMoon: 2430
     ZoneArtifactTesla: 3645
     ZoneArtifactIce: 4860
@@ -32,7 +32,7 @@
     ZoneArtifactWhirlwind: 550
     ZoneArtifactPebble: 405
     ZoneArtifactRosin: 610
-    ZoneArtifactStoneCube: 850
+    ZoneArtifactStoneCube: 1200
     ZoneArtifactDarkCube: 3645
     # Gravity group - 2
     ZoneArtifactVyvert: 405
@@ -40,19 +40,19 @@
     ZoneArtifactFloodlight: 610
     ZoneArtifactGravi: 1215
     ZoneArtifactGoldfish: 4860
-    ZoneArtifactSpring: 2700
+    ZoneArtifactSpring: 3600
     ZoneArtifactFocus: 3645
     ZoneArtifactStuntman: 4860
     ZoneArtifactDistorter: 4860
     ZoneArtifactSoul: 3645
     ZoneArtifactCompass: 2700
     ZoneArtifactCrucifix: 3190
-    ZoneArtifactThorn: 1910
+    ZoneArtifactThorn: 2500
     ZoneArtifactArf: 1910
 
     # Acidic group - 1
     ZoneArtifactToxic: 490
-    ZoneArtifactCytoplasm: 1215
+    ZoneArtifactCytoplasm: 2100
     ZoneArtifactBlood: 1215
     ZoneArtifactMeat: 2430
     ZoneArtifactKolobok: 3645
@@ -64,39 +64,39 @@
     # Mutant parts
 
     #Boars -------- Health * T * 0.45
-    MutantPartBoarHoof: 130 # T1
-    MutantPartSeasonedBoarHoof: 255 # T2
-    MutantPartOldBoarHoof: 385 # T3
+    MutantPartBoarHoof: 145 # T1
+    MutantPartSeasonedBoarHoof: 300 # T2
+    MutantPartOldBoarHoof: 445 # T3
 
     #Bears ---------
-    MutantPartBearClaw: 245
-    MutantPartBearPaw: 390
-    MutantPartBearEye: 590
-    ClothingHeadBear: 700
+    MutantPartBearClaw: 325
+    MutantPartBearPaw: 455
+    MutantPartBearEye: 660
+    ClothingHeadBear: 750
 
     #T1 -------- Health * 1
-    MutantPartBlindDogTail: 90
-    MutantPartFleshEye: 190
-    FoodMeatSpiderLeg: 30
-    MutantPartCatGland: 290
+    MutantPartBlindDogTail: 105
+    MutantPartFleshEye: 200
+    FoodMeatSpiderLeg: 54
+    MutantPartCatGland: 300
 
     #T2 -------- Health * 1.8
-    MutantPartLeshiyRoot: 515
-    MutantPartPseudodogTail: 285
-    MutantPartSnorkFoot: 475
-    MutantPartPsiDogTail: 400
-    MutantPartFrogLeg: 200
+    MutantPartLeshiyRoot: 600
+    MutantPartPseudodogTail: 325
+    MutantPartSnorkFoot: 545
+    MutantPartPsiDogTail: 445
+    MutantPartFrogLeg: 280
 
     #T3 -------- Health * 3 Modified by Oracle
-    MutantPartBloodsuckerTentacles: 1375
-    MutantPartOraculeEye: 1050
-    MutantPartZombieHand: 570
-    MutantPartPseudogiantHeart: 6800
+    MutantPartBloodsuckerTentacles: 2250
+    MutantPartOraculeEye: 1400
+    MutantPartZombieHand: 850
+    MutantPartPseudogiantHeart: 9050
     ClothingMaskChimera: 75000
     MutantPartChimeraTooth: 37500
-    MutantPartIzlomArm: 815
-    MutantPartBurerBrain: 1500
-    MutantPartControllerBrain: 2625
+    MutantPartIzlomArm: 1350
+    MutantPartBurerBrain: 1750
+    MutantPartControllerBrain: 2950
     MutantPartRustEgg: 1 #barman you fat chud scammer bastard give me more for this
 
     # Meat
