@@ -21,3 +21,11 @@
   components:
     - type: Portal
       cooldown: 5
+# Dark Valley - Old Merc base portal
+- type: entity
+  parent: MapTeleportBase
+  id: DV-Abandoned-bunker-Ladder
+  name: Dark Valley Abandoned Bunker Ladder
+  components:
+    - type: Portal
+      cooldown: 5
