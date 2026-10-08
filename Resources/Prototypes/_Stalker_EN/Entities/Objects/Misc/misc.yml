@@ -56,7 +56,7 @@
     categoryName: repository-miscellaneous-category
   - type: Currency
     price:
-      PremiumSupplyTalons: 1
+      PremiumSupplyTalons: 0
       Roubles: 1
 
 - type: entity
@@ -79,7 +79,7 @@
     categoryName: repository-miscellaneous-category
   - type: Currency
     price:
-      PremiumSupplyTalons: 2
+      PremiumSupplyTalons: 0
       Roubles: 1      
 
 - type: entity
@@ -106,7 +106,7 @@
     categoryName: repository-miscellaneous-category
   - type: Currency
     price:
-      PremiumSupplyTalons: 3
+      PremiumSupplyTalons: 0
       Roubles: 1
 
 - type: entity
