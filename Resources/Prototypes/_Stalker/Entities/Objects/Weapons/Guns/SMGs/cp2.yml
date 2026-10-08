@@ -18,10 +18,10 @@
     - type: Clothing
       sprite: _Stalker/Objects/Weapons/Guns/SMGs/cp2.rsi
     - type: Gun
-      minAngle: 40
-      maxAngle: 70
-      angleIncrease: 3
-      angleDecay: 6
+      minAngle: 55
+      maxAngle: 90
+      angleIncrease: 4
+      angleDecay: 8
       fireRate: 11
       soundGunshot:
         path: /Audio/_Stalker/Effects/Guns/919.ogg

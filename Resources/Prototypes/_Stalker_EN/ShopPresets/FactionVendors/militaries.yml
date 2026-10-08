@@ -9,9 +9,10 @@
     priority: 1
     items:
       # ow changes begin
-      STWeaponRifleAK74M: 3
+      STWeaponRifleOC14: 3
+      STWeaponRifleAK74M: 5
+      STWeaponSMGPP2000: 6 # ST:OW 
       STWeaponRifleRPK74: 6
-      STWeaponRifleOC14: 5
       STWeaponSniperVepr: 8 # 16k is much more reasonable
       # ow changes end
       #STWeaponRifleAK103: 18
@@ -31,6 +32,7 @@
       545PCBoxCink: 6 # ST:OW
       739FMJBoxCink: 6 # ST:OW
       754FMJBoxCink: 6 # ST:OW
+      919PBMBoxCink: 6 # ST:OW
 
   - name: shop-category-grenades
     priority: 4
@@ -74,6 +76,7 @@
       # ST:OW begin
       STModuleSilencerRiflesT2Ru: 3 #Equiv. 6k roubles
       STModuleSilencerSniperT2: 3 #Equiv. 6k roubles
+      STModuleSilencerSMGT2: 3
       # ST:OW end
 
 # stalker ow removes voenstal
