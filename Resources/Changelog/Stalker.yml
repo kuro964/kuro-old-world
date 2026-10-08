@@ -4301,5 +4301,12 @@
   id: 477
   time: '2026-10-07T20:58:09.550744+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/142
+- author: Kirisune
+  changes:
+  - message: Fixed shadows in North-East Garbage
+    type: Fix
+  id: 478
+  time: '2026-10-08T04:18:19.555466+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/143
 Name: Stalker
 Order: -1
