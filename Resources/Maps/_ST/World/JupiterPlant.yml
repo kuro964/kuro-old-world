@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/07/2026 13:43:32
-  entityCount: 8468
+  time: 10/09/2026 08:35:33
+  entityCount: 8464
 maps:
 - 2
 grids:
@@ -715,6 +715,7 @@ entities:
             13940: 53.232037,-149.57938
             13941: 52.544537,-154.7392
             13942: 65.88829,-155.58354
+            14057: 37.566956,-39.595325
         - node:
             angle: 0.3490658503988659 rad
             color: '#FFFFFFFF'
@@ -1033,7 +1034,6 @@ entities:
             321: 26.353527,-42.599937
             322: 40.594994,-40.445095
             323: 40.03628,-42.46045
-            324: 39.6162,-39.865868
             325: 43.703537,-41.715042
             326: 42.493195,-41.41784
             327: 51.950855,-41.979225
@@ -1100,6 +1100,7 @@ entities:
             13929: 78.07871,-129.0056
             13930: 68.09445,-124.957436
             13931: 74.15695,-117.94491
+            14056: 37.05133,-40.743763
         - node:
             color: '#E5D8CBFF'
             id: Basalt6
@@ -1490,6 +1491,7 @@ entities:
             13873: 105.69986,-64.63419
             13936: 75.01633,-136.97589
             13937: 73.96945,-146.15497
+            14055: 31.407238,-40.134388
         - node:
             color: '#CBCBCBFF'
             id: Basalt8
@@ -5740,6 +5742,45 @@ entities:
             783: 51.835796,-19.411724
             784: 50.052578,-21.099546
         - node:
+            color: '#FF4F4425'
+            id: BetonFour
+          decals:
+            14071: 102.51402,-44.650192
+            14072: 102.70152,-44.212692
+            14073: 103.211945,-44.28561
+            14074: 102.930695,-44.62936
+            14075: 103.47236,-44.171024
+            14076: 103.62861,-44.639774
+            14077: 103.28486,-43.87936
+            14078: 103.461945,-43.421024
+            14079: 102.63902,-43.59811
+            14080: 103.055695,-43.81686
+            14081: 102.961945,-43.37936
+            14082: 103.09736,-44.046024
+            14083: 102.774445,-44.139774
+            14084: 103.19111,-44.108524
+            14085: 103.055695,-44.275192
+            14086: 103.211945,-43.59811
+            14087: 102.805695,-43.775192
+            14088: 103.10777,-44.046024
+            14089: 103.17027,-44.952274
+        - node:
+            angle: 1.5707963267948966 rad
+            color: '#FF4F4425'
+            id: BetonFour
+          decals:
+            14090: 102.84736,-44.884647
+            14091: 103.074745,-43.26152
+            14092: 103.07801,-42.87732
+            14093: 103.05457,-42.549194
+        - node:
+            angle: 3.141592653589793 rad
+            color: '#FF4F4425'
+            id: BetonFour
+          decals:
+            14094: 103.124886,-42.76013
+            14095: 103.07801,-43.32263
+        - node:
             color: '#331D1834'
             id: BetonTwo
           decals:
@@ -5789,6 +5830,16 @@ entities:
             12115: 50.006985,-96.9865
             12116: 49.028538,-96.9865
             12117: 48.07806,-96.981674
+        - node:
+            color: '#FFFFFF2E'
+            id: Damaged
+          decals:
+            14062: 31.682453,-39.797424
+            14063: 31.744953,-40.37034
+            14064: 36.578285,-40.412006
+            14065: 37.427143,-39.98573
+            14066: 37.291668,-39.18365
+            14067: 36.916668,-40.24615
         - node:
             color: '#AE9784FF'
             id: Dirt
@@ -5889,6 +5940,13 @@ entities:
             3284: 63,-34
             3285: 65,-20
             3286: 72,-26
+        - node:
+            color: '#FFFFFF47'
+            id: Dirt
+          decals:
+            14068: 36.927086,-40.350315
+            14069: 37.437504,-39.829483
+            14070: 37.447918,-38.80865
         - node:
             color: '#FFFFFFFF'
             id: Dirt
@@ -12958,6 +13016,10 @@ entities:
             13951: 74.48281,-115.61026
             13952: 74.79531,-114.73465
             13953: 75.404686,-115.59463
+            14058: 37.047512,-40.484924
+            14059: 37.391262,-40.109924
+            14060: 37.505844,-39.005756
+            14061: 31.452919,-39.953674
         - node:
             cleanable: True
             color: '#FFFFFFFF'
@@ -12989,7 +13051,6 @@ entities:
             453: 61,-54
             454: 59,-48
             455: 50,-41
-            456: 39,-41
             457: 27,-40
             458: 23,-48
             459: 25,-54
@@ -13027,7 +13088,6 @@ entities:
             481: 62,-45
             482: 55,-46
             483: 47,-40
-            484: 39,-41
             485: 28,-42
             486: 72,-51
         - node:
@@ -25911,18 +25971,6 @@ entities:
     - type: Transform
       pos: 12.5,-7.5
       parent: 2
-  - uid: 1961
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 36.5,-39.5
-      parent: 2
-  - uid: 2029
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 32.5,-39.5
-      parent: 2
   - uid: 2763
     components:
     - type: Transform
@@ -26148,11 +26196,6 @@ entities:
     - type: Transform
       pos: 103.5,-63.5
       parent: 2
-  - uid: 10098
-    components:
-    - type: Transform
-      pos: 103.5,-43.5
-      parent: 2
   - uid: 10119
     components:
     - type: Transform
@@ -26329,12 +26372,12 @@ entities:
     - type: Transform
       pos: -31.5,-81.5
       parent: 2
-- proto: MutantSpawnerBloodsucker_1to2_10
+- proto: MutantSpawnerBloodsucker_1_100
   entities:
-  - uid: 3089
+  - uid: 2029
     components:
     - type: Transform
-      pos: 91.5,-104.5
+      pos: 105.5,-37.5
       parent: 2
 - proto: MutantSpawnerBloodsucker_1to2_100
   entities:
@@ -26342,6 +26385,13 @@ entities:
     components:
     - type: Transform
       pos: -31.5,-85.5
+      parent: 2
+- proto: MutantSpawnerBurer_1_100
+  entities:
+  - uid: 2343
+    components:
+    - type: Transform
+      pos: 33.5,-40.5
       parent: 2
 - proto: MutantSpawnerBurer_1to2_100
   entities:
@@ -26357,13 +26407,6 @@ entities:
     - type: Transform
       pos: 25.5,-17.5
       parent: 2
-- proto: MutantSpawnerCanineT2_1to4_50
-  entities:
-  - uid: 2343
-    components:
-    - type: Transform
-      pos: 10.5,-84.5
-      parent: 2
 - proto: MutantSpawnerChimera_1_100
   entities:
   - uid: 3040
@@ -26371,19 +26414,17 @@ entities:
     - type: Transform
       pos: 60.5,-150.5
       parent: 2
-- proto: MutantSpawnerController_1to2_100
+- proto: MutantSpawnerController_1_100
   entities:
+  - uid: 1710
+    components:
+    - type: Transform
+      pos: 35.5,-40.5
+      parent: 2
   - uid: 2983
     components:
     - type: Transform
-      pos: 34.5,-40.5
-      parent: 2
-- proto: MutantSpawnerController_1to2_75
-  entities:
-  - uid: 3006
-    components:
-    - type: Transform
-      pos: 109.5,-44.5
+      pos: 110.5,-57.5
       parent: 2
 - proto: MutantSpawnerMeleeZombie_1to2_50
   entities:
@@ -26391,11 +26432,6 @@ entities:
     components:
     - type: Transform
       pos: 46.5,-41.5
-      parent: 2
-  - uid: 1710
-    components:
-    - type: Transform
-      pos: 29.5,-45.5
       parent: 2
   - uid: 3053
     components:
@@ -26406,16 +26442,6 @@ entities:
     components:
     - type: Transform
       pos: 25.5,-61.5
-      parent: 2
-  - uid: 3087
-    components:
-    - type: Transform
-      pos: 65.5,-108.5
-      parent: 2
-  - uid: 7283
-    components:
-    - type: Transform
-      pos: 54.5,-80.5
       parent: 2
   - uid: 8459
     components:
@@ -26463,24 +26489,12 @@ entities:
     - type: Transform
       pos: 108.5,-74.5
       parent: 2
-  - uid: 3082
-    components:
-    - type: Transform
-      pos: 9.5,-102.5
-      parent: 2
 - proto: MutantSpawnerOldBoar_1to2_50
   entities:
   - uid: 3007
     components:
     - type: Transform
       pos: 85.5,-25.5
-      parent: 2
-- proto: MutantSpawnerPseudodog_1to2_50
-  entities:
-  - uid: 3081
-    components:
-    - type: Transform
-      pos: 47.5,-108.5
       parent: 2
 - proto: MutantSpawnerRodent_1to2_50
   entities:
@@ -26513,6 +26527,11 @@ entities:
       parent: 2
 - proto: MutantSpawnerSnork_1to2_50
   entities:
+  - uid: 3033
+    components:
+    - type: Transform
+      pos: 49.5,-108.5
+      parent: 2
   - uid: 3034
     components:
     - type: Transform
@@ -26522,6 +26541,11 @@ entities:
     components:
     - type: Transform
       pos: 109.5,-28.5
+      parent: 2
+  - uid: 3058
+    components:
+    - type: Transform
+      pos: 102.5,-39.5
       parent: 2
   - uid: 3063
     components:
@@ -26543,11 +26567,6 @@ entities:
     - type: Transform
       pos: 67.5,-30.5
       parent: 2
-  - uid: 3106
-    components:
-    - type: Transform
-      pos: 26.5,-95.5
-      parent: 2
   - uid: 8449
     components:
     - type: Transform
@@ -26563,36 +26582,39 @@ entities:
     - type: Transform
       pos: 43.5,-28.5
       parent: 2
-- proto: MutantSpawnerSnork_1to4_50
+- proto: MutantSpawnerZombie_1to2_100
   entities:
   - uid: 3037
     components:
     - type: Transform
-      pos: 105.5,-38.5
+      pos: 53.5,-78.5
       parent: 2
-- proto: MutantSpawnerZombie_1to2_25
-  entities:
   - uid: 3041
     components:
     - type: Transform
-      pos: 90.5,-10.5
+      pos: 8.5,-105.5
       parent: 2
-  - uid: 3042
-    components:
-    - type: Transform
-      pos: 66.5,-9.5
-      parent: 2
-- proto: MutantSpawnerZombie_1to2_50
-  entities:
-  - uid: 3033
+  - uid: 3082
     components:
     - type: Transform
       pos: 10.5,-52.5
       parent: 2
-  - uid: 3058
+  - uid: 3087
     components:
     - type: Transform
-      pos: 50.5,-87.5
+      pos: 42.5,-88.5
+      parent: 2
+  - uid: 3106
+    components:
+    - type: Transform
+      pos: 98.5,-88.5
+      parent: 2
+- proto: MutantSpawnerZombie_1to2_25
+  entities:
+  - uid: 3042
+    components:
+    - type: Transform
+      pos: 66.5,-9.5
       parent: 2
 - proto: MutantSpawnerZombie_1to2_75
   entities:
@@ -26606,6 +26628,11 @@ entities:
     - type: Transform
       pos: 97.5,-36.5
       parent: 2
+  - uid: 3081
+    components:
+    - type: Transform
+      pos: 83.5,-10.5
+      parent: 2
 - proto: MutantSpawnerZombie_1to4_50
   entities:
   - uid: 3044
@@ -26613,13 +26640,23 @@ entities:
     - type: Transform
       pos: 51.5,-70.5
       parent: 2
+- proto: MutantSpawnerZombie_1to4_75
+  entities:
+  - uid: 2083
+    components:
+    - type: Transform
+      pos: 9.5,-87.5
+      parent: 2
+  - uid: 3006
+    components:
+    - type: Transform
+      pos: 37.5,-49.5
+      parent: 2
   - uid: 3047
     components:
     - type: Transform
-      pos: 9.5,-9.5
+      pos: 66.5,-108.5
       parent: 2
-- proto: MutantSpawnerZombie_1to4_75
-  entities:
   - uid: 3052
     components:
     - type: Transform
@@ -26629,6 +26666,16 @@ entities:
     components:
     - type: Transform
       pos: 78.5,-91.5
+      parent: 2
+  - uid: 3089
+    components:
+    - type: Transform
+      pos: 9.5,-16.5
+      parent: 2
+  - uid: 3116
+    components:
+    - type: Transform
+      pos: 60.5,-96.5
       parent: 2
 - proto: OldBlackTable
   entities:
@@ -33503,11 +33550,6 @@ entities:
     - type: Transform
       pos: 109.5,-52.5
       parent: 2
-  - uid: 10402
-    components:
-    - type: Transform
-      pos: 110.5,-52.5
-      parent: 2
 - proto: STBrockenSteel
   entities:
   - uid: 1779
@@ -33673,28 +33715,6 @@ entities:
     components:
     - type: Transform
       pos: 25.5,-95.5
-      parent: 2
-  - uid: 5050
-    components:
-    - type: Transform
-      pos: -20.5,-97.5
-      parent: 2
-  - uid: 11046
-    components:
-    - type: Transform
-      pos: 27.5,-96.5
-      parent: 2
-- proto: STCacheT4Spawner5
-  entities:
-  - uid: 11042
-    components:
-    - type: Transform
-      pos: -18.5,-95.5
-      parent: 2
-  - uid: 11047
-    components:
-    - type: Transform
-      pos: 27.5,-94.5
       parent: 2
 - proto: STChairOfficeDark
   entities:
@@ -34738,6 +34758,11 @@ entities:
       parent: 2
 - proto: SteelSolidFloorFallout
   entities:
+  - uid: 3113
+    components:
+    - type: Transform
+      pos: 27.5,-94.5
+      parent: 2
   - uid: 6841
     components:
     - type: Transform
@@ -34772,11 +34797,6 @@ entities:
     components:
     - type: Transform
       pos: -0.5,-100.5
-      parent: 2
-  - uid: 7290
-    components:
-    - type: Transform
-      pos: 27.5,-94.5
       parent: 2
   - uid: 7291
     components:
@@ -39716,11 +39736,6 @@ entities:
     components:
     - type: Transform
       pos: 52.5,-82.5
-      parent: 2
-  - uid: 2083
-    components:
-    - type: Transform
-      pos: 37.5,-38.5
       parent: 2
 - proto: TrashCanS3
   entities:
@@ -58486,6 +58501,28 @@ entities:
     - type: Transform
       pos: -18.5,-93.5
       parent: 2
+- proto: WallRockBasaltDestructible
+  entities:
+  - uid: 1961
+    components:
+    - type: Transform
+      pos: 32.5,-39.5
+      parent: 2
+  - uid: 3112
+    components:
+    - type: Transform
+      pos: 36.5,-39.5
+      parent: 2
+  - uid: 3114
+    components:
+    - type: Transform
+      pos: 37.5,-39.5
+      parent: 2
+  - uid: 3115
+    components:
+    - type: Transform
+      pos: 37.5,-38.5
+      parent: 2
 - proto: WallRustMetalFallout
   entities:
   - uid: 93
@@ -59645,13 +59682,6 @@ entities:
     components:
     - type: Transform
       pos: 33.5,-112.5
-      parent: 2
-- proto: WoodGreenDoorFallout
-  entities:
-  - uid: 8488
-    components:
-    - type: Transform
-      pos: 109.5,-66.5
       parent: 2
 - proto: WoodWhiteDoorFallout
   entities:
