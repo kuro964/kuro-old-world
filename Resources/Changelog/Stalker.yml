@@ -4333,5 +4333,16 @@
   id: 481
   time: '2026-10-09T10:41:19.733873+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/148
+- author: kuro964
+  changes:
+  - message: Upped anomaly spawns in Red Forest
+    type: Tweak
+  - message: Upped anomaly spawns in Rostok
+    type: Tweak
+  - message: Edited Limansk anomalies to be more appropriate for a black zone
+    type: Tweak
+  id: 482
+  time: '2026-10-09T13:26:48.110181+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/149
 Name: Stalker
 Order: -1
