@@ -210,11 +210,13 @@
       - protoId: ZoneAnomalyElectra
         weight: 3
       - protoId: ZoneAnomalySource
-        weight: 2
+        weight: 3
+      - protoId: ZoneAnomalyGarland
+        weight: 3
       
       # Chemical
       - protoId: ZoneAnomalyKissel
-        weight: 4
+        weight: 3
       - protoId: ZoneAnomalyGazirovka
         weight: 3
       - protoId: ZoneAnomalySmoke
@@ -222,15 +224,15 @@
       
       # Gravity
       - protoId: ZoneAnomalyNoGravity
-        weight: 3
+        weight: 2
       - protoId: ZoneAnomalyGravi
-        weight: 3
+        weight: 4
       - protoId: ZoneAnomalySpringboard
         weight: 3
       - protoId: ZoneAnomalyGrabber
-        weight: 3
+        weight: 4
       - protoId: ZoneAnomalyVortex
-        weight: 2
+        weight: 1
       - protoId: ZoneAnomalyGlassShards
         weight: 1
       
@@ -240,43 +242,45 @@
       - protoId: ZoneAnomalySteam
         weight: 3
       - protoId: ZoneAnomalySol
-        weight: 2
+        weight: 3
+      - protoId: ZoneAnomalyWitchesCircle
+        weight: 3
       
       # Psy
       - protoId: ZoneAnomalyLamp
-        weight: 3
-      - protoId: ZoneAnomalyBarabashka
-        weight: 3
+        weight: 0.5
+      - protoId: ZoneAnomalyBarabashka # Thief
+        weight: 1
       - protoId: ZoneAnomalyRift
         weight: 2
       
       # Special
       - protoId: ZoneAnomalyBeer
-        weight: 1
+        weight: 0.5
 
 # Rostok and The Wilds - Stalker EN
 - type: stAnomalyGenerationOptions
   id: STRostokAndWildsGenerationOptions
   options:
-    totalCount: 130
+    totalCount: 180
     anomalyEntries:
       # Electrical
       - protoId: ZoneAnomalySource
-        weight: 4
+        weight: 3
       - protoId: ZoneAnomalyGarland
         weight: 5
       # Chemical
       - protoId: ZoneAnomalySmoke
-        weight: 3
+        weight: 2
       - protoId: ZoneAnomalyGazirovka
-        weight: 5
+        weight: 2
       - protoId: ZoneAnomalyKissel
-        weight: 3
+        weight: 2
       # Gravity
       - protoId: ZoneAnomalyNoGravity
-        weight: 1
+        weight: 0.5
       - protoId: ZoneAnomalyBurden
-        weight: 1
+        weight: 0.5
       - protoId: ZoneAnomalyGravi
         weight: 3
       - protoId: ZoneAnomalySpringboard
@@ -291,13 +295,13 @@
         weight: 1
       # Thermal
       - protoId: ZoneAnomalySteam
-        weight: 2
+        weight: 3
       # Psy
-      - protoId: ZoneAnomalyBarabashka
-        weight: 1
+      - protoId: ZoneAnomalyBarabashka # Thief
+        weight: 0.5
       # Special
       - protoId: ZoneAnomalyBeer
-        weight: 1
+        weight: 0.5
 
 # Limansk - Stalker EN
 - type: stAnomalyGenerationOptions
@@ -305,48 +309,54 @@
   options:
     totalCount: 275
     anomalyEntries:
-      - protoId: ZoneAnomalyKissel
-        weight: 1
-      - protoId: ZoneAnomalyNoGravity
-        weight: 0.3
+      # Electrical
       - protoId: ZoneAnomalyElectra
         weight: 1
-      - protoId: ZoneAnomalyGravi
-        weight: 1
-      - protoId: ZoneAnomalySpringboard
-        weight: 1
-      - protoId: ZoneAnomalyLamp
-        weight: 1
-      - protoId: ZoneAnomalyJarka
-        weight: 1
-      - protoId: ZoneAnomalyGazirovka
-        weight: 1
-      - protoId: ZoneAnomalyBarabashka
+      - protoId: ZoneAnomalyGarland
+        weight: 3
+      - protoId: ZoneAnomalySource
+        weight: 3
+      # Chemical
+      - protoId: ZoneAnomalyKissel
+        weight: 2
+      - protoId: ZoneAnomalyGazirovka # Soda
         weight: 1
       - protoId: ZoneAnomalySmoke
-        weight: 1
-      - protoId: ZoneAnomalySource
-        weight: 1
+        weight: 2
+      # Gravity
       - protoId: ZoneAnomalyGrabber
+        weight: 3
+      - protoId: ZoneAnomalySpringboard
+        weight: 3
+      - protoId: ZoneAnomalyNoGravity
         weight: 1
+      - protoId: ZoneAnomalyGravi
+        weight: 3
+      - protoId: ZoneAnomalyGlassShards
+        weight: 0.1
+      - protoId: ZoneAnomalyVortex
+        weight: 0.5
+      # Thermal
+      - protoId: ZoneAnomalyJarka # Burner
+        weight: 3
       - protoId: ZoneAnomalyWitchesCircle
-        weight: 0.4
+        weight: 3
       - protoId: ZoneAnomalyFreezer
-        weight: 0.25
+        weight: 3
       - protoId: ZoneAnomalySteam
-        weight: 1
+        weight: 3
       - protoId: ZoneAnomalySol
-        weight: 1
+        weight: 3
+      # Psy
+      - protoId: ZoneAnomalyLamp
+        weight: 0.5
+      - protoId: ZoneAnomalyBarabashka # Thief
+        weight: 0.5
       - protoId: ZoneAnomalyRift
-        weight: 1
+        weight: 2
       # Special
       - protoId: ZoneAnomalyBeer
-        weight: 0.2
-      # Gravity
-      - protoId: ZoneAnomalyGlassShards
-        weight: 1
-      - protoId: ZoneAnomalyVortex
-        weight: 0.7
+        weight: 0.1
 
 # Great Swamps
 - type: stAnomalyGenerationOptions
