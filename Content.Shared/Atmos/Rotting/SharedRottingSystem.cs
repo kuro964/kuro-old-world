@@ -123,7 +123,7 @@ public abstract class SharedRottingSystem : EntitySystem
         if (TryComp<MobStateComponent>(uid, out var mobState) && !_mobState.IsDead(uid, mobState))
             return false;
 
-        if (_container.TryGetOuterContainer(uid, Transform(uid), out var container) &&
+        if (_container.TryGetContainingContainer((uid, null, null), out var container) && // ST:OW
             HasComp<AntiRottingContainerComponent>(container.Owner))
         {
             return false;
