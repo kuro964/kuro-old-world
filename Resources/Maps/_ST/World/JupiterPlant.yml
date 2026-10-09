@@ -4,7 +4,7 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/09/2026 10:22:54
+  time: 10/09/2026 10:31:56
   entityCount: 8467
 maps:
 - 2
@@ -25977,12 +25977,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 96.5,-11.5
       parent: 2
-  - uid: 3117
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 78.5,-50.5
-      parent: 2
   - uid: 3118
     components:
     - type: Transform
@@ -26281,6 +26275,18 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 93.5,-105.5
       parent: 2
+  - uid: 2771
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 78.5,-50.5
+      parent: 2
+  - uid: 3117
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 78.5,-70.5
+      parent: 2
   - uid: 4324
     components:
     - type: Transform
@@ -26335,15 +26341,6 @@ entities:
     components:
     - type: Transform
       pos: 37.5,-8.5
-      parent: 2
-    - type: AccessReader
-      accessListsOriginal:
-      - - Seraphims
-  - uid: 2771
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 78.5,-70.5
       parent: 2
     - type: AccessReader
       accessListsOriginal:
