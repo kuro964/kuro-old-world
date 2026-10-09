@@ -4326,5 +4326,12 @@
   id: 480
   time: '2026-10-09T06:23:05.768074+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/147
+- author: Allias12
+  changes:
+  - message: Increased PVE difficulty of Jupiter
+    type: Tweak
+  id: 481
+  time: '2026-10-09T10:41:19.733873+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/148
 Name: Stalker
 Order: -1
