@@ -758,6 +758,7 @@
   name: куст
   description: Древовидное растение, разветвляющееся от самого основания.
   components:
+  - type: IgnorePredictionHit # ST:OW
   - type: Clickable
   - type: Physics
     bodyType: Static
