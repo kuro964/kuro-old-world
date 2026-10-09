@@ -4315,5 +4315,16 @@
   id: 479
   time: '2026-10-08T04:52:56.190195+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/144
+- author: Kirisune
+  changes:
+  - message: Slightly expanded South-West corner of Dark Valley
+    type: Add
+  - message: Turned now abandoned Mercenary base in Dark Valley in to a point of interest
+    type: Tweak
+  - message: Various minor tweaks and fixes to Dark Valley
+    type: Fix
+  id: 480
+  time: '2026-10-09T06:23:05.768074+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/147
 Name: Stalker
 Order: -1
