@@ -4370,5 +4370,14 @@
   id: 483
   time: '2026-10-10T01:41:04.644926+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/150
+- author: kuro964
+  changes:
+  - message: Made every imaginable chemical evaporate over time
+    type: Fix
+  - message: Added missing localizations for some items
+    type: Fix
+  id: 484
+  time: '2026-10-10T15:22:46.238474+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/152
 Name: Stalker
 Order: -1
