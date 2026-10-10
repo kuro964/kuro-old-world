@@ -4386,5 +4386,12 @@
   id: 485
   time: '2026-10-10T16:39:48.182565+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/153
+- author: A-Mimic1
+  changes:
+  - message: PSZ-7 Recipe now makes a normal PSZ-7.
+    type: Fix
+  id: 486
+  time: '2026-10-10T20:16:13.667630+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/155
 Name: Stalker
 Order: -1
