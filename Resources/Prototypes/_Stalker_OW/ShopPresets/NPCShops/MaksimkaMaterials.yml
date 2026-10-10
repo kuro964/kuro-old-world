@@ -3,22 +3,22 @@
   minSellPrice: 5
   itemsForSale:
     # Tier 1
-    STCraftSheetCopperT1: 120
-    STCraftPlasticFittingT1: 120
-    STCraftPinePlankT1: 90
-    STCraftGlassT1: 120
-    STCraftCottonFabricT1: 120
-    STCraftBasicThreadKitT1: 120
-    STCraftBasicPCBT1: 120
+    STCraftSheetCopperT1: 60
+    STCraftPlasticFittingT1: 60
+    STCraftPinePlankT1: 60
+    STCraftGlassT1: 60
+    STCraftCottonFabricT1: 60
+    STCraftBasicThreadKitT1: 60
+    STCraftBasicPCBT1: 60
 
     # Tier 2
-    STCraftSheetIronT2: 240
-    STCraftPlasticFittingT2: 240
-    STCraftBirchPlankT2: 180
-    STCraftGlassT2: 240
-    STCraftHideT2: 240
-    STCraftTapeKitT2: 240
-    STCraftStandardPCBT2: 240
+    STCraftSheetIronT2: 120
+    STCraftPlasticFittingT2: 120
+    STCraftBirchPlankT2: 120
+    STCraftGlassT2: 120
+    STCraftHideT2: 120
+    STCraftTapeKitT2: 120
+    STCraftStandardPCBT2: 120
 
     # Tier 3
     STCraftSheetBrassT3: 480
@@ -48,10 +48,10 @@
     STCraftNanoChipT5: 1920
 
     # Electronic components
-    STCraftBattery: 180
-    STCraftCoil: 180
-    STCraftCapacitor: 180
-    STCraftTransformer: 260
+    STCraftBattery: 120
+    STCraftCoil: 120
+    STCraftCapacitor: 120
+    STCraftTransformer: 120
 
   categories:
     - name: shop-category-tools
