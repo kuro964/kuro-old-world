@@ -785,7 +785,7 @@ public sealed class LoadoutSystem : EntitySystem
         // Unequip items not needed by loadout (to stash)
         foreach (var (item, slot) in itemsToUnequip)
         {
-            if (_inventory.TryUnequip(player, slot, out var unequipped, true, true))
+            if (_inventory.TryUnequip(player, slot, out var unequipped, silent: true, force: false)) // ST:OW
             {
                 if (!_repositorySystem.InsertEquippedItem(player, repository, unequipped.Value))
                 {
@@ -820,27 +820,27 @@ public sealed class LoadoutSystem : EntitySystem
                 entry => entry.index,
                 StringComparer.OrdinalIgnoreCase);
 
-        // Non-artifacts return 0 (loading first)
-        // Artifacts return index + 1 (loading sequentially afterward)
+        // Equip helmets before masks, so conflicting masks go to the player's hands or the ground
+        // Also restore armor w/ artifact slots before any artifacts
         var orderedSlotItems = loadout.SlotItems
-            .OrderBy(slotItem =>
-                artifactSlotIndices.TryGetValue(slotItem.SlotName, out int index) ? index + 1 : 0);
-        int? activeArtifactCount = null;
+            .OrderBy(slotItem => artifactSlotIndices.TryGetValue(slotItem.SlotName, out var index)
+                ? index + 3
+                : slotItem.SlotName == "head" ? 0 : slotItem.SlotName == "mask" ? 2 : 1);
 
         foreach (var slotItem in orderedSlotItems)
         {
             // Validate artifact destination before any equip/move logic occurs
             if (artifactSlotIndices.TryGetValue(slotItem.SlotName, out var artifactSlotIndex))
             {
-                activeArtifactCount ??= _artifactSlots.GetActiveCount(player);
+                var activeArtifactCount = _artifactSlots.GetActiveCount(player);
 
-                if (artifactSlotIndex >= activeArtifactCount.Value)
+                if (artifactSlotIndex >= activeArtifactCount)
                 {
                     missingCount++;
 
                     _sawmill.Debug(
                         $"Skipping artifact slot {slotItem.SlotName} - " +
-                        $"not active (active: {activeArtifactCount.Value}, index: {artifactSlotIndex})");
+                        $"not active (active: {activeArtifactCount}, index: {artifactSlotIndex})");
 
                     continue;
                 }
@@ -854,7 +854,7 @@ public sealed class LoadoutSystem : EntitySystem
                 }
             }
 
-            // Case 1: Item is already equipped
+            // Item is already equipped
             if (equippedBySlot.TryGetValue(slotItem.SlotName, out var slotOccupant))
             {
                 if (IsBlacklistedEntity(slotOccupant.item, loadoutComp))
@@ -871,7 +871,7 @@ public sealed class LoadoutSystem : EntitySystem
 
                     if (equippedIdentifier != slotItem.Identifier)
                     {
-                        _sawmill.Debug($"Smart equip: identifier mismatch for " + $"{slotItem.PrototypeId} - nested items remain in stash");
+                        _sawmill.Debug($"Stash loadout: identifier mismatch for " + $"{slotItem.PrototypeId} - nested items remain in stash");
                     }
                     else
                     {
@@ -882,16 +882,20 @@ public sealed class LoadoutSystem : EntitySystem
                 }
             }
 
-            // Case 2: The item is on the character, but in the wrong slot
+            // The item is on the character, but in the wrong slot
             var movedItem = TryMoveEquippedItemToSlot(player, slotItem, equippedByProto, equippedBySlot, itemsToMove, loadoutComp);
 
             if (movedItem != null)
             {
-                TryRestoreNested(movedItem.Value);
+                if (_inventory.TryGetSlotEntity(player, slotItem.SlotName, out var occupant) &&
+                    occupant.Value == movedItem.Value)
+                    TryRestoreNested(movedItem.Value);
+                else
+                    missingCount++;
                 continue;
             }
 
-            // Case 3: The item is missing entirely
+            // The item is missing entirely
             if (!TryEquipSlotItem(player, repository, slotItem, stashLookup, consumedExistingItems))
             {
                 missingCount++;
@@ -927,37 +931,34 @@ public sealed class LoadoutSystem : EntitySystem
             // Remove from itemsToMove so we don't try to move it twice
             itemsToMove.Remove(item);
 
-            // First, clear the target slot if occupied
-            if (equippedBySlot.TryGetValue(slotItem.SlotName, out var targetOccupant))
+            // ST:OW begin
+            // Do not bypass equipment restrictions or displace an item in a slot 
+            // Withdrawals that are rejected still counts as handled
+            if (IsBlacklistedEntity(item, loadoutComp) ||
+                _inventory.TryGetSlotEntity(player, slotItem.SlotName, out _))
+                return item;
+
+            if (!_inventory.TryUnequip(player, sourceSlot, out var unequipped,
+                    silent: true, force: false))
             {
-                // Target slot has something - it should have been unequipped already
-                // but if not, we can't move here
-                _sawmill.Warning($"Target slot {slotItem.SlotName} still occupied, cannot move");
-                continue;
+                _sawmill.Warning($"Could not unequip {slotItem.PrototypeId} from {sourceSlot}");
+                return item;
             }
 
-            // Unequip from source slot
-            if (!_inventory.TryUnequip(player, sourceSlot, out var unequipped, true, true))
+            if (!_inventory.TryEquip(player, unequipped.Value, slotItem.SlotName,
+                    silent: true, force: false))
             {
-                _sawmill.Warning($"Failed to unequip {slotItem.PrototypeId} from {sourceSlot} for move");
-                continue;
-            }
-
-            // Equip to target slot
-            if (!_inventory.TryEquip(player, unequipped.Value, slotItem.SlotName, true, true))
-            {
-                _sawmill.Warning($"Failed to equip {slotItem.PrototypeId} to {slotItem.SlotName} after move");
-                // Try to put it back
-                if (!_inventory.TryEquip(player, unequipped.Value, sourceSlot, true, true))
+                _sawmill.Warning($"Could not move {slotItem.PrototypeId} to {slotItem.SlotName}");
+                if (!_inventory.TryEquip(player, unequipped.Value, sourceSlot,
+                        silent: true, force: false))
                 {
                     // Couldn't put back - try hands, then drop as last resort
                     if (!_hands.TryPickup(player, unequipped.Value))
-                    {
                         Transform(unequipped.Value).Coordinates = Transform(player).Coordinates;
-                        _sawmill.Warning($"Failed to return item to hands - dropped near player");
-                    }
+                    equippedBySlot.Remove(sourceSlot);
                 }
-                continue;
+                return unequipped.Value;
+                // ST:OW end
             }
 
             // Success! Update tracking
@@ -1010,15 +1011,13 @@ public sealed class LoadoutSystem : EntitySystem
         if (stashItem.SStorageData is IItemStalkerStorage iss)
             _stalkerStorage.SpawnedItem(spawned, iss);
 
-        // Equip before removing from stash - if equip fails, item state is preserved
-        if (!_inventory.TryEquip(player, spawned, slotItem.SlotName, true, true))
-        {
-            if (!_hands.TryPickup(player, spawned))
-            {
-                QueueDel(spawned);
-                return false;
-            }
-        }
+        // ST:OW begin
+        // If two items conflict and cannot be equipped then still withdraw them from stash
+        var equipped = _inventory.TryEquip(player, spawned, slotItem.SlotName,
+            silent: true, force: false);
+        if (!equipped && !_hands.TryPickup(player, spawned))
+            Transform(spawned).Coordinates = Transform(repository.Owner).Coordinates;
+        // ST:OW end
 
         RemoveFromStash(repository, stashItem, stashLookup);
 
@@ -1029,7 +1028,7 @@ public sealed class LoadoutSystem : EntitySystem
             RestoreNestedItems(spawned, slotItem.NestedItems, repository, stashLookup, 0, player, consumedExistingItems);
         }
 
-        return true;
+        return equipped; // ST:OW
     }
 
     private void RestoreNestedItems(

@@ -152,13 +152,19 @@ public sealed class SharedCraftingSystem : EntitySystem
     private void StartLightDoAfter(EntityUid user, EntityUid target, EntityUid used, LightCraftingPrototype prototype, StepDetails step)
     {
         // ST:OW begin
+        // Cooking stations (i.e. Campfires) can be used to cook multiple items at once
+        var fireCooking = step.KeepSecond &&
+            (step.SecondIngredient.Id == "STBonfire" || step.SecondIngredient.Id == "GasStoveS1");
+
         var args = new DoAfterArgs(EntityManager, user, step.Time, new LightCraftDoAfterEvent(prototype, step), target, target, used)
         {
-            NeedHand = true,
+            NeedHand = !fireCooking,
 
             BreakOnHandChange = false,
 
-            BreakOnDropItem = true,
+            BreakOnDropItem = !fireCooking,
+
+            CancelDuplicate = !fireCooking,
 
             BlockDuplicate = true
         };

@@ -254,7 +254,41 @@ public sealed class StalkerRepositorySystem : EntitySystem
         if (!_ui.TryOpenUi(repository, StalkerRepositoryUiKey.Key, user.Value))
             return;
 
-        _ui.SetUiState(repository, StalkerRepositoryUiKey.Key, new RepositoryUpdateState(component.ContainedItems, userItems, component.MaxWeight));
+        // Photographs contain full Base64 images for persistence. Do not send those
+        // bytes to every stash viewer on each UI refresh.
+        var stashUiItems = component.ContainedItems.Select(WithoutPhotoImageForUi).ToList();
+        var userUiItems = userItems.Select(WithoutPhotoImageForUi).ToList();
+        _ui.SetUiState(repository, StalkerRepositoryUiKey.Key, new RepositoryUpdateState(stashUiItems, userUiItems, component.MaxWeight));
+    }
+
+    /// <summary>
+    /// Creates a UI-only copy of photographs, retaining metadata but excluding image
+    /// bytes. The original stash record is never mutated and remains withdrawable.
+    /// </summary>
+    private static RepositoryItemInfo WithoutPhotoImageForUi(RepositoryItemInfo item)
+    {
+        if (item.SStorageData is not PhotoItemStalker photo)
+            return item;
+
+        return new RepositoryItemInfo
+        {
+            Count = item.Count,
+            Entities = item.Entities,
+            ProductEntity = item.ProductEntity,
+            Icon = item.Icon,
+            Name = item.Name,
+            Desc = item.Desc,
+            Weight = item.Weight,
+            SumWeight = item.SumWeight,
+            Category = item.Category,
+            UserItem = item.UserItem,
+            Identifier = item.Identifier,
+            SStorageData = new PhotoItemStalker(photo.PrototypeName, photo.PhotoId, string.Empty, photo.CountVendingMachine)
+            {
+                EngravedMessage = photo.EngravedMessage,
+                CurrentLabel = photo.CurrentLabel
+            }
+        };
     }
 
     private void OnRequestUpdate(EntityUid uid, StalkerRepositoryComponent component,
@@ -525,33 +559,25 @@ public sealed class StalkerRepositorySystem : EntitySystem
     /// <returns>True/False depending on result. True if increased.</returns>
     private bool AddCount(EntityUid item, ref List<RepositoryItemInfo> items)
     {
+        // Storage-containing entities must never be combined.
+        if (items.Count == 0 || HasComp<StorageComponent>(item))
+            return false;
+
+        // Photo conversion encodes the JPEG as Base64. Only convert the candidate
+        // once, rather than once per existing stash UI entry.
+        var convertedList = _stalkerStorageSystem.ConvertToIItemStalkerStorage(item);
+        if (convertedList.Count == 0 || convertedList[0] is not IItemStalkerStorage itemStalker)
+            return false;
+
+        var identifier = itemStalker.Identifier();
         foreach (var element in items)
         {
-            // generates stalker storage data
-            var convertedList = _stalkerStorageSystem.ConvertToIItemStalkerStorage(item);
-            if (convertedList.Count == 0)
-                continue;
-            var ident = convertedList[0];
-            var identifier = string.Empty;
-
-            // gets identifier to determine duplicates
-            if (ident is IItemStalkerStorage itemStalker)
-            {
-                identifier = itemStalker.Identifier();
-            }
-
-            // sieve non-duplicates
             if (identifier != element.Identifier)
                 continue;
 
-            // if it has storageComp, we should not stack it, because of bugs
-            if (HasComp<StorageComponent>(item))
-                continue;
             element.Count++;
-            if (ident is IItemStalkerStorage stalker)
-            {
-                stalker.CountVendingMachine++;
-            }
+            if (element.SStorageData is IItemStalkerStorage existing)
+                existing.CountVendingMachine++;
             return true;
         }
 

@@ -42,7 +42,7 @@ loadout-loaded = Loadout equipped
 loadout-loaded-partial = Loadout equipped. {$missing} {$missing ->
     [one] item
     *[other] items
-} missing from stash
+} could not be equipped (missing or incompatible)
 loadout-deleted = Loadout deleted
 loadout-load-failed = Could not load loadout
 loadout-empty = Nothing to save - no equipment

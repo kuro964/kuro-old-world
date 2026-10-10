@@ -136,7 +136,7 @@
       sprite: _Stalker_EN/Objects/Clothing/hats/Neutral_Vityaz.rsi
       
 - type: entity 
-  parent: ClothingMaskBase
+  parent: STClothingHeadBase
   id: STOWClothingHeadHelmetT3PVEMaskRenegade
   name: Welding Mask 'Buffalo'
   description: A welding mask turned into a weapon. Metal, horns, orange stripes – everything screams aggression. Facing an opponent like this is already half losing.
@@ -147,6 +147,7 @@
       sprite: _Stalker/Objects/Clothing/mask/tegilla_rene.rsi
     - type: Clothing
       sprite: _Stalker/Objects/Clothing/mask/tegilla_rene.rsi
+      equippedState: equipped-MASK
     - type: IdentityBlocker
     - type: Tag
       tags:
