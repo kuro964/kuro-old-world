@@ -421,6 +421,7 @@
 - type: reagent
   id: Ipecac
   name: reagent-name-ipecac
+  evaporationSpeed: 0.15 # ST:OW
   group: Medicine
   desc: reagent-desc-ipecac
   physicalDesc: reagent-physical-desc-inky

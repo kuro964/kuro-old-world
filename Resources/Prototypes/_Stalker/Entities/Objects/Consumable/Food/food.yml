@@ -3,6 +3,7 @@
 - type: reagent
   id: MToxin
   name: reagent-name-mtoxin
+  evaporationSpeed: 0.15 # ST:OW
   parent: Toxin
   desc: reagent-desc-mtoxin
   physicalDesc: reagent-physical-desc-sweet
@@ -47,6 +48,7 @@
 - type: reagent
   id: MRadin
   name: reagent-name-mradin
+  evaporationSpeed: 0.15 # ST:OW
   group: Medicine
   desc: reagent-desc-mradin
   physicalDesc: reagent-physical-desc-cloudy

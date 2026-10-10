@@ -312,6 +312,7 @@
 - type: reagent
   id: ChlorineStalker
   name: reagent-name-chlorine-stalker
+  evaporationSpeed: 0.3 # ST:OW
   group: Elements
   desc: reagent-desc-chemical-weapon
   physicalDesc: reagent-physical-desc-gaseous
@@ -386,6 +387,7 @@
 - type: reagent
   id: IpritStalker
   name: reagent-name-iprit-stalker
+  evaporationSpeed: 0.3 # ST:OW
   group: Elements
   desc: reagent-desc-chemical-weapon
   physicalDesc: reagent-physical-desc-gaseous
@@ -448,6 +450,7 @@
 - type: reagent
   id: LewisiteStalker
   name: reagent-name-lewisite-stalker
+  evaporationSpeed: 0.3 # ST:OW
   group: Elements
   desc: reagent-desc-chemical-weapon
   physicalDesc: reagent-physical-desc-gaseous
@@ -514,6 +517,7 @@
 - type: reagent
   id: HydrocyanicStalker
   name: reagent-name-hydrocyanic-stalker
+  evaporationSpeed: 0.3 # ST:OW
   group: Elements
   desc: reagent-desc-chemical-weapon
   physicalDesc: reagent-physical-desc-gaseous
@@ -569,6 +573,7 @@
 - type: reagent
   id: PhosphorusStalker
   name: reagent-name-phosphorus-stalker
+  evaporationSpeed: 0.3 # ST:OW
   desc: reagent-desc-chemical-weapon
   physicalDesc: reagent-physical-desc-gaseous
   flavor: bitter
@@ -603,6 +608,7 @@
 - type: reagent
   id: DexalinPlusStalker
   name: reagent-name-dexalin-plus-stalker
+  evaporationSpeed: 0.3 # ST:OW
   group: Medicine
   desc: reagent-desc-dexalin-plus-stalker
   physicalDesc: reagent-physical-desc-cloudy

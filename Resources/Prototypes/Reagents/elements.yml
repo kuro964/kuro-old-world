@@ -23,6 +23,7 @@
 - type: reagent
   id: Chlorine
   name: reagent-name-chlorine
+  evaporationSpeed: 0.3 # ST:OW
   group: Elements
   desc: reagent-desc-chlorine
   physicalDesc: reagent-physical-desc-gaseous
@@ -80,6 +81,7 @@
 - type: reagent
   id: Fluorine
   name: reagent-name-fluorine
+  evaporationSpeed: 0.3 # ST:OW
   group: Elements
   desc: reagent-desc-fluorine
   physicalDesc: reagent-physical-desc-gaseous

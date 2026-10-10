@@ -48,6 +48,7 @@
 - type: reagent
   id: NocturneSerum
   name: reagent-name-nocturne-serum
+  evaporationSpeed: 0.15 # ST:OW
   group: Narcotics
   desc: reagent-desc-nocturne-serum
   physicalDesc: reagent-physical-desc-powdery
@@ -70,6 +71,7 @@
 - type: reagent
   id: AirlossSerum
   name: reagent-name-airloss-serum
+  evaporationSpeed: 0.15 # ST:OW
   group: Toxins
   desc: reagent-desc-airloss-serum
   physicalDesc: reagent-physical-desc-pungent
@@ -84,6 +86,7 @@
 
 - type: reagent
   id: STStimulants
+  evaporationSpeed: 0.15 # ST:OW
   name: reagent-name-stimulants
   group: Narcotics
   desc: reagent-desc-stimulants

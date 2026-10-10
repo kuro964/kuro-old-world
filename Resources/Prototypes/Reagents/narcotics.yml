@@ -379,6 +379,7 @@
 - type: reagent
   id: TearGas
   name: reagent-name-tear-gas
+  evaporationSpeed: 0.3 # ST:OW
   group: Narcotics
   desc: reagent-desc-tear-gas
   physicalDesc: reagent-physical-desc-milky

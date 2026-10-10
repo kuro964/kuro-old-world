@@ -1,6 +1,7 @@
 - type: reagent
   id: Toxin
   name: reagent-name-toxin
+  evaporationSpeed: 0.15 # ST:OW
   group: Toxins
   desc: reagent-desc-toxin
   flavor: bitter
@@ -23,6 +24,7 @@
 - type: reagent
   id: CarpoToxin
   name: reagent-name-carpotoxin
+  evaporationSpeed: 0.15 # ST:OW
   group: Toxins
   desc: reagent-desc-carpotoxin
   flavor: bitter
@@ -51,6 +53,7 @@
 - type: reagent
   id: ChloralHydrate
   name: reagent-name-chloral-hydrate
+  evaporationSpeed: 0.15 # ST:OW
   group: Toxins
   desc: reagent-desc-chloral-hydrate
   flavor: bitter
@@ -86,6 +89,7 @@
 - type: reagent
   id: GastroToxin
   name: reagent-name-gastrotoxin
+  evaporationSpeed: 0.15 # ST:OW
   group: Toxins
   desc: reagent-desc-gastrotoxin
   flavor: bitter
@@ -324,6 +328,7 @@
 - type: reagent
   id: Lexorin
   name: reagent-name-lexorin
+  evaporationSpeed: 0.15 # ST:OW
   group: Toxins
   desc: reagent-desc-lexorin
   physicalDesc: reagent-physical-desc-pungent
@@ -340,6 +345,7 @@
 - type: reagent
   id: MindbreakerToxin
   name: reagent-name-mindbreaker-toxin
+  evaporationSpeed: 0.15 # ST:OW
   group: Toxins
   desc: reagent-desc-mindbreaker-toxin
   physicalDesc: reagent-physical-desc-opaque
@@ -427,6 +433,7 @@
 - type: reagent
   id: Amatoxin
   name: reagent-name-amatoxin
+  evaporationSpeed: 0.15 # ST:OW
   group: Toxins
   desc: reagent-desc-amatoxin
   physicalDesc: reagent-physical-desc-nondescript
