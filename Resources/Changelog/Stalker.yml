@@ -4344,5 +4344,31 @@
   id: 482
   time: '2026-10-09T13:26:48.110181+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/149
+- author: kuro964
+  changes:
+  - message: Fixed stacked meats curing into one piece of jerky
+    type: Fix
+  - message: REALLY fixed Forester spawning wherever he pleased
+    type: Fix
+  - message: Fixed the Renegades buffalo mask being equipable with helmets
+    type: Fix
+  - message: Fixed the insulated pouch not keeping meats fresh
+    type: Fix
+  - message: Fixed emission protection disablers near a teleport in Cordon
+    type: Fix
+  - message: Removed incorrect roofing in Cordon to remove a dark spot
+    type: Fix
+  - message: Shooting through reeds and bushes no longer glitches your movement
+    type: Fix
+  - message: Fixed a bug that allowed you to wear a Vityaz w/ its visor down and a
+      mask
+    type: Fix
+  - message: Optimized storing pictures in stashes
+    type: Tweak
+  - message: Re-added the ability to cook multiple meats at once at campfires & stoves
+    type: Tweak
+  id: 483
+  time: '2026-10-10T01:41:04.644926+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/150
 Name: Stalker
 Order: -1
