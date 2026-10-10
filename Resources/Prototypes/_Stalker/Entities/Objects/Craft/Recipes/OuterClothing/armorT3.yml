@@ -28,7 +28,7 @@
 - type: craftRecipe
   id: newrecipeSTClothingOuterArmorLightPlateVestBasePSZ7
   resultProtos:
-    - STClothingOuterArmorLightPlateVestBasePSZ7
+    - STClothingOuterArmorLightPlateVestBasePSZ7v3
   craftTime: 10
   items:
     STClothingOuterArmorLightPlateVestBasePSZ7Blueprint:
