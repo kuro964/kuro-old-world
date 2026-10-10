@@ -4379,5 +4379,12 @@
   id: 484
   time: '2026-10-10T15:22:46.238474+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/152
+- author: Remminia
+  changes:
+  - message: Made the western side of the electrical anomaly field more obvious.
+    type: Add
+  id: 485
+  time: '2026-10-10T16:39:48.182565+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/153
 Name: Stalker
 Order: -1
