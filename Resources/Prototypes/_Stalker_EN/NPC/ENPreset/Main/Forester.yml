@@ -80,11 +80,18 @@
   parent: STBaseTrigger125
   suffix: ST, Trigger
   components:
+  # ST:OW begin
   - type: SpawnOnApproach
     prototypes:
-    - NPCForesterCordonEN
+      - NPCForesterCordonEN
     restricted:
-    - NPCForesterCordonEN
+      - NPCForesterCordonEN
+    minAmount: 1
+    maxAmount: 1
+    minOffset: 0
+    maxOffset: 0
+    chance: 1
+    # ST:OW end
   - type: STAnomalyGeneratorSpawnBlocker
     size: 5
   - type: EmissionLightningSpawnBlocker
