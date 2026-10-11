@@ -4408,5 +4408,12 @@
   id: 488
   time: '2026-10-11T16:18:17.727598+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/156
+- author: Remminia
+  changes:
+  - message: Hydroponics to Ecology
+    type: Add
+  id: 489
+  time: '2026-10-11T22:01:39.822572+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/157
 Name: Stalker
 Order: -1
