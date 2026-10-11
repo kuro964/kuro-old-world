@@ -4393,5 +4393,13 @@
   id: 486
   time: '2026-10-10T20:16:13.667630+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/155
+- author: Allias12
+  changes:
+  - message: Lowered the amount of mutant damage for T3 bullets. Especially for high
+      cal (39, 51)
+    type: Tweak
+  id: 487
+  time: '2026-10-11T02:38:51.128517+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/154
 Name: Stalker
 Order: -1
