@@ -132,6 +132,11 @@
        mpda_on
   - type: PdaBorderColor
     borderColor: "#285714"
+  - type: HandheldGPS
+  - type: Tag
+    tags:
+    - GPS
+    - Flashlight
   - type: Pda # stalker-en-changes-start
     penSlot:
       startingItem: Pen
