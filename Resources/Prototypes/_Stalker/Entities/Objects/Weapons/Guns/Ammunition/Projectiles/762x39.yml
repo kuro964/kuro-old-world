@@ -13,7 +13,7 @@
     damage:
       types:
         Piercing: 25 #OW, -30%dmg
-        Mutant: 34 # EN
+        Mutant: 12 # EN
   # - type: StaminaDamageOnCollide
     # damage: 4
 
