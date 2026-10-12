@@ -1,0 +1,55 @@
+﻿- type: shopPreset
+  id: NpcPovarGena
+  minSellPrice: 5
+  itemsForSale:
+    FoodTinMRETrash: 0
+    FoodTinPeachesTrash: 0
+    FoodTinBeansTrash: 0
+    
+  categories: 
+    - name: shop-category-enlisted-meals #You will eat slop and you will like it.
+      priority: 1
+      items:
+        FoodBreadPlainSlice: 2
+        FoodCheeseSlice: 25
+        STFoodMeatSalami: 100
+        FoodMeatMeatballCooked: 35
+        FoodSoupTomato: 130
+        FoodSoupPea: 130
+        FoodNoodlesBoiled: 65
+        FoodSnackMREBrownie: 20
+        
+    - name: shop-category-officer-meals #Finally some real food!
+      priority: 2
+      items:
+        FoodBoxDonut: 499
+        FoodPizzaMeat: 475
+        FoodPizzaMushroom: 430
+        FoodPizzaPineapple: 430
+        FoodMeatChickenFried: 75
+        FoodMeatBaconCooked: 100
+        FoodMeatChickenCooked: 85
+        FoodMeatCrabCooked: 199
+        FoodBreadGarlicSlice: 45
+        FoodBreadBaguette: 90
+        FoodSoupEscargot: 275
+        FoodSoupBisque: 120
+        FoodNoodlesMeatball: 185
+        FoodPieMeat: 250
+        FoodPieApple: 225
+        FoodBakedBrownie: 50
+        FoodCakeBirthday: 2500
+        
+    - name: shop-category-drinks #It's just water.
+      priority: 3
+      items:
+        DrinkWaterBottleFull: 25
+        DrinkMREFlask: 35
+        
+    - name: shop-category-other #Plates and utensils!
+      priority: 4
+      items:
+        FoodPlateSmall: 10
+        FoodPlate: 10
+        Fork: 10
+        Spoon: 10

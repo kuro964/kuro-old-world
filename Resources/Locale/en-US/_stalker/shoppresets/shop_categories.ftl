@@ -32,3 +32,6 @@ shop-category-cassettes = Cassettes
 shop-category-donator = Donator Cassettes
 
 shop-category-drinks = Drinks
+shop-category-enlisted-meals = Enlisted Meals
+shop-category-officer-meals = Officer Meals
+

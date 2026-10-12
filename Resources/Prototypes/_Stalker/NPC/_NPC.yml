@@ -737,9 +737,9 @@
     interfaces:
       enum.ShopUiKey.Key:
         type: ShopBoundUserInterface
-  # - type: Shop  #Commented, shop-preset wiped
-    # moneyId: Roubles
-    # shopPresetId: NpcPovarGena  #If you uncomment it - CHANGE SHOP PRESET
+  - type: Shop  
+    moneyId: Roubles
+    shopPresetId: NpcPovarGena  #If you uncomment it - CHANGE SHOP PRESET
   - type: TypingIndicator
     proto: robot
   - type: TTS # Corvax-TTS
