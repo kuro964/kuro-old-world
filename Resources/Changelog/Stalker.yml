@@ -4424,5 +4424,14 @@
   id: 490
   time: '2026-10-12T06:23:49.550554+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/158
+- author: Allias12
+  changes:
+  - message: merc shop
+    type: Tweak
+  - message: readded stats to ANA
+    type: Tweak
+  id: 491
+  time: '2026-10-13T15:53:59.097992+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/159
 Name: Stalker
 Order: -1
