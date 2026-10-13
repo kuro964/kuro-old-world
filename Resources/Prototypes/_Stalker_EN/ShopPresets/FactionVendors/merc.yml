@@ -146,6 +146,14 @@
         Base751Mag10: 200
         751Mag20: 400
         751Mag30: 500
+        # 5,45x39
+        Base545Mag10: 50 # T1
+        545Mag20: 220 # T2
+        545Mag30: 400 # T3
+        # 7,62x54 and 39
+        Base739Mag10: 200
+        739Mag30: 500
+        754Mag10: 450        
         # .45
         UMPMag25: 190
         USPMag12: 170
@@ -179,8 +187,15 @@
         556FMJBox: 500 # T2
         556WarmagBox: 500 # Mutant
         556M855Box: 925 # T3
+        # 5.45
+        545FMJBox: 500 # T2
+        545HPBox: 400 # Mutant
+        545PCBox: 1000 # T3
+        # 7.39
+        739FMJBox: 1000 # T3
+        739HPBox: 650 # Mutant
         # 7.51
-        751M80Box: 1250 # T3
+        751M80Box: 1000 # T3
         751UNBox: 650 # Mutant
 
     - name: shop-category-medicine
@@ -198,7 +213,10 @@
         Bloodpack: 250
         psyblock: 350
         MedkitAI2: 200
-        MedkitMilitary: 400
+        MedkitMilitary: 300
+        MedkitScience: 300
+        MedkitElite: 400
+        MedkitLAR: 500        
         Defibrillator: 1000
 
     - name: shop-category-provisions
@@ -224,9 +242,11 @@
         ClothingOuterJacketMerc: 50 # T1
         #STClothingOuterArmorLightPlateVestBaseMerc: 1100 # ST:OW
         ClothingOuterArmorSevaMerc: 4600 # T3 - ENV
-      # STOWClothingOuterArmorT3VestMercenary: 14000 # ST:OW T3 - PvP - Removed for PVP health.
+        STOWClothingOuterArmorT3VestMercenary: 14000 # ST:OW T3 - PvP - Removed for PVP health.
         SetMerc2BuyableCrate: 12000 # T3 - PvP
         SetMercBuyableCrate: 12000 # T3 - PvP
+        ClothingOuterArmorMerc2: 9000
+        ClothingOuterArmorMerc: 9000
         #Helmets
         ClothingHeadMercLight: 300
         STOWClothingHeadHelmetT3PVPMerc: 3000 # T3 - PvP
@@ -355,6 +375,7 @@
       items:
         KhattabkaGrenade: 450
         DG05SmokeGrenade: 425
+        RGD5Grenade: 500        
 
     - name: shop-category-customization
       priority: 14

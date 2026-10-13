@@ -217,7 +217,7 @@
   parent: STClothingOuterArmorBase
   id: ClothingOuterArmorMerc
   name: бронекомбез наёмника
-  description: За основу взяты образцы экипировки спецназа западных армий. За счёт специальной обработки ткани усилена устойчивость брони при физическом смещении пластин. По защитным характеристикам немного превосходит армейские бронежилеты. Обеспечивает 3 класс защиты.
+  description: The design is based on the gear used by Western special forces. Thanks to special fabric treatment, the armor's resistance is improved when the plates shift physically. In terms of protective features, it slightly outperforms army body armor. Provides level 3 protection.
   components:
   - type: Sprite
     sprite: _Stalker/Objects/Clothing/outerClothing/merc_armor.rsi
@@ -255,7 +255,7 @@
   parent: STClothingOuterArmorBase
   id: ClothingOuterArmorMerc2
   name: бронекомбез наёмника
-  description: Имеет камуфляж «Берёзка» в серой расскраске. За основу взяты образцы экипировки спецназа западных армий. За счёт специальной обработки ткани усилена устойчивость брони при физическом смещении пластин. По защитным характеристикам немного превосходит армейские бронежилеты. Обеспечивает 3 класс защиты.
+  description: It has a ‘Beryozka’ camouflage in a gray color scheme. The design is based on special forces gear from Western armies. Thanks to special fabric treatment, the armor's resistance is reinforced when the plates shift physically. In terms of protection, it slightly outperforms standard military body armor. Provides level 3 protection.
   components:
   - type: Sprite
     sprite: _Stalker/Objects/Clothing/outerClothing/merc_armor_2.rsi
@@ -274,6 +274,22 @@
       - 6,3,6,4
       - 8,3,8,4
       - 10,3,10,4
+  - type: Armor
+    armorClass: 3
+    modifiers:
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 6
+      coefficients:
+        Blunt: 0.70
+        Slash: 0.60
+        Piercing: 0.7
+        Compression: 0.95
+        Radiation: 0.95
+        Heat: 0.95
+        Caustic: 0.85
+        Shock: 0.95 
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHatHoodMerc2
     slot: head
