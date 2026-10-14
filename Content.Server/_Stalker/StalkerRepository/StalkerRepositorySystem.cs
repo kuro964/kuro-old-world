@@ -16,6 +16,7 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Database;
 using Content.Shared.Hands;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Implants.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Components;
@@ -64,6 +65,7 @@ public sealed class StalkerRepositorySystem : EntitySystem
     [Dependency] private readonly ISharedPlayerManager _player = default!; // for getting session by mindComp
     [Dependency] private readonly LoadoutSystem _loadoutSystem = default!; // for loadout state updates
     [Dependency] private readonly CrashRecoverySystem _crashRecovery = default!; // stalker-en-changes
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
     private ISawmill _sawmill = default!;
 
     // caching new records in database to get them later inside sponsors stuff
@@ -99,6 +101,8 @@ public sealed class StalkerRepositorySystem : EntitySystem
 
     private void OnLoadoutOperationCompleted(EntityUid uid, StalkerRepositoryComponent component, ref LoadoutOperationCompletedEvent args)
     {
+        _crashRecovery.ImmediateSnapshot(args.Actor);
+
         // First update repository UI (stash contents changed)
         UpdateUiState(args.Actor, args.Repository, component);
 
@@ -344,7 +348,7 @@ public sealed class StalkerRepositorySystem : EntitySystem
                 if (item.Count <= 0)
                     component.ContainedItems.Remove(item);
 
-                EjectItems(GetEntity(msg.Entity), item, msg.Count);
+                EjectItems(GetEntity(msg.Entity), item, msg.Count, msg.Actor);
                 _adminLogger.Add(LogType.Action, LogImpact.Low, $"Player {Name(msg.Actor):user} ejected {msg.Count} {msg.Item.Name} from repository");
                 _stalkerStorageSystem.SaveStorage(component);
                 _crashRecovery.ImmediateSnapshot(msg.Actor);
@@ -593,7 +597,7 @@ public sealed class StalkerRepositorySystem : EntitySystem
     /// <param name="repository">EntityUid of our repository to eject from</param>
     /// <param name="item"><see cref="RepositoryItemInfo"/> to eject</param>
     /// <param name="amount">Amount of items to eject</param>
-    private void EjectItems(EntityUid repository, RepositoryItemInfo item, int amount = 1)
+    private void EjectItems(EntityUid repository, RepositoryItemInfo item, int amount = 1, EntityUid? user = null)
     {
         // get transform of repository to determine coordinates to spawn items
         var xform = Transform(repository);
@@ -615,6 +619,9 @@ public sealed class StalkerRepositorySystem : EntitySystem
                 // usually not used, but still...
                 RemoveItemsInsideContainer(spawned);
             }
+
+            if (user != null)
+                _hands.TryPickupAnyHand(user.Value, spawned);
             amount--;
         }
     }

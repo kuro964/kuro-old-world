@@ -1882,7 +1882,7 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}
                 .ToListAsync();
         }
 
-        public async Task SetCrashRecoveryBatch(Dictionary<string, string> loginToJson)
+        public async Task SetCrashRecoveryBatch(Dictionary<string, string?> loginToJson)
         {
             await using var db = await GetDb();
 

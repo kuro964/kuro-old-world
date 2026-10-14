@@ -31,6 +31,7 @@ using Content.Shared.Crayon;
 using Content.Shared.Labels.Components;
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.Power.Components;
+using Content.Shared.Power.EntitySystems;
 using Content.Shared._Stalker_EN.Camera; // stalker-en-changes: photo persistence
 using Robust.Shared.Prototypes;
 
@@ -41,6 +42,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly StalkerDbSystem _stalkerDbSystem = default!;
     [Dependency] private readonly BatterySystem _batterySys = default!;
+    [Dependency] private readonly PredictedBatterySystem _predictedBattery = default!;
     [Dependency] private readonly StalkerRepositorySystem _stalkerRepositorySystem = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
@@ -151,13 +153,14 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
         {
             Components += "P";
         }
-        if (TryComp(InputItem, out BatteryComponent? _))
+        if (HasComp<BatteryComponent>(InputItem) || HasComp<PredictedBatteryComponent>(InputItem))
         {
             Components += "L";
         }
 
         if (TryComp(InputItem, out SolutionContainerManagerComponent? _) &&
             !HasComp<BatteryComponent>(InputItem) &&
+            !HasComp<PredictedBatteryComponent>(InputItem) &&
             !HasComp<StackComponent>(InputItem) &&
             !HasComp<PaperComponent>(InputItem) &&
             !HasComp<SeedComponent>(InputItem))
@@ -290,9 +293,10 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
     private List<object> ConverterBatteryItemStalker(EntityUid item)
     {
         var returnList = new List<object>(0);
-        if (!TryComp<BatteryComponent>(item, out var battery))
-            return returnList;
-        returnList.Add(new BatteryItemStalker(battery.CurrentCharge, GetPrototypeName(item)));
+        if (TryComp<BatteryComponent>(item, out var battery))
+            returnList.Add(new BatteryItemStalker(battery.CurrentCharge, GetPrototypeName(item)));
+        else if (TryComp<PredictedBatteryComponent>(item, out var predicted))
+            returnList.Add(new BatteryItemStalker(_predictedBattery.GetCharge((item, predicted)), GetPrototypeName(item)));
         return returnList;
     }
 
@@ -397,6 +401,20 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
 
     #region ItemOperations
 
+    private IItemStalkerStorage UpgradeLegacyCell(IItemStalkerStorage item)
+    {
+        if (item is not SolutionItemStalker ||
+            !_prototype.TryIndex<EntityPrototype>(item.PrototypeName, out var proto) ||
+            !proto.TryGetComponent<PredictedBatteryComponent>(out var cell, EntityManager.ComponentFactory))
+            return item;
+
+        return new BatteryItemStalker(cell.StartingCharge, item.PrototypeName, item.CountVendingMachine)
+        {
+            EngravedMessage = item.EngravedMessage,
+            CurrentLabel = item.CurrentLabel,
+        };
+    }
+
     public void LoadStalkerItemsByEntityUid(EntityUid inputEntity)
     {
         var deserializedFromJson = new List<IItemStalkerStorage>();
@@ -419,7 +437,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
             if (item is AmmoContainerStalker ammoContainer)
                 ammoContainer.EntProtoIds = MapPrototypeList(ammoContainer.EntProtoIds);
 
-            deserializedFromJson.Add(storageItem);
+            deserializedFromJson.Add(UpgradeLegacyCell(storageItem));
         }
 
         foreach (var itemConverted in deserializedFromJson)
@@ -493,6 +511,10 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
                 if (TryComp<BatteryComponent>(inputItemUid, out var batteryComponent))
                 {
                     _batterySys.SetCharge((inputItemUid, batteryComponent), options.CurrentCharge);
+                }
+                else if (TryComp<PredictedBatteryComponent>(inputItemUid, out var predictedBattery))
+                {
+                    _predictedBattery.SetCharge((inputItemUid, predictedBattery), options.CurrentCharge);
                 }
                 break;
             case AmmoContainerStalker options:

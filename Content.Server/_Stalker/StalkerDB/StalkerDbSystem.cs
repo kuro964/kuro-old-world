@@ -19,7 +19,8 @@ public sealed class StalkerDbSystem : EntitySystem
     [Dependency] private readonly StalkerStorageSystem _stalkerStorageSystem = default!;
 
     // stalker-en-changes-start: track fire-and-forget DB writes so shutdown can drain them
-    private readonly ConcurrentBag<Task> _pendingDbWrites = new();
+    private readonly object _writeLock = new();
+    private Task _writes = Task.CompletedTask;
     private ISawmill _sawmill = default!;
     // stalker-en-changes-end
 
@@ -74,19 +75,22 @@ public sealed class StalkerDbSystem : EntitySystem
     /// </summary>
     public bool FlushPendingWrites(TimeSpan timeout)
     {
-        var pending = _pendingDbWrites.ToArray();
-        if (pending.Length == 0)
+        Task pending;
+        lock (_writeLock)
+            pending = _writes;
+
+        if (pending.IsCompleted)
         {
             _sawmill.Info("[shutdown] StalkerDbSystem: no pending writes");
             return true;
         }
 
-        _sawmill.Info($"[shutdown] StalkerDbSystem flushing {pending.Length} pending write(s)");
+        _sawmill.Info("[shutdown] StalkerDbSystem flushing pending writes");
         var sw = System.Diagnostics.Stopwatch.StartNew();
         var completed = false;
         try
         {
-            completed = Task.WhenAll(pending).Wait(timeout);
+            completed = pending.Wait(timeout);
         }
         catch (Exception e)
         {
@@ -99,17 +103,21 @@ public sealed class StalkerDbSystem : EntitySystem
 
     private void TrackDbWrite(Func<Task> dbCall, string label)
     {
-        _pendingDbWrites.Add(Task.Run(async () =>
+        lock (_writeLock)
+            _writes = RunAfter(_writes, dbCall, label);
+    }
+
+    private async Task RunAfter(Task previous, Func<Task> dbCall, string label)
+    {
+        await previous.ConfigureAwait(false);
+        try
         {
-            try
-            {
-                await dbCall();
-            }
-            catch (Exception e)
-            {
-                _sawmill.Error($"{label}: {e}");
-            }
-        }));
+            await dbCall().ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            _sawmill.Error($"{label}: {e}");
+        }
     }
     // stalker-en-changes-end
 

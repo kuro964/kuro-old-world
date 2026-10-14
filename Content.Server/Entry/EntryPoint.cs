@@ -258,7 +258,9 @@ namespace Content.Server.Entry
             // Bounded wait — a stuck DB call would deadlock modLoader.Shutdown. // stalker-en-changes
             try
             {
-                if (_cfg.GetCVar(STCCVars.CrashRecoveryEnabled))
+                if (_cfg.GetCVar(STCCVars.CrashRecoveryEnabled) &&
+                    _entSys.TryGetEntitySystem<_Stalker_EN.CrashRecovery.CrashRecoverySystem>(out var crashRecovery) &&
+                    crashRecovery.PlannedShutdown)
                 {
                     // stalker-en-changes-start
                     shutdownLog.Info("[shutdown] Clearing crash recovery (bounded 5s)");
@@ -268,6 +270,10 @@ namespace Content.Server.Entry
                     sw.Stop();
                     shutdownLog.Info($"[shutdown] Crash recovery clear {(completed ? "completed" : "TIMED OUT")} after {sw.ElapsedMilliseconds}ms");
                     // stalker-en-changes-end
+                }
+                else
+                {
+                    shutdownLog.Info("[shutdown] Unplanned shutdown, keeping crash recovery data");
                 }
             }
             catch (Exception e)

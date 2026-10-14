@@ -383,7 +383,7 @@ namespace Content.Server.Database
         Task<string?> GetCrashRecovery(string login);
         Task ClearAllCrashRecovery();
         Task<List<string>> GetAllCrashRecoveryLogins();
-        Task SetCrashRecoveryBatch(Dictionary<string, string> loginToJson);
+        Task SetCrashRecoveryBatch(Dictionary<string, string?> loginToJson);
         Task SetStalkerStatsAsync(string login, CharacteristicType characteristic, float value, DateTime? trainTime);
         Task<StalkerStats?> GetStalkerStatAsync(string login, CharacteristicType characteristic);
 
@@ -1542,7 +1542,7 @@ namespace Content.Server.Database
             return RunDbCommand(() => _db.GetAllCrashRecoveryLogins());
         }
 
-        public Task SetCrashRecoveryBatch(Dictionary<string, string> loginToJson)
+        public Task SetCrashRecoveryBatch(Dictionary<string, string?> loginToJson)
         {
             DbWriteOpsMetric.Inc();
             return RunDbCommand(() => _db.SetCrashRecoveryBatch(loginToJson));

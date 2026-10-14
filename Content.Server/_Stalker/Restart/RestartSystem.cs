@@ -1,3 +1,4 @@
+using Content.Server._Stalker_EN.CrashRecovery;
 using Content.Server.Chat.Managers;
 using Content.Server.Spawners.Components;
 using Robust.Server;
@@ -16,6 +17,7 @@ public partial class RestartSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency] private readonly CrashRecoverySystem _crashRecovery = default!;
     private ISawmill _sawmill = default!;
     private readonly HashSet<string> _usedHomeCommand = new();
 
@@ -57,6 +59,7 @@ public partial class RestartSystem : EntitySystem
         if (data.Comp.Time <= _timing.CurTime)
         {
             _sawmill.Info("[shutdown] Restart timer elapsed — calling _server.Shutdown()"); // stalker-en-changes
+            _crashRecovery.PlannedShutdown = true;
             _server.Shutdown(null);
             _sawmill.Info("[shutdown] _server.Shutdown() returned"); // stalker-en-changes
             return;

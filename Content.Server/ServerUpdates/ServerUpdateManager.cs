@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Content.Server._Stalker_EN.CrashRecovery;
 using Content.Server.Chat.Managers;
 using Content.Shared.CCVar;
 using Robust.Server;
@@ -27,6 +28,7 @@ public sealed class ServerUpdateManager : IPostInjectInit
     [Dependency] private readonly IBaseServer _server = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency] private readonly IEntitySystemManager _entSys = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -136,6 +138,7 @@ public sealed class ServerUpdateManager : IPostInjectInit
     {
         _sawmill.Debug($"Shutting down via {nameof(ServerUpdateManager)}!");
         var reason = _updateOnRoundEnd ? "server-updates-shutdown" : "server-updates-shutdown-uptime";
+        _entSys.GetEntitySystem<CrashRecoverySystem>().PlannedShutdown = true;
         _server.Shutdown(Loc.GetString(reason));
     }
 

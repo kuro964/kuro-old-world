@@ -1,7 +1,6 @@
 using System.Collections.Concurrent;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Content.Server._Stalker.StalkerDB;
 using Content.Server._Stalker.Storage;
 using Content.Server.Database;
 using Content.Server.GameTicking.Rules;
@@ -13,11 +12,13 @@ using Content.Shared._Stalker_EN.CrashRecovery;
 using Content.Shared.Body.Organ;
 using Content.Shared.Body.Part;
 using Content.Shared.Clothing.Components;
+using Content.Shared.Hands.EntitySystems;
+using Content.Shared.GameTicking;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Implants.Components;
 using Content.Shared.Inventory;
-using Content.Shared.Inventory.Events;
 using Content.Shared.Inventory.VirtualItem;
+using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Popups;
 using Content.Shared.StatusEffectNew.Components;
@@ -29,15 +30,22 @@ using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
+using Robust.Shared.Timing;
 
 namespace Content.Server._Stalker_EN.CrashRecovery;
 
 public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleComponent>
 {
+    private const int MaxCaptureDepth = 64;
+    private static readonly TimeSpan DirtyDelay = TimeSpan.FromSeconds(3);
+
     [Dependency] private readonly IServerDbManager _dbManager = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly SharedMindSystem _mind = default!;
     [Dependency] private readonly StalkerStorageSystem _stalkerStorage = default!;
-    [Dependency] private readonly StalkerDbSystem _stalkerDb = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
@@ -49,20 +57,19 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
     private float _saveInterval = 300f;
     private float _timeSinceLastSave;
 
-    // Staggering: queue of players to snapshot this cycle
-    private readonly Queue<ICommonSession> _snapshotQueue = new();
-    private int _playersPerTick = 1;
-
-    // Dirty tracking: players whose equipment changed since last snapshot
-    private readonly HashSet<EntityUid> _dirtyPlayers = new();
-
     // Concurrent operation protection for claims
     private readonly ConcurrentDictionary<EntityUid, byte> _currentlyProcessingClaims = new();
 
     // Logins with unclaimed recovery data — snapshots must not overwrite these
     private readonly HashSet<string> _pendingRecoveryLogins = new();
 
-    private readonly ConcurrentBag<Task> _pendingDbWrites = new();
+    private readonly object _writeLock = new();
+    private Task _writes = Task.CompletedTask;
+
+    private readonly Dictionary<EntityUid, TimeSpan> _dirtyMinds = new();
+    private bool _ruleActive;
+
+    public bool PlannedShutdown { get; set; }
 
     public override void Initialize()
     {
@@ -76,9 +83,37 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
         // BUI message for crash recovery claim
         SubscribeLocalEvent<StalkerRepositoryComponent, CrashRecoveryClaimMessage>(OnCrashRecoveryClaim);
 
-        // Dirty tracking: mark players when equipment changes
-        SubscribeLocalEvent<InventoryComponent, DidEquipEvent>(OnEquipChanged);
-        SubscribeLocalEvent<InventoryComponent, DidUnequipEvent>(OnUnequipChanged);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestartCleanup);
+        SubscribeLocalEvent<EntInsertedIntoContainerMessage>(ev => MarkCarrier(ev.Container.Owner));
+        SubscribeLocalEvent<EntRemovedFromContainerMessage>(ev => MarkCarrier(ev.Container.Owner));
+        SubscribeLocalEvent<MindContainerComponent, MindAddedMessage>((_, _, ev) => MarkMind(ev.Mind));
+        SubscribeLocalEvent<MindContainerComponent, MindRemovedMessage>((_, _, ev) => MarkMind(ev.Mind));
+    }
+
+    private void MarkCarrier(EntityUid uid)
+    {
+        if (!_enabled || !_ruleActive)
+            return;
+
+        for (var i = 0; i < MaxCaptureDepth; i++)
+        {
+            if (TryComp<MindContainerComponent>(uid, out var mindContainer) && mindContainer.Mind is { } mind)
+            {
+                MarkMind(mind);
+                return;
+            }
+
+            if (!_container.TryGetContainingContainer((uid, null, null), out var container))
+                return;
+
+            uid = container.Owner;
+        }
+    }
+
+    private void MarkMind(EntityUid mind)
+    {
+        if (_enabled && _ruleActive)
+            _dirtyMinds.TryAdd(mind, _timing.CurTime);
     }
 
     public override void Shutdown()
@@ -96,19 +131,19 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
     /// </summary>
     public bool FlushPendingWrites(TimeSpan timeout)
     {
-        var pending = _pendingDbWrites.ToArray();
-        if (pending.Length == 0)
+        var pending = PendingWrites();
+        if (pending.IsCompleted)
         {
             _sawmill.Info("[shutdown] CrashRecoverySystem: no pending writes");
             return true;
         }
 
-        _sawmill.Info($"[shutdown] CrashRecoverySystem flushing {pending.Length} pending write(s)");
+        _sawmill.Info("[shutdown] CrashRecoverySystem flushing pending writes");
         var sw = System.Diagnostics.Stopwatch.StartNew();
         var completed = false;
         try
         {
-            completed = Task.WhenAll(pending).Wait(timeout);
+            completed = pending.Wait(timeout);
         }
         catch (Exception e)
         {
@@ -119,19 +154,29 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
         return completed;
     }
 
+    private Task PendingWrites()
+    {
+        lock (_writeLock)
+            return _writes;
+    }
+
     private void TrackDbWrite(Func<Task> dbCall, string label)
     {
-        _pendingDbWrites.Add(Task.Run(async () =>
+        lock (_writeLock)
+            _writes = RunAfter(_writes, dbCall, label);
+    }
+
+    private async Task RunAfter(Task previous, Func<Task> dbCall, string label)
+    {
+        await previous.ConfigureAwait(false);
+        try
         {
-            try
-            {
-                await dbCall();
-            }
-            catch (Exception e)
-            {
-                _sawmill.Error($"{label}: {e}");
-            }
-        }));
+            await dbCall().ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            _sawmill.Error($"{label}: {e}");
+        }
     }
 
     #region Game Rule Lifecycle
@@ -141,9 +186,8 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
     {
         base.Started(uid, component, gameRule, args);
         _timeSinceLastSave = 0;
-        _snapshotQueue.Clear();
-        _dirtyPlayers.Clear();
         _pendingRecoveryLogins.Clear();
+        _ruleActive = true;
         _sawmill.Info("Crash recovery game rule started");
 
         // Load logins with unclaimed recovery data so periodic snapshots don't overwrite them
@@ -154,6 +198,8 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
     {
         try
         {
+            await PendingWrites();
+
             var logins = await _dbManager.GetAllCrashRecoveryLogins();
             foreach (var login in logins)
                 _pendingRecoveryLogins.Add(login);
@@ -167,50 +213,39 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
         }
     }
 
-    protected override void Ended(EntityUid uid, CrashRecoveryRuleComponent component,
-        GameRuleComponent gameRule, GameRuleEndedEvent args)
+    private void OnRoundRestartCleanup(RoundRestartCleanupEvent ev)
     {
-        base.Ended(uid, component, gameRule, args);
+        var wasActive = _ruleActive;
+        _ruleActive = false;
+        _dirtyMinds.Clear();
 
-        if (!_enabled)
+        if (!_enabled || !wasActive || !GameTicker.IsGameRuleActive<CrashRecoveryRuleComponent>())
             return;
 
-        _sawmill.Info("Clearing all crash recovery data (round ended)");
-        TrackDbWrite(() => _dbManager.ClearAllCrashRecovery(), "ClearAllCrashRecovery(round-end)");
-        _snapshotQueue.Clear();
-        _dirtyPlayers.Clear();
+        _sawmill.Info("Clearing all crash recovery data (round restart)");
+        TrackDbWrite(() => _dbManager.ClearAllCrashRecovery(), "ClearAllCrashRecovery(round-restart)");
         _pendingRecoveryLogins.Clear();
+        _dirtyMinds.Clear();
         _timeSinceLastSave = 0;
     }
 
     protected override void ActiveTick(EntityUid uid, CrashRecoveryRuleComponent component,
         GameRuleComponent gameRule, float frameTime)
     {
-        if (!_enabled || _saveInterval <= 0)
+        if (!_enabled)
             return;
 
-        ProcessSnapshotQueue();
+        SnapshotDirty();
+
+        if (_saveInterval <= 0)
+            return;
 
         _timeSinceLastSave += frameTime;
         if (_timeSinceLastSave < _saveInterval)
             return;
 
         _timeSinceLastSave = 0;
-        StartSnapshotCycle();
-    }
-
-    #endregion
-
-    #region Dirty Tracking
-
-    private void OnEquipChanged(EntityUid uid, InventoryComponent component, DidEquipEvent args)
-    {
-        _dirtyPlayers.Add(uid);
-    }
-
-    private void OnUnequipChanged(EntityUid uid, InventoryComponent component, DidUnequipEvent args)
-    {
-        _dirtyPlayers.Add(uid);
+        SnapshotAll("periodic");
     }
 
     #endregion
@@ -284,7 +319,7 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
     private async void OnCrashRecoveryClaim(EntityUid uid, StalkerRepositoryComponent component,
         CrashRecoveryClaimMessage msg)
     {
-        if (msg.Actor == null)
+        if (msg.Actor == EntityUid.Invalid)
             return;
 
         if (!_currentlyProcessingClaims.TryAdd(msg.Actor, 0))
@@ -297,32 +332,46 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
 
             var login = actorComp.PlayerSession.Name;
 
+            if (!_pendingRecoveryLogins.Contains(login))
+                return;
+
             var json = await _dbManager.GetCrashRecovery(login);
             if (string.IsNullOrEmpty(json))
                 return;
 
-            // Clear FIRST (optimistic — prevents duplication if spawn crashes)
-            await _dbManager.SetCrashRecovery(login, null);
-            _pendingRecoveryLogins.Remove(login);
+            AllStorageInventory equipped;
+            try
+            {
+                var data = JsonSerializer.Deserialize<CrashRecoveryData>(json);
+                if (data == null || string.IsNullOrEmpty(data.EquippedJson))
+                {
+                    _sawmill.Error($"Empty crash recovery data for {login}, discarding");
+                    await _dbManager.SetCrashRecovery(login, null);
+                    _pendingRecoveryLogins.Remove(login);
+                    return;
+                }
+
+                equipped = StalkerStorageSystem.InventoryFromJson(data.EquippedJson);
+            }
+            catch (Exception e)
+            {
+                _sawmill.Error($"Failed to deserialize crash recovery for {login}, keeping it for admins: {e}");
+                return;
+            }
 
             if (!Exists(uid) || !Exists(msg.Actor))
                 return;
 
-            CrashRecoveryData? data;
-            try
+            await _dbManager.SetCrashRecovery(login, null);
+            _pendingRecoveryLogins.Remove(login);
+
+            if (!Exists(uid) || !Exists(msg.Actor))
             {
-                data = JsonSerializer.Deserialize<CrashRecoveryData>(json);
-            }
-            catch (Exception e)
-            {
-                _sawmill.Error($"Failed to deserialize crash recovery for {login}: {e}");
+                await _dbManager.SetCrashRecovery(login, json);
+                _pendingRecoveryLogins.Add(login);
                 return;
             }
 
-            if (data == null || string.IsNullOrEmpty(data.EquippedJson))
-                return;
-
-            var equipped = StalkerStorageSystem.InventoryFromJson(data.EquippedJson);
             var coords = Transform(msg.Actor).Coordinates;
             var spawnedCount = 0;
 
@@ -372,113 +421,85 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
     public void ForceSnapshot()
     {
         _sawmill.Info("Force snapshot triggered by admin command");
-
-        var batch = new Dictionary<string, string>();
-
-        foreach (var session in _playerManager.Sessions)
-        {
-            if (session.AttachedEntity is not { } playerEntity || !Exists(playerEntity))
-                continue;
-
-            if (!HasComp<InventoryComponent>(playerEntity))
-                continue;
-
-            var login = session.Name;
-
-            // Don't overwrite unclaimed recovery data from a previous crash
-            if (_pendingRecoveryLogins.Contains(login))
-                continue;
-
-            try
-            {
-                var data = CapturePlayerState(playerEntity);
-                if (data != null)
-                    batch[login] = data;
-            }
-            catch (Exception e)
-            {
-                _sawmill.Error($"Failed to snapshot player {login}: {e}");
-            }
-        }
-
-        if (batch.Count > 0)
-        {
-            TrackDbWrite(() => _dbManager.SetCrashRecoveryBatch(batch), $"SetCrashRecoveryBatch(force,{batch.Count})");
-            _sawmill.Info($"Force snapshot saved for {batch.Count} players");
-        }
-        else
-        {
-            _sawmill.Info("Force snapshot: no players to snapshot");
-        }
+        SnapshotAll("force");
     }
 
-    private void StartSnapshotCycle()
+    private void SnapshotAll(string reason)
     {
-        _snapshotQueue.Clear();
+        var batch = new Dictionary<string, string?>();
+        var skipped = 0;
+        var query = EntityQueryEnumerator<MindComponent>();
 
-        foreach (var session in _playerManager.Sessions)
+        while (query.MoveNext(out var mindId, out var mind))
         {
-            if (session.AttachedEntity is not { } playerEntity)
-                continue;
-
-            if (!HasComp<InventoryComponent>(playerEntity))
-                continue;
-
-            if (_dirtyPlayers.Count > 0 && !_dirtyPlayers.Contains(playerEntity))
-                continue;
-
-            _snapshotQueue.Enqueue(session);
+            _dirtyMinds.Remove(mindId);
+            if (CaptureMind(mind, batch))
+                skipped++;
         }
 
-        _dirtyPlayers.Clear();
+        WriteBatch(batch, reason);
 
-        var totalTicks = (int)(_saveInterval * 0.5f * 30f);
-        _playersPerTick = Math.Max(1, _snapshotQueue.Count > 0
-            ? (int)Math.Ceiling((float)_snapshotQueue.Count / Math.Max(1, totalTicks))
-            : 1);
+        if (reason == "force")
+            _sawmill.Info($"Force snapshot saved {batch.Count} players, skipped {skipped} with unclaimed recovery");
     }
 
-    private void ProcessSnapshotQueue()
+    private void SnapshotDirty()
     {
-        if (_snapshotQueue.Count == 0)
+        if (_dirtyMinds.Count == 0)
             return;
 
-        var batch = new Dictionary<string, string>();
-        var processed = 0;
+        var now = _timing.CurTime;
+        var batch = new Dictionary<string, string?>();
 
-        while (_snapshotQueue.Count > 0 && processed < _playersPerTick)
+        foreach (var (mindId, since) in _dirtyMinds)
         {
-            var session = _snapshotQueue.Dequeue();
-            processed++;
-
-            if (session.AttachedEntity is not { } playerEntity || !Exists(playerEntity))
+            if (now - since < DirtyDelay)
                 continue;
 
-            var login = session.Name;
+            _dirtyMinds.Remove(mindId);
+            if (TryComp<MindComponent>(mindId, out var mind))
+                CaptureMind(mind, batch);
+        }
 
-            // Don't overwrite unclaimed recovery data from a previous crash
-            if (_pendingRecoveryLogins.Contains(login))
-                continue;
+        WriteBatch(batch, "changed");
+    }
 
+    private void WriteBatch(Dictionary<string, string?> batch, string reason)
+    {
+        if (batch.Count > 0)
+            TrackDbWrite(() => _dbManager.SetCrashRecoveryBatch(batch), $"SetCrashRecoveryBatch({reason},{batch.Count})");
+    }
+
+    private bool CaptureMind(MindComponent mind, Dictionary<string, string?> batch)
+    {
+        if (mind.UserId is not { } userId || !_playerManager.TryGetPlayerData(userId, out var player))
+            return false;
+
+        var login = player.UserName;
+
+        if (_pendingRecoveryLogins.Contains(login))
+            return true;
+
+        string? data = null;
+        if (mind.OwnedEntity is { } body && Exists(body) && HasComp<InventoryComponent>(body))
+        {
             try
             {
-                var data = CapturePlayerState(playerEntity);
-                if (data != null)
-                    batch[login] = data;
+                data = CapturePlayerState(body);
             }
             catch (Exception e)
             {
                 _sawmill.Error($"Failed to snapshot player {login}: {e}");
+                return false;
             }
         }
 
-        if (batch.Count > 0)
-            TrackDbWrite(() => _dbManager.SetCrashRecoveryBatch(batch), $"SetCrashRecoveryBatch(periodic,{batch.Count})");
+        if (data != null || !batch.ContainsKey(login))
+            batch[login] = data;
+
+        return false;
     }
 
-    /// <summary>
-    /// Captures only equipped items — stash is already persisted separately.
-    /// </summary>
     private string? CapturePlayerState(EntityUid player)
     {
         var equippedInventory = new AllStorageInventory();
@@ -489,6 +510,11 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
         while (enumerator.NextItem(out var item, out _))
         {
             CaptureItemRecursive(item, equippedInventory);
+        }
+
+        foreach (var held in _hands.EnumerateHeld(player))
+        {
+            CaptureItemRecursive(held, equippedInventory);
         }
 
         if (equippedInventory.AllItems.Count == 0)
@@ -505,7 +531,7 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
 
     private void CaptureItemRecursive(EntityUid item, AllStorageInventory inventory, int depth = 0)
     {
-        if (depth > 5)
+        if (depth > MaxCaptureDepth)
             return;
 
         // Blacklist (same as StalkerRepositorySystem.GetRecursiveContainerElements)
@@ -557,37 +583,13 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
         if (!_enabled)
             return;
 
-        if (!TryComp<ActorComponent>(player, out var actorComp))
+        if (!_mind.TryGetMind(player, out var mindId, out var mind))
             return;
 
-        if (!HasComp<InventoryComponent>(player))
-            return;
-
-        var login = actorComp.PlayerSession.Name;
-
-        // Don't overwrite unclaimed recovery data from a previous crash
-        if (_pendingRecoveryLogins.Contains(login))
-            return;
-
-        try
-        {
-            var data = CapturePlayerState(player);
-            if (data != null)
-            {
-                var payload = new Dictionary<string, string> { { login, data } };
-                TrackDbWrite(() => _dbManager.SetCrashRecoveryBatch(payload), $"SetCrashRecoveryBatch(immediate,{login})");
-            }
-            else
-            {
-                TrackDbWrite(() => _dbManager.SetCrashRecovery(login, null), $"SetCrashRecovery(clear,{login})");
-            }
-
-            _dirtyPlayers.Remove(player);
-        }
-        catch (Exception e)
-        {
-            _sawmill.Error($"Failed immediate snapshot for {login}: {e}");
-        }
+        _dirtyMinds.Remove(mindId);
+        var batch = new Dictionary<string, string?>();
+        CaptureMind(mind, batch);
+        WriteBatch(batch, "immediate");
     }
 
     #endregion
