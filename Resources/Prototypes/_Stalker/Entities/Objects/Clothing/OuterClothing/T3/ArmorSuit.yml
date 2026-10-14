@@ -217,7 +217,7 @@
   parent: STClothingOuterArmorBase
   id: ClothingOuterArmorMerc
   name: бронекомбез наёмника
-  description: The design is based on the gear used by Western special forces. Thanks to special fabric treatment, the armor's resistance is improved when the plates shift physically. In terms of protective features, it slightly outperforms army body armor. Provides level 3 protection.
+  description: За основу взяты образцы экипировки спецназа западных армий. За счёт специальной обработки ткани усилена устойчивость брони при физическом смещении пластин. По защитным характеристикам немного превосходит армейские бронежилеты. Обеспечивает 3 класс защиты.
   components:
   - type: Sprite
     sprite: _Stalker/Objects/Clothing/outerClothing/merc_armor.rsi
@@ -255,7 +255,7 @@
   parent: STClothingOuterArmorBase
   id: ClothingOuterArmorMerc2
   name: бронекомбез наёмника
-  description: It has a ‘Beryozka’ camouflage in a gray color scheme. The design is based on special forces gear from Western armies. Thanks to special fabric treatment, the armor's resistance is reinforced when the plates shift physically. In terms of protection, it slightly outperforms standard military body armor. Provides level 3 protection.
+  description: Имеет камуфляж «Берёзка» в серой расскраске. За основу взяты образцы экипировки спецназа западных армий. За счёт специальной обработки ткани усилена устойчивость брони при физическом смещении пластин. По защитным характеристикам немного превосходит армейские бронежилеты. Обеспечивает 3 класс защиты.
   components:
   - type: Sprite
     sprite: _Stalker/Objects/Clothing/outerClothing/merc_armor_2.rsi
