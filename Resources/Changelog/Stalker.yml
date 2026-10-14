@@ -4440,5 +4440,20 @@
   id: 492
   time: '2026-10-14T08:53:22.801493+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/162
+- author: kuro964
+  changes:
+  - message: Two new coatings for crossbow bolts
+    type: Add
+  - message: Added crossbow and bolts to Tooth
+    type: Add
+  - message: Fixed a bug where crossbow bolts had 50% break chance
+    type: Fix
+  - message: Made the broken bolt sprites prettier
+    type: Tweak
+  - message: Redid botanical guide to be prettier
+    type: Tweak
+  id: 493
+  time: '2026-10-14T16:49:16.902583+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/160
 Name: Stalker
 Order: -1
