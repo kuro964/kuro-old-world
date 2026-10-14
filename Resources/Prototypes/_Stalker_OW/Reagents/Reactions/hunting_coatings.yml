@@ -1,0 +1,19 @@
+﻿- type: reaction
+  id: STOWMixButcherBile
+  reactants:
+    StalkerToxin1:
+      amount: 1
+    StalkerOilBarbaris:
+      amount: 1
+  products:
+    STOWButcherBile: 2
+
+- type: reaction
+  id: STOWMixBlackOil
+  reactants:
+    STOWButcherBile:
+      amount: 1
+    StalkerToxin2:
+      amount: 1
+  products:
+    STOWBlackOil: 1 # This is intentional

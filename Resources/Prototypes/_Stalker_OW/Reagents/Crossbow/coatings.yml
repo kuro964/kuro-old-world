@@ -1,0 +1,68 @@
+﻿- type: metabolismGroup
+  id: STOWCrossbowCoating
+  name: metabolism-group-stow-crossbow-coating
+
+- type: entity
+  id: STOWCrossbowCoatingMetabolism
+  abstract: true
+  components:
+  - type: Metabolizer
+    solution: chemicals
+    solutionOnBody: false
+    maxReagents: 3
+    groups:
+    - id: STOWCrossbowCoating
+
+- type: reagent
+  id: STOWButcherBile
+  name: reagent-name-stow-butcherbile
+  desc: reagent-desc-stow-butcherbile
+  group: Toxins
+  flavor: bitter
+  color: "#962F49"
+  physicalDesc: reagent-physical-desc-acrid
+  evaporationSpeed: 0.3
+  metabolisms:
+    Poison:
+      metabolismRate: 1
+      effects:
+      - !type:HealthChange
+        ignoreResistances: false
+        damage:
+          types:
+            Poison: 10
+    STOWCrossbowCoating:
+      metabolismRate: 1
+      effects:
+      - !type:HealthChange
+        ignoreResistances: false
+        damage:
+          types:
+            Mutant: 40
+
+- type: reagent
+  id: STOWBlackOil
+  name: reagent-name-stow-blackoil
+  desc: reagent-desc-stow-blackoil
+  group: Toxins
+  flavor: bitter
+  color: "#1d1f1f"
+  physicalDesc: reagent-physical-desc-necrotic
+  evaporationSpeed: 0.3
+  metabolisms:
+    Poison:
+      metabolismRate: 1
+      effects:
+      - !type:HealthChange
+        ignoreResistances: false
+        damage:
+          types:
+            Poison: 10
+    STOWCrossbowCoating:
+      metabolismRate: 1
+      effects:
+      - !type:HealthChange
+        ignoreResistances: false
+        damage:
+          types:
+            Mutant: 90

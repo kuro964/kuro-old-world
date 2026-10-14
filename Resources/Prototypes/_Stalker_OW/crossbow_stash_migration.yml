@@ -1,0 +1,8 @@
+﻿- type: STStashMigration
+  id: STOWCrossbowRework
+  mapping:
+    STweaponCrossbow: STOWCrossbow
+    STBroadheadBolt: STOWBroadheadBolt
+    STBodkinBolt: STOWBodkinBolt
+    STBrokenBolt: STOWBrokenBolt
+    STBrokenBoltAP: STOWBrokenBoltAP

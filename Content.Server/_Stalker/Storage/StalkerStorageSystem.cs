@@ -34,6 +34,8 @@ using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared._Stalker_EN.Camera; // stalker-en-changes: photo persistence
 using Robust.Shared.Prototypes;
+using Content.Shared._Stalker_OW.Projectiles.Components; // ST:OW
+using Content.Shared.Chemistry.EntitySystems; // ST:OW
 
 namespace Content.Server._Stalker.Storage;
 
@@ -47,6 +49,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly NameModifierSystem _nameModifier = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!; // ST:OW
 
     private delegate List<object> DelegateItemStalkerConverter(EntityUid inputEntityUid);
 
@@ -542,15 +545,22 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
                                 continue;
                             solution.Solution.Contents.Clear();
                             solution.Solution.Volume = FixedPoint2.Zero;
-                            if (!options.Contents.TryGetValue(split[1], out var contents))
-                                continue;
-                            foreach (var quan in contents)
+
+                            if (!options.Contents.TryGetValue(split[1], out var contents) &&
+                                split[1] == "ammo" && HasComp<BoltBallisticsComponent>(inputItemUid))
                             {
-                                if (quan.Quantity <= FixedPoint2.Zero)
-                                    continue;
-                                solution.Solution.AddReagent(quan);
+                                options.Contents.TryGetValue("coating", out contents);
                             }
-                            Dirty(element, solution);
+
+                            if (contents != null)
+                            {
+                                foreach (var reagent in contents)
+                                {
+                                    if (reagent.Quantity > FixedPoint2.Zero)
+                                        solution.Solution.AddReagent(reagent);
+                                }
+                            }
+                            _solutions.UpdateChemicals((element, solution), needsReactionsProcessing: false);
                         }
                     }
                 }

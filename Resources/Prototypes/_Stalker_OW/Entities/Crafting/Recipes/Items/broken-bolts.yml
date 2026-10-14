@@ -1,0 +1,17 @@
+﻿- type: lightCraftingRecipe
+  id: RepairBrokenBolt
+  results:
+    - STOWBroadheadBolt
+  steps:
+    firstIngredient: STOWBrokenBolt
+    secondIngredient: STOWBrokenBolt
+    time: 3
+
+- type: lightCraftingRecipe
+  id: STOWRepairBrokenBodkinBolt
+  results:
+    - STOWBodkinBolt
+  steps:
+    firstIngredient: STOWBrokenBoltAP
+    secondIngredient: STOWBrokenBoltAP
+    time: 5

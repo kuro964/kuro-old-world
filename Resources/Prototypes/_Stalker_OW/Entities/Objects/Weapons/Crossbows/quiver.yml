@@ -1,0 +1,46 @@
+﻿- type: entity
+  parent: ClothingBeltQuiver
+  id: STOWBoltQuiver
+  name: bolt quiver
+  suffix: ST:OW, Crossbow, Quiver
+  description: A belt-mounted quiver for crossbow bolts.
+  components:
+  - type: Storage
+    whitelist:
+      tags:
+      - STOWCrossbowBolt
+      - STOWBrokenBolt
+      - STOWBrokenBoltAP
+  - type: RepositoryItem
+    categoryName: repository-equipment-category
+  - type: Construction
+    graph: STOWBoltQuiver
+    node: quiver
+
+- type: construction
+  id: STOWBoltQuiver
+  graph: STOWBoltQuiver
+  startNode: start
+  targetNode: quiver
+  category: construction-category-clothing
+  objectType: Item
+
+- type: constructionGraph
+  id: STOWBoltQuiver
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: quiver
+      steps:
+      - material: Cable
+        amount: 2
+        doAfter: 1
+      - material: Cloth
+        amount: 5
+        doAfter: 2
+      - material: WoodPlank
+        amount: 1
+        doAfter: 2
+  - node: quiver
+    entity: STOWBoltQuiver

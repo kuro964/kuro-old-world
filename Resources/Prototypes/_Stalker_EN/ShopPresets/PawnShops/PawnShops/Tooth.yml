@@ -139,6 +139,8 @@
       STWeaponRifleL85: 3250
       STWeaponRifleAKM: 6700
       #STWeaponRifleASVAL: 12500 # The War
+      # Crossbow - ST:OW
+      STOWCrossbow: 1500
 
   - name: shop-category-magazines
     priority: 2
@@ -197,6 +199,9 @@
       739FMJBox: 2000 # T3
       739HPBox: 900 # Mutant
       751UNBox: 900 # Mutant
+      # Bolts - ST:OW
+      STOWBodkinBolt: 400 # PVP
+      STOWBroadheadBolt: 250 # Mutant
 
   - name: shop-category-medicine
     priority: 4

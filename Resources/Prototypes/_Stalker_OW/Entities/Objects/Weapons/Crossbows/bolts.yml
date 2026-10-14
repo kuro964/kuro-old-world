@@ -1,0 +1,107 @@
+- type: entity
+  description: A hefty bolt that digs through even the toughest of hides.
+  parent: BaseItem
+  id: STOWCrossbowBoltBase
+  abstract: true
+  suffix: ST:OW, Crossbow, Bolt
+  components:
+    - type: Sprite
+      sprite: Objects/Weapons/Guns/Projectiles/arrows.rsi
+    - type: Fixtures
+      fixtures:
+        projectile:
+          shape:
+            !type:PhysShapeAabb
+            bounds: "-0.08,-0.42,0.08,0.10"
+          hard: false
+          mask:
+            - Impassable
+            - BulletImpassable
+    - type: Ammo
+      muzzleFlash: null
+    - type: Projectile
+      deleteOnCollide: false
+      onlyCollideWhenShot: true
+    - type: EmbeddableProjectile
+      sound: /Audio/Weapons/star_hit.ogg
+      embedOnThrow: true
+    - type: ThrowingAngle
+      angle: 0
+    - type: Tag
+      tags:
+        - STOWCrossbowBolt
+    - type: BoltBreakOnImpact
+      breakChance: 0.05
+    - type: RepositoryItem
+      categoryName: repository-magazines-category
+    - type: SolutionContainerManager
+      solutions:
+        ammo:
+          maxVol: 2
+    - type: RefillableSolution
+      solution: ammo
+      maxRefill: 2
+    - type: SolutionTransfer
+      transferAmount: 2
+      minTransferAmount: 2
+      maxTransferAmount: 2
+      canChangeTransferAmount: false
+    - type: SolutionInjectOnEmbed
+      solution: ammo
+      transferAmount: 2
+    - type: ExaminableSolution
+      solution: ammo
+      exactVolume: true
+    - type: SolutionItemStatus
+      solution: ammo
+
+- type: entity
+  parent: STOWCrossbowBoltBase
+  id: STOWBroadheadBolt
+  name: broadhead bolt
+  description: A hefty bolt that digs through even the toughest of hides.
+  components:
+    - type: Sprite
+      layers:
+        - state: tail
+          color: "#923F50"
+        - state: rod
+          color: "#A47A50"
+        - state: tip
+          color: "#C4C7CA"
+    - type: Projectile
+      projectileClass: 2
+      damage:
+        types:
+          Piercing: 35
+          Mutant: 150
+    - type: BoltBallistics
+      speedMultiplier: 1
+      maxFlightTime: 1.2
+    - type: BoltBreakOnImpact
+      brokenPrototype: STOWBrokenBolt
+
+- type: entity
+  parent: STOWCrossbowBoltBase
+  id: STOWBodkinBolt
+  name: bodkin bolt
+  description: A bolt with a razor-like edge that spears through most ballistic armors like paper.
+  components:
+    - type: Sprite
+      layers:
+        - state: tail
+          color: "#654583"
+        - state: rod
+          color: "#8995A3"
+        - state: tip
+          color: "#D2DBE5"
+    - type: Projectile
+      projectileClass: 3
+      damage:
+        types:
+          Piercing: 60
+    - type: BoltBallistics
+      speedMultiplier: 1.2
+      maxFlightTime: 1.2
+    - type: BoltBreakOnImpact
+      brokenPrototype: STOWBrokenBoltAP

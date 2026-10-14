@@ -162,8 +162,8 @@
       STMetroWeaponRifleVSV: 9000
       # Snipers
       STWeaponSniperVepr: 14000
-      # Crossbow
-      STweaponCrossbow: 1500 # enjoy teddy
+      # Crossbow - ST:OW
+      STOWCrossbow: 1500
 
   - name: shop-category-magazines
     priority: 2
@@ -249,9 +249,9 @@
       MagazineBox357Magnum: 1000 # T2
       MagazineBox357MagnumAP: 2500 # T3
       MagazineBox357MagnumHP: 1500 # Mutant
-      # bolts
-      STBodkinBolt: 600
-      STBroadheadBolt: 250
+      # Bolts - ST:OW
+      STOWBodkinBolt: 400 # PVP
+      STOWBroadheadBolt: 250 # Mutant
 
   - name: shop-category-medicine
     priority: 4

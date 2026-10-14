@@ -274,6 +274,7 @@
     Structural: 0.0
     Psy: 0.0
     Compression: 0.1
+    Mutant: 0.0 # ST:OW
 
 - type: damageModifierSet
   id: SlimePet # Very survivable slimes

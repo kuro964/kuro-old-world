@@ -1,37 +1,35 @@
 ﻿- type: entity
   parent: BaseItem
-  id: STBrokenBolt
-  name: Broken Bolt
-  suffix: ST:OW
+  id: STOWBrokenBolt
+  name: broken broadhead bolt
+  suffix: ST:OW, Crossbow, Bolt
   description: A snapped crossbow bolt. Two of these can be repaired into one usable bolt.
   components:
     - type: Sprite
       sprite: _Stalker_OW/Objects/Weapons/Guns/Projectiles/broken_bolts.rsi
       state: broken-bolt
-      scale: 0.6, 0.6
     - type: Item
       sprite: _Stalker_OW/Objects/Weapons/Guns/Projectiles/broken_bolts.rsi
       size: Tiny
     - type: Craftable    
     - type: Tag
       tags:
-        - STBrokenBolt
+        - STOWBrokenBolt
 
 - type: entity
   parent: BaseItem
-  id: STBrokenBoltAP
-  name: Broken Bodkin Bolt
-  suffix: ST:OW
+  id: STOWBrokenBoltAP
+  name: broken bodkin bolt
+  suffix: ST:OW, Crossbow, Bolt
   description: A damaged Bodkin bolt. Two of these can be repaired into one usable bolt.
   components:
     - type: Sprite
       sprite: _Stalker_OW/Objects/Weapons/Guns/Projectiles/broken_bolts.rsi
       state: ap-broken-bolt
-      scale: 0.6, 0.6
     - type: Item
       sprite: _Stalker_OW/Objects/Weapons/Guns/Projectiles/broken_bolts.rsi
       size: Tiny
     - type: Craftable    
     - type: Tag
       tags:
-        - STBrokenBoltAP
+        - STOWBrokenBoltAP

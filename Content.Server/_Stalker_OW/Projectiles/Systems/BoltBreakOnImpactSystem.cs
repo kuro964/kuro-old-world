@@ -1,13 +1,12 @@
 ﻿using Content.Shared._Stalker_OW.Projectiles.Components;
 using Content.Shared.Projectiles;
-using Robust.Shared.GameObjects;
-using Robust.Shared.Map;
 using Robust.Shared.Random;
+using Content.Server.Chemistry.EntitySystems;
 
 namespace Content.Server._Stalker_OW.Projectiles.Systems;
 
 /// <summary>
-/// Handles bolts breaking when they strike something
+/// Bolts that are fired or thrown will roll for break chance after embedding in something
 /// </summary>
 public sealed class BoltBreakOnImpactSystem : EntitySystem
 {
@@ -18,31 +17,18 @@ public sealed class BoltBreakOnImpactSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-
-        // Impact with a wall, mutant, etc
-        SubscribeLocalEvent<BoltBreakOnImpactComponent, ProjectileHitEvent>(OnProjectileHit);
+        SubscribeLocalEvent<BoltBreakOnImpactComponent, EmbedEvent>(OnEmbed,
+            after: [typeof(SolutionInjectOnCollideSystem)]);
     }
 
-    private void OnProjectileHit(
-        Entity<BoltBreakOnImpactComponent> ent,
-        ref ProjectileHitEvent args)
+    private void OnEmbed(Entity<BoltBreakOnImpactComponent> ent, ref EmbedEvent args)
     {
-        // Ballistic calcs stop after impact
         _ballistics.StopFlight(ent.Owner);
-
-        HandleBreakage(ent);
-    }
-
-    private void HandleBreakage(Entity<BoltBreakOnImpactComponent> ent)
-    {
-        if (!_random.Prob(ent.Comp.BreakChance))
+        if (TerminatingOrDeleted(ent.Owner) || !_random.Prob(ent.Comp.BreakChance))
             return;
 
-        if (ent.Comp.BrokenPrototype is { } brokenProto)
-        {
-            var coords = _transform.GetMapCoordinates(ent);
-            Spawn(brokenProto, coords);
-        }
+        if (ent.Comp.BrokenPrototype is { } prototype)
+            Spawn(prototype, _transform.GetMapCoordinates(ent));
 
         QueueDel(ent);
     }

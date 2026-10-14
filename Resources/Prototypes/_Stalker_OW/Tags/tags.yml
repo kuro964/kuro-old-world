@@ -1,5 +1,6 @@
 ﻿- type: Tag
-  id: STBrokenBolt
-
+  id: STOWBrokenBolt
 - type: Tag
-  id: STBrokenBoltAP
+  id: STOWBrokenBoltAP
+- type: Tag
+  id: STOWCrossbowBolt

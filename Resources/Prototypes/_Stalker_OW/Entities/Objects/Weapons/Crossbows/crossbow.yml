@@ -1,27 +1,28 @@
 - type: entity
   parent: BowImprovised
-  id: STweaponCrossbow
+  id: STOWCrossbow
   name: crossbow
-  suffix: ST:OW
-  description: It's heavy, clunky, and leaves oily residues on your palms, but it'll shred through mutants and people without a hitch.
+  suffix: ST:OW, Crossbow
+  description: It's heavy, clunky, and smells of herbal oils, but it'll shred through mutants and people without a hitch.
   components:
+    - type: Engraveable
     - type: RepositoryItem
       categoryName: repository-weapons-category
-      
     - type: Clothing
       sprite: _Stalker_OW/Objects/Weapons/Guns/Crossbow
-
     - type: Item
       sprite: _Stalker_OW/Objects/Weapons/Guns/Crossbow
-
     - type: Sprite
       sprite: _Stalker_OW/Objects/Weapons/Guns/Crossbow
-
+    - type: ItemMapper
+      mapLayers:
+        arrow:
+          whitelist:
+            tags:
+              - STOWCrossbowBolt
     - type: STWeaponModuleContainer
-
     - type: STWeight
       self: 5
-
     - type: ItemSlots
       slots:
         gun_module_scope:
@@ -30,21 +31,17 @@
           whitelist:
             tags:
               - STWeaponModuleSniperSight
-
         projectiles:
           name: Projectiles
           priority: 2
           insertSound: /Audio/Weapons/Guns/Misc/arrow_nock.ogg
           whitelist:
             tags:
-              - Arrow
-              - Plunger
-
+              - STOWCrossbowBolt
     - type: ContainerContainer
       containers:
         gun_module_scope: !type:ContainerSlot {}
         projectiles: !type:ContainerSlot {}
-
     - type: STWeaponModule
       effect:
         soundGunshotVolumeAddition: -16

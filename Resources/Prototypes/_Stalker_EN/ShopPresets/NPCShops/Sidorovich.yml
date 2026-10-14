@@ -193,8 +193,8 @@
         # Snipers
         STWeaponSniperSKS: 1850 # T2
         STWeaponSniperMosin: 1500
-        # crossbows
-        STweaponCrossbow: 1500
+        # Crossbows - ST:OW
+        STOWCrossbow: 1500
     - name: shop-category-magazines
       priority: 2
       items:
@@ -253,8 +253,8 @@
         MagazineBox357MagnumAP: 2500 # T3
         MagazineBox357MagnumHP: 1500 #Mutant
         # Bolts
-        STBodkinBolt: 600 # PVP
-        STBroadheadBolt: 250 # Mutant
+        STOWBodkinBolt: 400 # PVP
+        STOWBroadheadBolt: 250 # Mutant
         # ST:OW end
     - name: shop-category-medicine
       priority: 4

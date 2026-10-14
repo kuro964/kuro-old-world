@@ -1137,3 +1137,10 @@ ToySkeleton: ToyFigurineSkeleton
 # 2025-10-28
 DrinkKiraSpecial: DrinkOrangeLimeSodaGlass
 # Stalker-EN-Migration-End
+
+# ST:OW - 2026-10-1
+STweaponCrossbow: STOWCrossbow
+STBroadheadBolt: STOWBroadheadBolt
+STBodkinBolt: STOWBodkinBolt
+STBrokenBolt: STOWBrokenBolt
+STBrokenBoltAP: STOWBrokenBoltAP

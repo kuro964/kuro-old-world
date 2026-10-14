@@ -387,17 +387,23 @@ public abstract class SharedBloodstreamSystem : EntitySystem
         if (!SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.BloodTemporarySolutionName, ref ent.Comp.TemporarySolution, out var tempSolution))
             return true;
 
+        // ST:OW begin
+        // Lose the same fraction of reagents as blood rather than 10% blood & -1u reagent
+        var bloodBeforeLoss = bloodSolution.Volume + newSol.Volume;
+        if (newSol.Volume > FixedPoint2.Zero && bloodBeforeLoss > FixedPoint2.Zero &&
+            SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName,
+                ref ent.Comp.ChemicalSolution, out var chemicalSolution))
+        {
+            var fractionLost = Math.Clamp((float) newSol.Volume / (float) bloodBeforeLoss, 0f, 1f);
+            var chemicalsLost = SolutionContainer.SplitSolution(ent.Comp.ChemicalSolution.Value,
+                chemicalSolution.Volume * fractionLost);
+            newSol.AddSolution(chemicalsLost, PrototypeManager);
+        }
+        // ST:OW end
         tempSolution.AddSolution(newSol, PrototypeManager);
 
         if (tempSolution.Volume > ent.Comp.BleedPuddleThreshold)
         {
-            // Pass some of the chemstream into the spilled blood.
-            if (SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.ChemicalSolutionName, ref ent.Comp.ChemicalSolution))
-            {
-                var temp = SolutionContainer.SplitSolution(ent.Comp.ChemicalSolution.Value, tempSolution.Volume / 10);
-                tempSolution.AddSolution(temp, PrototypeManager);
-            }
-
             _puddle.TrySpillAt(ent.Owner, tempSolution, out _, sound: false);
 
             tempSolution.RemoveAllSolution();

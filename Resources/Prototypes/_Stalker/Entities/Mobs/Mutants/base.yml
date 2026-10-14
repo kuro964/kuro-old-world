@@ -3,6 +3,7 @@
   - MobAnomalyTarget
   - MobWeight
   - MobStaminaDamageable
+  - STOWCrossbowCoatingMetabolism # ST:OW
   - MobFirePat # stalker-changes - fire patting
   id: BaseMobMutant
   save: false
@@ -185,6 +186,7 @@
     - MobAnomalyTarget
     - MobWeight
     - MobStaminaDamageable
+    - STOWCrossbowCoatingMetabolism # ST:OW
     - MobFirePat # stalker-changes - fire patting
   id: STBaseMobMutant
   save: false
