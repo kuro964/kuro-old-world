@@ -4433,5 +4433,12 @@
   id: 491
   time: '2026-10-13T15:53:59.097992+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/159
+- author: kuro964
+  changes:
+  - message: New merc armor sprites, name, and description
+    type: Add
+  id: 492
+  time: '2026-10-14T08:53:22.801493+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/162
 Name: Stalker
 Order: -1
