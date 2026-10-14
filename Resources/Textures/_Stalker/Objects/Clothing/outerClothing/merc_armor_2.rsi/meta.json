@@ -5,17 +5,13 @@
     "y": 32
   },
   "license": "CC-BY-NC-SA-3.0",
-  "copyright": "Made by gr0x / neki5h and belay5. All rights belong to gr0x / neki5h",
+  "copyright": "Made by kuro964 & mousour",
   "states": [
     {
       "name": "icon"
     },
     {
       "name": "equipped-OUTERCLOTHING",
-      "directions": 4
-    },
-    {
-      "name": "equipped-OUTERCLOTHING-fat",
       "directions": 4
     },
     {
