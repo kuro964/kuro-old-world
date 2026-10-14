@@ -1,3 +1,5 @@
+# ST:OW - One item drops from each category on a successful roll
+# Rolls in sequential order: Legendary > Epic > Rare > Common
 - type: entity
   id: RandomTrashDetectorSpawner
   #name: спавнер случайного мусора (металлоискатель) # ST:OW
@@ -10,8 +12,7 @@
       state: icon
     - type: RandomSpawner
       prototypes:
-      # ST:OW begin
-      # T1
+      # T1 materials
       - STCraftSheetCopperT1
       - STCraftPlasticFittingT1
       - STCraftPinePlankT1
@@ -19,8 +20,7 @@
       - STCraftCottonFabricT1
       - STCraftBasicThreadKitT1
       - STCraftBasicPCBT1
-    
-      # T2
+      # T2 materials
       - STCraftSheetIronT2
       - STCraftPlasticFittingT2
       - STCraftBirchPlankT2
@@ -28,38 +28,27 @@
       - STCraftHideT2
       - STCraftTapeKitT2
       - STCraftStandardPCBT2
-    
       # Electronics
       - STCraftBattery
       - STCraftCoil
       - STCraftCapacitor
       - STCraftTransformer
-      
       # Utility
       - MedkitAI2
-      
-      # Jewelery
-      - STJewelryGold
-      - STJewelrySilver
-      - STWristwatchGold
+      # Cheap finds
       - TreasureCoinIron
       - TreasureCoinSilver
       - TreasureCoinGold
       - Wristwatch
-      - STGoldRingBigDiamond
-      - IngotSilver1
-      - IngotGold1
-      - MaterialDiamond1
-      
-      # Currency 
+      # Currency
       - Roubles100
 
-      # T3
+      # Rare
       rarePrototypes:
+      # T3 materials
       - STCraftSheetBrassT3
       - STCraftSturdyHideT3
-    
-      # Weapons
+      # Weapons and explosives
       - STWeaponShotgunMossbergM88
       - WeaponPistolStalkerAPS
       - KhattabkaGrenade
@@ -67,18 +56,28 @@
       - STWeaponRifleSaiga545
       - STWeaponSniperMosin
       - STWeaponSniperSKS
-    
-      # Utility Items
+      # Medical supplies
       - MedkitMilitary
       - MedkitScience
-  
-      # Jewelry
-      - STGoldRingBigDiamond
-      
+      # Valuables
+      - IngotSilver1
+      - STJewelrySilver
       # Currency
-      - Roubles2000
-      rareChance: 0.05 # 5%
-      # ST:OW end
+      - Roubles500
+      rareChance: 0.05 # 4.97502% after  higher tiers fail
+
+      # Epic
+      epicPrototypes:
+      - STJewelryGold
+      - IngotGold1
+      - MaterialDiamond1
+      epicChance: 0.004 # 0.3996% after Legendary fails
+
+      # Legendary
+      legendaryPrototypes:
+      - STWristwatchGold
+      - STGoldRingBigDiamond
+      legendaryChance: 0.001 # 0.1%
 
 - type: entity
   parent: BaseItem

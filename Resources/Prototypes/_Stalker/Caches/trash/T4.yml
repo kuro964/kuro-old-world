@@ -1,3 +1,58 @@
+# ST:OW - Loot table at the top & containers below that
+# Each item rolls independently & rolls repeat the chance for it to spawn, not item amount
+- type: entityTable
+  id: STLootTrashT4
+  table: !type:AllSelector
+    children:
+    # Crafting materials - T3
+    - { id: STCraftMultilayerPCBT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftSheetBrassT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftOakPlankT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftPlasticFittingT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftQuartzCrystalT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftSturdyHideT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftGlueKitT3, prob: 0.1, rolls: 2 }
+
+    # Crafting materials - T4
+    - { id: STCraftHighPerformanceChipT4, prob: 0.1 }
+    - { id: STCraftSheetAluminumT4, prob: 0.1 }
+    - { id: STCraftYewPlankT4, prob: 0.1 }
+    - { id: STCraftPlasticFittingT4, prob: 0.1 }
+    - { id: STCraftSapphireCrystalT4, prob: 0.1 }
+    - { id: STCraftPolymerFabricT4, prob: 0.1 }
+    - { id: STCraftIndustrialThreadStaplesKitT4, prob: 0.1 }
+
+    # Electronics and gunpowder
+    - { id: CraftMaterialGunpowder, prob: 0.04 }
+
+    # Medical supplies
+    - { id: STBrutepack, prob: 0.35, rolls: 3 }
+    - { id: STGauze, prob: 0.35, rolls: 3 }
+    - { id: STOintment, prob: 0.35, rolls: 3 }
+    - { id: STTourniquet, prob: 0.08 }
+    - { id: antiradpill, prob: 0.08 }
+    - { id: radioprotectpill, prob: 0.08 }
+    - { id: psyblock, prob: 0.08 }
+    - { id: MedkitAI2, prob: 0.12 }
+    - { id: MedkitMilitary, prob: 0.04 }
+
+    # Food and drink
+    - { id: STDrinkJarMold, prob: 0.02 }
+    - { id: STDrinkJarPiss, prob: 0.02 }
+    - { id: STDrinkJarMilkSpoiled, prob: 0.02 }
+    - { id: STDrinkJarSap, prob: 0.03 }
+    - { id: STDrinkJar, prob: 0.01 }
+
+    # Utility equipment
+    - { id: GeigerCounter, prob: 0.04 }
+    - { id: BaseRadio, prob: 0.04 }
+    - { id: HandheldGPSBasic, prob: 0.04 }
+
+    # Jewelry - 2% per container
+    - !type:NestedSelector
+      tableId: STLootJewelry
+      prob: 0.02
+
 - type: entity
   parent: STBaseTrashCache
   id: STTrashStorageFillT4
@@ -6,107 +61,10 @@
   suffix: ST, Cache, T4
   components:
     - type: InteractionOutline
-    - type: StorageFill
-      contents:
-        - id: STCraftMultilayerPCBT3
-          prob: 0.1
-        - id: STCraftMultilayerPCBT3
-          prob: 0.1
-        - id: STCraftSheetBrassT3
-          prob: 0.1
-        - id: STCraftSheetBrassT3
-          prob: 0.1
-        - id: STCraftOakPlankT3
-          prob: 0.1
-        - id: STCraftOakPlankT3
-          prob: 0.1
-        - id: STCraftPlasticFittingT3
-          prob: 0.1
-        - id: STCraftPlasticFittingT3
-          prob: 0.1
-        - id: STCraftQuartzCrystalT3
-          prob: 0.1
-        - id: STCraftQuartzCrystalT3
-          prob: 0.1
-        - id: STCraftSturdyHideT3
-          prob: 0.1
-        - id: STCraftSturdyHideT3
-          prob: 0.1
-        - id: STCraftGlueKitT3
-          prob: 0.1
-        - id: STCraftGlueKitT3
-          prob: 0.1
-        - id: STCraftHighPerformanceChipT4
-          prob: 0.1
-        - id: STCraftSheetAluminumT4
-          prob: 0.1
-        - id: STCraftYewPlankT4
-          prob: 0.1
-        - id: STCraftPlasticFittingT4
-          prob: 0.1
-        - id: STCraftSapphireCrystalT4
-          prob: 0.1
-        - id: STCraftPolymerFabricT4
-          prob: 0.1
-        - id: STCraftIndustrialThreadStaplesKitT4
-          prob: 0.1
-        - id: STBrutepack
-          prob: 0.35
-        - id: STBrutepack
-          prob: 0.35
-        - id: STBrutepack
-          prob: 0.35
-        - id: STGauze
-          prob: 0.35
-        - id: STGauze
-          prob: 0.35
-        - id: STGauze
-          prob: 0.35
-        - id: STOintment
-          prob: 0.35
-        - id: STOintment
-          prob: 0.35
-        - id: STOintment
-          prob: 0.35
-        - id: STTourniquet # stalker-14-en
-          prob: 0.08
-        - id: antiradpill
-          prob: 0.08
-        - id: radioprotectpill
-          prob: 0.08
-        - id: psyblock
-          prob: 0.08
-        - id: MedkitAI2
-          prob: 0.12
-        - id: MedkitMilitary
-          prob: 0.04
-        - id: GeigerCounter
-          prob: 0.04
-        - id: BaseRadio
-          prob: 0.04
-        - id: HandheldGPSBasic
-          prob: 0.04
-        - id: STJewelryGold
-          prob: 0.04
-        - id: STJewelrySilver
-          prob: 0.04
-        - id: STGoldRingBigDiamond
-          prob: 0.04
-        - id: STWristwatchGold
-          prob: 0.04
-        - id: CraftMaterialGunpowder
-          prob: 0.04
-      # EN additions
-        - id: STDrinkJarMold
-          prob: 0.02
-        - id: STDrinkJarPiss
-          prob: 0.02
-        - id: STDrinkJarMilkSpoiled
-          prob: 0.02
-        - id: STDrinkJarSap
-          prob: 0.03
-        - id: STDrinkJar
-          prob: 0.01
+    - type: EntityTableContainerFill # ST:OW
+      containers:
+        storagebase: !type:NestedSelector
+          tableId: STLootTrashT4
 
 - type: entity
   parent: [STBaseTrashCache, STTrashStorageFillT4]

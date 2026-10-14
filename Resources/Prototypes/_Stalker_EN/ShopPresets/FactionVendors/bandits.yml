@@ -120,9 +120,9 @@
     TreasureCoinIron: 100
     TreasureCoinSilver: 200
     TreasureCoinGold: 300
-    STWristwatchGold: 3000
+    STWristwatchGold: 2000 # ST:OW
     Wristwatch: 300
-    STGoldRingBigDiamond: 4000
+    STGoldRingBigDiamond: 3000 # ST:OW
     IngotSilver1: 700
     IngotGold1: 1000
     MaterialDiamond1: 1500

@@ -1,3 +1,90 @@
+# ST:OW - Loot table at the top & containers below that
+# Each item rolls independently & rolls repeat the chance for it to spawn, not item amount
+- type: entityTable
+  id: STLootCacheT2
+  table: !type:AllSelector
+    children:
+    # Crafting materials - T2
+    - { id: STCraftStandardPCBT2, prob: 0.2 }
+    - { id: STCraftSheetIronT2, prob: 0.4 }
+    - { id: STCraftBirchPlankT2, prob: 0.2 }
+    - { id: STCraftPlasticFittingT2, prob: 0.4 }
+    - { id: STCraftGlassT2, prob: 0.4 }
+    - { id: STCraftHideT2, prob: 0.2 }
+    - { id: STCraftTapeKitT2, prob: 0.2 }
+
+    # Electronics and gunpowder
+    - { id: CraftMaterialGunpowder, prob: 0.04 }
+    - { id: STCraftBattery, prob: 0.2 }
+    - { id: STCraftCoil, prob: 0.2 }
+    - { id: STCraftCapacitor, prob: 0.2 }
+    - { id: STCraftTransformer, prob: 0.2 }
+
+    # Medical supplies
+    - { id: STBrutepack, prob: 0.25, rolls: 3 }
+    - { id: STGauze, prob: 0.25, rolls: 3 }
+    - { id: STOintment, prob: 0.25, rolls: 3 }
+    - { id: STTourniquet, prob: 0.06 }
+    - { id: antiradpill, prob: 0.06 }
+    - { id: radioprotectpill, prob: 0.06 }
+    - { id: psyblock, prob: 0.06 }
+    - { id: MedkitAI2, prob: 0.1 }
+    - { id: MedkitMilitary, prob: 0.04 }
+    - { id: MedkitScience, prob: 0.01 }
+
+    # Food and drink
+    - { id: STCookingKebabMeat, prob: 0.05 }
+    - { id: STCookingKebabVeggie, prob: 0.05 }
+    - { id: STCookingMeatStew, prob: 0.05 }
+    - { id: STCookingCabbageSoup, prob: 0.05 }
+    - { id: STCookingBorscht, prob: 0.05 }
+    - { id: STDrinkJarDirtyWater, prob: 0.08 }
+    - { id: STDrinkJarBlood, prob: 0.01 }
+    - { id: STDrinkJar, prob: 0.03 }
+    - { id: STDrinkJarMoonshine, prob: 0.01 }
+    - { id: STCookingPickledEggs, prob: 0.02 }
+    - { id: STCookingKvass, prob: 0.02 }
+
+    # Utility equipment
+    - { id: GeigerCounter, prob: 0.03 }
+    - { id: BaseRadio, prob: 0.03 }
+    - { id: HandheldGPSBasic, prob: 0.03 }
+    - { id: BoxArtcontDamaged, prob: 0.02 }
+    - { id: STFlashlightSeclite, prob: 0.03 }
+    - { id: STHeadLight, prob: 0.03 }
+    - { id: PowerCellHyper, prob: 0.06 }
+    - { id: CheapLighter, prob: 0.04 }
+    - { id: CraftLeatherbox, prob: 0.001 }
+
+    # Weapons and explosives
+    - { id: RGD5Grenade, prob: 0.05 }
+
+    # Blueprints
+    - { id: ST6mmBuckshotBoxCinkBluePrint, prob: 0.05 }
+    - { id: ST8mmBuckshotBoxCinkBlueprint, prob: 0.03 }
+    - { id: ST45ACPLFMJBoxCinkBlueprint, prob: 0.05 }
+    - { id: ST545FMJBoxCinkBlueprint, prob: 0.05 }
+    - { id: ST918PSTBoxCinkBlueprint, prob: 0.05 }
+    - { id: ST919PSTBoxCinkBlueprint, prob: 0.05 }
+    - { id: ST754HPBoxCinkBlueprint, prob: 0.03 }
+    - { id: ST556FMJBoxCinkBlueprint, prob: 0.05 }
+    - { id: ST725PTBoxCinkBlueprint, prob: 0.05 }
+    - { id: ST45ACPRIPBoxCinkBlueprint, prob: 0.05 }
+    - { id: ST751UNBoxCinkBlueprint, prob: 0.05 }
+    - { id: ST739HPBoxCinkBlueprint, prob: 0.05 }
+    - { id: ClothingOuterArmorZaryaHunterBlueprint, prob: 0.05 }
+    - { id: STClothingOuterArmor6B2Blueprint, prob: 0.05 }
+    - { id: STClothingOuterArmorLightPlateVestBaseStalkerBlueprint, prob: 0.05 }
+    - { id: ClothingOuterArmourJacketStalkerBlueprint, prob: 0.05 }
+    - { id: STZoneArtifactDetectorResponseBlueprint, prob: 0.05 }
+    - { id: ClothingOuterCoatSmugglerBlueprint, prob: 0.05 }
+    - { id: MakeshiftArtContBlueprint, prob: 0.05 }
+
+    # Jewelry - 3% per container
+    - !type:NestedSelector
+      tableId: STLootJewelry
+      prob: 0.03
+
 - type: entity
   parent: STBaseCache
   id: STCacheStorageFillT2
@@ -9,155 +96,10 @@
   #  description: Довольно таки старый ящик. Возможно, стоит его обыскать. Может, можно найти что-то полезное в нём.
   components:
     - type: InteractionOutline
-    - type: StorageFill
-      contents:
-      # ow change start
-        - id: STCraftStandardPCBT2
-          prob: 0.2
-        - id: STCraftSheetIronT2
-          prob: 0.4
-        - id: STCraftBirchPlankT2
-          prob: 0.2
-        - id: STCraftPlasticFittingT2
-          prob: 0.4
-        - id: STCraftGlassT2
-          prob: 0.4
-        - id: STCraftHideT2
-          prob: 0.2
-        - id: STCraftTapeKitT2
-          prob: 0.2
-        # ow change end
-        - id: ST6mmBuckshotBoxCinkBluePrint
-          prob: 0.05
-        - id: ST8mmBuckshotBoxCinkBlueprint
-          prob: 0.03
-        - id: ST45ACPLFMJBoxCinkBlueprint # OW - Adds to drop table
-          prob: 0.05 # OW
-        - id: ST545FMJBoxCinkBlueprint
-          prob: 0.05
-        - id: ST918PSTBoxCinkBlueprint
-          prob: 0.05
-        - id: ST919PSTBoxCinkBlueprint
-          prob: 0.05
-        - id: ST754HPBoxCinkBlueprint
-          prob: 0.03
-        - id: ST556FMJBoxCinkBlueprint
-          prob: 0.05
-        - id: ST725PTBoxCinkBlueprint
-          prob: 0.05
-        - id: ST45ACPRIPBoxCinkBlueprint # OW - Adds to drop tables
-          prob: 0.05 # OW
-        - id: ST751UNBoxCinkBlueprint
-          prob: 0.05
-        - id: ST739HPBoxCinkBlueprint
-          prob: 0.05
-        - id: ClothingOuterArmorZaryaHunterBlueprint
-          prob: 0.05
-        - id: STClothingOuterArmor6B2Blueprint
-          prob: 0.05
-        - id: STClothingOuterArmorLightPlateVestBaseStalkerBlueprint
-          prob: 0.05
-        - id: ClothingOuterArmourJacketStalkerBlueprint
-          prob: 0.05
-        - id: STZoneArtifactDetectorResponseBlueprint
-          prob: 0.05
-        - id: STBrutepack
-          prob: 0.25
-        - id: STBrutepack
-          prob: 0.25
-        - id: STBrutepack
-          prob: 0.25
-        - id: STGauze
-          prob: 0.25
-        - id: STGauze
-          prob: 0.25
-        - id: STGauze
-          prob: 0.25
-        - id: STOintment
-          prob: 0.25
-        - id: STOintment
-          prob: 0.25
-        - id: STOintment
-          prob: 0.25
-        - id: STTourniquet # stalker-14-en
-          prob: 0.06
-        - id: antiradpill
-          prob: 0.06
-        - id: radioprotectpill
-          prob: 0.06
-        - id: psyblock
-          prob: 0.06
-        - id: MedkitAI2
-          prob: 0.1
-        - id: MedkitMilitary
-          prob: 0.04
-        - id: MedkitScience
-          prob: 0.01
-        - id: GeigerCounter
-          prob: 0.03
-        - id: BaseRadio
-          prob: 0.03
-        - id: HandheldGPSBasic
-          prob: 0.03
-        - id: BoxArtcontDamaged # EN
-          prob: 0.02
-        - id: STFlashlightSeclite
-          prob: 0.03
-        - id: STHeadLight
-          prob: 0.03
-        - id: PowerCellHyper
-          prob: 0.06
-        - id: CheapLighter
-          prob: 0.04
-        - id: STJewelryGold
-          prob: 0.04
-        - id: STJewelrySilver
-          prob: 0.04
-        - id: STGoldRingBigDiamond
-          prob: 0.04
-        - id: STWristwatchGold
-          prob: 0.04
-        - id: CraftMaterialGunpowder
-          prob: 0.04
-        - id: CraftLeatherbox
-          prob: 0.001
-        - id: STCraftBattery
-          prob: 0.2
-        - id: STCraftCoil
-          prob: 0.2
-        - id: STCraftCapacitor
-          prob: 0.2
-        - id: STCraftTransformer
-          prob: 0.2
-        - id: RGD5Grenade
-          prob: 0.05
-        # EN additions
-        - id: STCookingKebabMeat
-          prob: 0.05
-        - id: STCookingKebabVeggie
-          prob: 0.05
-        - id: STCookingMeatStew
-          prob: 0.05
-        - id: STCookingCabbageSoup
-          prob: 0.05
-        - id: STCookingBorscht
-          prob: 0.05
-        - id: ClothingOuterCoatSmugglerBlueprint
-          prob: 0.05
-        - id: MakeshiftArtContBlueprint
-          prob: 0.05
-        - id: STDrinkJarDirtyWater
-          prob: 0.08
-        - id: STDrinkJarBlood
-          prob: 0.01
-        - id: STDrinkJar
-          prob: 0.03
-        - id: STDrinkJarMoonshine
-          prob: 0.01
-        - id: STCookingPickledEggs
-          prob: 0.02
-        - id: STCookingKvass
-          prob: 0.02
+    - type: EntityTableContainerFill # ST:OW
+      containers:
+        storagebase: !type:NestedSelector
+          tableId: STLootCacheT2
 
 - type: entity
   parent: [ STCacheStorageFillT2, STBaseCache]

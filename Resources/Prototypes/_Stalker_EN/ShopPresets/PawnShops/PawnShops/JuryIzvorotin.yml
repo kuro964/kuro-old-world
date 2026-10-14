@@ -13,8 +13,8 @@
     # ST:OW end
     STJewelrySilver: 400
     STJewelryGold: 600
-    STWristwatchGold: 1500
-    STGoldRingBigDiamond: 2000
+    STWristwatchGold: 1000 # ST:OW
+    STGoldRingBigDiamond: 1500 # ST:OW
   categories:
     - name: Items
       priority: 1

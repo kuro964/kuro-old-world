@@ -1,230 +1,91 @@
+# ST:OW - Loot table at the top & containers below that
+# Each item rolls independently & rolls repeat the chance for it to spawn, not item amount
+- type: entityTable
+  id: STLootHiddenCacheT3
+  table: !type:AllSelector
+    children:
+    # Crafting materials - T1
+    - { id: STCraftBasicPCBT1, prob: 0.1, rolls: 4 }
+    - { id: STCraftSheetCopperT1, prob: 0.1, rolls: 4 }
+    - { id: STCraftPinePlankT1, prob: 0.1, rolls: 4 }
+    - { id: STCraftPlasticFittingT1, prob: 0.1, rolls: 4 }
+    - { id: STCraftGlassT1, prob: 0.1, rolls: 4 }
+    - { id: STCraftCottonFabricT1, prob: 0.1, rolls: 4 }
+    - { id: STCraftBasicThreadKitT1, prob: 0.1, rolls: 4 }
+
+    # Crafting materials - T2
+    - { id: STCraftStandardPCBT2, prob: 0.1, rolls: 3 }
+    - { id: STCraftSheetIronT2, prob: 0.1, rolls: 3 }
+    - { id: STCraftBirchPlankT2, prob: 0.1, rolls: 3 }
+    - { id: STCraftPlasticFittingT2, prob: 0.1, rolls: 3 }
+    - { id: STCraftGlassT2, prob: 0.1, rolls: 3 }
+    - { id: STCraftHideT2, prob: 0.1, rolls: 3 }
+    - { id: STCraftTapeKitT2, prob: 0.1, rolls: 3 }
+
+    # Crafting materials - T3
+    - { id: STCraftMultilayerPCBT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftSheetBrassT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftOakPlankT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftPlasticFittingT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftQuartzCrystalT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftSturdyHideT3, prob: 0.1, rolls: 2 }
+    - { id: STCraftGlueKitT3, prob: 0.1, rolls: 2 }
+
+    # Crafting materials - T4
+    - { id: STCraftHighPerformanceChipT4, prob: 0.1 }
+    - { id: STCraftSheetAluminumT4, prob: 0.1 }
+    - { id: STCraftYewPlankT4, prob: 0.1 }
+    - { id: STCraftPlasticFittingT4, prob: 0.1 }
+    - { id: STCraftSapphireCrystalT4, prob: 0.1 }
+    - { id: STCraftPolymerFabricT4, prob: 0.1 }
+    - { id: STCraftIndustrialThreadStaplesKitT4, prob: 0.1 }
+
+    # Electronics and gunpowder
+    - { id: CraftMaterialGunpowder, prob: 0.12 }
+
+    # Medical supplies
+    - { id: STBrutepack, prob: 0.3, rolls: 3 }
+    - { id: STGauze, prob: 0.3, rolls: 3 }
+    - { id: STOintment, prob: 0.3, rolls: 3 }
+    - { id: STTourniquet, prob: 0.15 }
+    - { id: antiradpill, prob: 0.15 }
+    - { id: radioprotectpill, prob: 0.15 }
+    - { id: psyblock, prob: 0.15 }
+    - { id: MedkitAI2, prob: 0.24 }
+    - { id: MedkitMilitary, prob: 0.09 }
+    - { id: MedkitScience, prob: 0.03 }
+
+    # Utility equipment
+    - { id: GeigerCounter, prob: 0.06 }
+    - { id: BaseRadio, prob: 0.06 }
+    - { id: HandheldGPSBasic, prob: 0.06 }
+    - { id: BoxArtcont, prob: 0.045 }
+    - { id: STFlashlightSeclite, prob: 0.06 }
+    - { id: STHeadLight, prob: 0.06 }
+    - { id: PowerCellHyper, prob: 0.15 }
+    - { id: CheapLighter, prob: 0.09 }
+    - { id: Matchbox, prob: 0.09 }
+    - { id: CigPackMarlboro, prob: 0.06 }
+    - { id: CigPackSuka, prob: 0.06 }
+    - { id: CigPackKosmos, prob: 0.06 }
+    - { id: CraftLeatherbox, prob: 0.007 }
+    - { id: ToolkitTearOne, prob: 0.006 }
+    - { id: ToolkitTearTwo, prob: 0.005 }
+
+    # Jewelry - 6% per container
+    - !type:NestedSelector
+      tableId: STLootJewelry
+      prob: 0.06
+
 - type: entity
   id: STHiddenCacheStorageFillT3
   abstract: true
   suffix: ST, Cache, T3
   components:
-    - type: StorageFill
-      contents:
-        - id: STCraftBasicPCBT1
-          prob: 0.1
-        - id: STCraftBasicPCBT1
-          prob: 0.1
-        - id: STCraftBasicPCBT1
-          prob: 0.1
-        - id: STCraftBasicPCBT1
-          prob: 0.1
-        - id: STCraftSheetCopperT1
-          prob: 0.1
-        - id: STCraftSheetCopperT1
-          prob: 0.1
-        - id: STCraftSheetCopperT1
-          prob: 0.1
-        - id: STCraftSheetCopperT1
-          prob: 0.1
-        - id: STCraftPinePlankT1
-          prob: 0.1
-        - id: STCraftPinePlankT1
-          prob: 0.1
-        - id: STCraftPinePlankT1
-          prob: 0.1
-        - id: STCraftPinePlankT1
-          prob: 0.1
-        - id: STCraftPlasticFittingT1
-          prob: 0.1
-        - id: STCraftPlasticFittingT1
-          prob: 0.1
-        - id: STCraftPlasticFittingT1
-          prob: 0.1
-        - id: STCraftPlasticFittingT1
-          prob: 0.1
-        - id: STCraftGlassT1
-          prob: 0.1
-        - id: STCraftGlassT1
-          prob: 0.1
-        - id: STCraftGlassT1
-          prob: 0.1
-        - id: STCraftGlassT1
-          prob: 0.1
-        - id: STCraftCottonFabricT1
-          prob: 0.1
-        - id: STCraftCottonFabricT1
-          prob: 0.1
-        - id: STCraftCottonFabricT1
-          prob: 0.1
-        - id: STCraftCottonFabricT1
-          prob: 0.1
-        - id: STCraftBasicThreadKitT1
-          prob: 0.1
-        - id: STCraftBasicThreadKitT1
-          prob: 0.1
-        - id: STCraftBasicThreadKitT1
-          prob: 0.1
-        - id: STCraftBasicThreadKitT1
-          prob: 0.1
-        - id: STCraftStandardPCBT2
-          prob: 0.1
-        - id: STCraftStandardPCBT2
-          prob: 0.1
-        - id: STCraftStandardPCBT2
-          prob: 0.1
-        - id: STCraftSheetIronT2
-          prob: 0.1
-        - id: STCraftSheetIronT2
-          prob: 0.1
-        - id: STCraftSheetIronT2
-          prob: 0.1
-        - id: STCraftBirchPlankT2
-          prob: 0.1
-        - id: STCraftBirchPlankT2
-          prob: 0.1
-        - id: STCraftBirchPlankT2
-          prob: 0.1
-        - id: STCraftPlasticFittingT2
-          prob: 0.1
-        - id: STCraftPlasticFittingT2
-          prob: 0.1
-        - id: STCraftPlasticFittingT2
-          prob: 0.1
-        - id: STCraftGlassT2
-          prob: 0.1
-        - id: STCraftGlassT2
-          prob: 0.1
-        - id: STCraftGlassT2
-          prob: 0.1
-        - id: STCraftHideT2
-          prob: 0.1
-        - id: STCraftHideT2
-          prob: 0.1
-        - id: STCraftHideT2
-          prob: 0.1
-        - id: STCraftTapeKitT2
-          prob: 0.1
-        - id: STCraftTapeKitT2
-          prob: 0.1
-        - id: STCraftTapeKitT2
-          prob: 0.1
-        - id: STCraftMultilayerPCBT3
-          prob: 0.1
-        - id: STCraftMultilayerPCBT3
-          prob: 0.1
-        - id: STCraftSheetBrassT3
-          prob: 0.1
-        - id: STCraftSheetBrassT3
-          prob: 0.1
-        - id: STCraftOakPlankT3
-          prob: 0.1
-        - id: STCraftOakPlankT3
-          prob: 0.1
-        - id: STCraftPlasticFittingT3
-          prob: 0.1
-        - id: STCraftPlasticFittingT3
-          prob: 0.1
-        - id: STCraftQuartzCrystalT3
-          prob: 0.1
-        - id: STCraftQuartzCrystalT3
-          prob: 0.1
-        - id: STCraftSturdyHideT3
-          prob: 0.1
-        - id: STCraftSturdyHideT3
-          prob: 0.1
-        - id: STCraftGlueKitT3
-          prob: 0.1
-        - id: STCraftGlueKitT3
-          prob: 0.1
-        - id: STCraftHighPerformanceChipT4
-          prob: 0.1
-        - id: STCraftSheetAluminumT4
-          prob: 0.1
-        - id: STCraftYewPlankT4
-          prob: 0.1
-        - id: STCraftPlasticFittingT4
-          prob: 0.1
-        - id: STCraftSapphireCrystalT4
-          prob: 0.1
-        - id: STCraftPolymerFabricT4
-          prob: 0.1
-        - id: STCraftIndustrialThreadStaplesKitT4
-          prob: 0.1
-        - id: STBrutepack
-          prob: 0.3
-        - id: STBrutepack
-          prob: 0.3
-        - id: STBrutepack
-          prob: 0.3
-        - id: STGauze
-          prob: 0.3
-        - id: STGauze
-          prob: 0.3
-        - id: STGauze
-          prob: 0.3
-        - id: STOintment
-          prob: 0.3
-        - id: STOintment
-          prob: 0.3
-        - id: STOintment
-          prob: 0.3
-        - id: STTourniquet # stalker-14-en
-          prob: 0.15
-        - id: antiradpill
-          prob: 0.15
-        - id: radioprotectpill
-          prob: 0.15
-        - id: psyblock
-          prob: 0.15
-        - id: MedkitAI2
-          prob: 0.24
-        - id: MedkitMilitary
-          prob: 0.09
-        - id: MedkitScience
-          prob: 0.03
-        - id: GeigerCounter
-          prob: 0.06
-        - id: BaseRadio
-          prob: 0.06
-        - id: HandheldGPSBasic
-          prob: 0.06
-        - id: BoxArtcont
-          prob: 0.045
-        - id: STFlashlightSeclite
-          prob: 0.06
-        - id: STHeadLight
-          prob: 0.06
-        - id: PowerCellHyper
-          prob: 0.15
-        - id: CheapLighter
-          prob: 0.09
-        - id: Matchbox
-          prob: 0.09
-        - id: CigPackMarlboro
-          prob: 0.06
-        - id: CigPackSuka
-          prob: 0.06
-        - id: CigPackKosmos
-          prob: 0.06
-        - id: STJewelryGold
-          prob: 0.08
-        - id: STJewelryGold
-          prob: 0.08
-        - id: STJewelrySilver
-          prob: 0.08
-        - id: STJewelrySilver
-          prob: 0.08
-        - id: STGoldRingBigDiamond
-          prob: 0.08
-        - id: STGoldRingBigDiamond
-          prob: 0.08
-        - id: STWristwatchGold
-          prob: 0.08
-        - id: STWristwatchGold
-          prob: 0.08
-        - id: CraftMaterialGunpowder
-          prob: 0.12
-        - id: CraftLeatherbox
-          prob: 0.007
-        - id: ToolkitTearOne
-          prob: 0.006
-        - id: ToolkitTearTwo
-          prob: 0.005
+    - type: EntityTableContainerFill # ST:oW
+      containers:
+        storagebase: !type:NestedSelector
+          tableId: STLootHiddenCacheT3
 
 - type: entity
   parent: [STBaseHiddenCache, STHiddenCacheStorageFillT3, BirchTreeNew02]

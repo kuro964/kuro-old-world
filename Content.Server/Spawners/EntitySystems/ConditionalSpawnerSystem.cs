@@ -117,22 +117,22 @@ namespace Content.Server.Spawners.EntitySystems
                 return;
 
             // Pick rarity from: Legendary -> Epic -> Rare -> Common
-            EntProtoId selected;
+            List<EntProtoId> prototypes;
 
             if (component.LegendaryPrototypes.Count > 0 &&
                 (component.LegendaryChance == 1.0f || _robustRandom.Prob(component.LegendaryChance)))
             {
-                selected = _robustRandom.Pick(component.LegendaryPrototypes);
+                prototypes = component.LegendaryPrototypes;
             }
             else if (component.EpicPrototypes.Count > 0 &&
                      (component.EpicChance == 1.0f || _robustRandom.Prob(component.EpicChance)))
             {
-                selected = _robustRandom.Pick(component.EpicPrototypes);
+                prototypes = component.EpicPrototypes;
             }
             else if (component.RarePrototypes.Count > 0 &&
                      (component.RareChance == 1.0f || _robustRandom.Prob(component.RareChance)))
             {
-                selected = _robustRandom.Pick(component.RarePrototypes);
+                prototypes = component.RarePrototypes;
             }
             else
             {
@@ -142,10 +142,10 @@ namespace Content.Server.Spawners.EntitySystems
                     return;
                 }
 
-                selected = _robustRandom.Pick(component.Prototypes);
+                prototypes = component.Prototypes;
             }
 
-            SpawnWithOffset(uid, selected, component.Offset);
+            SpawnWithOffset(uid, _robustRandom.Pick(prototypes), component.Offset);
         }
 
         private void SpawnWithOffset(EntityUid uid, EntProtoId prototype, float offset)

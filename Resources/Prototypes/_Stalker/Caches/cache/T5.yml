@@ -1,3 +1,58 @@
+# ST:OW - Loot table at the top & containers below that
+# Each item rolls independently & rolls repeat the chance for it to spawn, not item amount
+- type: entityTable
+  id: STLootCacheT5
+  table: !type:AllSelector
+    children:
+    # Crafting materials - T3
+    - { id: STCraftSheetBrassT3, prob: 0.6, rolls: 4 }
+    - { id: STOWCraftBallisticPlateT3, prob: 0.4, rolls: 2 }
+
+    # Crafting materials - T4
+    - { id: STCraftHighPerformanceChipT4, prob: 0.4 }
+    - { id: STCraftHighPerformanceChipT4, prob: 0.3 }
+    - { id: STCraftSheetAluminumT4, prob: 0.4 }
+    - { id: STCraftSheetAluminumT4, prob: 0.1 }
+    - { id: STCraftPlasticFittingT4, prob: 0.4 }
+    - { id: STCraftPlasticFittingT4, prob: 0.1 }
+    - { id: STCraftPolymerFabricT4, prob: 0.4 }
+    - { id: STCraftPolymerFabricT4, prob: 0.1 }
+    - { id: STCraftIndustrialThreadStaplesKitT4, prob: 0.4 }
+    - { id: STCraftIndustrialThreadStaplesKitT4, prob: 0.1 }
+
+    # Crafting materials - T5
+    - { id: STCraftNanoChipT5, prob: 0.3 }
+    - { id: STCraftSheetSteelT5, prob: 0.2 }
+    - { id: STCraftRedWoodPlankT5, prob: 0.3 }
+    - { id: STCraftAluminumOxideT5, prob: 0.3 }
+    - { id: STCraftCompositeMaterialT5, prob: 0.2 }
+    - { id: STCraftHighStrengthKitT5, prob: 0.3 }
+
+    # Electronics and gunpowder
+    - { id: CraftMaterialGunpowder, prob: 0.4 }
+
+    # Medical supplies
+    - { id: STBrutepack, prob: 0.4, rolls: 3 }
+    - { id: STGauze, prob: 0.4, rolls: 3 }
+    - { id: STOintment, prob: 0.4, rolls: 3 }
+    - { id: STTourniquet, prob: 0.15 }
+    - { id: antiradpill, prob: 0.15 }
+    - { id: radioprotectpill, prob: 0.15 }
+    - { id: psyblock, prob: 0.15 }
+    - { id: MedkitAI2, prob: 0.25 }
+    - { id: MedkitMilitary, prob: 0.1 }
+    - { id: MedkitScience, prob: 0.025 }
+
+    # Utility equipment
+    - { id: BoxArtcont, prob: 0.05 }
+    - { id: CraftLeatherbox, prob: 0.004 }
+    - { id: ToolkitTearOne, prob: 0.003 }
+    - { id: ToolkitTearTwo, prob: 0.002 }
+    - { id: ToolkitTearThree, prob: 0.001 }
+
+    # Weapons and explosives
+    - { id: RGD5Grenade, prob: 0.1, rolls: 4 }
+
 - type: entity
   parent: STBaseCache
   id: STCacheStorageFillT5
@@ -9,106 +64,10 @@
 #  description: Довольно таки старый ящик. Возможно, стоит его обыскать. Может, можно найти что-то полезное в нём.
   components:
     - type: InteractionOutline
-    - type: StorageFill
-      contents:
-        # OW CHANGE START
-        - id: STCraftSheetBrassT3
-          prob: 0.6
-        - id: STCraftSheetBrassT3
-          prob: 0.6
-        - id: STCraftSheetBrassT3
-          prob: 0.6
-        - id: STCraftSheetBrassT3
-          prob: 0.6
-        - id: STOWCraftBallisticPlateT3
-          prob: 0.4
-        - id: STOWCraftBallisticPlateT3
-          prob: 0.4
-        - id: STCraftHighPerformanceChipT4
-          prob: 0.4
-        - id: STCraftHighPerformanceChipT4
-          prob: 0.3
-        - id: STCraftSheetAluminumT4
-          prob: 0.4
-        - id: STCraftSheetAluminumT4
-          prob: 0.1
-        - id: STCraftPlasticFittingT4
-          prob: 0.4
-        - id: STCraftPlasticFittingT4
-          prob: 0.1
-        - id: STCraftPolymerFabricT4
-          prob: 0.4
-        - id: STCraftPolymerFabricT4
-          prob: 0.1
-        - id: STCraftIndustrialThreadStaplesKitT4
-          prob: 0.4
-        - id: STCraftIndustrialThreadStaplesKitT4
-          prob: 0.1
-        - id: STCraftNanoChipT5
-          prob: 0.3
-        - id: STCraftSheetSteelT5
-          prob: 0.2
-        - id: STCraftRedWoodPlankT5
-          prob: 0.3
-        - id: STCraftAluminumOxideT5
-          prob: 0.3
-        - id: STCraftCompositeMaterialT5
-          prob: 0.2
-        - id: STCraftHighStrengthKitT5
-          prob: 0.3
-        # OW change end
-        - id: STBrutepack
-          prob: 0.4
-        - id: STBrutepack
-          prob: 0.4
-        - id: STBrutepack
-          prob: 0.4
-        - id: STGauze
-          prob: 0.4
-        - id: STGauze
-          prob: 0.4
-        - id: STGauze
-          prob: 0.4
-        - id: STOintment
-          prob: 0.4
-        - id: STOintment
-          prob: 0.4
-        - id: STOintment
-          prob: 0.4
-        - id: STTourniquet # stalker-14-en
-          prob: 0.15
-        - id: antiradpill
-          prob: 0.15
-        - id: radioprotectpill
-          prob: 0.15
-        - id: psyblock
-          prob: 0.15
-        - id: MedkitAI2
-          prob: 0.25
-        - id: MedkitMilitary
-          prob: 0.1
-        - id: MedkitScience
-          prob: 0.025
-        - id: BoxArtcont
-          prob: 0.05
-        - id: CraftMaterialGunpowder
-          prob: 0.4
-        - id: CraftLeatherbox
-          prob: 0.004
-        - id: ToolkitTearOne
-          prob: 0.003
-        - id: ToolkitTearTwo
-          prob: 0.002
-        - id: ToolkitTearThree
-          prob: 0.001
-        - id: RGD5Grenade
-          prob: 0.1
-        - id: RGD5Grenade
-          prob: 0.1
-        - id: RGD5Grenade
-          prob: 0.1
-        - id: RGD5Grenade
-          prob: 0.1
+    - type: EntityTableContainerFill # ST:OW
+      containers:
+        storagebase: !type:NestedSelector
+          tableId: STLootCacheT5
 
 - type: entity
   parent: [ STCacheStorageFillT5, STBaseCache]

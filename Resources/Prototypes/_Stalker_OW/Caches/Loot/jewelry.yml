@@ -1,0 +1,10 @@
+﻿# ST:OW - Callers set the chance & this table chooses one item on success
+# Do not assign probabilities here, only weight
+- type: entityTable
+  id: STLootJewelry
+  table: !type:GroupSelector
+    children:
+    - { id: STJewelrySilver, weight: 60 }
+    - { id: STJewelryGold, weight: 25 }
+    - { id: STWristwatchGold, weight: 10 }
+    - { id: STGoldRingBigDiamond, weight: 5 }
