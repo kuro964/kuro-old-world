@@ -540,7 +540,7 @@
     items:
       STOWCSDetectorSeaDevilBlueprint: 40000
       STOWCSZoneArtifactDetectorBearBlueprint: 50000
-      STOWCSZoneArtifactDetectorWolfhoundBlueprint: 75000
+      STOWCSZoneArtifactDetectorWolfhoundBlueprint: 80000
 
   - name: shop-category-tools
     priority: 14
