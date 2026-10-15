@@ -63,21 +63,21 @@
       - IngotSilver1
       - STJewelrySilver
       # Currency
-      - Roubles500
-      rareChance: 0.05 # 4.97502% after  higher tiers fail
+      - Roubles1000
+      rareChance: 0.05 # 4.925% after higher tiers fail (1-0.005)*(1-0.01)*(0.05)
 
       # Epic
       epicPrototypes:
       - STJewelryGold
       - IngotGold1
       - MaterialDiamond1
-      epicChance: 0.004 # 0.3996% after Legendary fails
+      epicChance: 0.01 # 0.995% after Legendary fails (1-0.005)*(0.01)
 
       # Legendary
       legendaryPrototypes:
       - STWristwatchGold
       - STGoldRingBigDiamond
-      legendaryChance: 0.001 # 0.1%
+      legendaryChance: 0.005 # 0.5%
 
 - type: entity
   parent: BaseItem
