@@ -153,11 +153,11 @@
       STWeaponSMGUMP: 1800
       STWeaponSMGMP5: 2000
       # Rifles
-      STWeaponRifleL85Forecaster: 4000
+      STWeaponRifleL85Forecaster: 2250
       STWeaponRifleFAL: 5000
       STWeaponRifleM4: 5000
       STWeaponRifleM14: 6000
-      STWeaponRifleAKS74: 6000
+      STWeaponRifleAKS74: 4000
       STWeaponRifleStalkerAK105SwampThing: 8000
       STMetroWeaponRifleVSV: 9000
       # Snipers
@@ -313,7 +313,7 @@
       ClothingOuterArmorSevaCN: 6000 # T3 - ENVl
       STClothingOuterArmorCN-4a: 8000 # Illusion of choice
       STClothingOuterArmorCN-4aResearcher: 8000 # Slightly better SEVA
-      ClothingOuterArmorSevaClearSky: 20000 # T3 - ENV/PVP
+      ClothingOuterArmorSevaClearSky: 12000 # T3 - ENV/PVP
 
   - name: shop-category-storage-and-containers
     priority: 7
@@ -545,7 +545,7 @@
   - name: shop-category-tools
     priority: 14
     items:
-      CraftChemicalCleaningKit: 8000
+      CraftChemicalCleaningKit: 6000
       ElectronicDetectorT1: 2000 # EN
       ElectronicDetectorT2: 15000 # OW Shop Change End
       
