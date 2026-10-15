@@ -4455,5 +4455,12 @@
   id: 493
   time: '2026-10-14T16:49:16.902583+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/160
+- author: Remminia
+  changes:
+  - message: CS Shop buffs
+    type: Add
+  id: 494
+  time: '2026-10-15T04:34:25.792911+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/164
 Name: Stalker
 Order: -1
