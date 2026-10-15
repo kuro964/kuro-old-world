@@ -150,20 +150,20 @@
       STWeaponShotgunMossbergM88: 630 # T2
       STWeaponShotgunSPAS: 1300 # T3
       # SMGs
-      STWeaponSMGUMP: 1500
+      STWeaponSMGUMP: 1800
       STWeaponSMGMP5: 2000
       # Rifles
-      STWeaponRifleL85Forecaster: 2000
+      STWeaponRifleL85Forecaster: 2250
       STWeaponRifleFAL: 5000
       STWeaponRifleM4: 5000
       STWeaponRifleM14: 6000
-      STWeaponRifleAKS74: 3500
-      STWeaponRifleStalkerAK105SwampThing: 6500
-      STMetroWeaponRifleVSV: 8000
+      STWeaponRifleAKS74: 4000
+      STWeaponRifleStalkerAK105SwampThing: 8000
+      STMetroWeaponRifleVSV: 9000
       # Snipers
-      STWeaponSniperVepr: 12000
+      STWeaponSniperVepr: 14000
       # Crossbow - ST:OW
-      STOWCrossbow: 1250
+      STOWCrossbow: 1500
 
   - name: shop-category-magazines
     priority: 2
@@ -247,7 +247,7 @@
       754FMJBox: 2500 # T3
       # .357
       MagazineBox357Magnum: 1000 # T2
-      MagazineBox357MagnumAP: 2000 # T3
+      MagazineBox357MagnumAP: 2500 # T3
       MagazineBox357MagnumHP: 1500 # Mutant
       # Bolts - ST:OW
       STOWBodkinBolt: 400 # PVP
@@ -305,14 +305,14 @@
       #ClothingOuterArmor6B2: 1450 # T2 - PvP
       # ST:OW - End
       ClothingOuterArmorRCBZCN: 1450 # T2 - ENV
-      ClothingOuterArmorCN1: 2000 # T2 - universal\
+      ClothingOuterArmorCN1: 2100 # T2 - universal\
       # ST:OW - Begin
       #STClothingOuterArmorLightPlateVestBaseANABlue: 9500 # T3 - PVP
       # ST:OW - End
       ClothingOuterArmorCN3a: 12000 # T3 - PVE
-      ClothingOuterArmorSevaCN: 4000 # T3 - ENVl
-      STClothingOuterArmorCN-4a: 7500 # Illusion of choice
-      STClothingOuterArmorCN-4aResearcher: 7000 # Slightly better SEVA
+      ClothingOuterArmorSevaCN: 6000 # T3 - ENVl
+      STClothingOuterArmorCN-4a: 8000 # Illusion of choice
+      STClothingOuterArmorCN-4aResearcher: 8000 # Slightly better SEVA
       ClothingOuterArmorSevaClearSky: 12000 # T3 - ENV/PVP
 
   - name: shop-category-storage-and-containers
@@ -437,14 +437,14 @@
       STModuleSilencerRiflesT1Nato: 400
       STModuleShotgunChokeT1: 200
       STModuleSMGGripT1: 600
-      STModuleSilencerSMGT1: 500
-      STModuleSniperSightT1: 500
-      STModuleSilencerSniperT1: 500
-      STModuleSilencerRiflesT2Ru: 4000
-      STModuleSilencerPistolT2: 4000
-      STModuleSilencerRiflesT2Nato: 4000
-      STModuleSilencerSniperT2: 4000
-      STModuleSilencerSMGT2: 4000
+      STModuleSilencerSMGT1: 600
+      STModuleSniperSightT1: 600
+      STModuleSilencerSniperT1: 600
+      STModuleSilencerRiflesT2Ru: 6000
+      STModuleSilencerPistolT2: 6000
+      STModuleSilencerRiflesT2Nato: 6000
+      STModuleSilencerSniperT2: 6000
+      STModuleSilencerSMGT2: 6000
       STModuleGlockSwitch: 200
 
   - name: shop-category-customization
@@ -538,16 +538,16 @@
   - name: shop-category-blueprints
     priority: 13
     items:
-      STOWCSDetectorSeaDevilBlueprint: 35000
-      STOWCSZoneArtifactDetectorBearBlueprint: 35000
+      STOWCSDetectorSeaDevilBlueprint: 40000
+      STOWCSZoneArtifactDetectorBearBlueprint: 50000
       STOWCSZoneArtifactDetectorWolfhoundBlueprint: 75000
 
   - name: shop-category-tools
     priority: 14
     items:
-      CraftChemicalCleaningKit: 4000
+      CraftChemicalCleaningKit: 6000
       ElectronicDetectorT1: 2000 # EN
-      ElectronicDetectorT2: 10000 # OW Shop Change End
+      ElectronicDetectorT2: 15000 # OW Shop Change End
       
   - name: shop-category-paperwork
     priority: 15
