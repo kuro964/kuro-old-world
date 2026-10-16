@@ -4462,5 +4462,12 @@
   id: 494
   time: '2026-10-15T04:34:25.792911+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/164
+- author: kuro964
+  changes:
+  - message: Slightly increased jewelry odds in certain loot pools post-nerf
+    type: Tweak
+  id: 495
+  time: '2026-10-16T22:36:49.541137+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/165
 Name: Stalker
 Order: -1
