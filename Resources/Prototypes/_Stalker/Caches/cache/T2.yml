@@ -80,10 +80,10 @@
     - { id: ClothingOuterCoatSmugglerBlueprint, prob: 0.05 }
     - { id: MakeshiftArtContBlueprint, prob: 0.05 }
 
-    # Jewelry - 3% per container
+    # Jewelry - 10% per container
     - !type:NestedSelector
       tableId: STLootJewelry
-      prob: 0.03
+      prob: 0.10
 
 - type: entity
   parent: STBaseCache

@@ -41,10 +41,10 @@
     - { id: BaseRadio, prob: 0.05 }
     - { id: HandheldGPSBasic, prob: 0.05 }
 
-    # Jewelry - 2.5% per container
+    # Jewelry - 20% per container
     - !type:NestedSelector
       tableId: STLootJewelry
-      prob: 0.025
+      prob: 0.20
 
 - type: entity
   parent: STBaseTrashCache
