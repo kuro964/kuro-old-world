@@ -11,20 +11,21 @@ This page is the reference for how to write code that fits into the Stalker-14-E
 ```
 Base SS14 code           -->  Do not modify (unless absolutely necessary)
 _Stalker/ directories    -->  Upstream Stalker code. Do not modify (unless absolutely necessary)
-_Stalker_EN/ directories -->  ALL new EN-fork code goes here
+_Stalker_EN/ directories -->  ALL EN-fork code
+_Stalker_OW/ directories -->  ALL new OW-fork code goes here
 ```
 
-Every new feature, bugfix, or extension specific to the EN fork **must** live under a `_Stalker_EN/` directory. This is non-negotiable.
+Every new feature, bugfix, or extension specific to the OW fork **should** live under a `_Stalker_OW/` directory. This is negotiable in cases of adjustments to EN code.
 
 ### Directory Map
 
 | What you are writing | Where it goes |
 |---|---|
-| Components, events, enums, shared systems | `Content.Shared/_Stalker_EN/YourFeature/` |
-| Server-only game logic, authoritative systems | `Content.Server/_Stalker_EN/YourFeature/` |
-| UI code, visuals, client-only systems | `Content.Client/_Stalker_EN/YourFeature/` |
-| YAML entity/prototype definitions | `Resources/Prototypes/_Stalker_EN/YourFeature/` |
-| Localization strings | `Resources/Locale/en-US/_Stalker_EN/yourfeature.ftl` |
+| Components, events, enums, shared systems | `Content.Shared/_Stalker_OW/YourFeature/` |
+| Server-only game logic, authoritative systems | `Content.Server/_Stalker_OW/YourFeature/` |
+| UI code, visuals, client-only systems | `Content.Client/_Stalker_OW/YourFeature/` |
+| YAML entity/prototype definitions | `Resources/Prototypes/_Stalker_OW/YourFeature/` |
+| Localization strings | `Resources/Locale/en-US/_Stalker_OW/yourfeature.ftl` |
 
 ### Prototype Path Mirroring
 
@@ -35,10 +36,10 @@ Upstream prototype at:
   Resources/Prototypes/_Stalker/Entities/Mobs/mutants.yml
 
 Override goes to:
-  Resources/Prototypes/_Stalker_EN/Entities/Mobs/mutants.yml
+  Resources/Prototypes/_Stalker_OW/Entities/Mobs/mutants.yml
 ```
 
-Do **not** invent a new folder hierarchy for overridden prototypes. The path under `_Stalker_EN/` should match the path under `_Stalker/` (or the base `Prototypes/` directory if overriding base SS14 prototypes).
+Do **not** invent a new folder hierarchy for overridden prototypes. The path under `_Stalker_OW/` should match the path under `_Stalker/` (or the base `Prototypes/` directory if overriding base SS14 prototypes).
 
 ### When You Must Touch Upstream Code
 
@@ -46,20 +47,20 @@ Do **not** invent a new folder hierarchy for overridden prototypes. The path und
 2. **Mark it clearly** with the correct comment marker (see below)
 3. **Ask before proceeding**: modifications to upstream code should be reviewed first
 
-**Comment markers for EN-fork changes to upstream files:**
+**Comment markers for OW-fork changes to upstream files:**
 
 ```csharp
 // Single line change:
-var result = DoSomething(); // stalker-en
+var result = DoSomething(); // stalker-ow
 
 // Multi-line block:
-// stalker-en-start
+// stalker-ow-start
 var custom = NewLogic();
 ApplyCustom(custom);
-// stalker-en-end
+// stalker-ow-end
 ```
 
-> **Warning**: Upstream Stalker uses `// stalker-changes` for its own modifications. Do **not** use that marker for EN-fork changes.
+> **Warning**: Upstream Stalker uses `// stalker-changes` for its own modifications. Do **not** use that marker for OW-fork changes.
 
 ## Naming Conventions
 
@@ -227,9 +228,10 @@ Before writing new code, search the existing codebase thoroughly.
 
 ### Search Order
 
-1. `Content.Shared/_Stalker_EN/` and `Content.Server/_Stalker_EN/`: has the EN fork already solved this?
-2. `Content.Shared/_Stalker/` and `Content.Server/_Stalker/`: does upstream Stalker have it?
-3. `Content.Shared/` and `Content.Server/`: does base SS14 provide this?
+1. `Content.Shared/_Stalker_OW/` and `Content.Server/_Stalker_OW/`: has it been added to the OW fork?
+2. `Content.Shared/_Stalker_EN/` and `Content.Server/_Stalker_EN/`: has the EN fork already solved this?
+3. `Content.Shared/_Stalker/` and `Content.Server/_Stalker/`: does upstream Stalker have it?
+4. `Content.Shared/` and `Content.Server/`: does base SS14 provide this?
 
 ### Decision Tree
 
@@ -238,7 +240,7 @@ Can an existing system do exactly what I need?
   YES --> Use it directly.
   NO  --> Can it be extended?
             YES --> Extend it (prefer composition over modification).
-            NO  --> Create new code in _Stalker_EN/.
+            NO  --> Create new code in _Stalker_OW/.
 ```
 
 Duplicating existing functionality is unacceptable.
@@ -326,15 +328,15 @@ Always use **XAML over C#-defined UIs**. Extending existing C#-defined UIs is ac
 ## New Feature Directory Layout
 
 ```
-Content.Shared/_Stalker_EN/YourFeature/
+Content.Shared/_Stalker_OW/YourFeature/
     YourComponent.cs           # Component(s) - pure data
     YourEvents.cs              # Event definitions
     SharedYourSystem.cs        # Shared logic (if any)
 
-Content.Server/_Stalker_EN/YourFeature/
+Content.Server/_Stalker_OW/YourFeature/
     YourSystem.cs              # Server authoritative logic
 
-Content.Client/_Stalker_EN/YourFeature/
+Content.Client/_Stalker_OW/YourFeature/
     YourUi.cs                  # BUI / UI fragment
     YourWindow.xaml            # XAML UI layout (always XAML, not C#)
     YourWindow.xaml.cs         # Code-behind
@@ -342,7 +344,7 @@ Content.Client/_Stalker_EN/YourFeature/
 Resources/Prototypes/_Stalker_EN/YourFeature/
     entities.yml               # Entity prototypes
 
-Resources/Locale/en-US/_Stalker_EN/yourfeature/
+Resources/Locale/en-US/_Stalker_OW/yourfeature/
     yourfeature.ftl            # Localization strings
 ```
 
@@ -352,7 +354,7 @@ Single-file systems do not need subfolders.
 
 ### Branch and PR Process
 
-1. Fork [coolmankid12345/stalker-14-EN](https://github.com/coolmankid12345/stalker-14-EN) and clone your fork
+1. Remote clone [Stalker-Old-World/Stalker14-Old-World] (https://github.com/Stalker-Old-World/Stalker14-Old-World)
 2. Create a feature branch from `master`
 3. Follow the conventions on this page
 4. Test all changes in-game (not just compilation)

@@ -10,21 +10,23 @@
 |-----------|-------|------|
 | Base directories (e.g., `Content.Server/Station/`) | Upstream SS14 | Do not modify unless absolutely necessary |
 | `_Stalker/` | Upstream Stalker-14 (closed Russian fork) | Do not modify unless absolutely necessary |
-| `_Stalker_EN/` | **This fork** | **All new code goes here** |
+| `_Stalker_EN/` | EN fork of Stalker | Code may be adjusted if neccessary for cohesion |
+| `_Stalker_OW` | **This fork** | **New additions should be made here**
 
 ### Why This Exists
 
-Stalker-14-EN sits at the end of a three-project inheritance chain:
+Stalker14-Old-World sits at the end of a four-project inheritance chain:
 
 ```
 Space Station 14 (upstream engine + content)
   +-- Stalker-14 (closed Russian fork)
        +-- stalker-14-EN (English localization + new features)
+            +-- Stalker14-Old-World (Continuation of abandoned EN project)
 ```
 
-Upstream Stalker-14 changes get merged periodically. The `_Stalker_EN/` convention creates a clean boundary: upstream merges only touch base and `_Stalker/` files, while EN work only touches `_Stalker_EN/` files. Conflicts become rare and isolated.
+Upstream Stalker-14 changes get merged periodically. The `_Stalker_OW/` convention creates a clean boundary: upstream merges only touch base and `_Stalker/` files, while OW work only touches `_Stalker_EN/` and `_Stalker_OW` files. Conflicts become rare and isolated.
 
-> **Warning**: When you *must* modify a file outside `_Stalker_EN/`, mark changes with `// stalker-en` (single line) or `// stalker-en-start` / `// stalker-en-end` (multi-line blocks). Do **not** use `// stalker-changes`, which is the upstream Stalker marker.
+> **Warning**: When you *must* modify a file outside `_Stalker_OW/`, mark changes with `// st:ow` (single line) or `// stalker-ow-start` / `// stalker-ow-end` (multi-line blocks). Do **not** use `// stalker-changes`, which is the upstream Stalker marker.
 
 ## Directory Structure
 

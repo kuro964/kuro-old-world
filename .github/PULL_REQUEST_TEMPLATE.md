@@ -1,4 +1,4 @@
-<!-- If you have any questions, please contact our discord https://discord.gg/PMhEtkXFEa -->
+<!-- If you have any questions, please contact our discord https://discord.gg/k9q534tYEs -->
 
 ## What I changed
 <!-- Write what you changed or add pictures -->
@@ -27,5 +27,5 @@ author: @YourName
 ## Make sure you check and agree to the following
 - [ ] Yes, I ran my code and tested that the changes worked
 - [ ] Yes, I checked that there were no errors in the console output of the client and server after my changes
-- [ ] I agree that by submitting a PR I agree to the terms of the [license](https://github.com/coolmankid12345/stalker-14-EN/blob/master/LICENSE.TXT).
+- [ ] I agree that by submitting a PR I agree to the terms of the [license](https://github.com/Stalker-Old-World/Stalker14-Old-World/blob/main/LICENSE.TXT).
 - [ ] I have checked and confirm that all images and audio files that I have added to the PR belong to me or are under an open license

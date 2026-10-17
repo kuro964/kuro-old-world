@@ -1,6 +1,6 @@
 # Stalker-14-EN Developer Wiki
 
-Stalker-14-EN is an English-language SS14 mod built on top of a closed Russian Stalker-14 fork. The main repository is [coolmankid12345/stalker-14-EN](https://github.com/coolmankid12345/stalker-14-EN). This wiki covers the EN-specific systems, conventions, and architecture.
+Stalker-14-EN is an English-language SS14 mod built on top of a closed Russian Stalker-14 fork. The main repository is [Stalker-Old-World/Stalker14-Old-World](https://github.com/Stalker-Old-World/Stalker14-Old-World). This wiki covers the Old World-specific systems, conventions, and architecture.
 
 These pages focus on **why** systems exist, **how** they fit together, and **where** to look when you need to change something.
 
@@ -8,9 +8,9 @@ These pages focus on **why** systems exist, **how** they fit together, and **whe
 
 | Resource | Link |
 |----------|------|
-| Discord | [Join the Discord](https://discord.gg/PMhEtkXFEa) |
+| Discord | [Join the Discord](https://discord.gg/k9q534tYEs) |
 | SS14 Developer Docs | [docs.spacestation14.com](https://docs.spacestation14.com/) |
-| Repository | [coolmankid12345/stalker-14-EN](https://github.com/coolmankid12345/stalker-14-EN) |
+| Repository | [Stalker-Old-World/Stalker14-Old-World](https://github.com/Stalker-Old-World/Stalker14-Old-World) |
 
 ## Getting Started
 
@@ -30,6 +30,7 @@ These pages focus on **why** systems exist, **how** they fit together, and **whe
 Space Station 14 (upstream engine + content)
   +-- Stalker-14 (closed Russian fork)
        +-- coolmankid12345/stalker-14-EN (English localization + new features)
+            +-- Stalker-Old-World/Stalker14-Old-World (Continuation of abandoned EN project)
 ```
 
-All EN-specific code lives under `_Stalker_EN/` directories. Upstream Stalker code lives in `_Stalker/` directories. Base SS14 code sits outside both. This three-layer separation is the most important convention in the codebase. See [Codebase Architecture](Codebase-Architecture) for details.
+All Old World-specific code lives under `_Stalker_OW` directories. All EN-specific code lives under `_Stalker_EN/` directories. Upstream Stalker code lives in `_Stalker/` directories. Base SS14 code sits outside both. This four-layer separation is the most important convention in the codebase. See [Codebase Architecture](Codebase-Architecture) for details.
