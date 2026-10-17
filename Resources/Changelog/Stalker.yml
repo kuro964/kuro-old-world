@@ -4469,5 +4469,14 @@
   id: 495
   time: '2026-10-16T22:36:49.541137+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/165
+- author: Whiffets
+  changes:
+  - message: EN Sponsor shop
+    type: Remove
+  - message: Github documentation
+    type: Fix
+  id: 496
+  time: '2026-10-17T02:13:49.587550+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/166
 Name: Stalker
 Order: -1
