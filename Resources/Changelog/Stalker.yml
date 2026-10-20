@@ -4478,5 +4478,16 @@
   id: 496
   time: '2026-10-17T02:13:49.587550+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/166
+- author: WeeblyMon
+  changes:
+  - message: Mutants no longer charge into trees, fences and railings and get stuck
+      on them.
+    type: Fix
+  - message: Mutants that get stuck now find another way round instead of trying the
+      same gap over and over.
+    type: Fix
+  id: 497
+  time: '2026-10-20T01:27:22.995189+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/167
 Name: Stalker
 Order: -1
