@@ -105,6 +105,7 @@
         STWeaponRifleM4: 6000 # T2
         STWeaponRifleFAL: 1750 # T3
         STWeaponRifleGalil: 7000 # T3
+        STWeaponMachineGunM249SAW: 9000
         STWeaponRifleFALo: 8000 # T3
         # Snipers
         STWeaponSniperMosin: 1200
@@ -118,6 +119,7 @@
         Base556Mag10: 80
         556Mag20: 220
         556Mag30: 400
+        556box249: 1000
         BaseMP5Mag: 260
         GlockMag17: 150
         GlockMag33: 600
