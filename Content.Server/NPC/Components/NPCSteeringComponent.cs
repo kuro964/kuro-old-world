@@ -66,6 +66,12 @@ public sealed partial class NPCSteeringComponent : Component
     [ViewVariables]
     public bool Pathfind => PathfindToken != null;
 
+    [ViewVariables]
+    public bool ForcePath;
+
+    [ViewVariables]
+    public bool StuckHandled;
+
     /// <summary>
     /// Are we considered arrived if we have line of sight of the target.
     /// </summary>

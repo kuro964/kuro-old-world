@@ -1,6 +1,7 @@
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Server._Stalker_EN.NPC.Steering;
 using Content.Server.Administration.Managers;
 using Content.Server.DoAfter;
 using Content.Server.NPC.Components;
@@ -438,14 +439,16 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         // Thanks past sloth I already realised.
         if (targetPoly != null &&
             steering.Coordinates.Position.Equals(Vector2.Zero) &&
+            !steering.ForcePath &&
             TryComp<PhysicsComponent>(uid, out var physics) &&
-            _interaction.InRangeUnobstructed(uid, steering.Coordinates.EntityId, range: 30f, (CollisionGroup)physics.CollisionMask))
+            CanBeeline(uid, steering.Coordinates.EntityId, steering.Radius, (CollisionGroup) physics.CollisionMask))
         {
             steering.CurrentPath.Clear();
             steering.CurrentPath.Enqueue(targetPoly);
             return;
         }
 
+        steering.ForcePath = false;
         steering.PathfindToken = new CancellationTokenSource();
 
         var flags = _pathfindingSystem.GetFlags(uid);
@@ -456,7 +459,8 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
             steering.Coordinates,
             steering.Range,
             steering.PathfindToken.Token,
-            flags);
+            flags,
+            GetAvoidTiles(uid));
 
         steering.PathfindToken = null;
 
@@ -478,6 +482,53 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
 
         PrunePath(uid, ourPos, targetPos.Position - ourPos.Position, result.Path);
         steering.CurrentPath = new Queue<PathPoly>(result.Path);
+    }
+
+    private void AvoidNextTile(EntityUid uid, NPCSteeringComponent steering)
+    {
+        if (steering.CurrentPath.Count <= 1 || !steering.CurrentPath.TryPeek(out var next))
+            return;
+
+        var avoid = EnsureComp<STNPCAvoidTilesComponent>(uid);
+        avoid.Tiles[(next.GraphUid, next.ChunkOrigin, next.TileIndex)] = _timing.CurTime + avoid.AvoidTime;
+    }
+
+    private HashSet<(EntityUid Graph, Vector2i Chunk, byte Tile)>? GetAvoidTiles(EntityUid uid)
+    {
+        if (!TryComp<STNPCAvoidTilesComponent>(uid, out var avoid))
+            return null;
+
+        var now = _timing.CurTime;
+
+        foreach (var (tile, until) in avoid.Tiles)
+        {
+            if (until <= now)
+                avoid.Tiles.Remove(tile);
+        }
+
+        if (avoid.Tiles.Count == 0)
+            return null;
+
+        return new HashSet<(EntityUid Graph, Vector2i Chunk, byte Tile)>(avoid.Tiles.Keys);
+    }
+
+    public bool CanBeeline(EntityUid uid, EntityUid target, float radius, CollisionGroup mask)
+    {
+        if (!_interaction.InRangeUnobstructed(uid, target, range: 30f, mask))
+            return false;
+
+        var from = _transform.GetMapCoordinates(uid);
+        var to = _transform.GetMapCoordinates(target);
+        var dir = to.Position - from.Position;
+
+        if (dir.LengthSquared() < 0.0001f)
+            return true;
+
+        var side = new Vector2(-dir.Y, dir.X).Normalized() * radius;
+        SharedInteractionSystem.Ignored ignore = ent => ent == uid || ent == target;
+
+        return _interaction.InRangeUnobstructed(from.Offset(side), to.Offset(side), 0f, mask, ignore) &&
+               _interaction.InRangeUnobstructed(from.Offset(-side), to.Offset(-side), 0f, mask, ignore);
     }
 
     // TODO: Move these to movercontroller

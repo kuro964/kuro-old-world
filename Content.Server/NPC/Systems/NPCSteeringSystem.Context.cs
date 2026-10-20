@@ -296,6 +296,13 @@ public sealed partial class NPCSteeringSystem
                 // and I don't want to spam grafana even harder than it gets spammed rn.
                 Log.Debug($"NPC {ToPrettyString(uid)} found stuck at {ourCoordinates}");
                 needsPath = true;
+                steering.ForcePath = true;
+
+                if (!steering.StuckHandled)
+                {
+                    steering.StuckHandled = true;
+                    AvoidNextTile(uid, steering);
+                }
 
                 if (stuckTime.TotalSeconds > maxStuckTime * 3)
                 {
@@ -356,6 +363,7 @@ public sealed partial class NPCSteeringSystem
     {
         component.LastStuckCoordinates = ourCoordinates;
         component.LastStuckTime = _timing.CurTime;
+        component.StuckHandled = false;
     }
 
     private void CheckPath(EntityUid uid, NPCSteeringComponent steering, TransformComponent xform, bool needsPath, float targetDistance)

@@ -354,9 +354,11 @@ namespace Content.Server.NPC.Pathfinding
             EntityCoordinates end,
             float range,
             CancellationToken cancelToken,
-            PathFlags flags = PathFlags.None)
+            PathFlags flags = PathFlags.None,
+            HashSet<(EntityUid Graph, Vector2i Chunk, byte Tile)>? avoid = null)
         {
             var request = GetRequest(entity, start, end, range, cancelToken, flags);
+            request.Avoid = avoid;
             return await GetPath(request, true);
         }
 

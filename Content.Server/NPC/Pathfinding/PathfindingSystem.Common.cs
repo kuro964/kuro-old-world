@@ -52,6 +52,9 @@ public sealed partial class PathfindingSystem
             return 0f;
         }
 
+        if (request.Avoid != null && request.Avoid.Contains((end.GraphUid, end.ChunkOrigin, end.TileIndex)))
+            return 0f;
+
         if ((request.CollisionLayer & end.Data.CollisionMask) != 0x0 ||
             (request.CollisionMask & end.Data.CollisionLayer) != 0x0)
         {
