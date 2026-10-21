@@ -10,6 +10,7 @@
     items:
       # ow changes begin
       STWeaponRifleOC14: 3
+      STWeaponShotgunProtecta: 3
       STWeaponRifleAK74M: 5
       STWeaponSMGPP2000: 6 # ST:OW 
       STWeaponRifleRPK74: 6

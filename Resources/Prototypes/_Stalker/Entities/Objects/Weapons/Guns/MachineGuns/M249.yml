@@ -5,6 +5,9 @@
   components:
   - type: STWeight
     self: 6.9
+  - type: HeldSpeedModifier
+    walkModifier: 0.6
+    sprintModifier: 0.5
   - type: Item
     sprite: _Stalker/Objects/Weapons/Guns/MGs/m249.rsi
     shape:
@@ -14,14 +17,12 @@
   - type: Clothing
     sprite: _Stalker/Objects/Weapons/Guns/MGs/m249.rsi
   - type: Gun
-    fireRate: 9
+    fireRate: 8
     soundGunshot:
       path: /Audio/_Stalker/Effects/Guns/l85.ogg
-      params:
-        volume: -2
-    minAngle: 48
-    maxAngle: 95
-    angleIncrease: 0.8
+    minAngle: 50 # OW (Old Value 48)
+    maxAngle: 100 # OW (Old Value 95)
+    angleIncrease: 1 # OW (Old Value 0.8)
     selectedMode: FullAuto
     availableModes:
     - FullAuto
@@ -50,14 +51,16 @@
       gun_magazine: !type:ContainerSlot
       gun_chamber: !type:ContainerSlot
   - type: GunWieldBonus
-    minAngle: -28
-    maxAngle: -77
+    minAngle: -45
+    maxAngle: -55
   - type: PullDoAfter
     pullTime: 5
+  - type: UseDelay
+    delay: 1    
   - type: STWeaponDamageFalloff
     falloffMultiplier: 0.8
   - type: STWeaponAccuracy
-    accuracyMultiplier: 1.5
+    accuracyMultiplier: 1.45
 
 - type: entity
   parent: STBaseWeaponMachineGunM249SAW

@@ -59,6 +59,7 @@
         STWeaponRifleAKM: 6000
         STWeaponRifleStalkerAK12Dolg: 6000
         STWeaponRifleA545Dolg: 7500
+        STWeaponRifleRPK74: 7000
         STBaseWeaponRifleOC14-A1: 8000
         # SMGs
         STWeaponSMGPP91: 1200
@@ -76,6 +77,7 @@
         Base545Mag10: 50 # T1
         545Mag20: 220 # T2
         545Mag30: 400 # T3
+        Base545MagRPK: 500
           # 7,62x54 and 39
         Base739Mag10: 200
         739Mag30: 500

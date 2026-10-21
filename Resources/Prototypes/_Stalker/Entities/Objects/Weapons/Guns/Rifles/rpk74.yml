@@ -41,6 +41,7 @@
         whitelist:
           tags:
           - MagazineRPK
+          - Magazine545
       gun_module_muzzle:
         name: Muzzle
         priority: 3
