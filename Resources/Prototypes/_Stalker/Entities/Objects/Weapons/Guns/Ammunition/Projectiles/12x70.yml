@@ -72,7 +72,7 @@
     damage:
       types:
         Piercing: 13
-        Mutant: 16
+        Mutant: 12
 
 - type: entity
   id: Bullet8mmBuckshot
@@ -96,8 +96,8 @@
     projectileClass: 3
     damage:
       types:
-        Piercing: 6
-        Mutant: 18
+        Piercing: 13
+        Mutant: 10
 
 - type: entity
   id: BulletShotgunFlechette

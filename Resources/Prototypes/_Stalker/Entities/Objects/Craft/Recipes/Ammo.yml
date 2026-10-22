@@ -65,7 +65,7 @@
       catalyzer: true
     CraftMaterialGunpowder:
       amount: 4
-    STCraftSheetAluminumT4:
+    STCraftSheetBrassT3:
       amount: 5
 
 - type: craftRecipe
