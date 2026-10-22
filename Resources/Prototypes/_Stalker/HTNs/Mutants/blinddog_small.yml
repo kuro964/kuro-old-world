@@ -9,6 +9,12 @@
         task: STBlindDogSmallMeleeCombatCritCompound
     - tasks:
       - !type:HTNCompoundTask
+        task: STPursueLastKnownCompound
+    - tasks:
+      - !type:HTNCompoundTask
+        task: STSearchAreaCompound
+    - tasks:
+      - !type:HTNCompoundTask
         task: STBlindDogSmallRoarRestoreCompound
       - !type:HTNCompoundTask
         task: IdleCompound

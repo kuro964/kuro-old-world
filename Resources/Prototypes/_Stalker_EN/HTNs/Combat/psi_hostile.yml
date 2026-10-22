@@ -12,6 +12,12 @@
           task: STPsiMeleeCombatCompound
     - tasks:
         - !type:HTNCompoundTask
+          task: STPursueLastKnownCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: STSearchAreaCompound
+    - tasks:
+        - !type:HTNCompoundTask
           task: FollowCompound
     - tasks:
         - !type:HTNCompoundTask

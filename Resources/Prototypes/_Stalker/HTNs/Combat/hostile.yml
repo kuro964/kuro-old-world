@@ -12,6 +12,12 @@
           task: STSimpleMeleeCombatAliveCompound
     - tasks:
         - !type:HTNCompoundTask
+          task: STPursueLastKnownCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: STSearchAreaCompound
+    - tasks:
+        - !type:HTNCompoundTask
           task: FollowCompound
     - tasks:
       - !type:HTNCompoundTask
@@ -150,6 +156,12 @@
 
     - tasks:
         - !type:HTNCompoundTask
+          task: STPursueLastKnownCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: STSearchAreaCompound
+    - tasks:
+        - !type:HTNCompoundTask
           task: IdleCompound
 # Chimera Combat
 - type: htnCompound
@@ -165,6 +177,12 @@
         - !type:HTNCompoundTask
           task: STSimpleMeleeCombatCritCompound
 
+    - tasks:
+        - !type:HTNCompoundTask
+          task: STPursueLastKnownCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: STSearchAreaCompound
     - tasks:
         - !type:HTNCompoundTask
           task: IdleCompound          

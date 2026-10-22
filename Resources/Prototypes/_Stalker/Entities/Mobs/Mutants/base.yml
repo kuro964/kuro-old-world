@@ -32,7 +32,27 @@
       VisionRadius: !type:Single
         20
       AggroVisionRadius: !type:Single
-        15
+        25
+  - type: STAwareness
+    managedRoots:
+    - STSimpleHostileCompound
+    - SimpleRangedHostileCompound
+    - STMonolith
+    - STBlindDogRedCompound
+    - STBlindDogSmallCompound
+    - STBlindDogTallCompound
+    - STBlindDogWhiteCompound
+    - STBearCompound
+    - STBearT3Compound
+    - STBloodsuckerCompound
+    - STCatCompound
+    - STPsidogCompound
+    - STGoshaCompound
+    - STChimeraHostileCompound
+    - STBurerHostileCompound
+    - STPsiHostileCompound
+    - STAmbushHostileCompound
+    - GoliathCompound
   - type: NpcFactionMember
     factions:
       - Mutated
@@ -208,6 +228,10 @@
         Acidic: [Touch, Ingestion]
     - type: InputMover
     - type: MobMover
+    - type: STAwareness
+      managedRoots:
+      - STPsidogCompound
+      - STBlindDogRedCompound
     - type: NpcFactionMember
       factions:
         - Mutated

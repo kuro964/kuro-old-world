@@ -1,0 +1,40 @@
+- type: htnCompound
+  id: STPursueLastKnownCompound
+  branches:
+  - preconditions:
+    - !type:STAwarenessStatePrecondition
+      state: Lost
+    tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MoveToOperator
+        pathfindInPlanning: false
+        removeKeyOnFinish: false
+        targetKey: STLastKnownCoordinates
+        pathfindKey: STLastKnownPathfind
+        rangeKey: MeleeRange
+    - !type:HTNPrimitiveTask
+      operator: !type:SetBoolOperator
+        targetKey: STReachedLastKnown
+        value: true
+
+- type: htnCompound
+  id: STSearchAreaCompound
+  branches:
+  - preconditions:
+    - !type:STAwarenessStatePrecondition
+      state: Searching
+    tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:SetFloatOperator
+        targetKey: STSearchRange
+        amount: 2
+    - !type:HTNPrimitiveTask
+      operator: !type:PickAccessibleOperator
+        rangeKey: STSearchRange
+        targetCoordinates: STSearchCoordinates
+        pathfindKey: STSearchPathfind
+    - !type:HTNPrimitiveTask
+      operator: !type:MoveToOperator
+        pathfindInPlanning: false
+        targetKey: STSearchCoordinates
+        pathfindKey: STSearchPathfind

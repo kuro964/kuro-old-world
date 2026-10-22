@@ -1,5 +1,7 @@
 using Content.Server.Damage.Systems;
+using Content.Server.NPC.HTN;
 using Content.Server.Stunnable;
+using Content.Shared.Examine;
 using Content.Shared._Stalker.Jumpscare;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
@@ -27,6 +29,7 @@ public sealed class JumpscareSystem : EntitySystem
     [Dependency] private readonly StaminaSystem _stamina = default!;
     [Dependency] private readonly ThrowingSystem _throwing = default!;
     [Dependency] private readonly MovementModStatusSystem _movementMod = default!;
+    [Dependency] private readonly ExamineSystemShared _examine = default!;
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -121,6 +124,9 @@ public sealed class JumpscareSystem : EntitySystem
 
     private EntityUid? CheckHumanTarget(EntityUid uid, JumpscareComponent component)
     {
+        if (TryComp<HTNComponent>(uid, out var htn))
+            return CheckHtnTarget(uid, component, htn);
+
         var closestDistance = float.MaxValue;
         EntityUid? target = null;
 
@@ -144,6 +150,25 @@ public sealed class JumpscareSystem : EntitySystem
             target = entity;
             closestDistance = dist;
         }
+
+        return target;
+    }
+
+    private EntityUid? CheckHtnTarget(EntityUid uid, JumpscareComponent component, HTNComponent htn)
+    {
+        if (!htn.Blackboard.TryGetValue<EntityUid>("Target", out var target, EntityManager) ||
+            TerminatingOrDeleted(target) ||
+            !HasComp<HumanoidAppearanceComponent>(target) ||
+            !TryComp<MobStateComponent>(target, out var state) ||
+            !_mobState.IsAlive(target, state))
+        {
+            return null;
+        }
+
+        var dist = (_xform.GetWorldPosition(uid) - _xform.GetWorldPosition(target)).Length();
+
+        if (dist > component.AttackRadius || !_examine.InRangeUnOccluded(uid, target, component.AttackRadius))
+            return null;
 
         return target;
     }

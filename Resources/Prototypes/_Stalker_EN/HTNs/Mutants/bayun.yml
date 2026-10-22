@@ -9,6 +9,12 @@
         task: STCatMeleeCombatCritCompound
     - tasks:
       - !type:HTNCompoundTask
+        task: STPursueLastKnownCompound
+    - tasks:
+      - !type:HTNCompoundTask
+        task: STSearchAreaCompound
+    - tasks:
+      - !type:HTNCompoundTask
         task: STCatRoarRestoreCompound
       - !type:HTNCompoundTask
         task: IdleCompound

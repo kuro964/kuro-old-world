@@ -6,6 +6,12 @@
           task: GoliathMeleeCombatPrecondition
     - tasks:
         - !type:HTNCompoundTask
+          task: STPursueLastKnownCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: STSearchAreaCompound
+    - tasks:
+        - !type:HTNCompoundTask
           task: IdleCompound
 
 - type: htnCompound

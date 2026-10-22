@@ -44,6 +44,12 @@
     - tasks: # finish off a downed/crit target
         - !type:HTNCompoundTask
           task: STSimpleMeleeCombatCritCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: STPursueLastKnownCompound
+    - tasks:
+        - !type:HTNCompoundTask
+          task: STSearchAreaCompound
     - tasks: # no target in range: stand still (the "ambush" state)
         - !type:HTNCompoundTask
           task: STStandStillCompound

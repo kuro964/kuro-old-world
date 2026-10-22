@@ -9,6 +9,12 @@
         task: STBloodsuckerMeleeCombatCritCompound
     - tasks:
       - !type:HTNCompoundTask
+        task: STPursueLastKnownCompound
+    - tasks:
+      - !type:HTNCompoundTask
+        task: STSearchAreaCompound
+    - tasks:
+      - !type:HTNCompoundTask
         task: STBloodsuckerRoarRestoreCompound
       - !type:HTNCompoundTask
         task: IdleCompound
