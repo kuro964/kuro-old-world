@@ -261,7 +261,7 @@
   id: 556box249
   name: короб M249 (5,56)
   description: Короб 5,56 для пулемёта M249. Вместимость пуль 100. Продают пустым.
-  parent: MagazineLightRifleBox
+  parent: Base556Mag10
   components:
     - type: STWeight
       self: 1.5
