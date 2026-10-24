@@ -20,6 +20,9 @@ public sealed partial class STAwarenessComponent : Component
     public TimeSpan LoseSightGrace = TimeSpan.FromSeconds(0.5);
 
     [DataField]
+    public TimeSpan HunchTime = TimeSpan.FromSeconds(0.75);
+
+    [DataField]
     public TimeSpan MemoryTime = TimeSpan.FromSeconds(10);
 
     [DataField]
@@ -57,4 +60,7 @@ public sealed partial class STAwarenessComponent : Component
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
     public TimeSpan LastPursuing;
+
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
+    public TimeSpan HoldUntil;
 }

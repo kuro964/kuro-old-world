@@ -40,6 +40,14 @@
         20
       AggroVisionRadius: !type:Single
         15
+      NavInteract: !type:Bool
+        true
+  - type: Tag
+    tags:
+      - CannotSuicide
+      - STMaterialOrganic
+      - FootstepSound
+      - DoorBumpOpener
   - type: NPCUseActionOnTarget
     actionId: ActionPsyonicsDizzyMutant
   - type: Psyonics

@@ -1,6 +1,7 @@
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Server._Stalker_EN.NPC.Doors;
 using Content.Server._Stalker_EN.NPC.Steering;
 using Content.Server.Administration.Managers;
 using Content.Server.DoAfter;
@@ -68,6 +69,7 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedCombatModeSystem _combat = default!;
+    [Dependency] private readonly STDoorBasherSystem _doorBasher = default!;
 
     private EntityQuery<FixturesComponent> _fixturesQuery;
     private EntityQuery<MovementSpeedModifierComponent> _modifierQuery;

@@ -5,6 +5,29 @@
   id: MobStalkerZombieMeleeBase
   description: A poor person who has lost his mind to the Zone...
   components:
+  - type: HTN
+    rootTask:
+      task: STSimpleHostileCompound
+    blackboard:
+      VisionRadius: !type:Single
+        20
+      AggroVisionRadius: !type:Single
+        25
+      NavInteract: !type:Bool
+        true
+      NavPry: !type:Bool
+        true
+  - type: Tag
+    tags:
+      - CannotSuicide
+      - STMaterialOrganic
+      - FootstepSound
+      - DoorBumpOpener
+  - type: Prying
+    pryPowered: !type:Bool
+      true
+    force: !type:Bool
+      true
   - type: Stamina
     decay: 14
     cooldown: 5

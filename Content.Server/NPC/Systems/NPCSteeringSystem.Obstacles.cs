@@ -1,3 +1,4 @@
+using Content.Server._Stalker_EN.NPC.Doors;
 using Content.Server.Destructible;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.Pathfinding;
@@ -95,7 +96,10 @@ public sealed partial class NPCSteeringSystem
                     {
                         if (door.State != DoorState.Opening)
                         {
-                            _interaction.InteractionActivate(uid, ent);
+                            if (TryComp<STDoorBasherComponent>(uid, out var basher) && basher.Active)
+                                return _doorBasher.TryBash((uid, basher), (ent, door)) ? SteeringObstacleStatus.Continuing : SteeringObstacleStatus.Failed;
+
+                            _interaction.InteractionActivate(uid, ent, complexInteractions: true);
                             return SteeringObstacleStatus.Continuing;
                         }
                     }

@@ -55,6 +55,7 @@
   description: Старая металическая дверь.
   suffix: ST, mapping
   components:
+  - type: STBashableDoor
   - type: Sprite
     sprite: _Stalker/Structures/Doors/metalgate.rsi
     layers:
@@ -80,6 +81,7 @@
   parent: STBaseMaterialDoor
   description: Обычная стальная дверь.
   components:
+  - type: STBashableDoor
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/metal/metal.rsi
     layers:
@@ -137,6 +139,7 @@
   parent: STBaseMaterialDoor
   description: Обычная стальная дверь, окрашена в красный цвет.
   components:
+  - type: STBashableDoor
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/metal/metalred.rsi
     layers:
@@ -166,6 +169,7 @@
   parent: STBaseMaterialDoor
   description: An ordinary steel door.
   components:
+  - type: STBashableDoor
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/metal/metalalt.rsi
     layers:
@@ -195,6 +199,7 @@
   parent: STBaseMaterialDoor
   description: Обычная решетчатая дверь.
   components:
+  - type: STBashableDoor
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/metal/metalbar.rsi
     layers:
@@ -227,6 +232,7 @@
   parent: STBaseMaterialDoor
   description: Обычная решетчатая дверь
   components:
+  - type: STBashableDoor
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/metal/metalgrate.rsi
     layers:
@@ -259,6 +265,7 @@
   parent: STBaseMaterialDoor
   description: Обычная стальная дверь, с окном.
   components:
+  - type: STBashableDoor
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/metal/metalwindow.rsi
     layers:
@@ -291,6 +298,8 @@
   parent: STBaseMaterialDoor
   description: Обычная деревянная дверь.
   components:
+  - type: STBashableDoor
+    strength: 150
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/wood/wood.rsi
     layers:
@@ -320,6 +329,8 @@
   parent: STBaseMaterialDoor
   description: Обычная деревянная дверь, окрашена в белый цвет.
   components:
+  - type: STBashableDoor
+    strength: 150
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/wood/white.rsi
     layers:
@@ -349,6 +360,8 @@
   parent: STBaseMaterialDoor
   description: Обычная деревянная дверь, окрашена в зелёный цвет.
   components:
+  - type: STBashableDoor
+    strength: 150
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/wood/green.rsi
     layers:
@@ -378,6 +391,8 @@
   parent: STBaseMaterialDoor
   description: Обычная деревянная дверь, окрашена в красный цвет. Открывается быстрее обычной двери.
   components:
+  - type: STBashableDoor
+    strength: 150
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/wood/red.rsi
     layers:
@@ -407,6 +422,8 @@
   parent: STBaseMaterialDoor
   description: Обычная деревянная дверь, окрашена в синий цвет.
   components:
+  - type: STBashableDoor
+    strength: 150
   - type: Sprite
     sprite: _Stalker/Structures/Doors/KMIN Doors/wood/blue.rsi
     layers:

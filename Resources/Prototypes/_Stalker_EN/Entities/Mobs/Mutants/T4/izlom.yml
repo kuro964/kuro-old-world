@@ -7,6 +7,22 @@
   suffix: ST, T4
   description: A once-human mutant, they still seem aware of their surroundings. They often lurk near settlements and try to draw out stalkers in hopes of an easy meal.
   components:
+  - type: HTN
+    rootTask:
+      task: STSimpleHostileCompound
+    blackboard:
+      VisionRadius: !type:Single
+        20
+      AggroVisionRadius: !type:Single
+        25
+      NavInteract: !type:Bool
+        true
+  - type: Tag
+    tags:
+      - CannotSuicide
+      - STMaterialOrganic
+      - FootstepSound
+      - DoorBumpOpener
   - type: Sprite
     layers:
       - map: [ "enum.DamageStateVisualLayers.Base", "movement" ]

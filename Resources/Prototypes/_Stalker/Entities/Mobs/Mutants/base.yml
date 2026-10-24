@@ -53,6 +53,7 @@
     - STPsiHostileCompound
     - STAmbushHostileCompound
     - GoliathCompound
+  - type: STDoorBasher
   - type: NpcFactionMember
     factions:
       - Mutated
@@ -232,6 +233,7 @@
       managedRoots:
       - STPsidogCompound
       - STBlindDogRedCompound
+    - type: STDoorBasher
     - type: NpcFactionMember
       factions:
         - Mutated

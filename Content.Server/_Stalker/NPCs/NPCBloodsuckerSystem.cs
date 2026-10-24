@@ -14,6 +14,7 @@ using Content.Shared.Camera;
 using Content.Server._Stalker.Dizzy;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Standing;
 
 namespace Content.Server._Stalker.NPCs;
 
@@ -87,6 +88,9 @@ public sealed class NPCBloodsuckerSystem : EntitySystem
 
         if (TryComp<MobStateComponent>(target, out var mobState) && _mobState.IsAlive(target, mobState))
         {
+            var drop = new DropHandItemsEvent();
+            RaiseLocalEvent(target, ref drop);
+
             _movementMod.TryUpdateMovementSpeedModDuration(target, "BloodSuckerSlowdownStatusEffect", TimeSpan.FromSeconds(1), 0f, 0f); // we want target to stay still all the time // +0.5 since there is a possibility that mob will attack not enouch times on these delay due to tickrate and serverlag
             _movementMod.TryUpdateMovementSpeedModDuration(user.Owner, "BloodSuckerSlowdownStatusEffect", TimeSpan.FromSeconds(1), 0f, 0f); // we want user to stay still all the time
             _stunSystem.TryKnockdown(user.Owner, TimeSpan.FromSeconds(1), false); // we dont want bloodsucker to attack while suckin

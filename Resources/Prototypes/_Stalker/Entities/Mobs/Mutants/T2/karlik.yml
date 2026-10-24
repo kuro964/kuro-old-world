@@ -55,6 +55,14 @@
         20
       AggroVisionRadius: !type:Single
         15
+      NavInteract: !type:Bool
+        true
+  - type: Tag
+    tags:
+      - CannotSuicide
+      - STMaterialOrganic
+      - FootstepSound
+      - DoorBumpOpener
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 1.5
   - type: BasicEntityAmmoProvider

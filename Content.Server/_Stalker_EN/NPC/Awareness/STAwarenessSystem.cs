@@ -1,4 +1,5 @@
 using Content.Server.NPC;
+using Content.Server.NPC.Components;
 using Content.Server.NPC.HTN;
 using Content.Server.NPC.HTN.PrimitiveTasks;
 using Content.Server.NPC.HTN.PrimitiveTasks.Operators;
@@ -128,6 +129,9 @@ public sealed class STAwarenessSystem : EntitySystem
                 if (htn.Plan?.CurrentOperator is MoveToOperator { TargetKey: LastKnownKey })
                     comp.LastPursuing = now;
 
+                if (now < comp.HoldUntil || (TryComp<NPCSteeringComponent>(uid, out var steering) && steering.DoAfterId != null))
+                    comp.StateStart += comp.UpdateInterval;
+
                 var arrived = blackboard.TryGetValue<bool>(ArrivedKey, out var reached, EntityManager) && reached;
                 var stalled = now - comp.LastPursuing > comp.PursueStallTime;
 
@@ -167,8 +171,11 @@ public sealed class STAwarenessSystem : EntitySystem
         Interrupt(htn);
     }
 
-    private static void EnterLost(STAwarenessComponent comp, NPCBlackboard blackboard, TimeSpan now)
+    private void EnterLost(STAwarenessComponent comp, NPCBlackboard blackboard, TimeSpan now)
     {
+        if (comp.Target is { } target && now - comp.LastSeen <= comp.HunchTime)
+            blackboard.SetValue(LastKnownKey, Transform(target).Coordinates);
+
         blackboard.SetValue(ArrivedKey, false);
         comp.LastPursuing = now;
         SetState(comp, STAwarenessState.Lost, now);

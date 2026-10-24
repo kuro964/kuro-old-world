@@ -212,12 +212,6 @@ public sealed partial class NPCSteeringSystem
                 // Breaking behaviours and the likes.
                 lock (_obstacles)
                 {
-                    // We're still coming to a stop so wait for the do_after.
-                    if (body.LinearVelocity.LengthSquared() > 0.01f)
-                    {
-                        return true;
-                    }
-
                     status = TryHandleFlags(uid, steering, node);
                 }
 
