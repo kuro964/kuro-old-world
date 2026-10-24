@@ -12,7 +12,7 @@
       VisionRadius: !type:Single
         20
       AggroVisionRadius: !type:Single
-        15
+        25
   - type: Damageable
     damageModifierSet: STMutantAnomImmuneT2DamageModifierSet
   - type: Sprite

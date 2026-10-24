@@ -14,7 +14,7 @@
         VisionRadius: !type:Single
           20
         AggroVisionRadius: !type:Single
-          15
+          25
     - type: STWeight
       self: 55
     - type: Sprite
@@ -150,6 +150,8 @@
       blackboard:
         VisionRadius: !type:Single
           15.0
+        AggroVisionRadius: !type:Single
+          20
     - type: TimedDespawn
       lifetime: 14
     - type: STWeight

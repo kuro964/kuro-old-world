@@ -58,8 +58,6 @@ public sealed class STAwarenessSystem : EntitySystem
                 return;
             }
 
-            comp.TargetMissingSince = null;
-
             if (comp.Target != target)
             {
                 comp.Target = target;
@@ -99,18 +97,9 @@ public sealed class STAwarenessSystem : EntitySystem
                 {
                     comp.LastSeen = now;
                     blackboard.SetValue(LastKnownKey, Transform(comp.Target.Value).Coordinates);
-                    comp.TargetMissingSince ??= now;
-
-                    if (now - comp.TargetMissingSince > comp.ReacquireTime)
-                    {
-                        comp.TargetMissingSince = null;
-                        EnterLost(comp, blackboard, now);
-                    }
-
+                    blackboard.SetValue(TargetKey, comp.Target.Value);
                     break;
                 }
-
-                comp.TargetMissingSince = null;
 
                 if (RememberedAlive(comp) &&
                     now - comp.LastSeen <= comp.MemoryTime &&

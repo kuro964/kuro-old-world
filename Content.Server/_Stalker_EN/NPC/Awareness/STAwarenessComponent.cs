@@ -35,12 +35,6 @@ public sealed partial class STAwarenessComponent : Component
     public TimeSpan SearchTime = TimeSpan.FromSeconds(2.5);
 
     [DataField]
-    public TimeSpan ReacquireTime = TimeSpan.FromSeconds(1);
-
-    [ViewVariables]
-    public TimeSpan? TargetMissingSince;
-
-    [DataField]
     public TimeSpan UpdateInterval = TimeSpan.FromSeconds(0.2);
 
     [ViewVariables]

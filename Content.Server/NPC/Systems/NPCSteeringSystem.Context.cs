@@ -289,6 +289,13 @@ public sealed partial class NPCSteeringSystem
                 // B) NPCs still try to move in locked containers (e.g. cow, hamster)
                 // and I don't want to spam grafana even harder than it gets spammed rn.
                 Log.Debug($"NPC {ToPrettyString(uid)} found stuck at {ourCoordinates}");
+
+                if ((steering.Flags & PathFlags.Smashing) != 0x0 && _stuckSmash.TrySmashWhenStuck(uid, steering))
+                {
+                    ResetStuck(steering, ourCoordinates);
+                    return true;
+                }
+
                 needsPath = true;
                 steering.ForcePath = true;
 

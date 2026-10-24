@@ -165,6 +165,12 @@ public sealed partial class NPCSteeringSystem
             // Try smashing obstacles.
             else if ((component.Flags & PathFlags.Smashing) != 0x0)
             {
+                if (obstacleEnts.Count == 0)
+                    return SteeringObstacleStatus.Completed;
+
+                if (_melee.TryGetWeapon(uid, out _, out var weapon) && weapon.NextAttack > _timing.CurTime)
+                    return SteeringObstacleStatus.Continuing;
+
                 if (_melee.TryGetWeapon(uid, out _, out var meleeWeapon) && meleeWeapon.NextAttack <= _timing.CurTime && TryComp<CombatModeComponent>(uid, out var combatMode))
                 {
                     _combat.SetInCombatMode(uid, true, combatMode);

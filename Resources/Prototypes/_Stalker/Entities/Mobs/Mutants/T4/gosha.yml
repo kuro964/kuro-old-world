@@ -12,6 +12,8 @@
       blackboard:
         VisionRadius: !type:Single
           15.0
+        AggroVisionRadius: !type:Single
+          20
     - type: NpcFactionMember
       factions:
         - MutatedHunter

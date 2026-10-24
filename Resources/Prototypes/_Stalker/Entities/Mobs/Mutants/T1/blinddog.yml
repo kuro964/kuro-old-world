@@ -13,7 +13,7 @@
         VisionRadius: !type:Single
           20
         AggroVisionRadius: !type:Single
-          10
+          25
     - type: Butcherable
       spawned:
         - id: MutantPartBlindDogTail

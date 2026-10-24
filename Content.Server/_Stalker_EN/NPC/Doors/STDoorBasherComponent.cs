@@ -11,6 +11,9 @@ public sealed partial class STDoorBasherComponent : Component
     [DataField]
     public TimeSpan HoldTime = TimeSpan.FromSeconds(1);
 
+    [DataField]
+    public TimeSpan SightCheckInterval = TimeSpan.FromSeconds(0.5);
+
     [ViewVariables]
     public bool Active;
 
@@ -25,4 +28,7 @@ public sealed partial class STDoorBasherComponent : Component
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
     public TimeSpan LastBash;
+
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField]
+    public TimeSpan NextSightCheck;
 }

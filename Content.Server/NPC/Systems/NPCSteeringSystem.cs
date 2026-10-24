@@ -70,6 +70,7 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedCombatModeSystem _combat = default!;
     [Dependency] private readonly STDoorBasherSystem _doorBasher = default!;
+    [Dependency] private readonly STStuckSmashSystem _stuckSmash = default!;
 
     private EntityQuery<FixturesComponent> _fixturesQuery;
     private EntityQuery<MovementSpeedModifierComponent> _modifierQuery;

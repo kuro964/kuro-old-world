@@ -4,6 +4,9 @@ using Content.Server.NPC.HTN;
 using Content.Shared.CombatMode;
 using Content.Shared.Doors.Components;
 using Content.Shared.Doors.Systems;
+using Content.Shared.Examine;
+using Content.Shared.Mobs.Systems;
+using Content.Shared.NPC.Systems;
 using Content.Shared.Weapons.Melee;
 using Robust.Shared.Timing;
 
@@ -15,6 +18,11 @@ public sealed class STDoorBasherSystem : EntitySystem
     [Dependency] private readonly SharedMeleeWeaponSystem _melee = default!;
     [Dependency] private readonly SharedCombatModeSystem _combat = default!;
     [Dependency] private readonly SharedDoorSystem _door = default!;
+    [Dependency] private readonly NpcFactionSystem _faction = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!;
+    [Dependency] private readonly ExamineSystemShared _examine = default!;
+
+    private const string VisionRadiusKey = "VisionRadius";
 
     public override void Initialize()
     {
@@ -32,13 +40,23 @@ public sealed class STDoorBasherSystem : EntitySystem
     {
         base.Update(frameTime);
 
+        var now = _timing.CurTime;
         var query = EntityQueryEnumerator<STDoorBasherComponent, STAwarenessComponent, HTNComponent>();
-        while (query.MoveNext(out var comp, out var awareness, out var htn))
+        while (query.MoveNext(out var uid, out var comp, out var awareness, out var htn))
         {
             if (!comp.Active)
                 continue;
 
             var hunting = awareness.State != STAwarenessState.Unaware;
+            if (!hunting)
+            {
+                if (now < comp.NextSightCheck)
+                    continue;
+
+                comp.NextSightCheck = now + comp.SightCheckInterval;
+                hunting = SeesHostile(uid, htn.Blackboard);
+            }
+
             if (hunting == comp.Hunting)
                 continue;
 
@@ -49,6 +67,19 @@ public sealed class STDoorBasherSystem : EntitySystem
             else
                 htn.Blackboard.Remove<bool>(NPCBlackboard.NavInteract);
         }
+    }
+
+    private bool SeesHostile(EntityUid uid, NPCBlackboard blackboard)
+    {
+        var vision = blackboard.GetValueOrDefault<float>(VisionRadiusKey, EntityManager);
+
+        foreach (var hostile in _faction.GetNearbyHostiles(uid, vision))
+        {
+            if (_mobState.IsAlive(hostile) && _examine.InRangeUnOccluded(uid, hostile, vision))
+                return true;
+        }
+
+        return false;
     }
 
     public bool TryBash(Entity<STDoorBasherComponent> ent, Entity<DoorComponent> door)

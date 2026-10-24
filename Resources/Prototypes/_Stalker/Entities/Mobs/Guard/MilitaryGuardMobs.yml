@@ -65,7 +65,7 @@
       VisionRadius: !type:Single
         30
       AggroVisionRadius: !type:Single
-        25
+        35
   - type: PredictedBatterySelfRecharger
     autoRechargeRate: 25
   - type: PredictedBattery

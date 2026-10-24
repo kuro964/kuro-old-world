@@ -70,7 +70,7 @@
         VisionRadius: !type:Single
           25
         AggroVisionRadius: !type:Single
-          20
+          30
         NavInteract: !type:Bool
           true
         NavPry: !type:Bool
