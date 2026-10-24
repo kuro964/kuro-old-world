@@ -42,14 +42,15 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      60: Critical
-      70: Dead
+      70: Critical
+      85: Dead
   - type: PassiveDamage
     allowedStates:
     - Alive
     - Critical
     damage:
       types:
+        Piercing: -1
         Burn: -100
         Toxin: -100
         Airloss: -100
