@@ -11,17 +11,14 @@
         - !type:HTNCompoundTask
           task: STSimpleMeleeCombatAliveCompound
     - tasks:
+      - !type:HTNCompoundTask
+        task: STSimpleMeleeCombatCritCompound
+    - tasks:
         - !type:HTNCompoundTask
           task: STPursueLastKnownCompound
     - tasks:
         - !type:HTNCompoundTask
           task: STSearchAreaCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: FollowCompound
-    - tasks:
-      - !type:HTNCompoundTask
-        task: STSimpleMeleeCombatCritCompound
     - tasks:
       - !type:HTNCompoundTask
         task: FollowCompound # end EN changes

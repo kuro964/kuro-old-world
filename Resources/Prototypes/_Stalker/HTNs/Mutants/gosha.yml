@@ -11,6 +11,9 @@
     - tasks:
       - !type:HTNCompoundTask
         task: STGoshaMeleeCombatCompound
+    - tasks:
+      - !type:HTNCompoundTask
+        task: STSimpleMeleeCombatCritCompound
 
     - tasks:
       - !type:HTNCompoundTask

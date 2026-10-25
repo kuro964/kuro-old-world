@@ -6,6 +6,9 @@
         task: STPsidogMeleeCombatCompound
     - tasks:
       - !type:HTNCompoundTask
+        task: STSimpleMeleeCombatCritCompound
+    - tasks:
+      - !type:HTNCompoundTask
         task: STPursueLastKnownCompound
     - tasks:
       - !type:HTNCompoundTask

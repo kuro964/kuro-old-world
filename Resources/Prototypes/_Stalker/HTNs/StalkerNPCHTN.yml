@@ -8,6 +8,9 @@
           task: STMonolithRangedCombatCompound
     - tasks:
         - !type:HTNCompoundTask
+          task: STMonolithCritCombatCompound
+    - tasks:
+        - !type:HTNCompoundTask
           task: STPursueLastKnownCompound
     - tasks:
         - !type:HTNCompoundTask
@@ -70,6 +73,38 @@
               key: Target
 
 - type: htnCompound
+  id: STMonolithCritCombatCompound
+  branches:
+    - preconditions:
+        - !type:GunAmmoPrecondition
+          minPercent: 0.001
+      tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UtilityOperator
+            proto: STMonolithNearbyCritTargets
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            shutdownState: PlanFinished
+            pathfindInPlanning: true
+            removeKeyOnFinish: false
+            targetKey: TargetCoordinates
+            pathfindKey: TargetPathfind
+            stopOnLineOfSight: false
+            rangeKey: MeleeRange
+        - !type:HTNPrimitiveTask
+          preconditions:
+            - !type:KeyExistsPrecondition
+              key: Target
+          operator: !type:GunOperator
+            targetKey: Target
+            targetState: Critical
+          services:
+            - !type:UtilityService
+              id: RangedService
+              proto: STMonolithNearbyCritTargets
+              key: Target
+
+- type: htnCompound
   id: STMonolithRangedCombatCompound
   branches:
     - preconditions:
@@ -117,6 +152,21 @@
     - !type:TargetInLOSOrCurrentCon
       curve: !type:BoolCurve
 
+
+- type: utilityQuery
+  id: STMonolithNearbyCritTargets
+  query:
+    - !type:NearbyHostilesQuery
+  considerations:
+    - !type:TargetIsCritCon
+      curve: !type:BoolCurve
+    - !type:TargetDistanceCon
+      curve: !type:PresetCurve
+        preset: STMonolithTargetDistance
+    - !type:TargetAccessibleCon
+      curve: !type:BoolCurve
+    - !type:TargetInLOSOrCurrentCon
+      curve: !type:BoolCurve
 
 - type: utilityCurvePreset
   id: STMonolithTargetDistance
