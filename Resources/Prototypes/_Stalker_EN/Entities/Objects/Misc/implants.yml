@@ -9,10 +9,13 @@
       permanent: true
       implantAction: STActivateSeraSuicideEvent
     - type: TriggerOnActivateImplant
+    - type: TriggerOnMobstateChange
+      mobState:
+      - Dead  
     - type: TwoStageTrigger
       keysIn:
       - timer
-      triggerDelay: 2.3
+      triggerDelay: 3
       components:
       - type: ExplodeOnTrigger
         keysIn:

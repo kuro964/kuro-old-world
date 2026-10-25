@@ -20,6 +20,9 @@
   - type: MovementSpeedModifier
     baseWalkSpeed: 2.5
     baseSprintSpeed: 2.5
+  - type: AutoImplant
+    implants:
+      - STMonoBombImplant
   - type: Bands
     band: Stalker
     bandIcon: monolithfree
@@ -50,7 +53,7 @@
     - Critical
     damage:
       types:
-        Piercing: -1
+        Piercing: -0.1
         Burn: -100
         Toxin: -100
         Airloss: -100
@@ -76,6 +79,20 @@
         Mutant: 1
   - type: Destructible
     thresholds:
+    - trigger: 
+        !type:DamageTrigger
+        damage: 15
+      behaviors:
+        - !type:PlaySoundBehavior
+          sound:
+            collection: MonolithEnemy #Screams when adequately damaged (OW)
+    - trigger: 
+        !type:DamageTrigger
+        damage: 85
+      behaviors:
+        - !type:PlaySoundBehavior
+          sound:
+            collection: MonolithDeath # stalker EN change  
     - trigger:
         !type:DamageTrigger
         damage: 500
