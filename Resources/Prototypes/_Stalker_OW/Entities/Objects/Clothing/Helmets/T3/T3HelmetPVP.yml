@@ -298,9 +298,9 @@
   description: A horned animal's skull with steel plates and a gas mask inside.
   components:
   - type: Sprite
-    sprite: _Stalker/Objects/Clothing/hats/VityazS1.rsi
+    sprite: _Stalker_OW/Objects/Helmets/SpikedVisage.rsi
   - type: Clothing
-    sprite: _Stalker/Objects/Clothing/hats/VityazS1.rsi
+    sprite: _Stalker_OW/Objects/Helmets/SpikedVisage.rsi
 
 - type: entity
   parent: STOWClothingHeadHelmetT3PVPBase
