@@ -268,7 +268,6 @@
     - type: Tag
       tags:
         - Box556
-        - Magazine556
     - type: BallisticAmmoProvider
       capacity: 100
       whitelist:
