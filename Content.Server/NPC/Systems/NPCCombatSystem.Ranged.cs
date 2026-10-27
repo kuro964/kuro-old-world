@@ -184,7 +184,7 @@ public sealed partial class NPCCombatSystem
 
             // TODO: Check if we can face
 
-            if (!Enabled || !_gun.CanShoot(gun))
+            if (!Enabled || !_gun.CanShoot(gun) || _friendlyFire.IsAllyInLine(uid, comp.Target, gun.CurrentAngle))
                 continue;
 
             EntityCoordinates targetCordinates;

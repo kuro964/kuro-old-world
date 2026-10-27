@@ -6,6 +6,7 @@
   description:
   abstract: true
   components:
+  - type: STHoldFireForAllies
   - type: NPCRetaliation
     attackMemoryLength: 10
   - type: PredictedBatterySelfRecharger

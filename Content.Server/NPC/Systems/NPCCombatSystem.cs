@@ -1,3 +1,4 @@
+using Content.Server._Stalker_EN.NPC.Combat;
 using Content.Server.Interaction;
 using Content.Server.Weapons.Ranged.Systems;
 using Content.Shared.Weapons.Melee;
@@ -25,6 +26,7 @@ public sealed partial class NPCCombatSystem : EntitySystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedMeleeWeaponSystem _melee = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly STFriendlyFireSystem _friendlyFire = default!;
 
     /// <summary>
     /// If disabled we'll move into range but not attack.
