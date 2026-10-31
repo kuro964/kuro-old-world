@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Armor;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Damage;
@@ -8,7 +7,6 @@ using Content.Shared.Verbs;
 using Content.Shared.Weapons.Reflect;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using Robust.Shared.Serialization;
 
 namespace Content.Client.Examine;
 
@@ -21,8 +19,16 @@ public sealed class StatsExamineSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly IComponentFactory _componentFactory = default!;
+    [Dependency] private readonly SharedArmorSystem _armor = default!; // ST:OW
 
+    // ST:OW begin
     private StatsExamineWindow? _window;
+    private Action? _refreshModules;
+    private bool _refreshPending;
+    private EntityUid? _examinedTarget;
+    private EntityUid? _comparisonUser;
+    private SlotFlags? _comparisonSlots;
+    // ST:OW end
 
     public override void Initialize()
     {
@@ -30,6 +36,38 @@ public sealed class StatsExamineSystem : EntitySystem
 
         SubscribeLocalEvent<ClothingComponent, GetVerbsEvent<ExamineVerb>>(OnClothingStatsVerb);
     }
+
+    // ST:OW begin
+    public void RefreshModuleStats(EntityUid uid)
+    {
+        if (_refreshModules == null)
+            return;
+        if (uid == _examinedTarget || _comparisonUser is { } user && _comparisonSlots is { } slots &&
+            GetEquippedArmor(user, slots) == uid)
+            _refreshPending = true;
+    }
+
+    public void RefreshEquippedStats() => _refreshPending = _refreshModules != null;
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+        if (!_refreshPending)
+            return;
+        _refreshPending = false;
+        _refreshModules?.Invoke();
+    }
+
+    private void ClearComparison()
+    {
+        _window = null;
+        _refreshPending = false;
+        _refreshModules = null;
+        _examinedTarget = null;
+        _comparisonUser = null;
+        _comparisonSlots = null;
+    }
+    // ST:OW end
 
     /// <summary>
     /// Adds a "Compare Stats" verb to items with ArmorComponent and ClothingComponent.
@@ -50,7 +88,7 @@ public sealed class StatsExamineSystem : EntitySystem
         var verb = new ExamineVerb
         {
             ClientExclusive = true,
-            Act = () => OpenStatsWindow(args.User, args.Target, armor, component),
+            Act = () => OpenStatsWindow(args.User, args.Target), // ST:OW
             Text = "Compare Stats",
             Message = "Compare armor stats with currently equipped item",
             Category = VerbCategory.Examine,
@@ -65,14 +103,35 @@ public sealed class StatsExamineSystem : EntitySystem
     /// Opens the stats comparison window for a spawned entity.
     /// Compares the examined item's stats with the equipped item in the same slot.
     /// </summary>
-    private void OpenStatsWindow(EntityUid user, EntityUid target, ArmorComponent examinedArmor, ClothingComponent examinedClothing)
+    private void OpenStatsWindow(EntityUid user, EntityUid target) // ST:OW
     {
         _window?.Close();
         _window = new StatsExamineWindow();
         _window.OpenCentered();
 
+        // ST:OW begin
+        _window.OnClose += ClearComparison;
+        _examinedTarget = target;
+        _comparisonUser = user;
+        _refreshModules = () => RefreshEntityStats(user, target);
+        _refreshModules();
+    }
+
+    private void RefreshEntityStats(EntityUid user, EntityUid target)
+    {
+        if (_window == null)
+            return;
+        if (Deleted(user) || Deleted(target) ||
+            !TryComp<ArmorComponent>(target, out var examinedArmor) ||
+            !TryComp<ClothingComponent>(target, out var examinedClothing))
+        {
+            _window.Close();
+            return;
+        }
+        _comparisonSlots = examinedClothing.Slots;
+        // ST:OW end
         // Get the examined item's modifiers
-        var examinedModifiers = examinedArmor.Modifiers ?? examinedArmor.BaseModifiers;
+        var examinedModifiers = _armor.GetWorkshopProtection(target); // ST:OW
         var examinedArmorClass = examinedArmor.ArmorClass;
 
         // Get reflect chance if available
@@ -94,13 +153,12 @@ public sealed class StatsExamineSystem : EntitySystem
     /// </summary>
     public void OpenStatsWindowFromPrototype(EntityUid user, string prototypeId)
     {
+        if (!_prototypeManager.TryIndex<EntityPrototype>(prototypeId, out var prototype)) // ST:OW
+            return;
+
         _window?.Close();
         _window = new StatsExamineWindow();
         _window.OpenCentered();
-
-        // Get the prototype
-        if (!_prototypeManager.TryIndex<EntityPrototype>(prototypeId, out var prototype))
-            return;
 
         // Get components from prototype
         DamageModifierSet? examinedModifiers = null;
@@ -124,6 +182,25 @@ public sealed class StatsExamineSystem : EntitySystem
             slotFlags = clothing.Slots;
         }
 
+        // ST:OW begin
+        _window.OnClose += ClearComparison;
+        _comparisonUser = user;
+        _comparisonSlots = slotFlags;
+        _refreshModules = () => RefreshPrototypeStats(user, slotFlags, examinedModifiers, examinedArmorClass, examinedReflectProb);
+        _refreshModules();
+    }
+
+    private void RefreshPrototypeStats(EntityUid user, SlotFlags? slotFlags, DamageModifierSet? examinedModifiers,
+        int? examinedArmorClass, float? examinedReflectProb)
+    {
+        if (_window == null)
+            return;
+        if (Deleted(user))
+        {
+            _window.Close();
+            return;
+        }
+        // ST:OW end
         // Get the equipped item in the same slot
         DamageModifierSet? equippedModifiers = null;
         int? equippedArmorClass = null;
@@ -152,58 +229,37 @@ public sealed class StatsExamineSystem : EntitySystem
         armorClass = null;
         reflectProb = null;
 
-        if (!TryComp<InventoryComponent>(user, out var inventory))
+        // ST:OW begin
+        if (GetEquippedArmor(user, slotFlags) is not { } equippedUid ||
+            !TryComp<ArmorComponent>(equippedUid, out var armor))
             return;
 
-        // First try to find exact match (slot flags exactly match item flags)
-        foreach (var slotDef in inventory.Slots)
-        {
-            if (slotDef.SlotFlags == slotFlags)
-            {
-                if (_inventory.TryGetSlotEntity(user, slotDef.Name, out var equippedUid))
-                {
-                    if (TryComp<ArmorComponent>(equippedUid, out var equippedArmor))
-                    {
-                        modifiers = equippedArmor.Modifiers ?? equippedArmor.BaseModifiers;
-                        armorClass = equippedArmor.ArmorClass;
-                    }
-
-                    if (TryComp<ReflectComponent>(equippedUid, out var equippedReflect))
-                    {
-                        reflectProb = equippedReflect.ReflectProb;
-                    }
-
-                    break;
-                }
-            }
-        }
-
-        // If no exact match found, try partial match (slot contains all item flags)
-        if (modifiers == null)
-        {
-            foreach (var slotDef in inventory.Slots)
-            {
-                if ((slotDef.SlotFlags & slotFlags) == slotFlags)
-                {
-                    if (_inventory.TryGetSlotEntity(user, slotDef.Name, out var equippedUid))
-                    {
-                        if (TryComp<ArmorComponent>(equippedUid, out var equippedArmor))
-                        {
-                            modifiers = equippedArmor.Modifiers ?? equippedArmor.BaseModifiers;
-                            armorClass = equippedArmor.ArmorClass;
-                        }
-
-                        if (TryComp<ReflectComponent>(equippedUid, out var equippedReflect))
-                        {
-                            reflectProb = equippedReflect.ReflectProb;
-                        }
-
-                        break;
-                    }
-                }
-            }
-        }
+        modifiers = _armor.GetWorkshopProtection(equippedUid);
+        armorClass = armor.ArmorClass;
+        if (TryComp<ReflectComponent>(equippedUid, out var reflect))
+            reflectProb = reflect.ReflectProb;
     }
+
+    private EntityUid? GetEquippedArmor(EntityUid user, SlotFlags slotFlags)
+    {
+        if (Deleted(user) || !TryComp<InventoryComponent>(user, out var inventory))
+            return null;
+
+        foreach (var slot in inventory.Slots)
+        {
+            if (slot.SlotFlags == slotFlags && _inventory.TryGetSlotEntity(user, slot.Name, out var uid) &&
+                HasComp<ArmorComponent>(uid))
+                return uid;
+        }
+        foreach (var slot in inventory.Slots)
+        {
+            if ((slot.SlotFlags & slotFlags) == slotFlags && _inventory.TryGetSlotEntity(user, slot.Name, out var uid) &&
+                HasComp<ArmorComponent>(uid))
+                return uid;
+        }
+        return null;
+    }
+    // ST:OW end
 
     public override void Shutdown()
     {

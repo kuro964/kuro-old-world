@@ -389,20 +389,14 @@ public abstract partial class InventorySystem
             return false;
         }
 
-        // Stalker-Changes: Block equipping artifacts to inactive slots
-        if (slotDefinition.SlotFlags.HasFlag(SlotFlags.ARTIFACT))
+        // ST:OW begin - Keep same predicate at both equip entry points
+        if (slotDefinition.SlotFlags.HasFlag(SlotFlags.ARTIFACT) &&
+            !_artifactSlots.IsArtifactSlotActive(target, slot, inventory))
         {
-            var artifactSlots = _artifactSlots.GetArtifactSlotsSorted(inventory);
-            var index = artifactSlots.IndexOf(slot);
-            var activeCount = _artifactSlots.GetActiveCount(target);
-
-            if (index < 0 || index >= activeCount)
-            {
-                reason = "inventory-component-can-equip-slot-inactive";
-                return false;
-            }
+            reason = "inventory-component-can-equip-slot-inactive";
+            return false;
         }
-        // End Stalker-Changes
+        // ST:OW end
 
         var attemptEvent = new IsEquippingAttemptEvent(actor, target, itemUid, slotDefinition);
         RaiseLocalEvent(actor, attemptEvent, true);

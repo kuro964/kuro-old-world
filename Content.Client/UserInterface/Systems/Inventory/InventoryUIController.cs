@@ -26,7 +26,7 @@ using static Content.Client.Inventory.ClientInventorySystem;
 
 namespace Content.Client.UserInterface.Systems.Inventory;
 
-public sealed class InventoryUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>,
+public sealed partial class InventoryUIController : UIController, IOnStateEntered<GameplayState>, IOnStateExited<GameplayState>, // ST:OW
     IOnSystemChanged<ClientInventorySystem>, IOnSystemChanged<HandsSystem>
 {
     [Dependency] private readonly IEntityManager _entities = default!;
@@ -133,6 +133,11 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
         if (clientInv == null)
         {
             _inventoryHotbar?.ClearButtons();
+            // ST:OW begin
+            _inventoryHotbar?.RemoveAllChildren();
+            _moduleCells.Clear();
+            _showingModules = false;
+            // ST:OW end
             if (_inventoryButton != null)
                 _inventoryButton.Visible = false;
 
@@ -150,26 +155,29 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
                 container.AddButton(button);
             }
 
-            var showStorage = _entities.HasComponent<StorageComponent>(data.HeldEntity);
-            var update = new SlotSpriteUpdate(data.HeldEntity, data.SlotGroup, data.SlotName, showStorage);
-            SpriteUpdated(update);
+            ApplySlotVisuals(button, data); // ST:OW
         }
 
         if (_inventoryHotbar == null)
             return;
 
+        var moduleDisplay = GetWornModuleDisplay(); // ST:OW
         var clothing = clientInv.SlotData.Where(p => !p.Value.HasSlotGroup).ToList();
 
         if (_inventoryButton != null)
             _inventoryButton.Visible = clothing.Count != 0;
-        if (clothing.Count == 0)
-            return;
-
         foreach (var child in new List<Control>(_inventoryHotbar.Children))
         {
             if (child is not SlotControl)
                 _inventoryHotbar.RemoveChild(child);
         }
+
+        // ST:OW begin
+        _moduleCells.Clear();
+        _showingModules = moduleDisplay != null;
+        if (clothing.Count == 0)
+            return;
+        // ST:OW end
 
         var maxWidth = clothing.Max(p => p.Value.ButtonOffset.X) + 1;
         var maxIndex = clothing.Select(p => GetIndex(p.Value.ButtonOffset)).Max();
@@ -177,13 +185,26 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
         _inventoryHotbar.MaxColumns = maxWidth;
         _inventoryHotbar.Columns = maxWidth;
 
+        var moduleIndex = 0; // ST:OW
         for (var i = 0; i <= maxIndex; i++)
         {
             var index = i;
             if (clothing.FirstOrNull(p => GetIndex(p.Value.ButtonOffset) == index) is { } pair)
             {
+                // ST:OW begin
                 if (_inventoryHotbar.TryGetButton(pair.Key, out var slot))
-                    slot.SetPositionLast();
+                {
+                    var replaced = moduleDisplay != null && pair.Value.SlotDef.SlotFlags.HasFlag(Content.Shared.Inventory.SlotFlags.ARTIFACT);
+                    slot.Visible = !replaced;
+                    if (replaced)
+                    {
+                        slot.ClearHover();
+                        if (_lastHovered == slot) _lastHovered = null;
+                        _inventoryHotbar.AddChild(CreateModuleCell(moduleDisplay!, moduleIndex++));
+                    }
+                    else slot.SetPositionLast();
+                }
+                // ST:OW end
             }
             else
             {
@@ -213,15 +234,16 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
             if (!data.ShowInWindow)
                 continue;
 
-            if (!_strippingWindow!.InventoryButtons.TryGetButton(data.SlotName, out var button))
+            // ST:OW begin
+            if (!_strippingWindow!.InventoryButtons.TryGetButton(data.SlotName, out var existing) || existing == null)
             {
-                button = CreateSlotButton(data);
-                _strippingWindow!.InventoryButtons.AddButton(button, data.ButtonOffset);
+                var created = CreateSlotButton(data);
+                _strippingWindow!.InventoryButtons.AddButton(created, data.ButtonOffset);
+                existing = created;
             }
 
-            var showStorage = _entities.HasComponent<StorageComponent>(data.HeldEntity);
-            var update = new SlotSpriteUpdate(data.HeldEntity, data.SlotGroup, data.SlotName, showStorage);
-            SpriteUpdated(update);
+            ApplySlotVisuals(existing, data);
+            // ST:OW end
         }
     }
 
@@ -378,7 +400,7 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
         slotGroup.AddButton(button);
 
         // Apply artifact slot blocked visuals on creation
-        UpdateArtifactSlotVisuals(button, data);
+        ApplySlotVisuals(button!, data); // ST:OW
     }
 
     private void RemoveSlot(SlotData data)
@@ -415,6 +437,8 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
         if (_inventoryButton != null)
             _inventoryButton.Visible = false;
 
+        _lastHovered?.ClearHover(); // ST:OW
+        _lastHovered = null; // ST:OW
         _playerUid = null;
         _playerInventory = null;
         foreach (var slotGroup in _slotGroups.Values)
@@ -427,37 +451,24 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
 
     private void SpriteUpdated(SlotSpriteUpdate update)
     {
-        var (entity, group, name, showStorage) = update;
+        var (_, group, name, _) = update; // ST:OW
 
         if (_strippingWindow?.InventoryButtons.GetButton(update.Name) is { } inventoryButton)
         {
-            inventoryButton.SetEntity(entity);
-            inventoryButton.StorageButton.Visible = showStorage;
+            // ST:OW begin
+            if (_playerUid.HasValue && _inventorySystem.GetSlotData(_playerUid.Value, name) is { } inventoryData)
+                ApplySlotVisuals(inventoryButton, inventoryData);
+            // ST:OW end
         }
 
         if (_slotGroups.GetValueOrDefault(group)?.GetButton(name) is not { } button)
             return;
 
-        if (_entities.TryGetComponent(entity, out VirtualItemComponent? virtb))
-        {
-            button.SetEntity(virtb.BlockingEntity);
-            button.Blocked = true;
-        }
-        else
-        {
-            button.SetEntity(entity);
-            button.Blocked = false;
-            button.StorageButton.Visible = showStorage;
-        }
-
-        // Re-apply artifact slot blocked state after sprite update overwrites it
-        if (_playerUid.HasValue && _inventorySystem.GetSlotDefinition(_playerUid.Value, name) is { } slotDef &&
-            slotDef.SlotFlags.HasFlag(Shared.Inventory.SlotFlags.ARTIFACT))
-        {
-            var blocked = _inventorySystem.IsArtifactSlotBlocked(_playerUid.Value, name);
-            button.Blocked = blocked;
-        }
+        // ST:OW begin
+        if (_playerUid.HasValue && _inventorySystem.GetSlotData(_playerUid.Value, name) is { } data)
+            ApplySlotVisuals(button, data);
     }
+    // ST:OW end
 
     // Update blocked overlay for artifact slots when slot data changes
     private void EntitySlotUpdated(SlotData data)
@@ -467,23 +478,24 @@ public sealed class InventoryUIController : UIController, IOnStateEntered<Gamepl
 
         if (_strippingWindow?.InventoryButtons.GetButton(data.SlotName) is { } stripButton)
         {
-            UpdateArtifactSlotVisuals(stripButton, data);
+            ApplySlotVisuals(stripButton, data); // ST:OW
         }
 
         if (_slotGroups.GetValueOrDefault(data.SlotGroup)?.GetButton(data.SlotName) is { } slotButton)
         {
-            UpdateArtifactSlotVisuals(slotButton, data);
+            ApplySlotVisuals(slotButton, data); // ST:OW
         }
     }
 
-    // Show/hide blocked overlay for artifact slots
-    private void UpdateArtifactSlotVisuals(SlotControl button, SlotData data)
+    // ST:OW begin
+    private void ApplySlotVisuals(SlotControl button, SlotData data)
     {
-        if (data.SlotDef.SlotFlags.HasFlag(Shared.Inventory.SlotFlags.ARTIFACT))
-        {
-            button.Blocked = data.Blocked;
-        }
+        var isVirtual = _entities.TryGetComponent(data.HeldEntity, out VirtualItemComponent? virtualItem);
+        button.SetEntity(isVirtual ? virtualItem!.BlockingEntity : data.HeldEntity);
+        button.Blocked = isVirtual || data.Blocked;
+        button.StorageButton.Visible = !isVirtual && _entities.HasComponent<StorageComponent>(data.HeldEntity);
     }
+    // ST:OW end
 
     public bool RegisterSlotGroupContainer(ItemSlotButtonContainer slotContainer)
     {

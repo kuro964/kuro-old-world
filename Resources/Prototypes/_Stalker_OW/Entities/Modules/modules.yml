@@ -1,0 +1,63 @@
+﻿- type: entity
+  abstract: true
+  parent: BaseItem
+  id: STOWDutyModuleBase
+  suffix: ST:OW, Test
+  components:
+    - type: Item
+      size: Small
+    - type: STWeight
+      self: 0.25
+    - type: Sprite
+      sprite: Objects/Materials/Sheets/metal.rsi
+      state: steel
+    - type: RepositoryItem
+      categoryName: repository-equipment-category
+    - type: EquipmentModule
+      installTime: 2
+      exclusive: true # Only one module of this prototype can be installed on the equipment
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleTest1
+  name: Test ballistic insert
+  description: Test
+  components:
+    - type: Sprite
+      state: plasteel
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Piercing: 0.85
+          Blunt: 1.15
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleTest2
+  name: Test mutant insert
+  description: Test
+  components:
+    - type: Sprite
+      state: steel
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Blunt: 0.85
+          Slash: 0.85
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleTest3
+  name: Test third lining
+  description: Test
+  components:
+    - type: Sprite
+      state: brass
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Blunt: 1.5
+          Slash: 1.5
+          Piercing: 1.5
+        flatReductions:
+          Caustic: 100

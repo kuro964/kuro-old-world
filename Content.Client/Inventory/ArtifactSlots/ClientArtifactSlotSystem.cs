@@ -1,4 +1,3 @@
-using Content.Client.Inventory;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.ArtifactSlots;
 using Robust.Client.Player;
@@ -22,13 +21,11 @@ public sealed class ClientArtifactSlotSystem : EntitySystem
         SubscribeLocalEvent<ArtifactSlotsComponent, ComponentShutdown>(OnArtifactSlotsShutdown);
 
         _clientInventory.OnLinkInventorySlots += OnLinkInventorySlots;
-        _clientInventory.OnSlotAdded += OnSlotAdded;
     }
 
     public override void Shutdown()
     {
         _clientInventory.OnLinkInventorySlots -= OnLinkInventorySlots;
-        _clientInventory.OnSlotAdded -= OnSlotAdded;
         base.Shutdown();
     }
 
@@ -39,7 +36,7 @@ public sealed class ClientArtifactSlotSystem : EntitySystem
 
     private void OnArtifactSlotsShutdown(EntityUid uid, ArtifactSlotsComponent component, ComponentShutdown args)
     {
-        UpdateArtifactSlotBlocked(uid);
+        UpdateArtifactSlotBlocked(uid, shuttingDown: true); // ST:OW
     }
 
     private void OnLinkInventorySlots(EntityUid uid, InventorySlotsComponent slots)
@@ -48,46 +45,10 @@ public sealed class ClientArtifactSlotSystem : EntitySystem
     }
 
     /// <summary>
-    /// Sets the initial blocked state for an artifact slot as it's being added to the UI.
-    /// Modifies <see cref="ClientInventorySystem.SlotData.Blocked"/> on the data object directly
-    /// so that <see cref="Content.Client.UserInterface.Systems.Inventory.InventoryUIController.AddSlot"/>
-    /// receives the correct state when constructing the button.
-    /// </summary>
-    private void OnSlotAdded(ClientInventorySystem.SlotData data)
-    {
-        if (!data.SlotDef.SlotFlags.HasFlag(Shared.Inventory.SlotFlags.ARTIFACT))
-            return;
-
-        if (_playerManager.LocalEntity is not { } uid)
-            return;
-
-        if (!TryComp<InventoryComponent>(uid, out var inv))
-            return;
-
-        var activeCount = 0;
-        if (TryComp<ArtifactSlotsComponent>(uid, out var artifactSlots))
-        {
-            activeCount = artifactSlots.ActiveCount;
-        }
-
-        var sortedSlots = _artifactSlots.GetArtifactSlotsSorted(inv);
-        var index = sortedSlots.IndexOf(data.SlotName);
-        if (index < 0)
-            return;
-
-        data.Blocked = index >= activeCount;
-
-        if (TryComp<InventorySlotsComponent>(uid, out var slots))
-        {
-            _clientInventory.UpdateSlot(uid, slots, data.SlotName, blocked: data.Blocked);
-        }
-    }
-
-    /// <summary>
     /// Updates the blocked state of all artifact slots on the given entity
     /// based on the current <see cref="ArtifactSlotsComponent.ActiveCount"/>.
     /// </summary>
-    private void UpdateArtifactSlotBlocked(EntityUid uid)
+    private void UpdateArtifactSlotBlocked(EntityUid uid, bool shuttingDown = false) // ST:OW
     {
         if (_playerManager.LocalEntity != uid)
             return;
@@ -99,7 +60,7 @@ public sealed class ClientArtifactSlotSystem : EntitySystem
             return;
 
         var activeCount = 0;
-        if (TryComp<ArtifactSlotsComponent>(uid, out var artifactSlots))
+        if (!shuttingDown && TryComp<ArtifactSlotsComponent>(uid, out var artifactSlots)) // ST:OW
         {
             activeCount = artifactSlots.ActiveCount;
         }

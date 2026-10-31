@@ -36,6 +36,7 @@ using Content.Shared._Stalker_EN.Camera; // stalker-en-changes: photo persistenc
 using Robust.Shared.Prototypes;
 using Content.Shared._Stalker_OW.Projectiles.Components; // ST:OW
 using Content.Shared.Chemistry.EntitySystems; // ST:OW
+using Content.Shared._Stalker_OW.Workshop; // ST:OW
 
 namespace Content.Server._Stalker.Storage;
 
@@ -50,6 +51,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly NameModifierSystem _nameModifier = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!; // ST:OW
+    [Dependency] private readonly SharedEquipmentModificationSystem _equipmentModules = default!; // ST:OW
 
     private delegate List<object> DelegateItemStalkerConverter(EntityUid inputEntityUid);
 
@@ -379,14 +381,23 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
     {
         var hasEngraving = TryComp<EngraveableComponent>(entity, out var engraveable);
         var hasLabel = TryComp<LabelComponent>(entity, out var label);
+        // ST:OW begin
+        var modules = TryComp<EquipmentModificationComponent>(entity, out var equipment) &&
+                      (equipment.Installed.Any(m => m != null) || equipment.Stored.Count > 0)
+            ? _equipmentModules.GetSaveData(equipment)
+            : null;
 
-        if (!hasEngraving && !hasLabel)
+        if (!hasEngraving && !hasLabel && modules == null)
             return;
+        // ST:OW end
 
         foreach (var item in storageItems)
         {
             if (item is not IItemStalkerStorage storage)
                 continue;
+
+            if (modules != null)
+                storage.Modules = new List<string?>(modules); // ST:OW
 
             if (hasEngraving && !string.IsNullOrEmpty(engraveable!.EngravedMessage))
             {
@@ -415,6 +426,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
         {
             EngravedMessage = item.EngravedMessage,
             CurrentLabel = item.CurrentLabel,
+            Modules = item.Modules, // ST:OW
         };
     }
 
@@ -624,6 +636,16 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
             Dirty(inputItemUid, labelComp);
             _nameModifier.RefreshNameModifiers(inputItemUid);
         }
+
+        // ST:OW begin - Installed modules are data on the item
+        if (nextSpawnOptions?.Modules is { } savedModules && HasComp<EquipmentModificationComponent>(inputItemUid))
+        {
+            var mapped = savedModules
+                .Select(m => string.IsNullOrEmpty(m) ? null : MapPrototype(m))
+                .ToList();
+            _equipmentModules.Restore(inputItemUid, mapped);
+        }
+        // ST:OW end
 
         if (nextSpawnOptions is not PaperItemStalker paperItemStalker)
             return;
@@ -1006,6 +1028,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
                     // stalker-changes: Restore cross-cutting data not handled by the constructor
                     ammoContainer.EngravedMessage = node["EngravedMessage"]?.GetValue<string>();
                     ammoContainer.CurrentLabel = node["CurrentLabel"]?.GetValue<string>();
+                    ammoContainer.Modules = node["Modules"]?.Deserialize<List<string?>>(); // ST:OW
                     newObject = ammoContainer;
                     if (newObject != null)
                         playerInventory.AllItems.Add(newObject);

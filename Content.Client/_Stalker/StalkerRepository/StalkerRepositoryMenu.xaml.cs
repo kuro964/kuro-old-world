@@ -364,6 +364,19 @@ public sealed partial class StalkerRepositoryMenu : DefaultWindow
             _ => string.Empty
         };
 
+        // ST:OW begin
+        if (control.ItemInfo.SStorageData is IItemStalkerStorage { Modules: { } modules } &&
+            modules.Any(m => !string.IsNullOrEmpty(m)))
+        {
+            var names = modules
+                .Where(m => !string.IsNullOrEmpty(m))
+                .Select(m => _proto.TryIndex<EntityPrototype>(m!, out var module) ? module.Name : m!);
+            var fittings = Loc.GetString("workshop-stash-modules", ("modules", string.Join(", ", names)));
+            AdditionalInfo.Text = string.IsNullOrEmpty(AdditionalInfo.Text)
+                ? fittings
+                : AdditionalInfo.Text + "\n" + fittings;
+        }
+        // ST:OW end
         // Append engraving info if present
         if (control.ItemInfo.SStorageData is IItemStalkerStorage { EngravedMessage: { } engraved } && engraved.Length > 0)
         {

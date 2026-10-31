@@ -36,6 +36,7 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using EntityPrototype = Robust.Shared.Prototypes.EntityPrototype;
 using Content.Shared.Inventory.ArtifactSlots; // ST:OW
+using Content.Shared._Stalker_OW.Workshop; // ST:OW
     
 namespace Content.Server._Stalker_EN.Loadout;
 
@@ -53,6 +54,7 @@ public sealed class LoadoutSystem : EntitySystem
     [Dependency] private readonly StalkerRepositorySystem _repositorySystem = default!;
     [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
     [Dependency] private readonly TagSystem _tags = default!;
+    [Dependency] private readonly SharedEquipmentModificationSystem _modules = default!; // ST:OW
     [Dependency] private readonly SharedStorageSystem _storage = default!;
     [Dependency] private readonly PlayerRateLimitManager _rateLimitManager = default!;
     [Dependency] private readonly SharedItemSystem _itemSystem = default!;
@@ -741,7 +743,7 @@ public sealed class LoadoutSystem : EntitySystem
         foreach (var slotItem in loadout.SlotItems)
         {
             if (equippedBySlot.TryGetValue(slotItem.SlotName, out var equipped) &&
-                equipped.proto == slotItem.PrototypeId)
+                equipped.proto == slotItem.PrototypeId && MatchesModules(equipped.item, slotItem.StorageData)) // ST:OW
             {
                 consumedItems.Add(equipped.item);
             }
@@ -751,7 +753,7 @@ public sealed class LoadoutSystem : EntitySystem
         foreach (var slotItem in loadout.SlotItems)
         {
             if (equippedBySlot.TryGetValue(slotItem.SlotName, out var currentEquipped) &&
-                currentEquipped.proto == slotItem.PrototypeId)
+                currentEquipped.proto == slotItem.PrototypeId && MatchesModules(currentEquipped.item, slotItem.StorageData)) // ST:OW
                 continue;
 
             // Need a different item in this slot - check if we have one equipped elsewhere
@@ -759,7 +761,7 @@ public sealed class LoadoutSystem : EntitySystem
             {
                 foreach (var (availItem, _) in availableItems)
                 {
-                    if (!consumedItems.Contains(availItem))
+                    if (!consumedItems.Contains(availItem) && MatchesModules(availItem, slotItem.StorageData)) // ST:OW
                     {
                         itemsToMove.Add(availItem);
                         consumedItems.Add(availItem);
@@ -860,7 +862,7 @@ public sealed class LoadoutSystem : EntitySystem
                 if (IsBlacklistedEntity(slotOccupant.item, loadoutComp))
                     continue;
 
-                if (slotOccupant.proto == slotItem.PrototypeId)
+                if (slotOccupant.proto == slotItem.PrototypeId && MatchesModules(slotOccupant.item, slotItem.StorageData))
                 {
                     var equippedStorageData = _stalkerStorage.ConvertToIItemStalkerStorage(slotOccupant.item);
 
@@ -925,7 +927,7 @@ public sealed class LoadoutSystem : EntitySystem
         // Find an item marked for moving
         foreach (var (item, sourceSlot) in availableItems)
         {
-            if (!itemsToMove.Contains(item))
+            if (!itemsToMove.Contains(item) || !MatchesModules(item, slotItem.StorageData)) // ST:OW
                 continue;
 
             // Remove from itemsToMove so we don't try to move it twice
@@ -1437,7 +1439,7 @@ public sealed class LoadoutSystem : EntitySystem
 
                 if (location.Position == nestedItem.StorageLocation.Value.Position &&
                     TryComp<MetaDataComponent>(item, out var meta) &&
-                    meta.EntityPrototype?.ID == nestedItem.PrototypeId)
+                    meta.EntityPrototype?.ID == nestedItem.PrototypeId && MatchesModules(item, nestedItem.StorageData)) // ST:OW
                 {
                     return item;
                 }
@@ -1450,7 +1452,7 @@ public sealed class LoadoutSystem : EntitySystem
             slot.ContainerSlot?.ContainedEntity is { } slotItem &&
             !consumedItems.Contains(slotItem) &&
             TryComp<MetaDataComponent>(slotItem, out var slotMeta) &&
-            slotMeta.EntityPrototype?.ID == nestedItem.PrototypeId)
+            slotMeta.EntityPrototype?.ID == nestedItem.PrototypeId && MatchesModules(slotItem, nestedItem.StorageData)) // ST:OW
         {
             return slotItem;
         }
@@ -1464,7 +1466,7 @@ public sealed class LoadoutSystem : EntitySystem
                     continue;
 
                 if (TryComp<MetaDataComponent>(contained, out var containedMeta) &&
-                    containedMeta.EntityPrototype?.ID == nestedItem.PrototypeId)
+                    containedMeta.EntityPrototype?.ID == nestedItem.PrototypeId && MatchesModules(contained, nestedItem.StorageData)) // ST:OW
                 {
                     return contained;
                 }
@@ -1473,6 +1475,24 @@ public sealed class LoadoutSystem : EntitySystem
 
         return null;
     }
+
+    // ST:OW begin
+    private bool MatchesModules(EntityUid item, object? storageData) =>
+        GetModuleKey(item) == GetModuleKey((storageData as IItemStalkerStorage)?.Modules);
+
+    private string GetModuleKey(EntityUid item) =>
+        TryComp<EquipmentModificationComponent>(item, out var equipment)
+            ? GetModuleKey(_modules.GetSaveData(equipment))
+            : string.Empty;
+
+    private static string GetModuleKey(List<string?>? modules)
+    {
+        // Ensures equipped modules remain in their respective slots w/o flip flopping or changing
+        return modules == null || modules.All(module => module == null)
+            ? string.Empty
+            : JsonSerializer.Serialize(modules);
+    }
+    // ST:OW end
 
     /// <summary>
     /// Finds a stash item by exact identifier match, falling back to prototype-based matching.
@@ -1485,20 +1505,21 @@ public sealed class LoadoutSystem : EntitySystem
         StashLookup lookup,
         IItemStalkerStorage? loadoutStorageData = null)
     {
+        var moduleKey = GetModuleKey(loadoutStorageData?.Modules); // ST:OW
         // Try exact identifier match first - iterate through list
         if (lookup.ByIdentifier.TryGetValue(identifier, out var identList))
         {
             for (var i = identList.Count - 1; i >= 0; i--)
             {
-                if (identList[i].Count > 0)
+                if (identList[i].Count > 0 && GetModuleKey((identList[i].SStorageData as IItemStalkerStorage)?.Modules) == moduleKey) // ST:OW
                     return identList[i];
             }
         }
-
-        // Fallback to prototype match - return ANY item with count > 0
+        
         // This handles state-based identifier mismatches (stack counts, ammo counts, charges)
         if (lookup.ByPrototype.TryGetValue(prototypeId, out var protoList))
         {
+            protoList = protoList.Where(item => GetModuleKey((item.SStorageData as IItemStalkerStorage)?.Modules) == moduleKey).ToList(); // ST:OW
             // For ammo containers: prefer matching ammo composition over just fullest magazine
             if (loadoutStorageData is AmmoContainerStalker loadoutAmmo)
                 return FindBestAmmoMatch(protoList, loadoutAmmo);
@@ -1753,14 +1774,13 @@ public sealed class LoadoutSystem : EntitySystem
 
             var loadouts = container?.Loadouts ?? new List<PlayerLoadout>();
 
-            // Build equipped prototypes lookup (items are not "missing" if currently worn)
-            var equippedPrototypes = BuildEquippedPrototypesLookup(actor);
+            var equippedItems = BuildEquippedItemsLookup(actor); // ST:OW - Items are not considered missing if equipped
 
             // Calculate missing items for each loadout (use fresh component)
             var stashLookup = BuildStashLookup(freshComponent.ContainedItems);
             foreach (var loadout in loadouts)
             {
-                CalculateMissingItems(loadout, stashLookup, equippedPrototypes);
+                CalculateMissingItems(loadout, stashLookup, equippedItems); // ST:OW
             }
 
             // Sort: Quick Save first, then by name
@@ -1778,9 +1798,9 @@ public sealed class LoadoutSystem : EntitySystem
     /// Builds a lookup of currently equipped item prototypes (with counts) for the player.
     /// Used to determine which loadout items are already satisfied by worn equipment.
     /// </summary>
-    private Dictionary<string, int> BuildEquippedPrototypesLookup(EntityUid? player)
+    private Dictionary<(string Prototype, string Modules), int> BuildEquippedItemsLookup(EntityUid? player) // ST:OW
     {
-        var equipped = new Dictionary<string, int>();
+        var equipped = new Dictionary<(string Prototype, string Modules), int>(); // ST:OW
         if (!player.HasValue)
             return equipped;
 
@@ -1788,7 +1808,7 @@ public sealed class LoadoutSystem : EntitySystem
         {
             while (enumerator.NextItem(out var item, out _))
             {
-                CollectItemAndNestedPrototypes(item, equipped);
+                CollectItemAndNestedKeys(item, equipped); // ST:OW
             }
         }
 
@@ -1798,13 +1818,14 @@ public sealed class LoadoutSystem : EntitySystem
     /// <summary>
     /// Recursively collects the prototype of an item and all its nested contents.
     /// </summary>
-    private void CollectItemAndNestedPrototypes(EntityUid item, Dictionary<string, int> lookup)
+    private void CollectItemAndNestedKeys(EntityUid item, Dictionary<(string Prototype, string Modules), int> lookup) // ST:OW
     {
         var proto = MetaData(item).EntityPrototype?.ID;
         if (proto != null)
         {
-            lookup.TryGetValue(proto, out var count);
-            lookup[proto] = count + 1;
+            var key = (proto, GetModuleKey(item)); // ST:OW
+            lookup.TryGetValue(key, out var count);
+            lookup[key] = count + 1;
         }
 
         // Recursively check containers
@@ -1814,7 +1835,7 @@ public sealed class LoadoutSystem : EntitySystem
             {
                 foreach (var contained in container.Value.ContainedEntities)
                 {
-                    CollectItemAndNestedPrototypes(contained, lookup);
+                    CollectItemAndNestedKeys(contained, lookup); // ST:OW
                 }
             }
         }
@@ -1826,15 +1847,15 @@ public sealed class LoadoutSystem : EntitySystem
     /// Each item (parent or nested) must be checked individually.
     /// Items are first checked against equipped items (on player), then against stash.
     /// </summary>
-    private void CalculateMissingItems(PlayerLoadout loadout, StashLookup stashLookup, Dictionary<string, int> equippedPrototypes)
+    private void CalculateMissingItems(PlayerLoadout loadout, StashLookup stashLookup, Dictionary<(string Prototype, string Modules), int> equippedItems) // ST:OW
     {
         var tempLookup = CloneLookup(stashLookup);
-        var tempEquipped = new Dictionary<string, int>(equippedPrototypes); // Clone to allow consumption
+        var tempEquipped = new Dictionary<(string Prototype, string Modules), int>(equippedItems); // ST:OW
         var missingItems = new List<MissingLoadoutItem>();
 
         foreach (var slotItem in loadout.SlotItems)
         {
-            var parentMissing = !TryConsumeFromEquippedOrStash(slotItem.PrototypeId, tempEquipped, slotItem.Identifier, tempLookup);
+            var parentMissing = !TryConsumeFromEquippedOrStash(slotItem.PrototypeId, tempEquipped, slotItem.Identifier, tempLookup, slotItem.StorageData as IItemStalkerStorage); // ST:OW
 
             if (parentMissing)
             {
@@ -1865,17 +1886,18 @@ public sealed class LoadoutSystem : EntitySystem
     /// Tries to consume an item from equipped items first, then from stash.
     /// Returns true if the item was found (not missing), false if missing.
     /// </summary>
-    private bool TryConsumeFromEquippedOrStash(string prototypeId, Dictionary<string, int> equipped, string identifier, StashLookup stashLookup)
+    private bool TryConsumeFromEquippedOrStash(string prototypeId, Dictionary<(string Prototype, string Modules), int> equipped, string identifier, StashLookup stashLookup, IItemStalkerStorage? storageData) // ST:OW
     {
         // First check equipped items (by prototype only)
-        if (equipped.TryGetValue(prototypeId, out var count) && count > 0)
+        var key = (prototypeId, GetModuleKey(storageData?.Modules)); // ST:OW
+        if (equipped.TryGetValue(key, out var count) && count > 0) // ST:OW
         {
-            equipped[prototypeId] = count - 1;
+            equipped[key] = count - 1; // ST:OW
             return true;
         }
 
         // Then check stash (by identifier first, then prototype)
-        return TryConsumeFromLookup(identifier, prototypeId, stashLookup);
+        return TryConsumeFromLookup(identifier, prototypeId, stashLookup, storageData); // ST:OW
     }
 
     /// <summary>
@@ -1885,12 +1907,12 @@ public sealed class LoadoutSystem : EntitySystem
     private void CollectMissingNestedItems(
         List<LoadoutNestedItem> items,
         StashLookup lookup,
-        Dictionary<string, int> equipped,
+        Dictionary<(string Prototype, string Modules), int> equipped, // ST:OW
         List<MissingLoadoutItem> target)
     {
         foreach (var item in items)
         {
-            var itemMissing = !TryConsumeFromEquippedOrStash(item.PrototypeId, equipped, item.Identifier, lookup);
+            var itemMissing = !TryConsumeFromEquippedOrStash(item.PrototypeId, equipped, item.Identifier, lookup, item.StorageData as IItemStalkerStorage); // ST:OW
 
             if (itemMissing)
             {
@@ -1973,7 +1995,8 @@ public sealed class LoadoutSystem : EntitySystem
                 {
                     Count = item.Count,
                     ProductEntity = item.ProductEntity,
-                    Identifier = item.Identifier
+                    Identifier = item.Identifier,
+                    SStorageData = item.SStorageData, // ST:OW - Preserve module data for loadout matching
                 };
                 clonedList.Add(clonedItem);
 
@@ -1998,36 +2021,38 @@ public sealed class LoadoutSystem : EntitySystem
         return prototypeId;
     }
 
-    private bool TryConsumeFromLookup(string identifier, string prototypeId, StashLookup lookup)
+    // ST:OW begin
+    private bool TryConsumeFromLookup(string identifier, string prototypeId, StashLookup lookup,
+        IItemStalkerStorage? storageData)
     {
-        // Try exact match first - iterate through list
-        if (lookup.ByIdentifier.TryGetValue(identifier, out var identList))
-        {
-            foreach (var item in identList)
-            {
-                if (item.Count > 0)
-                {
-                    item.Count--;
-                    return true;
-                }
-            }
-        }
+        var item = FindItemInStash(identifier, prototypeId, lookup, storageData);
+        if (item == null)
+            return false;
 
-        // Fallback to prototype match - find any item with count > 0
-        if (lookup.ByPrototype.TryGetValue(prototypeId, out var protoList))
-        {
-            foreach (var protoItem in protoList)
-            {
-                if (protoItem.Count > 0)
-                {
-                    protoItem.Count--;
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        item.Count--;
+        return true;
     }
+    private static object? RestoreLoadoutItemData(object? data)
+    {
+        if (data is not JsonElement element ||
+            element.ValueKind != JsonValueKind.Object)
+            return data;
+
+        // Use stash parser to restore the correct item type
+        var json = JsonSerializer.Serialize(new { AllItems = new[] { element } });
+        return StalkerStorageSystem.InventoryFromJson(json)
+            .AllItems.OfType<IItemStalkerStorage>().FirstOrDefault();
+    }
+
+    private static void RestoreNestedLoadoutData(List<LoadoutNestedItem> items)
+    {
+        foreach (var item in items)
+        {
+            item.StorageData = RestoreLoadoutItemData(item.StorageData);
+            RestoreNestedLoadoutData(item.NestedItems);
+        }
+    }
+    // ST:OW end
 
     /// <summary>
     /// Sends the loadout state update to the UI. Called from StalkerRepositorySystem when the UI opens.
@@ -2054,7 +2079,23 @@ public sealed class LoadoutSystem : EntitySystem
 
         try
         {
-            return JsonSerializer.Deserialize<AllLoadoutsContainer>(json);
+            var container = JsonSerializer.Deserialize<AllLoadoutsContainer>(json);
+            if (container == null)
+                return null;
+
+            // ST:OW begin
+            // Restore item data before matching saved equipment
+            foreach (var loadout in container.Loadouts)
+            {
+                foreach (var item in loadout.SlotItems)
+                {
+                    item.StorageData = RestoreLoadoutItemData(item.StorageData);
+                    RestoreNestedLoadoutData(item.NestedItems);
+                }
+            }
+            // ST:OW end
+
+            return container;
         }
         catch (Exception e)
         {

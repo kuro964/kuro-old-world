@@ -1,0 +1,46 @@
+﻿- type: entity
+  parent: BaseStructure
+  id: STOWEquipmentWorkbench
+  name: Field Workbench
+  description: Using this specialized workbench, Duty's soldiers can now refit their armor as the situation calls for. It was developed by engineers within the Zone.
+  suffix: ST:OW
+  components:
+  - type: Sprite
+    sprite: _Stalker/Objects/Devices/worktables.rsi
+    state: worktable_3
+    noRot: true
+  - type: Icon
+    sprite: _Stalker/Objects/Devices/worktables.rsi
+    state: worktable_3
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.85,-0.4,0.85,0.4"
+        density: 190
+        mask: [MachineMask]
+        layer: [MidImpassable, LowImpassable]
+  - type: InteractionOutline
+  - type: Clickable
+  - type: ItemSlots
+    slots:
+      workshop-target:
+        name: workshop-target-slot
+        whitelist:
+          components:
+          - EquipmentModification
+  - type: ContainerContainer
+    containers:
+      workshop-target: !type:ContainerSlot
+      workshop-pending: !type:Container
+  - type: ActivatableUI
+    key: enum.WorkshopUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.WorkshopUiKey.Key:
+        type: WorkshopBoundUserInterface
+  - type: EquipmentModificationWorkbench

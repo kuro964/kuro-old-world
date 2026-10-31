@@ -23,6 +23,7 @@ namespace Content.Client.Inventory
         [Dependency] private readonly IUserInterfaceManager _ui = default!;
         [Dependency] private readonly ClientClothingSystem _clothingVisualsSystem = default!;
         [Dependency] private readonly ExamineSystem _examine = default!;
+        [Dependency] private readonly Content.Shared.Inventory.ArtifactSlots.SharedArtifactSlotSystem _artifactSlotSystem = default!; // ST:OW
 
         public Action<SlotData>? EntitySlotUpdate = null;
         public Action<SlotData>? OnSlotAdded = null;
@@ -141,10 +142,7 @@ namespace Content.Client.Inventory
 
         public void SetSlotHighlight(EntityUid owner, InventorySlotsComponent component, string slotName, bool state)
         {
-            var oldData = component.SlotData[slotName];
-            var newData = component.SlotData[slotName] = new SlotData(oldData, state);
-            if (owner == _playerManager.LocalEntity)
-                EntitySlotUpdate?.Invoke(newData);
+            UpdateSlot(owner, component, slotName, highlight: state); // ST:OW: preserve availability when highlighting.
         }
 
         public void UpdateSlot(EntityUid owner, InventorySlotsComponent component, string slotName,
@@ -163,36 +161,31 @@ namespace Content.Client.Inventory
             if (highlight != null)
                 newHighlight = highlight.Value;
 
+            // ST:OW begin
+            if (newHighlight == oldData.Highlighted && newBlocked == oldData.Blocked)
+                return;
+            // ST:OW end
             var newData = component.SlotData[slotName] =
                 new SlotData(component.SlotData[slotName], newHighlight, newBlocked);
             if (owner == _playerManager.LocalEntity)
                 EntitySlotUpdate?.Invoke(newData);
         }
 
-        // Stalker-En-Changes: Check if an artifact slot is currently blocked (inactive)
-        public bool IsArtifactSlotBlocked(EntityUid owner, string slotName)
+        // ST:OW begin
+        public SlotData? GetSlotData(EntityUid owner, string slotName)
         {
-            if (TryComp<InventorySlotsComponent>(owner, out var slots) &&
-                slots.SlotData.TryGetValue(slotName, out var data))
-            {
-                return data.Blocked;
-            }
-            return false;
+            return TryComp<InventorySlotsComponent>(owner, out var slots) && slots.SlotData.TryGetValue(slotName, out var data)
+                ? data : null;
         }
-
-        // Stalker-En-Changes: Get SlotDefinition for a slot by name
-        public SlotDefinition? GetSlotDefinition(EntityUid owner, string slotName)
-        {
-            if (TryComp<InventorySlotsComponent>(owner, out var slots) &&
-                slots.SlotData.TryGetValue(slotName, out var data))
-            {
-                return data.SlotDef;
-            }
-            return null;
-        }
+        // ST:OW end
 
         public bool TryAddSlotData(Entity<InventorySlotsComponent> ent, SlotData newSlotData)
         {
+            // ST:OW begin:
+            if (newSlotData.SlotDef.SlotFlags.HasFlag(SlotFlags.ARTIFACT) &&
+                TryComp<InventoryComponent>(ent.Owner, out var inventory))
+                newSlotData.Blocked = !_artifactSlotSystem.IsArtifactSlotActive(ent.Owner, newSlotData.SlotName, inventory);
+            // ST:OW end
             if (!ent.Comp.SlotData.TryAdd(newSlotData.SlotName, newSlotData))
                 return false;
 

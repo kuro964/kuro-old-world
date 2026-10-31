@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._Stalker_OW.Workshop; // ST:OW
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory.Events;
 
@@ -20,7 +21,17 @@ public sealed class SharedArtifactSlotSystem : EntitySystem
     {
         SubscribeLocalEvent<GrantsArtifactSlotsComponent, GotEquippedEvent>(OnEquipped);
         SubscribeLocalEvent<GrantsArtifactSlotsComponent, GotUnequippedEvent>(OnUnequipped);
+        SubscribeLocalEvent((Entity<EquipmentModificationComponent> ent, ref GotEquippedEvent args) => Refresh(args.Equipee)); // ST:OW
+        SubscribeLocalEvent((Entity<EquipmentModificationComponent> ent, ref GotUnequippedEvent args) => Refresh(args.Equipee)); // ST:OW
     }
+
+    // ST:OW begin
+    private void Refresh(EntityUid wearer)
+    {
+        if (TryComp<InventoryComponent>(wearer, out var inventory))
+            RecalculateActiveSlots(wearer, inventory);
+    }
+    // ST:OW end
 
     private void OnEquipped(Entity<GrantsArtifactSlotsComponent> ent, ref GotEquippedEvent args)
     {
@@ -44,7 +55,6 @@ public sealed class SharedArtifactSlotSystem : EntitySystem
     private void RecalculateActiveSlots(EntityUid uid, InventoryComponent inv)
     {
         var maxSlots = 0;
-        var hasGranter = false;
 
         if (_inventory.TryGetContainerSlotEnumerator(uid, out var enumerator))
         {
@@ -54,19 +64,24 @@ public sealed class SharedArtifactSlotSystem : EntitySystem
                 if ((slotDef.SlotFlags & SlotFlags.ARTIFACT) != 0)
                     continue;
 
+                // ST:OW begin
+                if (TryComp<EquipmentModificationComponent>(item, out var equipment) && equipment.BlocksArtifacts)
+                {
+                    SetActiveSlots(uid, inv, 0);
+                    return;
+                }
+                // ST:OW end
                 if (!TryComp<GrantsArtifactSlotsComponent>(item, out var grants))
                     continue;
 
                 if (grants.Slots > maxSlots)
                 {
                     maxSlots = grants.Slots;
-                    hasGranter = true;
                 }
             }
         }
 
-        var activeCount = hasGranter ? maxSlots : 0;
-        SetActiveSlots(uid, inv, activeCount);
+        SetActiveSlots(uid, inv, maxSlots); // ST:OW
     }
 
     /// <summary>
@@ -76,6 +91,10 @@ public sealed class SharedArtifactSlotSystem : EntitySystem
     {
         var artifactSlots = EnsureComp<ArtifactSlotsComponent>(uid);
         var oldCount = artifactSlots.ActiveCount;
+        // ST:OW begin
+        if (oldCount == activeCount)
+            return;
+        // ST:OW end
         artifactSlots.ActiveCount = activeCount;
         Dirty(uid, artifactSlots);
 

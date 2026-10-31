@@ -11,6 +11,7 @@ using Robust.Shared.Containers; // stalker-changes
 using Content.Shared.Tag; // stalker-changes
 using Content.Shared._Stalker_EN.Clothing;
 using Content.Shared._Stalker_EN.Clothing.Components; // stalker-changes
+using Content.Shared._Stalker_OW.Workshop; // ST:OW
 
 namespace Content.Shared.Armor;
 
@@ -23,6 +24,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
     [Dependency] private readonly SharedContainerSystem _container = default!; // stalker-changes
     [Dependency] private readonly InventorySystem _inventory = default!; // stalker-changes
     [Dependency] private readonly TagSystem _tag = default!; // stalker-changes
+    [Dependency] private readonly SharedEquipmentModificationSystem _equipmentModules = default!; // ST:OW
 
     /// <inheritdoc />
     public override void Initialize()
@@ -58,6 +60,14 @@ public abstract partial class SharedArmorSystem : EntitySystem
         {
             args.Args.DamageModifiers.Coefficients[armorCoefficient.Key] = args.Args.DamageModifiers.Coefficients.TryGetValue(armorCoefficient.Key, out var coefficient) ? coefficient * armorCoefficient.Value : armorCoefficient.Value;
         }
+
+        // ST:OW begin
+        foreach (var (type, multiplier) in _equipmentModules.GetArmorModifiers(ent.Owner).Coefficients)
+        {
+            var existing = args.Args.DamageModifiers.Coefficients.GetValueOrDefault(type, 1f);
+            args.Args.DamageModifiers.Coefficients[type] = existing * multiplier;
+        }
+        // ST:OW end
     }
 
     private void OnDamageModify(EntityUid uid, ArmorComponent component, InventoryRelayedEvent<DamageModifyEvent> args)
@@ -110,7 +120,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
                 }
             }
 
-            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, modifiedModifiers);
+            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, WithEquipmentModules(uid, modifiedModifiers)); // ST:OW
 
             return;
         }
@@ -150,7 +160,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
                 }
             }
 
-            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, modifiedModifiers);
+            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, WithEquipmentModules(uid, modifiedModifiers)); // ST:OW
 
             return;
         }
@@ -158,7 +168,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
         if (component.Modifiers == null)
             return;
 
-        args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
+        args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, WithEquipmentModules(uid, component.Modifiers)); // ST:OW
         // stalker-changes-end
     }
 
@@ -209,7 +219,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
                 }
             }
 
-            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, modifiedModifiers);
+            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, WithEquipmentModules(uid, modifiedModifiers)); // ST:OW
 
             return;
         }
@@ -237,7 +247,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
                 }
             }
 
-            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, modifiedModifiers);
+            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, WithEquipmentModules(uid, modifiedModifiers)); // ST:OW
 
             return;
         }
@@ -245,7 +255,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
         if (component.Modifiers == null)
             return;
 
-        args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
+        args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, WithEquipmentModules(uid, component.Modifiers)); // ST:OW
         // stalker-changes-end
     }
 
@@ -254,8 +264,11 @@ public abstract partial class SharedArmorSystem : EntitySystem
         if (!args.CanInteract || !args.CanAccess || !component.ShowArmorOnExamine || component.Hidden || component.HiddenExamine) // Stalker-Changes
             return;
 
-        var examineMarkup = GetArmorExamine(component.Modifiers ?? component.BaseModifiers, component); // Stalker-Changes
-
+        // ST:OW begin
+        var displayed = HasComp<EquipmentModificationComponent>(uid)
+            ? GetWorkshopProtection(uid) : component.Modifiers ?? component.BaseModifiers;
+        var examineMarkup = GetArmorExamine(displayed, component);
+        // ST:OW end
         var ev = new ArmorExamineEvent(examineMarkup);
         RaiseLocalEvent(uid, ref ev);
 
@@ -279,7 +292,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
             var armorType = Loc.GetString("armor-damage-type-" + coefficientArmor.Key.ToLower());
             msg.AddMarkupOrThrow(Loc.GetString("armor-coefficient-value",
                 ("type", armorType),
-                ("value", MathF.Round((1f - coefficientArmor.Value) * 100, 1))
+                ("value", WorkshopStatDisplay.ProtectionPercent(coefficientArmor.Value)) // ST:OW
             ));
         }
 

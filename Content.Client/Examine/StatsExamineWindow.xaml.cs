@@ -10,6 +10,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Localization;
+using Content.Shared._Stalker_OW.Workshop; // ST:OW
 
 namespace Content.Client.Examine;
 
@@ -57,8 +58,7 @@ public sealed partial class StatsExamineWindow : FancyWindow
                 $"Armor Class",
                 0,
                 equippedArmorClass,
-                isFlatReduction: true,
-                isMissing: true
+                isFlatReduction: true // ST:OW
             );
         }
 
@@ -79,21 +79,20 @@ public sealed partial class StatsExamineWindow : FancyWindow
                 $"Reflect Chance",
                 0,
                 equippedReflectProb.Value * 100f,
-                isFlatReduction: true,
-                isMissing: true
+                isFlatReduction: true // ST:OW
             );
         }
 
         // Show coefficient protections
         foreach (var (damageType, coefficient) in examinedModifiers.Coefficients)
         {
-            var protectionPercent = (1f - coefficient) * 100f;
+            var protectionPercent = WorkshopStatDisplay.ProtectionPercent(coefficient); // ST:OW
             var statName = Loc.GetString($"armor-damage-type-{damageType.ToLower()}");
 
-            float? equippedProtection = null;
+            float? equippedProtection = equippedModifiers == null ? null : 0f; // ST:OW
             if (equippedModifiers?.Coefficients.TryGetValue(damageType, out var equippedCoeff) == true)
             {
-                equippedProtection = (1f - equippedCoeff) * 100f;
+                equippedProtection = WorkshopStatDisplay.ProtectionPercent(equippedCoeff); // ST:OW
             }
 
             AddStatRow(statName, protectionPercent, equippedProtection);
@@ -106,9 +105,9 @@ public sealed partial class StatsExamineWindow : FancyWindow
             {
                 if (!examinedModifiers.Coefficients.ContainsKey(damageType))
                 {
-                    var protectionPercent = (1f - coefficient) * 100f;
+                    var protectionPercent = WorkshopStatDisplay.ProtectionPercent(coefficient); // ST:OW
                     var statName = Loc.GetString($"armor-damage-type-{damageType.ToLower()}");
-                    AddStatRow(statName, 0, protectionPercent, isMissing: true);
+                    AddStatRow(statName, 0, protectionPercent); // ST:OW
                 }
             }
         }
@@ -135,7 +134,7 @@ public sealed partial class StatsExamineWindow : FancyWindow
                 if (!examinedModifiers.FlatReduction.ContainsKey(damageType))
                 {
                     var statName = Loc.GetString($"armor-damage-type-{damageType.ToLower()}");
-                    AddStatRow(statName, 0, reduction, isFlatReduction: true, isMissing: true);
+                    AddStatRow(statName, 0, reduction, isFlatReduction: true); // ST:OW
                 }
             }
         }
@@ -148,8 +147,7 @@ public sealed partial class StatsExamineWindow : FancyWindow
         string statName,
         float examinedValue,
         float? equippedValue,
-        bool isFlatReduction = false,
-        bool isMissing = false)
+        bool isFlatReduction = false) // ST:OW
     {
         var row = new BoxContainer
         {
@@ -202,38 +200,34 @@ public sealed partial class StatsExamineWindow : FancyWindow
         // Value label with comparison
         var valueLabel = new Label
         {
-            Text = isFlatReduction ? $"{examinedValue:F1}" : $"{examinedValue:F1}%",
+            Text = isFlatReduction ? $"{examinedValue:F1}" : $"{examinedValue:0}%", // ST:OW
             HorizontalExpand = false,
             MinWidth = 50,
             HorizontalAlignment = Control.HAlignment.Right
         };
-
-        if (isMissing)
-        {
-            // Stat doesn't exist in examined armor but exists in equipped - show as red (worse)
-            valueLabel.Text += $" ↓ -{equippedValue!.Value:F1}";
-            valueLabel.Modulate = new Color(0.957f, 0.263f, 0.212f); // #f44336 red
-        }
-        else if (equippedValue.HasValue)
+        if (equippedValue.HasValue) // ST:OW
         {
             var delta = examinedValue - equippedValue.Value;
             if (delta > 0.01f)
             {
                 // Examined is BETTER
-                valueLabel.Text += $" ↑ +{delta:F1}";
+                valueLabel.Text += isFlatReduction ? $" ↑ +{delta:F1}" : $" ↑ +{delta:0}"; // ST:OW
                 valueLabel.Modulate = new Color(0.298f, 0.686f, 0.314f); // #4caf50 green
             }
             else if (delta < -0.01f)
             {
                 // Examined is WORSE
-                valueLabel.Text += $" ↓ {delta:F1}";
+                valueLabel.Text += isFlatReduction ? $" ↓ {delta:F1}" : $" ↓ {delta:0}"; // ST:OW
                 valueLabel.Modulate = new Color(0.957f, 0.263f, 0.212f); // #f44336 red
             }
         }
         else
         {
-            // Stat doesn't exist in equipped armor - highlight green
-            valueLabel.Modulate = new Color(0.298f, 0.686f, 0.314f); // #4caf50 green
+            // ST:OW begin
+            valueLabel.Modulate = examinedValue < 0
+                ? new Color(0.957f, 0.263f, 0.212f)
+                : new Color(0.298f, 0.686f, 0.314f);
+            // ST:OW end
         }
 
         row.AddChild(valueLabel);
