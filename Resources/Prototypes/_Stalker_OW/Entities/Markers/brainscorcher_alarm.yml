@@ -1,0 +1,40 @@
+- type: entity
+  id: STBrainScorcherAlarm
+  parent: MarkerBase
+  name: Brainscorcher Alarm
+  suffix: ST, Monolith
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      alarm:
+        shape:
+          !type:PhysShapeCircle
+          radius: 5
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+        hard: false
+  - type: TriggerOnCollide
+    fixtureID: alarm
+  - type: WhitelistTriggerCondition
+    userWhitelist:
+      components:
+      - Actor
+    userBlacklist:
+      components:
+      - MonolithHivemind
+  - type: UseDelay
+    delay: 30
+  - type: UseDelayTriggerCondition
+  - type: UseDelayOnTrigger
+  - type: RattleOnTrigger
+    targetUser: true
+    radioChannel: Monolith
+    messages:
+      Alive: brainscorcher-alarm-message
