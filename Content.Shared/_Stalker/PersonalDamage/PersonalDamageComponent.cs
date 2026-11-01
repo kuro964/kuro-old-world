@@ -1,7 +1,7 @@
 ﻿using Content.Shared.Damage;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server._Stalker.PersonalDamage;
+namespace Content.Shared._Stalker.PersonalDamage;
 
 [RegisterComponent, AutoGenerateComponentState]
 public sealed partial class PersonalDamageComponent : Component

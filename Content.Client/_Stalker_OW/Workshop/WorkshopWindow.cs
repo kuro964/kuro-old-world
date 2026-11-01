@@ -11,6 +11,7 @@ using Robust.Shared.Input;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using Content.Shared._Stalker.PersonalDamage;
 
 namespace Content.Client._Stalker_OW.Workshop;
 
@@ -62,8 +63,13 @@ public sealed class WorkshopWindow : FancyWindow
     private string? _displayedPrototype;
     private List<WorkshopStatState>? _renderedStats;
     private bool _slotsLocked;
+    private List<PassiveRow>? _renderedPassive;
+    private bool _renderedPending;
 
-    private sealed record ModuleRow(int Slot, SlotButton Button, RichTextLabel Installed, RichTextLabel Pending)
+    private sealed record PassiveEffect(string Type, float Interval, bool Healing, bool Stamina, bool IgnoreResistances);
+    private sealed record PassiveRow(PassiveEffect Effect, double Current, double Proposed);
+
+    private sealed record ModuleRow(int Slot, ModuleSlotButton Button, RichTextLabel Installed, RichTextLabel Pending)
     {
         public string? Prototype;
     }
@@ -189,11 +195,16 @@ public sealed class WorkshopWindow : FancyWindow
         _armorClass.Text = Loc.GetString("workshop-armor-class", ("value", armorClass));
 
         var stats = hasTarget ? _armor.GetWorkshopPreview(target!.Value, changes) : new List<WorkshopStatState>();
-        if (_renderedStats != null && SameStats(_renderedStats, stats))
+        var passive = GetPassivePreview(hasTarget ? equipment : null, changes);
+        if (_renderedStats != null && SameStats(_renderedStats, stats) &&
+            _renderedPassive != null && _renderedPassive.SequenceEqual(passive) && _renderedPending == pending)
             return;
 
         _renderedStats = stats;
+        _renderedPassive = passive;
+        _renderedPending = pending;
         RenderStats(stats, pending);
+        RenderPassiveStats(passive, pending);
     }
 
     private void RenderSlots(bool hasTarget, EquipmentModificationComponent? equipment,
@@ -211,7 +222,7 @@ public sealed class WorkshopWindow : FancyWindow
             }
 
             var row = Row();
-            row.AddChild(CreateSlotButton(true, L("workshop-slot-help")));
+            row.AddChild(CreateModuleSlotButton(true, L("workshop-slot-help")));
             var hint = Column();
             hint.HorizontalExpand = true;
             Text(hint, L("workshop-slots-empty"));
@@ -228,7 +239,7 @@ public sealed class WorkshopWindow : FancyWindow
             {
                 var slot = i;
                 var row = Row();
-                var button = CreateSlotButton(false, "");
+                var button = CreateModuleSlotButton(false, "");
                 button.Pressed += (args, _) =>
                 {
                     if (_slotsLocked || args.Function != EngineKeyFunctions.UIClick)
@@ -298,6 +309,88 @@ public sealed class WorkshopWindow : FancyWindow
         }
     }
 
+    private List<PassiveRow> GetPassivePreview(EquipmentModificationComponent? equipment,
+        IReadOnlyDictionary<int, EntProtoId?> changes)
+    {
+        if (equipment == null)
+            return new List<PassiveRow>();
+
+        var current = GetPassiveEffects(equipment.Installed);
+        var proposed = GetPassiveEffects(_entities.System<SharedEquipmentModificationSystem>().WithChanges(equipment, changes));
+        return current.Keys.Union(proposed.Keys)
+            .OrderByDescending(key => key.Healing)
+            .ThenBy(key => key.Stamina)
+            .ThenBy(key => key.Type, Comparer<string>.Create(string.CompareOrdinal))
+            .ThenBy(key => key.Interval)
+            .ThenBy(key => key.IgnoreResistances)
+            .Select(key => new PassiveRow(key, current.GetValueOrDefault(key), proposed.GetValueOrDefault(key)))
+            .ToList();
+    }
+
+    private Dictionary<PassiveEffect, double> GetPassiveEffects(IEnumerable<EntProtoId?> modules)
+    {
+        var result = new Dictionary<PassiveEffect, double>();
+        foreach (var id in modules)
+        {
+            if (id is not { } module || !_proto.TryIndex(module, out var prototype) ||
+                !prototype.TryGetComponent<PersonalDamageComponent>(out var effect, _entities.ComponentFactory) ||
+                !float.IsFinite(effect.Interval) || effect.Interval <= 0)
+                continue;
+
+            foreach (var (type, amount) in effect.Damage.DamageDict)
+                Add(type, amount.Float(), false, effect.IgnoreResistances);
+            Add("", effect.StaminaDamage, true, false);
+
+            void Add(string type, float amount, bool stamina, bool ignoresResistance)
+            {
+                if (amount == 0 || !float.IsFinite(amount))
+                    return;
+
+                // Keep healing, damage, intervals and resistance settings separate
+                var key = new PassiveEffect(type, effect.Interval, amount < 0, stamina, ignoresResistance);
+                result[key] = result.GetValueOrDefault(key) + Math.Abs((double) amount);
+            }
+        }
+        return result;
+    }
+
+    private void RenderPassiveStats(List<PassiveRow> rows, bool pending)
+    {
+        if (rows.Count == 0)
+            return;
+
+        foreach (var group in rows.GroupBy(row => row.Effect.Healing))
+        {
+            var heading = new Label
+            {
+                Text = L(group.Key ? "workshop-passive-regeneration" : "workshop-passive-damage"),
+                HorizontalAlignment = HAlignment.Center, Margin = new Thickness(0, 12, 0, 4),
+            };
+            heading.AddStyleClass("LabelHeading");
+            _stats.AddChild(heading);
+
+            foreach (var row in group)
+            {
+                var effect = row.Effect;
+                var name = effect.Stamina ? L("workshop-passive-stamina")
+                    : L("armor-damage-type-" + effect.Type.ToLowerInvariant());
+                var block = Column();
+                block.SeparationOverride = 2;
+                block.Margin = new Thickness(0, 3, 0, 7);
+                Color? tint = null;
+                if (pending && row.Current != row.Proposed)
+                    tint = (row.Proposed > row.Current) == effect.Healing ? ReadyColor : WarningColor;
+
+                // Significant digits retain small amounts without super long tails
+                block.AddChild(StatRow(name, row.Current.ToString("G6"), row.Proposed.ToString("G6"), tint));
+                Text(block, Loc.GetString("workshop-passive-interval", ("seconds", effect.Interval)), SubduedColor);
+                if (!effect.Stamina && !effect.Healing)
+                    Text(block, L(effect.IgnoreResistances ? "workshop-passive-bypasses" : "workshop-passive-resisted"), SubduedColor);
+                _stats.AddChild(block);
+            }
+        }
+    }
+
     private static bool SameStats(List<WorkshopStatState> a, List<WorkshopStatState> b) =>
         a.Count == b.Count && a.Zip(b).All(p =>
             p.First.Name == p.Second.Name && p.First.Flat == p.Second.Flat &&
@@ -346,9 +439,9 @@ public sealed class WorkshopWindow : FancyWindow
         MinWidth = 2, MaxWidth = 2, VerticalExpand = true, PanelOverride = new StyleBoxFlat(DividerColor),
     };
 
-    private static SlotButton CreateSlotButton(bool disabled, string tooltip)
+    private static ModuleSlotButton CreateModuleSlotButton(bool disabled, string tooltip)
     {
-        var button = new SlotButton
+        var button = new ModuleSlotButton
         {
             ButtonTexturePath = "FlatSlotBackground", FullButtonTexturePath = "FlatSlotBackground",
             ToolTip = tooltip, VerticalAlignment = VAlignment.Top,

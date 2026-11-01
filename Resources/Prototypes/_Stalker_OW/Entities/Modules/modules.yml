@@ -61,3 +61,10 @@
           Piercing: 1.5
         flatReductions:
           Caustic: 100
+    - type: PersonalDamage
+      damage:
+        types:
+          Radiation: 2
+      interval: 2
+      ignoreResistances: true
+      interruptsDoAfters: false
