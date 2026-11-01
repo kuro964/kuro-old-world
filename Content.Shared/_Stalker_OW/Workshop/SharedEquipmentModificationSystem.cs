@@ -38,7 +38,7 @@ public sealed class SharedEquipmentModificationSystem : EntitySystem
     private void OnStartup(Entity<EquipmentModificationComponent> ent, ref ComponentStartup args)
     {
         Normalize(ent.Comp);
-        ent.Comp.Cached = Calculate(ent.Comp.Installed);
+        Rebuild(ent);
     }
 
     private void OnHandleState(Entity<EquipmentModificationComponent> ent, ref AfterAutoHandleStateEvent args)

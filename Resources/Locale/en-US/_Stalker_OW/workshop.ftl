@@ -43,3 +43,9 @@ workshop-guide =
     Empty-hand click removes or undoes a pending slot.
     Cancel returns all staged modules.
 workshop-inventory-module = Module { $number }: { $name }. Change modules at a field workbench.
+workshop-passive-regeneration = PASSIVE REGENERATION
+workshop-passive-damage = PASSIVE DAMAGE
+workshop-passive-stamina = Stamina
+workshop-passive-interval = Every { $seconds } s
+workshop-passive-bypasses = Ignores damage resistances
+workshop-passive-resisted = Damage resistances apply

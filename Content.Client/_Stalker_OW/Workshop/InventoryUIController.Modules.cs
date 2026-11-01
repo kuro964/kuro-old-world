@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using Content.Client._Stalker_OW.Workshop;
+using System.Numerics;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._Stalker_OW.Workshop;
 using Robust.Client.UserInterface;
@@ -11,7 +12,7 @@ public sealed partial class InventoryUIController
 {
     [Dependency] private readonly IPrototypeManager _modulePrototypes = default!;
 
-    private readonly List<SlotButton> _moduleCells = new();
+    private readonly List<ModuleSlotButton> _moduleCells = new();
     private bool _showingModules;
 
     public void RefreshModuleSlots()
@@ -53,14 +54,14 @@ public sealed partial class InventoryUIController
         if (index >= modules.Count)
             return cell;
 
-        var slot = new SlotButton { ButtonTexturePath = "FlatSlotBackground", FullButtonTexturePath = "FlatSlotBackground" };
+        var slot = new ModuleSlotButton { ButtonTexturePath = "FlatSlotBackground", FullButtonTexturePath = "FlatSlotBackground" };
         UpdateModuleCell(slot, modules[index], index);
         _moduleCells.Add(slot);
         cell.AddChild(slot);
         return cell;
     }
 
-    private void UpdateModuleCell(SlotButton slot, EntProtoId? module, int index)
+    private void UpdateModuleCell(ModuleSlotButton slot, EntProtoId? module, int index)
     {
         var name = module is { } id && _modulePrototypes.TryIndex(id, out var prototype)
             ? prototype.Name

@@ -22,7 +22,7 @@ namespace Content.Client.UserInterface.Controls
         public CooldownGraphic CooldownDisplay { get; }
 
         private SpriteView SpriteView { get; }
-        private EntityPrototypeView ProtoView { get; }
+        protected EntityPrototypeView ProtoView { get; }
 
         public EntityUid? Entity => SpriteView.Entity;
 
