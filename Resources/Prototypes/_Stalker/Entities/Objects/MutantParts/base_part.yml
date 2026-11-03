@@ -19,6 +19,7 @@
         Dollar: 1
         Fangs: 1
         Hryvnias: 0 # EN
+        ArtifactShards: 1
     - type: STTrophy # stalker-en-changes: enables quality display on all mutant parts
     - type: RepositoryItem # stalker-en change
       categoryName: repository-mutantparts-category

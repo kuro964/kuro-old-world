@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/09/2026 05:47:28
-  entityCount: 20018
+  time: 10/20/2026 18:54:49
+  entityCount: 20019
 maps:
 - 1
 grids:
@@ -72535,6 +72535,14 @@ entities:
     - type: Transform
       pos: 94.5,58.5
       parent: 1
+- proto: NPCFreedomOW
+  entities:
+  - uid: 15339
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 162.5,-2.5
+      parent: 1
 - proto: NPCIgorIvanovichFreedom
   entities:
   - uid: 18143
@@ -133891,7 +133899,7 @@ entities:
       pos: 62.5,76.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -115397.89
+      secondsUntilStateChange: -115587.98
       state: Opening
   - uid: 13775
     components:

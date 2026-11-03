@@ -1,0 +1,145 @@
+﻿- type: entity
+  parent: NPCDoll
+  id: NPCFreedomOW
+  name: Fedir 'Kebab' [→   ←]
+  suffix: ST, Freedom, OW, STOW
+  description: Stepson of a stalker named 'Bilibob'. An experienced artifact hunter looking to get into mutant smuggling.
+  components:
+    - type: Sprite
+      sprite: _Stalker/NPC/Groups/freedom.rsi
+      state: icon
+    - type: Physics
+      bodyType: Static
+    - type: DatasetVocalizer
+      dataset: NPCStalkerTraderAds
+    - type: ActivatableUI
+      key: enum.ShopUiKey.Key
+      singleUser: true
+    - type: UserInterface
+      interfaces:
+        enum.ShopUiKey.Key:
+          type: ShopBoundUserInterface
+    - type: Shop
+      moneyId: ArtifactShards
+      shopPresetId: Freenium
+    - type: TypingIndicator
+      proto: robot
+    - type: TTS # Corvax-TTS
+      voice: TrainingRobot
+    - type: Speech
+      speechVerb: Robotic
+      speechSounds: Alto
+    - type: IntrinsicRadioReceiver
+    - type: IntrinsicRadioTransmitter
+      channels:
+        - Binary
+    - type: ActiveRadio
+      channels:
+        - Binary
+        - Common
+
+- type: shopPreset
+  id: Freenium
+  minSellPrice: 1
+  itemsForSale:
+    
+    #Boars
+    MutantPartBoarHoof: 1 # T1
+    MutantPartSeasonedBoarHoof: 1 # T2
+    MutantPartOldBoarHoof: 2 # T3
+
+    #T1
+    MutantPartBlindDogTail: 1
+    MutantPartFleshEye: 2
+    FoodMeatSpiderLeg: 1
+    MutantPartBearClaw: 1
+    MutantPartCatGland: 2
+
+    #T2
+    MutantPartLeshiyRoot: 2
+    MutantPartPseudodogTail: 2
+    MutantPartSnorkFoot: 2
+    MutantPartPsiDogTail: 3
+    MutantPartBearEye: 7
+    MutantPartBearPaw: 3
+    MutantPartFrogLeg: 1
+
+    #T3
+    MutantPartBloodsuckerTentacles: 6
+    MutantPartOraculeEye: 5
+    MutantPartPseudogiantHeart: 100
+    MutantPartZombieHand: 2
+    ClothingHeadBear: 25
+    MutantPartIzlomArm: 10
+    MutantPartBurerBrain: 5
+    MutantPartControllerBrain: 8
+    MutantPartRustEgg: 1
+    ClothingMaskChimera: 25
+    MutantPartChimeraTooth: 5
+
+  categories:
+    - name: Acidic
+      priority: 1
+      items:
+        ZoneArtifactPellicle: 20
+        ZoneArtifactToxic: 20
+        
+        # Acidic group - T2
+        ZoneArtifactBlood: 60
+        ZoneArtifactCytoplasm: 40
+        
+        # Acidic group - T3
+        ZoneArtifactMeat: 120
+
+    - name: Electrical
+      priority: 2
+      items:
+        # Electrical group - T1
+        ZoneArtifactSparkler: 20
+        
+        # Electrical group - T2
+        ZoneArtifactBattery: 50
+        ZoneArtifactCharger: 55
+        
+        # Electrical group - T3
+        ZoneArtifactFlash: 150
+        ZoneArtifactAccumulator: 70
+        # Electrical group - T3 North Only
+        ArtMoon: 150
+
+    - name: Gravity
+      priority: 3
+      items:
+        ZoneArtifactPebble: 20
+        ZoneArtifactWhirlwind: 20
+        # Gravity group - T2
+        ZoneArtifactAmoeba: 50
+        ZoneArtifactRosin: 50
+        
+        # Gravity group - T3
+        ZoneArtifactFlower: 70
+        ZoneArtifactStoneCube: 70
+
+    - name: Spatial
+      priority: 4
+      items:
+        # Spatial group - T1
+        ZoneArtifactFloodlight: 20
+        ZoneArtifactBeer: 30
+        # Spatial group - T3
+        ZoneArtifactThorn: 100
+        ZoneArtifactArf: 60
+
+    - name: Thermal
+      priority: 5
+      items:
+        # Thermal group - T1
+        ZoneArtifactFireball: 20
+        # Thermal group - T2
+        ZoneArtifactEye: 50
+        ZoneArtifactConflagration: 50
+
+        # Thermal group - T3
+        ZoneArtifactFlame: 80
+        ZoneArtifactBunch: 80
+        ZoneArtifactRock: 60
