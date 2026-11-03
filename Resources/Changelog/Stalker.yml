@@ -4496,5 +4496,14 @@
   id: 498
   time: '2026-11-03T04:10:30.284301+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/169
+- author: Allias12
+  changes:
+  - message: Various Duty modules
+    type: Add
+  - message: Made the Duty Seva take 4 Modules
+    type: Tweak
+  id: 499
+  time: '2026-11-03T04:17:49.778658+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/196
 Name: Stalker
 Order: -1
