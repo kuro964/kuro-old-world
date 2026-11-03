@@ -1,0 +1,192 @@
+﻿# Mutant Modules
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleMutantProtectionT1Blueprint
+  name: Mutant Protection T1 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleMutantProtectionT1Recipe
+    
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleMutantProtectionT2Blueprint
+  name: Mutant Protection T2 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleMutantProtectionT2Recipe
+    
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleMutantProtectionT3Blueprint
+  name: Mutant Protection T3 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleMutantProtectionT3Recipe
+      
+# Utility Modules
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleStaminaRegenT1Blueprint
+  name: Enhanced Servos T1 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleStaminaRegenT1Recipe
+    
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleStaminaRegenT2Blueprint
+  name: Enhanced Servos T2 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleStaminaRegenT2Recipe
+    
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleStaminaRegenT3Blueprint
+  name: Enhanced Servos T3 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleStaminaRegenT3Recipe
+    
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleCauterizingT1Blueprint
+  name: Cauterizing Enhancements T1 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleCauterizingT1Recipe
+    
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleCauterizingT2Blueprint
+  name: Cauterizing Enhancements T2 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleCauterizingT2Recipe
+    
+# Anomaly Protection
+# Acidic
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleAcidicT1Blueprint
+  name: Hazmat T1 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleAcidicT1Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleAcidicT2Blueprint
+  name: Hazmat T2 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleAcidicT2Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleAcidicT3Blueprint
+  name: Hazmat T3 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleAcidicT3Recipe
+      
+# Heat
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleHeatT1Blueprint
+  name: Improved Insulation T1 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleHeatT1Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleHeatT2Blueprint
+  name: Improved Insulation T2 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleHeatT2Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleHeatT3Blueprint
+  name: Improved Insulation T3 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleHeatT3Recipe
+      
+# Electrical
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleElectricalT1Blueprint
+  name: Improved Circuits T1 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleElectricalT1Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleElectricalT2Blueprint
+  name: Improved Circuits T2 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleElectricalT2Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleElectricalT3Blueprint
+  name: Improved Circuits T3 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleElectricalT3Recipe
+      
+# Gravity
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleGravityT1Blueprint
+  name: Enhanced Structure T1 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleGravityT1Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleGravityT2Blueprint
+  name: Enhanced Structure T2 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleGravityT2Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModuleGravityT3Blueprint
+  name: Enhanced Structure T3 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModuleGravityT3Recipe

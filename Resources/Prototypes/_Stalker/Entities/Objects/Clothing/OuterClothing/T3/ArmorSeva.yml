@@ -407,6 +407,11 @@
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHardsuitSevaHelmDolgRed
     slot: head
+  - type: GrantsArtifactSlots
+    slots: 0 # EN
+  - type: EquipmentModification
+    blocksArtifacts: true
+    slots: 4
 
 - type: entity
   parent: STClothingHeadHardsuitSevaHelmBase

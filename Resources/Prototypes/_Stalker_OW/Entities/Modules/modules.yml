@@ -9,8 +9,8 @@
     - type: STWeight
       self: 0.25
     - type: Sprite
-      sprite: Objects/Materials/Sheets/metal.rsi
-      state: steel
+      sprite: Objects/Misc/module.rsi
+      state: generic
     - type: RepositoryItem
       categoryName: repository-equipment-category
     - type: EquipmentModule
@@ -24,7 +24,7 @@
   description: Test
   components:
     - type: Sprite
-      state: plasteel
+      state: generic
     - type: ArmorModuleEffect
       modifiers:
         coefficients:
@@ -38,7 +38,7 @@
   description: Test
   components:
     - type: Sprite
-      state: steel
+      state: generic
     - type: ArmorModuleEffect
       modifiers:
         coefficients:
@@ -52,7 +52,7 @@
   description: Test
   components:
     - type: Sprite
-      state: brass
+      state: generic
     - type: ArmorModuleEffect
       modifiers:
         coefficients:
@@ -68,3 +68,413 @@
       interval: 2
       ignoreResistances: true
       interruptsDoAfters: false
+
+# Mutant Modules
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleMutantProtectionT1
+  name: Mutant Protection Schematic Tier 1
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: security
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Blunt: 0.9
+          Slash: 0.9
+        flatReductions:
+          Blunt: 1
+          Slash: 1
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleMutantProtectionT2
+  name: Mutant Protection Schematic Tier 2
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: security
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Blunt: 0.8
+          Slash: 0.8
+        flatReductions:
+          Blunt: 1
+          Slash: 1
+    - type: PersonalDamage
+      damage:
+        types:
+          Blunt: -0.5
+          Slash: -0.5
+      interval: 1
+      ignoreResistances: true
+      interruptsDoAfters: false
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleMutantProtectionT3
+  name: Mutant Protection Schematic Tier 3
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_security
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Blunt: 0.6
+          Slash: 0.7
+        flatReductions:
+          Blunt: 2
+          Slash: 2
+    - type: PersonalDamage
+      damage:
+        types:
+          Blunt: -1
+          Slash: -1
+      interval: 1
+      ignoreResistances: true
+      interruptsDoAfters: false
+      
+# Utility Modules
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleStaminaRegenT1
+  name: Enhanced Servos Schematic Tier 1
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: medical
+    - type: PersonalDamage 
+      staminaDamage: -1 
+      interval: 1
+      ignoreResistances: true
+      interruptsDoAfters: false
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleStaminaRegenT2
+  name: Enhanced Servos Schematic Tier 2
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: medical
+    - type: PersonalDamage
+      staminaDamage: -2
+      interval: 1
+      ignoreResistances: true
+      interruptsDoAfters: false
+  
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleStaminaRegenT3
+  name: Enhanced Servos Schematic Tier 3
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_medical
+    - type: PersonalDamage
+      staminaDamage: -3
+      interval: 1
+      ignoreResistances: true
+      interruptsDoAfters: false
+    
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleCauterizingT1
+  name: Cauterizing Schematic Tier 1
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: medical
+    - type: ArmorModuleEffect
+      modifiers:
+        flatReductions:
+          Heat: 1
+    - type: PersonalDamage
+      damage:
+        types:
+          Heat: 0.5
+      interval: 1
+      ignoreResistances: true
+      interruptsDoAfters: false
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleCauterizingT2
+  name: Cauterizing Schematic Tier 2
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_medical
+    - type: ArmorModuleEffect
+      modifiers:
+        flatReductions:
+          Heat: 1
+    - type: PersonalDamage
+      damage:
+        types:
+          Bloodloss: -1
+          Heat: 1
+      interval: 1
+      ignoreResistances: true
+      interruptsDoAfters: false
+      
+# Anomaly Protection
+# Acidic
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleAcidicT1
+  name: Hazmat Schematic Tier 1
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+         Poison: 0.95
+         Caustic: 0.9
+         Asphyxiation: 1.05
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleAcidicT2
+  name: Hazmat Schematic Tier 2
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Poison: 0.85
+          Caustic: 0.8
+          Asphyxiation: 1.1
+    - type: PersonalDamage
+      damage:
+        types:
+          Radiation: -2
+          Poison: -1
+          Caustic: -0.4
+      interval: 1
+      ignoreResistances: true # EN
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleAcidicT3
+  name: Hazmat Schematic Tier 3
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+         Poison: 0.75
+         Caustic: 0.7
+         Asphyxiation: 1.15
+    - type: PersonalDamage
+      damage:
+        types:
+          Radiation: -3
+          Poison: -2
+          Caustic: -1
+      interval: 1
+      ignoreResistances: true # EN
+      
+# Heat
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleHeatT1
+  name: Improved Insulation Schematic Tier 1
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Heat: 0.9
+          Shock: 1.1
+    - type: PersonalDamage
+      damage:
+        types:
+          Heat: -0.5
+      interval: 1
+      ignoreResistances: true # EN
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleHeatT2
+  name: Improved Insulation Schematic Tier 2
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Heat: 0.8
+          Shock: 1.2
+    - type: PersonalDamage
+      damage:
+        types:
+          Heat: -1
+      interval: 1
+      ignoreResistances: true # EN
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleHeatT3
+  name: Improved Insulation Schematic Tier 3
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Heat: 0.7
+          Shock: 1.3
+    - type: PersonalDamage
+      damage:
+        types:
+          Heat: -2
+      interval: 1
+      ignoreResistances: true # EN
+      
+# Electrical
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleElectricalT1
+  name: Improved Circuits Schematic Tier 1
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Shock: 0.9
+          Heat: 1.1
+          Cold: 1.1
+    - type: PersonalDamage
+      damage:
+        types:
+          Shock: -0.5
+      interval: 1
+      ignoreResistances: true # EN
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleElectricalT2
+  name: Improved Circuits Schematic Tier 2
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Shock: 0.8
+          Heat: 1.2
+          Cold: 1.2
+    - type: PersonalDamage
+      damage:
+        types:
+          Shock: -1
+      interval: 1
+      ignoreResistances: true # EN
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleElectricalT3
+  name: Improved Circuits Schematic Tier 3
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Shock: 0.7
+          Heat: 1.3
+          Cold: 1.3
+    - type: PersonalDamage
+      damage:
+        types:
+          Shock: -2
+      interval: 1
+      ignoreResistances: true # EN
+      
+# Gravity
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleGravityT1
+  name: Enhanced Structure Schematic Tier 1
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Compression: 0.9
+          Slash: 1.1
+          Blunt: 1.1
+    - type: PersonalDamage
+      damage:
+        types:
+          Compression: -0.5
+      interval: 1
+      ignoreResistances: true # EN
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleGravityT2
+  name: Enhanced Structure Schematic Tier 2
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Compression: 0.8
+          Slash: 1.2
+          Blunt: 1.2
+    - type: PersonalDamage
+      damage:
+        types:
+          Compression: -1
+      interval: 1
+      ignoreResistances: true # EN
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModuleGravityT3
+  name: Enhanced Structure Schematic Tier 3
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Compression: 0.7
+          Slash: 1.3
+          Blunt: 1.3
+    - type: PersonalDamage
+      damage:
+        types:
+          Compression: -2
+      interval: 1
+      ignoreResistances: true # EN

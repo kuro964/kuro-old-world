@@ -1,0 +1,452 @@
+﻿- type: craftRecipe
+  id: STOWModuleMutantProtectionT1Recipe
+  resultProtos:
+    - STOWModuleMutantProtectionT1
+  craftTime: 20
+  items:
+    STOWModuleMutantProtectionT1Blueprint:
+      amount: 1
+      catalyzer: true
+    STCraftBasicPCBT1:
+      amount: 1
+    STCraftPlasticFittingT2:
+      amount: 2
+    STCraftCottonFabricT1:
+      amount: 2
+    STCraftBasicThreadKitT1:
+      amount: 2
+    STCraftSheetCopperT1:
+      amount: 3
+    STCraftBattery:
+      amount: 1
+      
+- type: craftRecipe
+  id: STOWModuleMutantProtectionT2Recipe
+  resultProtos:
+    - STOWModuleMutantProtectionT2
+  craftTime: 20
+  items:
+    STOWModuleMutantProtectionT2Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleMutantProtectionT1:
+      amount: 1
+    STCraftStandardPCBT2:
+      amount: 1
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetIronT2:
+      amount: 3
+    STCraftHideT2:
+      amount: 2
+    STCraftTapeKitT2:
+      amount: 2
+    STCraftCoil:
+      amount: 1
+      
+- type: craftRecipe
+  id: STOWModuleMutantProtectionT3Recipe
+  resultProtos:
+    - STOWModuleMutantProtectionT3
+  craftTime: 20
+  items:
+    STOWModuleMutantProtectionT3Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleMutantProtectionT2:
+      amount: 1
+    STCraftMultilayerPCBT3:
+      amount: 1
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetBrassT3:
+      amount: 3
+    STCraftSturdyHideT3:
+      amount: 2
+    STCraftGlueKitT3:
+      amount: 2
+    STCraftCoil:
+      amount: 1
+      
+# Utility
+
+- type: craftRecipe
+  id: STOWModuleStaminaRegenT1Recipe
+  resultProtos:
+    - STOWModuleStaminaRegenT1
+  craftTime: 20
+  items:
+    STOWModuleStaminaRegenT1Blueprint:
+      amount: 1
+      catalyzer: true
+    STCraftBasicPCBT1:
+      amount: 2
+    STCraftPlasticFittingT2:
+      amount: 4
+    STCraftBasicThreadKitT1:
+      amount: 2
+    STCraftSheetCopperT1:
+      amount: 2
+    STCraftBattery:
+      amount: 1
+      
+- type: craftRecipe
+  id: STOWModuleStaminaRegenT2Recipe
+  resultProtos:
+    - STOWModuleStaminaRegenT2
+  craftTime: 20
+  items:
+    STOWModuleStaminaRegenT2Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleStaminaRegenT1:
+      amount: 1
+    STCraftStandardPCBT2:
+      amount: 2
+    STCraftPlasticFittingT3:
+      amount: 4
+    STCraftSheetIronT2:
+      amount: 2
+    STCraftTapeKitT2:
+      amount: 2
+    STCraftCoil:
+      amount: 1
+      
+- type: craftRecipe
+  id: STOWModuleStaminaRegenT3Recipe
+  resultProtos:
+    - STOWModuleStaminaRegenT3
+  craftTime: 20
+  items:
+    STOWModuleStaminaRegenT3Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleStaminaRegenT2:
+      amount: 1
+    STCraftMultilayerPCBT3:
+      amount: 1
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetBrassT3:
+      amount: 3
+    STCraftSturdyHideT3:
+      amount: 2
+    STCraftGlueKitT3:
+      amount: 2
+    STCraftCoil:
+      amount: 1
+      
+- type: craftRecipe
+  id: STOWModuleCauterizingT1Recipe
+  resultProtos:
+    - STOWModuleCauterizingT1
+  craftTime: 20
+  items:
+    STOWModuleCauterizingT1Blueprint:
+      amount: 1
+      catalyzer: true
+    STCraftStandardPCBT2:
+      amount: 2
+    STCraftPlasticFittingT2:
+      amount: 2
+    STCraftSheetCopperT1:
+      amount: 2
+    STCraftBattery:
+      amount: 2
+    STCraftCoil:
+      amount: 1
+      
+- type: craftRecipe
+  id: STOWModuleCauterizingT2Recipe
+  resultProtos:
+    - STOWModuleCauterizingT2
+  craftTime: 20
+  items:
+    STOWModuleCauterizingT2Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleCauterizingT1:
+      amount: 1
+    STCraftStandardPCBT2:
+      amount: 2
+    STCraftPlasticFittingT2:
+      amount: 2
+    STCraftSheetIronT2:
+      amount: 2
+    STCraftBattery:
+      amount: 3
+    STCraftCoil:
+      amount: 3
+      
+#Acidic
+
+- type: craftRecipe
+  id: STOWModuleAcidicT1Recipe
+  resultProtos:
+    - STOWModuleAcidicT1
+  craftTime: 20
+  items:
+    STOWModuleAcidicT1Blueprint:
+      amount: 1
+      catalyzer: true
+    STCraftBasicPCBT1:
+      amount: 2
+    STCraftPlasticFittingT2:
+      amount: 2
+    STCraftBasicThreadKitT1:
+      amount: 2
+    STCraftSheetCopperT1:
+      amount: 2
+    STCraftCottonFabricT1:
+      amount: 4
+
+- type: craftRecipe
+  id: STOWModuleAcidicT2Recipe
+  resultProtos:
+    - STOWModuleAcidicT2
+  craftTime: 20
+  items:
+    STOWModuleAcidicT2Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleAcidicT1:
+      amount: 1
+    STCraftStandardPCBT2:
+      amount: 2
+    STCraftHideT2:
+      amount: 4
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetIronT2:
+      amount: 2
+    STCraftTapeKitT2:
+      amount: 2
+
+- type: craftRecipe
+  id: STOWModuleAcidicT3Recipe
+  resultProtos:
+    - STOWModuleAcidicT3
+  craftTime: 20
+  items:
+    STOWModuleAcidicT3Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleAcidicT2:
+      amount: 1
+    STCraftMultilayerPCBT3:
+      amount: 1
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetBrassT3:
+      amount: 2
+    STCraftSturdyHideT3:
+      amount: 4
+    STCraftGlueKitT3:
+      amount: 3
+
+# Heat
+
+- type: craftRecipe
+  id: STOWModuleHeatT1Recipe
+  resultProtos:
+    - STOWModuleHeatT1
+  craftTime: 20
+  items:
+    STOWModuleHeatT1Blueprint:
+      amount: 1
+      catalyzer: true
+    STCraftBasicPCBT1:
+      amount: 1
+    STCraftPlasticFittingT2:
+      amount: 2
+    STCraftBasicThreadKitT1:
+      amount: 2
+    STCraftSheetCopperT1:
+      amount: 2
+    STCraftCottonFabricT1:
+      amount: 4
+
+- type: craftRecipe
+  id: STOWModuleHeatT2Recipe
+  resultProtos:
+    - STOWModuleHeatT2
+  craftTime: 20
+  items:
+    STOWModuleHeatT2Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleHeatT1:
+      amount: 1
+    STCraftStandardPCBT2:
+      amount: 2
+    STCraftHideT2:
+      amount: 4
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetIronT2:
+      amount: 2
+    STCraftTapeKitT2:
+      amount: 2
+
+- type: craftRecipe
+  id: STOWModuleHeatT3Recipe
+  resultProtos:
+    - STOWModuleHeatT3
+  craftTime: 20
+  items:
+    STOWModuleHeatT3Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleHeatT2:
+      amount: 1
+    STCraftMultilayerPCBT3:
+      amount: 1
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetBrassT3:
+      amount: 2
+    STCraftSturdyHideT3:
+      amount: 4
+    STCraftGlueKitT3:
+      amount: 3
+
+# Electrical
+
+- type: craftRecipe
+  id: STOWModuleElectricalT1Recipe
+  resultProtos:
+    - STOWModuleElectricalT1
+  craftTime: 20
+  items:
+    STOWModuleElectricalT1Blueprint:
+      amount: 1
+      catalyzer: true
+    STCraftBasicPCBT1:
+      amount: 2
+    STCraftPlasticFittingT2:
+      amount: 2
+    STCraftBasicThreadKitT1:
+      amount: 2
+    STCraftSheetCopperT1:
+      amount: 2
+    STCraftCottonFabricT1:
+      amount: 1
+    STCraftCoil:
+      amount: 1
+
+- type: craftRecipe
+  id: STOWModuleElectricalT2Recipe
+  resultProtos:
+    - STOWModuleElectricalT2
+  craftTime: 20
+  items:
+    STOWModuleElectricalT2Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleElectricalT1:
+      amount: 1
+    STCraftStandardPCBT2:
+      amount: 3
+    STCraftHideT2:
+      amount: 1
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetIronT2:
+      amount: 2
+    STCraftTapeKitT2:
+      amount: 2
+    STCraftCoil:
+      amount: 2
+
+- type: craftRecipe
+  id: STOWModuleElectricalT3Recipe
+  resultProtos:
+    - STOWModuleElectricalT3
+  craftTime: 20
+  items:
+    STOWModuleElectricalT3Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleElectricalT2:
+      amount: 1
+    STCraftMultilayerPCBT3:
+      amount: 3
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetBrassT3:
+      amount: 2
+    STCraftSturdyHideT3:
+      amount: 1
+    STCraftGlueKitT3:
+      amount: 2
+    STCraftCoil:
+      amount: 3
+
+# Gravity
+
+- type: craftRecipe
+  id: STOWModuleGravityT1Recipe
+  resultProtos:
+    - STOWModuleGravityT1
+  craftTime: 20
+  items:
+    STOWModuleGravityT1Blueprint:
+      amount: 1
+      catalyzer: true
+    STCraftBasicPCBT1:
+      amount: 1
+    STCraftPlasticFittingT2:
+      amount: 2
+    STCraftBasicThreadKitT1:
+      amount: 2
+    STCraftSheetCopperT1:
+      amount: 3
+    STCraftCottonFabricT1:
+      amount: 3
+
+
+- type: craftRecipe
+  id: STOWModuleGravityT2Recipe
+  resultProtos:
+    - STOWModuleGravityT2
+  craftTime: 20
+  items:
+    STOWModuleGravityT2Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleGravityT1:
+      amount: 1
+    STCraftStandardPCBT2:
+      amount: 1
+    STCraftHideT2:
+      amount: 1
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetIronT2:
+      amount: 3
+    STCraftTapeKitT2:
+      amount: 3
+
+
+- type: craftRecipe
+  id: STOWModuleGravityT3Recipe
+  resultProtos:
+    - STOWModuleGravityT3
+  craftTime: 20
+  items:
+    STOWModuleGravityT3Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModuleGravityT2:
+      amount: 1
+    STCraftMultilayerPCBT3:
+      amount: 1
+    STCraftPlasticFittingT3:
+      amount: 3
+    STCraftSheetBrassT3:
+      amount: 3
+    STCraftSturdyHideT3:
+      amount: 3
+    STCraftGlueKitT3:
+      amount: 2
+

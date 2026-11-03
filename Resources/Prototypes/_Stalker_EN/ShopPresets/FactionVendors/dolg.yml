@@ -286,16 +286,40 @@
         STModuleSniperSightT1: 600
         STModuleSilencerSniperT1: 600
         STModuleSMGGripT1: 600
+        
+    - name: shop-category-blueprints
+      priority: 12
+      items:
+        STOWModuleMutantProtectionT1Blueprint: 3000
+        STOWModuleMutantProtectionT2Blueprint: 6000
+        STOWModuleMutantProtectionT3Blueprint: 9000
+        STOWModuleStaminaRegenT1Blueprint: 3000
+        STOWModuleStaminaRegenT2Blueprint: 6000
+        STOWModuleStaminaRegenT3Blueprint: 9000
+        STOWModuleCauterizingT1Blueprint: 3000
+        STOWModuleCauterizingT2Blueprint: 6000
+        STOWModuleAcidicT1Blueprint: 3000
+        STOWModuleAcidicT2Blueprint: 6000
+        STOWModuleAcidicT3Blueprint: 9000
+        STOWModuleHeatT1Blueprint: 3000
+        STOWModuleHeatT2Blueprint: 6000
+        STOWModuleHeatT3Blueprint: 9000
+        STOWModuleElectricalT1Blueprint: 3000
+        STOWModuleElectricalT2Blueprint: 6000
+        STOWModuleElectricalT3Blueprint: 9000
+        STOWModuleGravityT1Blueprint: 3000
+        STOWModuleGravityT2Blueprint: 6000
+        STOWModuleGravityT3Blueprint: 9000
 
     - name: shop-category-grenades
-      priority: 12
+      priority: 13
       items:
         KhattabkaGrenade: 450
         DG05SmokeGrenade: 425
         RGD5Grenade: 1150
 
     - name: shop-category-customization
-      priority: 13
+      priority: 14
       items:
         # HAT
         ClothingHeadHatBeaniehat: 10
@@ -381,7 +405,7 @@
         ClothingShoesBootsCombat: 30
 
     - name: Smokables #explained using D&D lifestyle expenses
-      priority: 14
+      priority: 15
       items:
         CigPackBub: 250 #comfortable
         CigPackGreen: 150 #poor
