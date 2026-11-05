@@ -4505,5 +4505,12 @@
   id: 499
   time: '2026-11-03T04:17:49.778658+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/196
+- author: Remminia
+  changes:
+  - message: Added Multiple Variant drops to commonly farmed Mutants.
+    type: Add
+  id: 500
+  time: '2026-11-05T07:29:03.290465+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/197
 Name: Stalker
 Order: -1
