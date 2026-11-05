@@ -86,8 +86,14 @@
     MutantPartSnorkFoot: 545
     MutantPartPsiDogTail: 445
     MutantPartFrogLeg: 280
-
-    #T3 -------- Health * 3 Modified by Oracle
+    MutantPartKarlikBolt: 500
+    MutantPartKarlikBrain: 1500
+    
+    #T3 -------- Health * 3
+    MutantPartBloodsuckerHand: 900
+    MutantPartBloodsuckerEye: 1250
+    MutantPartBurerToe: 600
+    MutantPartControllerEye: 1500
     MutantPartBloodsuckerTentacles: 2250
     MutantPartOraculeEye: 1400
     MutantPartZombieHand: 850

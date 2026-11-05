@@ -63,8 +63,14 @@
     MutantPartBearEye: 7
     MutantPartBearPaw: 3
     MutantPartFrogLeg: 1
+    MutantPartKarlikBolt: 1
+    MutantPartKarlikBrain: 3
 
     #T3
+    MutantPartBloodsuckerHand: 2
+    MutantPartBloodsuckerEye: 3
+    MutantPartBurerToe: 2
+    MutantPartControllerEye: 2
     MutantPartBloodsuckerTentacles: 6
     MutantPartOraculeEye: 5
     MutantPartPseudogiantHeart: 100

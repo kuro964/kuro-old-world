@@ -80,14 +80,20 @@
     MutantPartPseudodogTail: 510
     MutantPartSnorkFoot: 850
     MutantPartFrogLeg: 325
+    MutantPartKarlikBolt: 850
+    MutantPartKarlikBrain: 2250
     # T3 -------- Health - same as duty prices for now
+    MutantPartBloodsuckerEye: 2050
+    MutantPartBloodsuckerHand: 1225
     MutantPartBloodsuckerTentacles: 4125
     MutantPartOraculeEye: 2700
     MutantPartPseudogiantHeart: 13575
     MutantPartZombieHand: 1125
     ClothingHeadBear: 1125
     MutantPartIzlomArm: 2475
-    MutantPartBurerBrain: 3000
+    MutantPartBurerBrain: 3200
+    MutantPartBurerToe: 995
+    MutantPartControllerEye: 2400
     MutantPartControllerBrain: 5250
     MutantPartRustEgg: 75000
     ClothingMaskChimera: 125000

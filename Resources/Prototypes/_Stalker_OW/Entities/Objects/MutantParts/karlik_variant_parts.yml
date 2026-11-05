@@ -1,0 +1,64 @@
+﻿##Karlik Bolts
+
+- type: entity
+  parent: MutantPartKarlikBolt
+  id: STMutantPartUncommonKarlikBolt
+  name: Adapted Karlik Bolt
+  description: A bolt remaining on the Karlik's body after death. It pulses with power.
+  components:
+    - type: STTrophy
+      quality: Uncommon
+      priceMultiplier: 1.5
+
+- type: entity
+  parent: MutantPartKarlikBolt
+  id: STMutantPartRareKarlikBolt
+  name: Mutated Karlik Bolt
+  description: Psionically charged bolt. Seems to have anomalous properties.
+  components:
+    - type: STTrophy
+      quality: Rare
+      priceMultiplier: 3.7
+
+- type: entity
+  parent: MutantPartKarlikBolt
+  id: STMutantPartLegendaryKarlikBolt
+  name: Singular Karlik Bolt
+  description: A bolt supercharged with psionic energy. Some duty scientists believes these might hold the key to destroying artifacts.
+  components:
+    - type: STTrophy
+      quality: Legendary
+      priceMultiplier: 11.1
+
+##Karlik Brains
+
+- type: entity
+  parent: MutantPartKarlikBrain
+  id: STMutantPartUncommonKarlikBrain
+  name: Adapted Karlik Brain
+  description: A dense lump of grey matter, its lobes noticeably overdeveloped compared to a normal human brain. The Zone's psionic fields have begun restructuring it in ways standard mutation cannot account for. Still holds the rough shape of something human.
+  components:
+    - type: STTrophy
+      quality: Uncommon
+      priceMultiplier: 1.5
+
+- type: entity
+  parent: MutantPartKarlikBrain
+  id: STMutantPartRareKarlikBrain
+  name: Mutated Karlik Brain
+  description: A heavily mutated karlik brain, its structure warped far beyond typical specimens. The lobes responsible for telekinesis are clearly visible, threaded with dark deposits unlike anything in normal tissue. Scientists will want a look at this one.
+  components:
+    - type: STTrophy
+      quality: Rare
+      priceMultiplier: 3.7
+
+- type: entity
+  parent: MutantPartKarlikBrain
+  id: STMutantPartLegendaryKarlikBrain
+  name: Singular Karlik Brain
+  description: A karlik brain unlike any documented specimen. The tissue has been so thoroughly reshaped by prolonged psionic exposure that calling it a brain feels generous. Whatever this thing was thinking in its final moments, it was not thinking like anything human.
+  components:
+    - type: STTrophy
+      quality: Legendary
+      priceMultiplier: 11.1
+      

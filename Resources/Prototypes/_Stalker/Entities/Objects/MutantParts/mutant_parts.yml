@@ -185,7 +185,11 @@
       shape:
         - 0,0,0,1
     - type: Sprite
-      sprite: _Stalker/Objects/MutantParts/zombie_hand.rsi
+      layers:
+        - map: [ base ]
+          sprite: _Stalker/Objects/MutantParts/zombie_hand.rsi
+          state: icon
+          scale: .75, .75
 
 - type: entity
   parent: BaseMutantPart
@@ -225,6 +229,6 @@
     - type: Item
       size: Small
       shape:
-        - 0,0,0,1
+        - 0,0,1,1
     - type: Sprite
       sprite: _Stalker/Objects/MutantParts/controller_brain.rsi

@@ -77,17 +77,20 @@
     soundGunshot: /Audio/_Stalker/Mutants/controller_shot.ogg
   - type: Butcherable
     spawned:
+    - id: MutantPartControllerEye #OW
     - id: MutantPartControllerBrain
+      maxAmount: 1
+      prob: 0.30
     - id: STJunkTag # EN
       maxAmount: 1
-      prob: 0.05
+      prob: 0.025
     - id: STJunkTagWhite # EN
       maxAmount: 1
-      prob: 0.1
+      prob: 0.05
     - id: STJunkTracker # EN
       maxAmount: 1
-      prob: 0.15
-  # Stalker-EN start
+      prob: 0.01
+  # Stalker-EN/OW start
   - type: STMobVariantConfig
     variants:
     - chance: 0.08
@@ -101,6 +104,7 @@
       minWeightMultiplier: 0.95
       maxWeightMultiplier: 1.25
       butcherSwaps:
+          MutantPartControllerEye: STMutantPartUncommonControllerEye
           MutantPartControllerBrain: STMutantPartUncommonControllerBrain
     - chance: 0.02
       quality: Rare
@@ -113,6 +117,7 @@
       minWeightMultiplier: 1.1
       maxWeightMultiplier: 1.4
       butcherSwaps:
+          MutantPartControllerEye: STMutantPartRareControllerEye
           MutantPartControllerBrain: STMutantPartRareControllerBrain
     - chance: 0.001
       quality: Legendary
@@ -125,5 +130,6 @@
       minWeightMultiplier: 1.3
       maxWeightMultiplier: 1.6
       butcherSwaps:
+          MutantPartControllerEye: STMutantPartLegendaryControllerEye
           MutantPartControllerBrain: STMutantPartLegendaryControllerBrain
   # Stalker-EN end

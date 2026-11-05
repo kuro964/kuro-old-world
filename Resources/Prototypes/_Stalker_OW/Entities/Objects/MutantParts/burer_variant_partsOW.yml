@@ -1,0 +1,33 @@
+﻿- type: entity
+  parent: MutantPartBurerToe
+  id: STMutantPartUncommonBurerToe
+  name: Adapted Burer Toe
+  description: This toe has grown beyond a human level. Researchers say it is due to the constant gravitational anomalies near Burers.
+  components:
+    - type: STTrophy
+      quality: Uncommon
+      priceMultiplier: 1.5
+
+- type: entity
+  parent: MutantPartBurerToe
+  id: STMutantPartRareBurerToe
+  name: Mutated Burer Toe
+  description: A heavily mutated Toe. It glides around inside your bag. A scientist would love a sample of this quality.
+  components:
+    - type: STTrophy
+      quality: Rare
+      priceMultiplier: 3.7
+    - type: STWeight
+      self: 0.0
+
+- type: entity
+  parent: MutantPartBurerToe
+  id: STMutantPartLegendaryBurerToe
+  name: Singular Burer Toe
+  description: This toe pulses with gravitational anomalies, and even lifts your bag. Researchers have a strong desire to disect this.
+  components:
+    - type: STTrophy
+      quality: Legendary
+      priceMultiplier: 11.1
+    - type: STWeight
+      self: -5.0

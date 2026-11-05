@@ -171,8 +171,14 @@
     MutantPartSnorkFoot: 475
     MutantPartPsiDogTail: 400
     MutantPartFrogLeg: 200
-
+    MutantPartKarlikBolt: 250
+    MutantPartKarlikBrain: 1100
+    
     #T3 -------- Health * 3
+    MutantPartBloodsuckerHand: 300
+    MutantPartBloodsuckerEye: 500
+    MutantPartBurerToe: 400
+    MutantPartControllerEye: 900
     MutantPartBloodsuckerTentacles: 1375
     MutantPartOraculeEye: 1050
     MutantPartZombieHand: 570

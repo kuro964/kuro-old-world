@@ -1,0 +1,113 @@
+﻿- type: entity
+  parent: BaseMutantPart
+  id: MutantPartBloodsuckerHand
+  name: Bloodsucker Hand
+  description: 
+  suffix: STOW, MutantPart
+  components:
+    - type: STWeight
+      self: 3.5
+    - type: Sprite
+      layers:
+        - map: [ base ]
+          sprite: _Stalker_OW/Objects/MutantParts/bloodsucker_hand.rsi
+          state: icon
+          scale: .75, .75
+    - type: Item
+      size: Small
+      shape:
+        - 0,0,0,1
+
+- type: entity
+  parent: BaseMutantPart
+  id: MutantPartBloodsuckerEye
+  name: Bloodsucker Eye
+  suffix: STOW, MutantPart
+  components:
+    - type: STWeight
+      self: 1.0
+    - type: Sprite
+      layers:
+        - map: [ base ]
+          sprite: _Stalker_OW/Objects/MutantParts/bloodsucker_eye.rsi
+          state: icon
+          scale: .5, .5
+    - type: Item
+      size: Small
+      shape:
+        - 0,0,0,1
+
+- type: entity
+  parent: BaseMutantPart
+  id: MutantPartControllerEye
+  name: Controller Eye
+  suffix: STOW, MutantPart
+  components:
+    - type: STWeight
+      self: 2.0
+    - type: Sprite
+      layers:
+        - map: [ base ]
+          sprite: _Stalker_OW/Objects/MutantParts/controller_eye.rsi
+          state: icon
+          scale: .5, .5
+    - type: Item
+      size: Small
+      shape:
+        - 0,0,0,1
+      
+- type: entity
+  parent: BaseMutantPart
+  id: MutantPartKarlikBrain
+  name: Karlik Brain
+  suffix: STOW, MutantPart
+  components:
+    - type: STWeight
+      self: 1.6
+    - type: Sprite
+      sprite: _Stalker_OW/Objects/MutantParts/karlik_brain.rsi
+    - type: Item
+      size: Small
+      shape:
+        - 0,0,0,1
+
+##Not a mutant part, but close enough. IDK what else you'd skin off a Karlik
+
+- type: entity
+  parent: BaseMutantPart
+  id: MutantPartKarlikBolt
+  name: Karlik Bolt
+  suffix: STOW, MutantPart
+  description: A bolt supercharged with psionic energy. Some duty scientist believes these might hold the key to destroying artifacts.
+  components:
+    - type: STWeight
+      self: 1.0
+    - type: Sprite
+      layers:
+        - map: [ base ]
+          sprite: _Stalker_OW/Objects/MutantParts/karlik_bolt.rsi
+          state: icon
+          scale: .5, .5
+    - type: Item
+      size: Small
+      shape:
+        - 0,0,0,0
+
+- type: entity
+  parent: BaseMutantPart
+  id: MutantPartBurerToe
+  name: Burer Toe
+  suffix: STOW, MutantPart
+  components:
+    - type: STWeight
+      self: 1.0
+    - type: Sprite
+      layers:
+        - map: [ base ]
+          sprite: _Stalker_OW/Objects/MutantParts/burer_toe.rsi
+          state: icon
+          scale: .5, .5
+    - type: Item
+      size: Small
+      shape:
+        - 0,0,0,0

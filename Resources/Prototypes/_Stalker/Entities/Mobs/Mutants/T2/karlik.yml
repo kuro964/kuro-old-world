@@ -79,9 +79,10 @@
     soundGunshot: /Audio/_Stalker/Mutants/karlik/karlik_attack.ogg
   - type: Butcherable
     spawned:
-    - id: Roubles100
-      amount: 3
-      prob: 1
+    - id: MutantPartKarlikBolt
+    - id: MutantPartKarlikBrain
+      amount: 1
+      prob: 0.25
   # Stalker-EN start
   - type: STMobVariantConfig
     variants:
@@ -97,7 +98,8 @@
       minWeightMultiplier: 0.95
       maxWeightMultiplier: 1.25
       butcherSwaps:
-        Roubles100: Roubles100
+        MutantPartKarlikBolt: STMutantPartUncommonKarlikBolt
+        MutantPartKarlikBrain: STMutantPartUncommonKarlikBrain
     - chance: 0.02
       quality: Rare
       nameOverride: st-mob-variant-rare-karlik
@@ -110,7 +112,8 @@
       minWeightMultiplier: 1.1
       maxWeightMultiplier: 1.4
       butcherSwaps:
-        Roubles100: Roubles500
+        MutantPartKarlikBolt: STMutantPartRareKarlikBolt
+        MutantPartKarlikBrain: STMutantPartRareKarlikBrain
     - chance: 0.001
       quality: Legendary
       nameOverride: st-mob-variant-legendary-karlik
@@ -123,5 +126,6 @@
       minWeightMultiplier: 1.3
       maxWeightMultiplier: 1.6
       butcherSwaps:
-        Roubles100: Roubles2000
+        MutantPartKarlikBolt: STMutantPartLegendaryKarlikBolt
+        MutantPartKarlikBrain: STMutantPartLegendaryKarlikBrain
   # Stalker-EN end

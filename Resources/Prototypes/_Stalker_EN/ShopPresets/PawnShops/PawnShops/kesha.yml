@@ -75,8 +75,14 @@
     MutantPartLeshiyRoot: 385
     MutantPartPseudodogTail: 210
     MutantPartSnorkFoot: 350
-
+    MutantPartKarlikBolt: 150
+    MutantPartKarlikBrain: 1000
+    
     #T3 -------- Health * 3
+    MutantPartBloodsuckerHand: 300
+    MutantPartBloodsuckerEye: 500
+    MutantPartBurerToe: 250
+    MutantPartControllerEye: 900
     MutantPartBloodsuckerTentacles: 725
     MutantPartOraculeEye: 920
     MutantPartPseudogiantHeart: 2800

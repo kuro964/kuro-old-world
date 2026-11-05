@@ -78,16 +78,19 @@
     self: 80
   - type: Butcherable
     spawned:
+    - id: MutantPartBurerToe # OW
     - id: MutantPartBurerBrain
+      maxAmount: 1
+      prob: 0.30
     - id: STJunkTag # EN
       maxAmount: 1
-      prob: 0.04
+      prob: 0.025
     - id: STJunkTagWhite # EN
       maxAmount: 1
       prob: 0.05
     - id: STJunkTracker # EN
       maxAmount: 1
-      prob: 0.1
+      prob: 0.01
   # Stalker-EN start
   - type: STMobVariantConfig
     variants:
@@ -103,6 +106,7 @@
       maxWeightMultiplier: 1.25
       butcherSwaps:
           MutantPartBurerBrain: STMutantPartUncommonBurerBrain
+          MutantPartBurerToe: STMutantPartUncommonBurerToe
     - chance: 0.02
       quality: Rare
       nameOverride: st-mob-variant-rare-byurer
@@ -115,6 +119,7 @@
       maxWeightMultiplier: 1.4
       butcherSwaps:
           MutantPartBurerBrain: STMutantPartRareBurerBrain
+          MutantPartBurerToe: STMutantPartUncommonBurerToe
     - chance: 0.001
       quality: Legendary
       nameOverride: st-mob-variant-legendary-byurer
@@ -127,4 +132,5 @@
       maxWeightMultiplier: 1.6
       butcherSwaps:
           MutantPartBurerBrain: STMutantPartLegendaryBurerBrain
+          MutantPartBurerToe: STMutantPartUncommonBurerToe
   # Stalker-EN end
