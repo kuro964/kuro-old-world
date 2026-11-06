@@ -1,25 +1,6 @@
 ﻿Entries:
 - author: teecoding
   changes:
-  - message: Fixed item duplication when loading loadouts
-    type: Fix
-  - message: Fixed gun magazines and attachments not restoring from loadouts
-    type: Fix
-  - message: Fixed nested items in containers not showing as missing correctly
-    type: Fix
-  - message: Fixed unremovable items being incorrectly stored in stash
-    type: Fix
-  - message: PDA are no longer saved in loadouts
-    type: Tweak
-  - message: Added beta warning about potential item loss
-    type: Tweak
-  - message: Added help button to open loadout guidebook documentation
-    type: Add
-  id: 2
-  time: '2026-01-25T20:11:00.059464+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/345
-- author: teecoding
-  changes:
   - message: Loadout system build error from incomplete merge
     type: Fix
   id: 3
@@ -4520,5 +4501,12 @@
   id: 501
   time: '2026-11-06T12:19:28.527986+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/198
+- author: kuro964
+  changes:
+  - message: Option for automatic periods at the end of sentences
+    type: Add
+  id: 502
+  time: '2026-11-06T15:18:47.793403+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/199
 Name: Stalker
 Order: -1
