@@ -361,6 +361,9 @@ public sealed partial class StalkerRepositoryMenu : DefaultWindow
             SolutionItemStalker solution => Loc.GetString("repository-solution-item-volume-display", ("volume", solution.Volume.Int())),
             AmmoItemStalker cartridge => Loc.GetString("repository-cartridge-item-exhausted-display", ("exhausted", cartridge.Exhausted ? "Spent" : "Charged")),
             CrayonItemStalker crayon => Loc.GetString("repository-crayon-item-charges-display", ("charges", crayon.Charges)),
+            // ST:OW - Unfired rounds in cylinder of revolver
+            RevolverItemStalker revolver => Loc.GetString("repository-ammo-item-ammo-amount-display",
+                ("amount", revolver.Rounds.Where((round, i) => round != null && !(i < revolver.Spent.Count && revolver.Spent[i])).Count())),
             _ => string.Empty
         };
 

@@ -115,7 +115,7 @@
   parent: STBaseWeaponRifleOC14
   id: STWeaponRifleOC14Liturgia
   name: OC-14 «Liturgy»
-  description: An assault rifle-grenade launcher system, 70% unified with AK-type assault rifles (the main differences are the 5.45x39 mm caliber, the bullpup layout, and greater opportunities for modernization). Designed to arm rapid response units. Highly valued by the military and stalkers for its ability to reliably hit an enemy protected by a bulletproof vest or located in cover.
+  description: A bullpup assault rifle and grenade launcher system chambered in 5.45×39 mm, sharing roughly 70% of its components with AK-pattern rifles. Designed for rapid-response units, its compact layout and extensive modification options make it popular by military personnel. This variant has been modified to come fitted with an integral suppressor. # ST:OW
   components:
   - type: STWeight
     self: 4

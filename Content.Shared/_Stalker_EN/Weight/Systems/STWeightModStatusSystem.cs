@@ -15,6 +15,7 @@ namespace Content.Shared._Stalker_EN.Weight.Systems;
 public sealed class STWeightModStatusSystem : EntitySystem
 {
     [Dependency] private readonly StatusEffectsSystem _status = default!;
+    [Dependency] private readonly STWeightSystem _weight = default!; // ST:OW
 
     public override void Initialize()
     {
@@ -30,6 +31,8 @@ public sealed class STWeightModStatusSystem : EntitySystem
             // Remove the modifier from current Self (add back the negative value)
             weight.Self -= ent.Comp.Modifier;
             Dirty(args.Target, weight);
+            if (!TerminatingOrDeleted(args.Target))
+                _weight.TryUpdateWeight(args.Target); // ST:OW
         }
     }
 
@@ -60,6 +63,7 @@ public sealed class STWeightModStatusSystem : EntitySystem
             // stalker-en-changes - apply modifier directly to current Self
             weight.Self += modifier;
             Dirty(uid, weight);
+            _weight.TryUpdateWeight(uid); // ST:OW
         }
 
         return true;

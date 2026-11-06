@@ -4,6 +4,8 @@
   name: bucket
   description: It's a boring old bucket.
   components:
+  - type: STWeight
+    solutionWeightPerUnit: 0.004 # ST:OW - liquids weigh 0.004 kg/u; self stays the empty container
   - type: Edible
     utensil: Spoon
   - type: Sprite

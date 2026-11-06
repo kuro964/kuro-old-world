@@ -19,6 +19,9 @@
       - !type:STWeightModifier
         time: 2.0
         weightModifier: -20
+      # ST:OW - Very mild hydration that is meant to be worse than a water bottle or other drinks
+      - !type:SatiateThirst
+        factor: 0.1
 
 - type: reagent
   id: STTaurine

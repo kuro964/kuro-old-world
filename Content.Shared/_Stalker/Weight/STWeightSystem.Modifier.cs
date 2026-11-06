@@ -6,6 +6,8 @@ namespace Content.Shared._Stalker.Weight;
 
 public sealed partial class STWeightSystemModifier : EntitySystem
 {
+    [Dependency] private readonly STWeightSystem _weight = default!; // ST:OW
+
     public override void Initialize()
     {
         base.Initialize();
@@ -17,6 +19,7 @@ public sealed partial class STWeightSystemModifier : EntitySystem
     {
         weight.Comp.MaximumModifier = args.Modifier;
         Dirty(weight.Owner, weight.Comp);
+        _weight.TryUpdateWeight(weight.Owner); // ST:OW
     }
 
     private void OnUpdatedSelf(Entity<STWeightComponent> weight, ref UpdatedFloatModifierEvent<STWeightSelfModifierComponent> args)

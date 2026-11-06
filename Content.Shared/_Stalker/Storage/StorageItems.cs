@@ -459,3 +459,51 @@ public sealed class PhotoItemStalker : IItemStalkerStorage
     }
 }
 // stalker-en-changes-end
+
+// ST:OW begin
+/// <summary>
+/// Storage data for revolvers = Gun, cylinder, and one entry per chamber
+/// Saving rounds inside revolver prevents the revolver from coming back refilled with default ammo
+/// </summary>
+[Serializable, NetSerializable]
+public class RevolverItemStalker : IItemStalkerStorage
+{
+    public string ClassType { get; set; } = "RevolverItemStalker";
+    public string PrototypeName { get; set; } = "";
+    public uint CountVendingMachine { get; set; }
+    public string? EngravedMessage { get; set; }
+    public string? CurrentLabel { get; set; }
+    public List<string?>? Modules { get; set; }
+
+    /// <summary>Round prototype per chamber</summary>
+    public List<string?> Rounds { get; set; }
+
+    /// <summary>Whether the round in each chamber has been spent AKA fired</summary>
+    public List<bool> Spent { get; set; }
+
+    public int CurrentIndex { get; set; }
+
+    public RevolverItemStalker(string prototypeName = "", List<string?>? rounds = null, List<bool>? spent = null,
+        int currentIndex = 0, uint CountVendingMachine = 1)
+    {
+        PrototypeName = prototypeName;
+        Rounds = rounds ?? new List<string?>();
+        Spent = spent ?? new List<bool>();
+        CurrentIndex = currentIndex;
+        this.CountVendingMachine = CountVendingMachine;
+    }
+
+    public string Identifier()
+    {
+        var chambers = string.Join(",", Rounds.Select((round, i) =>
+            round == null ? "-" : round + (i < Spent.Count && Spent[i] ? "*" : "")));
+
+        var id = $"R_{PrototypeName}_{StalkerIdentifierHelper.DeterministicHash(chambers)}_IDX={CurrentIndex}";
+        if (!string.IsNullOrEmpty(EngravedMessage))
+            id += "_ENG=" + StalkerIdentifierHelper.DeterministicHash(EngravedMessage);
+        if (!string.IsNullOrEmpty(CurrentLabel))
+            id += "_LBL=" + StalkerIdentifierHelper.DeterministicHash(CurrentLabel);
+        return StalkerIdentifierHelper.AppendModules(id, Modules);
+    }
+}
+// ST:OW end
