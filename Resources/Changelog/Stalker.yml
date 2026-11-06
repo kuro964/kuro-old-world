@@ -1,11 +1,4 @@
 ﻿Entries:
-- author: teecoding
-  changes:
-  - message: Loadout system build error from incomplete merge
-    type: Fix
-  id: 3
-  time: '2026-01-25T21:31:08.870051+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/346
 - author: crocodilecarousel
   changes:
   - message: Fixes the glass shard anomaly hitbox
@@ -4508,5 +4501,14 @@
   id: 502
   time: '2026-11-06T15:18:47.793403+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/199
+- author: kuro964
+  changes:
+  - message: Reduced weight of most crafting materials
+    type: Tweak
+  - message: Reduced weight of metal ingots
+    type: Tweak
+  id: 503
+  time: '2026-11-06T16:24:54.466405+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/200
 Name: Stalker
 Order: -1
