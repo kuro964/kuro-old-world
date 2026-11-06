@@ -1,13 +1,6 @@
 ﻿Entries:
 - author: teecoding
   changes:
-  - message: S.T.A.L.K.E.R. 14 changelog tab for EN fork changes
-    type: Add
-  id: 1
-  time: '2026-01-25T19:12:48.141047+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/344
-- author: teecoding
-  changes:
   - message: Fixed item duplication when loading loadouts
     type: Fix
   - message: Fixed gun magazines and attachments not restoring from loadouts
@@ -4512,5 +4505,20 @@
   id: 500
   time: '2026-11-05T07:29:03.290465+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/197
+- author: kuro964
+  changes:
+  - message: Stacked items now properly account for the weight of the full stack
+    type: Fix
+  - message: Items no longer lose their weight if put into and taken out of a stash
+    type: Fix
+  - message: Fixed strange duplication bugs with revolvers and stashes
+    type: Fix
+  - message: Items default to zero weight if none is specified (i.e. Currency)
+    type: Tweak
+  - message: Clarified the description for a Renegades gun
+    type: Tweak
+  id: 501
+  time: '2026-11-06T12:19:28.527986+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/198
 Name: Stalker
 Order: -1
