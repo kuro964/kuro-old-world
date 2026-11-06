@@ -1,0 +1,1 @@
+﻿ui-options-auto-punctuate = Automatically punctuate in-character messages with a period.

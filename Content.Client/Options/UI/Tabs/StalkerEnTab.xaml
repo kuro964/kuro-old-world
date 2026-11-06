@@ -14,6 +14,9 @@
                           Text="{Loc 'ui-options-pda-notification-png-icons'}"/>
                 <CheckBox Name="PdaInvisibilityCheckbox"
                           Text="{Loc 'ui-options-pda-invisibility'}"/>
+                <!-- ST:OW -->
+                <CheckBox Name="AutoPunctuateCheckbox"
+                          Text="{Loc 'ui-options-auto-punctuate'}"/>
             </BoxContainer>
         </ScrollContainer>
         <ui:OptionsTabControlRow Name="Control"
