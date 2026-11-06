@@ -7,7 +7,7 @@
   - type: RepositoryItem # ST:OW
     categoryName: repository-materials-category
   - type: STWeight # ST:OW
-    self: 30
+    self: 2
   - type: Sprite
     sprite: Objects/Materials/ingots.rsi
   - type: Item

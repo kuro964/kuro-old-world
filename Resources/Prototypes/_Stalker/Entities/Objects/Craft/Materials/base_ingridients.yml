@@ -6,7 +6,7 @@
   - type: Trash
     time: 600
   - type: STWeight
-    self: 1
+    self: 0.25 # ST:OW
   - type: Item
     size: Normal
     shape:
