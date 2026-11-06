@@ -4,6 +4,8 @@
   id: Jug
   description: Used to contain a very large amount of chemicals or solutions. Chugging is extremely ill-advised.
   components:
+    - type: STWeight # ST:OW
+      solutionWeightPerUnit: 0.004
     - type: SolutionContainerManager
       solutions:
         beaker:

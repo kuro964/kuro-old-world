@@ -9,6 +9,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
+using Robust.Shared.Prototypes; // ST:OW
 
 namespace Content.Shared.Weapons.Ranged.Systems;
 
@@ -334,8 +335,60 @@ public partial class SharedGunSystem
         }
     }
 
+    // ST:OW begin
+    public void SetRevolverRounds(Entity<RevolverAmmoProviderComponent> ent, IReadOnlyList<(EntProtoId Proto, bool Spent)?> rounds, int currentIndex)
+    {
+        var comp = ent.Comp;
+
+        for (var i = 0; i < comp.Capacity; i++)
+        {
+            if (comp.AmmoSlots[i] is { } old)
+            {
+                Containers.Remove(old, comp.AmmoContainer);
+                QueueDel(old);
+            }
+
+            comp.AmmoSlots[i] = null;
+            comp.Chambers[i] = null;
+
+            if (i >= rounds.Count || rounds[i] is not { } round)
+                continue;
+
+            if (round.Proto.Id == comp.FillPrototype)
+            {
+                comp.Chambers[i] = !round.Spent;
+                continue;
+            }
+
+            // Spawned straight into the cylinder
+            if (!TrySpawnInContainer(round.Proto, ent, RevolverContainer, out var spawned))
+                continue;
+
+            if (TryComp<CartridgeAmmoComponent>(spawned, out var cartridge))
+                SetCartridgeSpent(spawned.Value, cartridge, round.Spent);
+
+            comp.AmmoSlots[i] = spawned;
+            comp.Chambers[i] = !round.Spent;
+        }
+
+        comp.CurrentIndex = comp.Capacity > 0 ? Math.Clamp(currentIndex, 0, comp.Capacity - 1) : 0;
+
+        UpdateRevolverAppearance(ent, comp);
+        UpdateAmmoCount(ent);
+        Dirty(ent);
+    }
+    // ST:OW end
+
     private void UpdateRevolverAppearance(EntityUid uid, RevolverAmmoProviderComponent component)
     {
+        // ST:OW begin
+        if (Timing.IsFirstTimePredicted)
+        {
+            var changedEv = new AmmoProviderChangedEvent();
+            RaiseLocalEvent(uid, ref changedEv);
+        }
+        // ST:OW end
+
         if (!TryComp<AppearanceComponent>(uid, out var appearance))
             return;
 

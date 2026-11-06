@@ -302,6 +302,14 @@ public abstract partial class SharedGunSystem
 
     public void UpdateBallisticAppearance(EntityUid uid, BallisticAmmoProviderComponent component)
     {
+        // ST:OW begin
+        if (Timing.IsFirstTimePredicted)
+        {
+            var changedEv = new AmmoProviderChangedEvent();
+            RaiseLocalEvent(uid, ref changedEv);
+        }
+        // ST:OW end
+
         if (!Timing.IsFirstTimePredicted || !TryComp<AppearanceComponent>(uid, out var appearance))
             return;
 
@@ -363,3 +371,8 @@ public abstract partial class SharedGunSystem
 public sealed partial class AmmoFillDoAfterEvent : SimpleDoAfterEvent
 {
 }
+
+// ST:OW begin
+[ByRefEvent]
+public record struct AmmoProviderChangedEvent;
+// ST:OW end

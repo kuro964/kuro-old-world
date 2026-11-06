@@ -2,7 +2,7 @@
   parent: [DrinkVisualsOpenable, DrinkBottlePlasticSmallBaseFull]
   id: HerculesBottleFull
   name: hercules bottle
-  description: A small bottle containing Hercules drug. The liquid has a distinctive light blue color and slightly bitter taste. Reduces body weight by 20kg while in bloodstream and quenches thirst and hunger.
+  description: A small bottle containing a healthy dose of the Hercules drug. The liquid has a distinctive light blue color and slightly bitter taste. Reduces body weight by 20kg while in bloodstream and mildly quenches thirst.
   suffix: ST
   components:
   - type: Trash
@@ -93,6 +93,8 @@
   description: An old jar.
   suffix: ST
   components:
+  - type: STWeight # ST:OW
+    solutionWeightPerUnit: 0.004
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Drinks/jar.rsi
     scale: 0.7,0.7

@@ -4,6 +4,8 @@ namespace Content.Shared._Stalker.Weight;
 
 public sealed class SharedWeightExamineInfoSystem : EntitySystem
 {
+    [Dependency] private readonly STWeightSystem _weight = default!; // ST:OW
+
     public override void Initialize()
     {
         base.Initialize();
@@ -15,6 +17,9 @@ public sealed class SharedWeightExamineInfoSystem : EntitySystem
     {
         if (!args.IsInDetailsRange)
             return;
+
+        // ST:OW - Entities loaded from a map never received MapInit, so this ensures that weight is current
+        _weight.GetOwnWeight((uid, component));
 
         var r = HexFromId(255);
         var g = HexFromId(255 - 255 / 30 * ((int)component.Total - 50));

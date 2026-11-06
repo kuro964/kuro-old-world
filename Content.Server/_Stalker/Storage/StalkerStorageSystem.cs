@@ -37,6 +37,7 @@ using Robust.Shared.Prototypes;
 using Content.Shared._Stalker_OW.Projectiles.Components; // ST:OW
 using Content.Shared.Chemistry.EntitySystems; // ST:OW
 using Content.Shared._Stalker_OW.Workshop; // ST:OW
+using Content.Shared._Stalker.Weight; // ST:OW
 
 namespace Content.Server._Stalker.Storage;
 
@@ -52,6 +53,9 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
     [Dependency] private readonly NameModifierSystem _nameModifier = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!; // ST:OW
     [Dependency] private readonly SharedEquipmentModificationSystem _equipmentModules = default!; // ST:OW
+    [Dependency] private readonly SharedStackSystem _stack = default!; // ST:OW
+    [Dependency] private readonly STWeightSystem _weight = default!; // ST:OW
+    [Dependency] private readonly SharedGunSystem _gun = default!; // ST:OW
 
     private delegate List<object> DelegateItemStalkerConverter(EntityUid inputEntityUid);
 
@@ -106,6 +110,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
         _convertersItemStalker.Add("MC", ConverterCartridgeItemStalker);
         _convertersItemStalker.Add("MR", ConverterCrayonItemStalker);
         _convertersItemStalker.Add("MF", ConverterPhotoItemStalker); // stalker-en-changes: photo persistence
+        _convertersItemStalker.Add("MV", ConverterRevolverItemStalker); // ST:OW
         // Доделать еще конвентеры для предметов с жидкостями и т.д.
 
         foreach (var migration in _prototype.EnumeratePrototypes<STStashMigrationPrototype>())
@@ -149,6 +154,10 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
         if (TryComp(InputItem, out BallisticAmmoProviderComponent? _))
         {
             Components += "B";
+        }
+        if (HasComp<RevolverAmmoProviderComponent>(InputItem)) // ST:OW
+        {
+            Components += "V";
         }
         if (TryComp(InputItem, out StackComponent? _))
         {
@@ -294,6 +303,48 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
 
         return returnList;
     }
+
+    // ST:OW begin
+    private List<object> ConverterRevolverItemStalker(EntityUid item)
+    {
+        var returnList = new List<object>(0);
+        if (!TryComp<RevolverAmmoProviderComponent>(item, out var revolver))
+            return returnList;
+
+        var rounds = new List<string?>(revolver.Capacity);
+        var spent = new List<bool>(revolver.Capacity);
+        for (var i = 0; i < revolver.Capacity; i++)
+        {
+            if (i < revolver.AmmoSlots.Count && revolver.AmmoSlots[i] is { } slot)
+            {
+                var proto = GetPrototypeName(slot);
+                rounds.Add(proto == "" ? null : proto);
+                spent.Add(TryComp<CartridgeAmmoComponent>(slot, out var cartridge) && cartridge.Spent);
+            }
+            else if (i < revolver.Chambers.Length && revolver.Chambers[i] is { } live && revolver.FillPrototype != null)
+            {
+                rounds.Add(revolver.FillPrototype);
+                spent.Add(!live);
+            }
+            else
+            {
+                rounds.Add(null);
+                spent.Add(false);
+            }
+        }
+
+        returnList.Add(new RevolverItemStalker(GetPrototypeName(item), rounds, spent, revolver.CurrentIndex));
+        return returnList;
+    }
+    
+    public bool IsStoredInOwnerRecord(EntityUid owner, EntityUid contained)
+    {
+        if (TryComp<BallisticAmmoProviderComponent>(owner, out var ballistic) && ballistic.Container.Contains(contained))
+            return true;
+
+        return TryComp<RevolverAmmoProviderComponent>(owner, out var revolver) && revolver.AmmoContainer.Contains(contained);
+    }
+    // ST:OW end
 
     private List<object> ConverterBatteryItemStalker(EntityUid item)
     {
@@ -452,6 +503,14 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
             if (item is AmmoContainerStalker ammoContainer)
                 ammoContainer.EntProtoIds = MapPrototypeList(ammoContainer.EntProtoIds);
 
+            // ST:OW begin
+            if (item is RevolverItemStalker revolverItem)
+            {
+                revolverItem.Rounds = revolverItem.Rounds
+                    .Select(round => round == null ? null : MapPrototype(round) is { } mappedRound ? (string?) mappedRound : null)
+                    .ToList();
+            }
+            // ST:OW end
             deserializedFromJson.Add(UpgradeLegacyCell(storageItem));
         }
 
@@ -459,6 +518,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
         {
             AddToVendingMachineProtoByName(itemConverted.Identifier(), itemConverted.PrototypeName, stalkerRepositoryComponent, itemConverted);
         }
+        _stalkerRepositorySystem.RecalculateWeight(stalkerRepositoryComponent); // ST:OW
     }
 
     /// <summary>
@@ -517,8 +577,28 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
         switch (nextSpawnOptions)
         {
             case StackItemStalker stackOptions when TryComp<StackComponent>(inputItemUid, out var stackComp):
-                stackComp.Count = (int)stackOptions.StackCount;
-                Dirty(inputItemUid, stackComp);
+                RestoreStackCount((inputItemUid, stackComp), (int)stackOptions.StackCount);
+                break;
+
+            case RevolverItemStalker revolverOptions:
+                if (TryComp<RevolverAmmoProviderComponent>(inputItemUid, out var revolverComp))
+                {
+                    var rounds = new List<(EntProtoId Proto, bool Spent)?>(revolverOptions.Rounds.Count);
+                    for (var i = 0; i < revolverOptions.Rounds.Count; i++)
+                    {
+                        var round = revolverOptions.Rounds[i];
+                        if (string.IsNullOrEmpty(round) || !_prototype.HasIndex<EntityPrototype>(round))
+                        {
+                            rounds.Add(null);
+                            continue;
+                        }
+
+                        var spent = i < revolverOptions.Spent.Count && revolverOptions.Spent[i];
+                        rounds.Add((round, spent));
+                    }
+
+                    _gun.SetRevolverRounds((inputItemUid, revolverComp), rounds, revolverOptions.CurrentIndex);
+                }
                 break;
             // ST:OW end
             
@@ -645,6 +725,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
                 .ToList();
             _equipmentModules.Restore(inputItemUid, mapped);
         }
+        _weight.TryUpdateWeight(inputItemUid);
         // ST:OW end
 
         if (nextSpawnOptions is not PaperItemStalker paperItemStalker)
@@ -678,6 +759,21 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
             paperComponent.StampState = paperItemStalker.StampState;
         }
     }
+
+    // ST:OW begin
+    private void RestoreStackCount(Entity<StackComponent> stack, int count)
+    {
+        if (count <= _stack.GetMaxCount(stack.Comp))
+        {
+            _stack.SetCount(stack.AsNullable(), count);
+            return;
+        }
+
+        stack.Comp.Count = count;
+        Dirty(stack.Owner, stack.Comp);
+        _appearance.SetData(stack.Owner, StackVisuals.Actual, count);
+    }
+    // ST:OW end
 
     private void DeleteAmmo(EntityUid inputItemUid)
     {
@@ -824,7 +920,7 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
     //Добавить в VendingMachineComponent предмет по ключу и имени его прототипа
     private void AddToVendingMachineProtoByName(string keyIdentifier, string protoName, StalkerRepositoryComponent _stalkerRepositoryComponent, object stalkerItem)
     {
-        RepositoryItemInfo NewRepositoryItemInfo = _stalkerRepositorySystem.GenerateItemInfoByPrototype(protoName);
+        RepositoryItemInfo NewRepositoryItemInfo = _stalkerRepositorySystem.GenerateItemInfoByPrototype(protoName, stalkerItem as IItemStalkerStorage); // ST:OW
         NewRepositoryItemInfo.SStorageData = stalkerItem;
         NewRepositoryItemInfo.Identifier = keyIdentifier;
 
@@ -1049,6 +1145,13 @@ public sealed class StalkerStorageSystem : SharedStalkerStorageSystem
                     if (newObject != null)
                         playerInventory.AllItems.Add(newObject);
                     break;
+                // ST:OW begin
+                case "RevolverItemStalker":
+                    newObject = node.Deserialize<RevolverItemStalker>();
+                    if (newObject != null)
+                        playerInventory.AllItems.Add(newObject);
+                    break;
+                // ST:OW end
                 // stalker-en-changes-end
             }
         }

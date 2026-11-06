@@ -6,6 +6,8 @@
   id: DrinkBottleGlassBaseFull
   suffix: Full
   components:
+  - type: STWeight # ST:OW
+    solutionWeightPerUnit: 0.004
   - type: Item
     size: Normal
   - type: Openable

@@ -10,7 +10,33 @@ public sealed partial class STWeightComponent : Component
     /// by recursive passes over all children with this component
     /// </summary>
     [ViewVariables]
-    public float Total => Self + InsideWeight;
+    public float Total => OwnWeight + InsideWeight; // ST:OW
+
+    // ST:OW begin
+    /// <summary>
+    /// Total weight of entity + contents
+    /// </summary>
+    [ViewVariables]
+    public float OwnWeight => Self * Units + ContentsWeight;
+
+    /// <summary>
+    /// How many units are in this entity - mainly for weight of stacked items
+    /// </summary>
+    [ViewVariables]
+    public int Units = 1;
+
+    /// <summary>
+    /// Weight of liquids and unspawned rounds
+    /// </summary>
+    [ViewVariables]
+    public float ContentsWeight;
+
+    /// <summary>
+    /// Kilograms per unit of solution
+    /// </summary>
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
+    public float SolutionWeightPerUnit;
+    // ST:OW end
 
     [ViewVariables]
     public float TotalMaximum => Maximum * MaximumModifier;
@@ -56,5 +82,5 @@ public sealed partial class STWeightComponent : Component
     /// Entity's own weight
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public float Self = 0.05f;
+    public float Self = 0f;
 }

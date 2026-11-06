@@ -604,8 +604,7 @@ public sealed class LoadoutSystem : EntitySystem
         // Skip cartridges inside magazines (same as repository system)
         // The magazine's AmmoContainerStalker already tracks ammo count
         if (parentEntity != null &&
-            HasComp<BallisticAmmoProviderComponent>(parentEntity.Value) &&
-            _tags.HasTag(item, "Cartridge"))
+            _stalkerStorage.IsStoredInOwnerRecord(parentEntity.Value, item)) // ST:OW - Also covers revolver cylinders
             return null;
 
         var meta = MetaData(item);

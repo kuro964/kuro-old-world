@@ -66,7 +66,11 @@ public sealed class StalkerRepositorySystem : EntitySystem
     [Dependency] private readonly LoadoutSystem _loadoutSystem = default!; // for loadout state updates
     [Dependency] private readonly CrashRecoverySystem _crashRecovery = default!; // stalker-en-changes
     [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly STWeightSystem _weight = default!; // ST:OW
     private ISawmill _sawmill = default!;
+
+    // ST:OW - Weight for items w/o STWeightComponent
+    private const float DefaultItemWeight = 0f;
 
     // caching new records in database to get them later inside sponsors stuff
     private List<string> _newRecords = new();
@@ -311,6 +315,9 @@ public sealed class StalkerRepositorySystem : EntitySystem
         if (msg.Actor == null || _currentlyProcessingEjects.Contains(msg.Actor))
             return;
 
+        if (msg.Count < 1) // ST:OW
+            return;
+
         // Block operations during loadout processing to prevent race conditions
         if (component.LoadoutOperationInProgress)
         {
@@ -324,19 +331,20 @@ public sealed class StalkerRepositorySystem : EntitySystem
         {
             lock (_ejectLock)
             {
-                if (msg.Item.Weight < 0)
-                {
-                    var sum = component.CurrentWeight - msg.Item.Weight;
-                    if (Math.Round(sum, 2) > component.MaxWeight)
-                    {
-                        _sawmill.Debug($"Could not eject an item due to its weight. {msg.Item.Identifier} | item weight: {msg.Item.Weight} | repo weight: {component.CurrentWeight}");
-                        return;
-                    }
-                }
-
                 var item = GetFirstItem(component.ContainedItems, msg.Item.Identifier);
                 if (item == null || item.Count < msg.Count)
                     return;
+
+                // ST:OW - Use stored weight for every item taken out
+                if (item.Weight < 0)
+                {
+                    var sum = component.CurrentWeight - item.Weight * msg.Count;
+                    if (Math.Round(sum, 2) > component.MaxWeight)
+                    {
+                        _sawmill.Debug($"Could not eject an item due to its weight. {item.Identifier} | item weight: {item.Weight} | repo weight: {component.CurrentWeight}");
+                        return;
+                    }
+                }
 
                 item.Count -= msg.Count;
 
@@ -376,32 +384,56 @@ public sealed class StalkerRepositorySystem : EntitySystem
             _sawmill.Debug($"Blocked inject during loadout operation for {Name(msg.Actor)}");
             return;
         }
+        // ST:OW begin
+        if (msg.Count < 1)
+            return;
 
-        // Check for weight is valid
-        var sum = component.CurrentWeight + msg.Item.Weight;
-        if (Math.Round(sum, 2) > component.MaxWeight)
+        var matches = GetMatchingUserItems(msg.Actor, msg.Item);
+        if (matches.Count < msg.Count)
+            return;
+
+        var selected = matches.GetRange(0, msg.Count);
+        var itemInfo = GenerateItemInfo(selected[0], true);
+
+        // Check if weight is valid
+        var insertWeight = 0f;
+        foreach (var item in selected)
         {
-            _sawmill.Debug($"Could not insert an item due to its weight. {msg.Item.Identifier} | item weight: {msg.Item.Weight} | repo weight: {component.CurrentWeight}");
+            insertWeight += GetCarriedWeight(item);
+        }
+
+        if (Math.Round(component.CurrentWeight + insertWeight, 2) > component.MaxWeight)
+        {
+            _sawmill.Debug($"Could not insert an item due to its weight. {itemInfo.Identifier} | insert weight: {insertWeight} | repo weight: {component.CurrentWeight}");
             return;
         }
-        // checks for items is really containing in players inventory, so it won't be hacked by putting one item out :D
-        if (!CheckContaining(msg.Actor, msg.Item, msg.Count))
-            return;
+        
+        var inserted = 0;
+        foreach (var item in selected)
+        {
+            if (TerminatingOrDeleted(item) || !_xforms.ContainsEntity(msg.Actor, item))
+                continue;
+            
+            if (Math.Round(component.CurrentWeight + GetCarriedWeight(item), 2) > component.MaxWeight)
+                break;
 
-        // inserts selected item and checks for container, so its recursive
-        // this method also returns us a hashset of entities to delete, so we are sure, we are deleting needed entity
-        var toDelete = InsertToRepositoryRecursively(msg.Actor, (uid, component), msg.Item, msg.Count);
-        if (toDelete == null)
-            return;
+            var toDelete = InsertToRepositoryRecursively(msg.Actor, (uid, component), GenerateItemInfo(item, true));
+            if (toDelete == null)
+                continue;
 
-        // removing items
-        RemoveItems(msg.Actor, toDelete.Value.Item1, toDelete.Value.Item2);
+            Del(toDelete.Value.Item1);
+            inserted++;
+        }
+
+        if (inserted == 0)
+            return;
 
         // logging, saving, ui updating
-        _adminLogger.Add(LogType.Action, LogImpact.Low, $"Player {Name(msg.Actor):user} inserted {msg.Count} {msg.Item.Name} into repository");
+        _adminLogger.Add(LogType.Action, LogImpact.Low, $"Player {Name(msg.Actor):user} inserted {inserted} {itemInfo.Name} into repository");
         _stalkerStorageSystem.SaveStorage(component);
         _crashRecovery.ImmediateSnapshot(msg.Actor);
-        RaiseLocalEvent(msg.Actor, new RepositoryItemInjectedEvent(uid, msg.Item));
+        RaiseLocalEvent(msg.Actor, new RepositoryItemInjectedEvent(uid, itemInfo));
+        // ST:OW end
         UpdateUiState(msg.Actor, GetEntity(msg.Entity), component);
         _loadoutSystem.SendLoadoutStateUpdate(uid, component, msg.Actor);
     }
@@ -421,10 +453,10 @@ public sealed class StalkerRepositorySystem : EntitySystem
         // generate new item info for clicked entity
         var itemInfo = GenerateItemInfo(args.Used, true);
         // check for valid weight
-        var sum = component.CurrentWeight + itemInfo.Weight;
+        var sum = component.CurrentWeight + itemInfo.SumWeight; // ST:OW
         if (Math.Round(sum, 2) > component.MaxWeight)
         {
-            _sawmill.Debug($"Could not insert an item due to its weight. {itemInfo.Identifier} | item weight: {itemInfo.Weight} | repo weight: {component.CurrentWeight}");
+            _sawmill.Debug($"Could not insert an item due to its weight. {itemInfo.Identifier} | item weight: {itemInfo.SumWeight} | repo weight: {component.CurrentWeight}");  // ST:OW
             return;
         }
         // inserts new item and checks for container, so its recursive
@@ -460,7 +492,7 @@ public sealed class StalkerRepositorySystem : EntitySystem
     /// </summary>
     /// <param name="item">Item prototype id</param>
     /// <returns>New instance of <see cref="RepositoryItemInfo"/></returns>
-    public RepositoryItemInfo GenerateItemInfoByPrototype(string item)
+    public RepositoryItemInfo GenerateItemInfoByPrototype(string item, IItemStalkerStorage? savedData = null) // ST:OW
     {
         // indexing prototype to get its data
         if (!_prototypeMan.TryIndex<EntityPrototype>(item, out var proto))
@@ -468,7 +500,20 @@ public sealed class StalkerRepositorySystem : EntitySystem
 
         var spawned = Spawn(item, MapCoordinates.Nullspace);
 
-        return GenerateItemInfo(spawned);
+        var info = GenerateItemInfo(spawned);
+
+        // ST:OW begin
+        if (savedData != null)
+        {
+            _stalkerStorageSystem.SpawnedItem(spawned, savedData);
+            info.Weight = GetRecordWeight(spawned);
+            info.SumWeight = info.Weight;
+        }
+        info.Entities = null;
+        QueueDel(spawned);
+        // ST:OW end
+
+        return info;
     }
     /// <summary>
     /// Generates full item info out of entityUid
@@ -486,8 +531,6 @@ public sealed class StalkerRepositorySystem : EntitySystem
             catName = Loc.GetString(repoItem.CategoryName);
         }
 
-        // gets item weight
-        TryComp<STWeightComponent>(item, out var weightComp);
         if (metaData.EntityPrototype == null)
             return new RepositoryItemInfo();
 
@@ -519,8 +562,8 @@ public sealed class StalkerRepositorySystem : EntitySystem
             Icon = null,
             Desc = metaData.EntityDescription,
             UserItem = userItem,
-            Weight = weightComp?.Self ?? 0.05f,
-            SumWeight = weightComp?.Total ?? 0.05f,
+            Weight = GetRecordWeight(item), // ST:OW - was Self, which ignored stack count, liquids and rounds
+            SumWeight = GetCarriedWeight(item), // ST:OW - calculated now instead of read from cache
             Entities = entity == null ? null : new List<NetEntity> {entity.Value},
             SStorageData = newSStorageData,
             Identifier = newIdentifier
@@ -528,6 +571,59 @@ public sealed class StalkerRepositorySystem : EntitySystem
 
         return info;
     }
+    // ST:OW begin
+    private float GetRecordWeight(EntityUid item)
+    {
+        if (!HasComp<STWeightComponent>(item))
+            return DefaultItemWeight;
+
+        var weight = _weight.GetOwnWeight(item);
+        var children = Transform(item).ChildEnumerator;
+        while (children.MoveNext(out var child))
+        {
+            if (!EntityManager.IsQueuedForDeletion(child) && _stalkerStorageSystem.IsStoredInOwnerRecord(item, child))
+                weight += _weight.GetTotalWeight(child);
+        }
+
+        return weight;
+    }
+    
+    private float GetCarriedWeight(EntityUid item)
+    {
+        return HasComp<STWeightComponent>(item) ? _weight.GetTotalWeight(item) : DefaultItemWeight;
+    }
+    
+    public void RecalculateWeight(StalkerRepositoryComponent component)
+    {
+        var weight = 0f;
+        foreach (var item in component.ContainedItems)
+        {
+            weight += item.Weight * item.Count;
+        }
+
+        component.CurrentWeight = weight;
+    }
+    
+    private List<EntityUid> GetMatchingUserItems(EntityUid user, RepositoryItemInfo requested)
+    {
+        var matches = new List<EntityUid>();
+        foreach (var element in GetRecursiveContainerElements(user))
+        {
+            if (GenerateIdentifier(element) == requested.Identifier)
+                matches.Add(element);
+        }
+
+        if (requested.Entities is { Count: > 0 } clickedEntities &&
+            TryGetEntity(clickedEntities[0], out var clicked) &&
+            matches.Remove(clicked.Value))
+        {
+            matches.Insert(0, clicked.Value);
+        }
+
+        return matches;
+    }
+    // ST:OW end
+
     /// <summary>
     /// Generates items info for a list of items by entityUid
     /// </summary>
@@ -626,29 +722,6 @@ public sealed class StalkerRepositorySystem : EntitySystem
         }
     }
     /// <summary>
-    /// Checks for items to contain inside player inventory, so its unreal to "hack" our repository by throwing away one item of the same type.
-    /// </summary>
-    /// <param name="uid">Player Uid</param>
-    /// <param name="toCheck"><see cref="RepositoryItemInfo"/> to check</param>
-    /// <param name="toCheckCount">Amount of items player should have</param>
-    /// <returns>True/False depending on containing or not.</returns>
-    private bool CheckContaining(EntityUid uid, RepositoryItemInfo toCheck, int toCheckCount, ContainerManagerComponent? contMan = null)
-    {
-        // get all items from player
-        var items = GetRecursiveContainerElements(uid);
-        var foundAmount = 0;
-
-        // iterate through all items and increase foundAmount
-        foreach (var element in items)
-        {
-            if (toCheck.Identifier == GenerateIdentifier(element))
-            {
-                foundAmount++;
-            }
-        }
-        return foundAmount >= toCheckCount;
-    }
-    /// <summary>
     /// Removing items from container by depth iterating
     /// </summary>
     /// <param name="uid">Uid of item containing other items</param>
@@ -698,39 +771,6 @@ public sealed class StalkerRepositorySystem : EntitySystem
         }
     }
     /// <summary>
-    /// Obsolete remove items method, used to iterate through players' items and delete on match
-    /// </summary>
-    /// <param name="uid">Uid of player</param>
-    /// <param name="item">Item to delete</param>
-    /// <param name="amount">Amount of items to delete</param>
-    /// <returns>If we deleted needed amount</returns>
-    [Obsolete("Use hashset overload")]
-    private bool RemoveItems(EntityUid uid, RepositoryItemInfo item, int amount = 1)
-    {
-        var items = GetRecursiveContainerElements(uid);
-
-        foreach (var element in items)
-        {
-            if (amount == 0)
-                return true;
-            var info = GenerateItemInfo(element);
-            if (info.Identifier == item.Identifier)
-            {
-                Del(element);
-                amount--;
-            }
-
-            if (amount == 0)
-                return true;
-
-            if (!TryComp<ContainerManagerComponent>(element, out _))
-                continue;
-            if (RemoveItems(element, item, amount))
-                return true;
-        }
-        return false;
-    }
-    /// <summary>
     /// Gets container items recursively, so you'll get all items from all containers that contained containers etc.
     /// </summary>
     /// <param name="uid">Start point, like player entity</param>
@@ -761,7 +801,8 @@ public sealed class StalkerRepositorySystem : EntitySystem
                     HasComp<MindContainerComponent>(element) || // Do not insert alive objects(mice, etc.)
                     HasComp<StatusEffectComponent>(element) || // Don't look at status effect entities
                     HasComp<UnremoveableComponent>(element) ||
-                    HasComp<SelfUnremovableClothingComponent>(element))
+                    HasComp<SelfUnremovableClothingComponent>(element) || // ST:OW
+                    _stalkerStorageSystem.IsStoredInOwnerRecord(uid, element)) // ST:OW
                     continue;
                 // recursively call the same method and add its result to our
                 if (TryComp<ContainerManagerComponent>(element, out var manager))
@@ -830,7 +871,7 @@ public sealed class StalkerRepositorySystem : EntitySystem
                 // another large blacklist
                 if (HasComp<SolutionComponent>(item) || // Do not insert solutions
                     HasComp<InstantActionComponent>(item) || // Do not insert actions
-                    HasComp<BallisticAmmoProviderComponent>(playerItem) && _tags.HasTag(item, "Cartridge") || // Do not insert ammo cartridges
+                    _stalkerStorageSystem.IsStoredInOwnerRecord(playerItem.Value, item) || // ST:OW
                     HasComp<UnremoveableComponent>(item) ||
                     HasComp<SelfUnremovableClothingComponent>(item))
                     continue;
@@ -995,7 +1036,7 @@ public sealed class StalkerRepositorySystem : EntitySystem
         {
             repoItem.Count += amount ?? toInsertItem.Count;
             repoItem.UserItem = false;
-            entity.Comp.CurrentWeight += toInsertItem.Weight * amount ?? toInsertItem.Count;
+            entity.Comp.CurrentWeight += repoItem.Weight * (amount ?? toInsertItem.Count);  // ST:OW
             if (repoItem.SStorageData is IItemStalkerStorage stalker)
             {
                 stalker.CountVendingMachine += amount == null ? (uint) toInsertItem.Count : (uint) amount;
@@ -1022,7 +1063,7 @@ public sealed class StalkerRepositorySystem : EntitySystem
             }
         }
         entity.Comp.ContainedItems.Add(toInsertItem);
-        entity.Comp.CurrentWeight += toInsertItem.Weight * amount ?? toInsertItem.Count;
+        entity.Comp.CurrentWeight += toInsertItem.Weight * toInsertItem.Count; // ST:OW
     }
     /// <summary>
     /// Used in <see cref="StalkerStorageSystem"/>, idk why
@@ -1032,30 +1073,7 @@ public sealed class StalkerRepositorySystem : EntitySystem
     /// <param name="amount">Amount of items to insert</param>
     public void InsertToRepo(Entity<StalkerRepositoryComponent> entity, RepositoryItemInfo toInsertItem, int? amount = null)
     {
-        var repoItem = GetFirstItem(entity.Comp.ContainedItems, toInsertItem.Identifier);
-
-        if (repoItem != null)
-        {
-            repoItem.Count += amount ?? toInsertItem.Count;
-            repoItem.UserItem = false;
-            entity.Comp.CurrentWeight += toInsertItem.Weight * amount ?? toInsertItem.Count;
-            if (toInsertItem.SStorageData is IItemStalkerStorage stalker)
-            {
-                stalker.CountVendingMachine = amount == null ? (uint) toInsertItem.Count : (uint) amount;
-                toInsertItem.SStorageData = stalker;
-            }
-            return;
-        }
-
-        toInsertItem.UserItem = false;
-        toInsertItem.Count = amount ?? toInsertItem.Count;
-        if (toInsertItem.SStorageData is IItemStalkerStorage stalkerItem)
-        {
-            stalkerItem.CountVendingMachine = amount == null ? (uint) toInsertItem.Count : (uint) amount;
-            toInsertItem.SStorageData = stalkerItem;
-        }
-        entity.Comp.ContainedItems.Add(toInsertItem);
-        entity.Comp.CurrentWeight += toInsertItem.Weight * amount ?? toInsertItem.Count;
+        InsertIntoRepository(entity, toInsertItem, amount); // ST:OW
     }
 
     #endregion

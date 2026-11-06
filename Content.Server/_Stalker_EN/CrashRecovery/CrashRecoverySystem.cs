@@ -565,8 +565,7 @@ public sealed class CrashRecoverySystem : GameRuleSystem<CrashRecoveryRuleCompon
 
             foreach (var contained in container.Value.ContainedEntities)
             {
-                if (HasComp<BallisticAmmoProviderComponent>(item) &&
-                    HasComp<CartridgeAmmoComponent>(contained))
+                if (_stalkerStorage.IsStoredInOwnerRecord(item, contained)) // ST:OW - Also covers revolver cylinders
                     continue;
 
                 CaptureItemRecursive(contained, inventory, depth + 1);

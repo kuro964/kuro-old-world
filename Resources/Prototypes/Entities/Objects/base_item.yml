@@ -50,7 +50,7 @@
       Fangs: 1
       Hryvnias: 0 # EN
   - type: STWeight
-    self: 0.01 # stalker-changes-end
+    self: 0 # ST:OW
 
 - type: entity
   name: "storage item"

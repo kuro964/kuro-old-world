@@ -4,6 +4,8 @@
   name: bucket
   description: It's a boring old bucket.
   components:
+  - type: STWeight # ST:OW
+    solutionWeightPerUnit: 0.004
   - type: Edible
     utensil: Spoon
   - type: Sprite

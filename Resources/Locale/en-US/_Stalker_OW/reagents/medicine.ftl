@@ -30,7 +30,7 @@ reagent-name-cossack = cossack
 reagent-desc-cossack = It's the Cossack part of Cossack vodka!
 
 reagent-name-hercules = hercules
-reagent-desc-hercules = Experimental drug that reduces bodyweight by 20kg. Works while there's at least 0.1 units in bloodstream. Ideal for carrying heavy equipment.
+reagent-desc-hercules = Experimental drug that reduces bodyweight by 20kg while it is in the bloodstream and mildly quenches thirst. Ideal for carrying heavy equipment.
 
 reagent-name-psiconium = psiconium
 reagent-desc-psiconium = A drug that slowly repairs the psi damage done to your brain.
