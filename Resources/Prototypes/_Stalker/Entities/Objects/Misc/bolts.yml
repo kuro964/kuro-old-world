@@ -5,7 +5,7 @@
   abstract: true
   components:
   - type: STWeight
-    self: 0.1
+    self: 0.01
   - type: Tag
     tags:
     - STBolt
