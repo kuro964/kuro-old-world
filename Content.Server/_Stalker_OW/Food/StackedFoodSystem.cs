@@ -43,37 +43,63 @@ public sealed class StackedFoodSystem : EntitySystem
             _pendingCounts[args.New] = count;
     }
 
-    private void OnAfterConstructionChangeEntity(Entity<ConstructionComponent> ent,
+    private void OnAfterConstructionChangeEntity(Entity<ConstructionComponent> ent, 
         ref AfterConstructionChangeEntityEvent args)
     {
-        if (!_pendingCounts.Remove(ent.Owner, out var count))
+        if (_pendingCounts.Remove(ent.Owner, out var count))
+            DistributeUnits(ent.Owner, count);
+    }
+    
+    public void DistributeUnits(EntityUid first, int units)
+    {
+        if (units <= 0)
             return;
 
-        var protoId = MetaData(ent.Owner).EntityPrototype?.ID;
-        var remaining = count - 1;
-        if (TryComp<StackComponent>(ent.Owner, out var newStack))
-        {
-            var kept = Math.Min(count, _stack.GetMaxCount(newStack));
-            _stack.SetCount((ent.Owner, newStack), kept);
-            remaining = count - kept;
-        }
+        var protoId = MetaData(first).EntityPrototype?.ID;
+
+        var held = HoldUnits(first, units);
+        if (held <= 0)
+            return;
+
+        var remaining = units - held;
+        if (remaining <= 0)
+            return;
 
         if (protoId == null)
+        {
+            Log.Error($"Can't spawn {remaining} overflow unit(s) of {ToPrettyString(first)}: it has no prototype.");
             return;
+        }
 
         while (remaining > 0)
         {
-            var extra = SpawnNextToOrDrop(protoId, ent.Owner);
-            var spawned = 1;
-
-            if (TryComp<StackComponent>(extra, out var extraStack))
+            var extra = SpawnNextToOrDrop(protoId, first);
+            var extraHeld = HoldUnits(extra, remaining);
+            if (extraHeld <= 0)
             {
-                spawned = Math.Min(remaining, _stack.GetMaxCount(extraStack));
-                _stack.SetCount((extra, extraStack), spawned);
+                Del(extra);
+                return;
             }
 
-            remaining -= spawned;
+            remaining -= extraHeld;
         }
+    }
+    
+    private int HoldUnits(EntityUid uid, int units)
+    {
+        if (!TryComp<StackComponent>(uid, out var stack))
+            return 1;
+
+        var max = _stack.GetMaxCount(stack);
+        if (max <= 0)
+        {
+            Log.Error($"{ToPrettyString(uid)} has a stack max count of {max}.");
+            return 0;
+        }
+
+        var held = Math.Min(units, max);
+        _stack.SetCount((uid, stack), held);
+        return held;
     }
 
     private void OnPerishableMerged(Entity<PerishableComponent> ent, ref StackMergedEvent args)
