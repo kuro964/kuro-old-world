@@ -13,6 +13,7 @@ using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Containers;
 using Content.Shared.Storage.EntitySystems; // ST:OW
+using Content.Shared.Stacks; // ST:OW
 
 namespace Content.Server.Atmos.Rotting;
 
@@ -28,6 +29,7 @@ public sealed class RottingSystem : SharedRottingSystem
     [Dependency] private readonly IConsoleHost _console = default!; // Stalker-Changes
     [Dependency] private readonly SharedStorageSystem _storage = default!; // ST:OW
     [Dependency] private readonly SharedTransformSystem _transform = default!; // ST:OW
+    [Dependency] private readonly SharedStackSystem _stack = default!; // ST:OW
 
     public override void Initialize()
     {
@@ -168,6 +170,13 @@ public sealed class RottingSystem : SharedRottingSystem
 
         var mapCoords = _transform.GetMapCoordinates(uid, xform);
         var replacement = Spawn(prototype, mapCoords);
+
+        // A stack rots into a stack of the same size, if the rotten item stacks
+        if (TryComp<StackComponent>(uid, out var sourceStack) &&
+            TryComp<StackComponent>(replacement, out var resultStack))
+        {
+            _stack.SetCount((replacement, resultStack), _stack.GetCount((uid, sourceStack)));
+        }
 
         Transform(replacement).LocalRotation = xform.LocalRotation;
 

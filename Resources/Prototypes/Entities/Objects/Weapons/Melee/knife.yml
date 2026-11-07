@@ -36,6 +36,7 @@
   name: kitchen knife
   description: A general purpose Chef's Knife made by Asters Merchant Guild. Guaranteed to stay sharp for years to come..
   components:
+  - type: Craftable # ST:OW
   - type: Tag
     tags:
     - Knife

@@ -870,6 +870,10 @@
   id: FoodCakeBirthday
   description: Happy Birthday little clown...
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 1.5
+  # ST:OW end
   - type: Sprite
     state: birthday
   - type: SliceableFood
@@ -883,6 +887,10 @@
   id: FoodCakeBirthdaySlice
   description: A slice of your birthday.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.3
+  # ST:OW end
   - type: Sprite
     state: birthday-slice
   - type: Item

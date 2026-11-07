@@ -16,6 +16,31 @@
   id: STOWRatMeatStack
   name: stack-st-food-meat-rat
   spawn: FoodMeatSTRatRaw
+  
+- type: stack
+  parent: STOWBaseMeatStack
+  id: STOWFishFilletStack
+  name: stack-st-food-fish-fillet
+  spawn: FoodMeatSTFishFilletRaw
+
+- type: stack
+  parent: STOWBaseMeatStack
+  id: STOWFishSteakStack
+  name: stack-st-food-fish-steak
+  spawn: FoodMeatSTFishSteakRaw
+
+# Rotten meat
+- type: stack
+  parent: STOWBaseMeatStack
+  id: STOWRottenMeatStack
+  name: stack-st-food-meat-rotten
+  spawn: FoodMeatRotten
+
+- type: stack
+  parent: STOWBaseMeatStack
+  id: STOWRottenFishStack
+  name: stack-st-food-fish-rotten
+  spawn: FoodMeatSTRottenFish
 
 # Cooked meat
 - type: stack
@@ -128,3 +153,144 @@
   id: STOWFoodOilStack
   name: stack-st-food-oil
   spawn: FoodSTOil
+
+# Food slices - max 10
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWSaloChunkStack
+  name: stack-st-food-salo-chunk
+  spawn: FoodSaloSlice
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWSalamiSliceStack
+  name: stack-st-food-salami-slice
+  spawn: STFoodMeatSalamiSlice
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBreadSliceStack
+  name: stack-st-food-bread-slice
+  spawn: STFoodBreadPlainSlice
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWTofuSliceStack
+  name: stack-st-food-tofu-slice
+  spawn: FoodTofuSlice
+
+# Vegetables - max 10
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWFoodBeetStack
+  name: stack-st-food-beet
+  spawn: FoodSTBeet
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWFoodCabbageStack
+  name: stack-st-food-cabbage
+  spawn: FoodSTCabbage
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWFoodCarrotStack
+  name: stack-st-food-carrot
+  spawn: FoodSTCarrot
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWFoodOnionStack
+  name: stack-st-food-onion
+  spawn: FoodSTOnion
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWFoodPotatoStack
+  name: stack-st-food-potato
+  spawn: FoodSTPotato
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWFoodTomatoStack
+  name: stack-st-food-tomato
+  spawn: FoodSTTomato
+
+# Berries - max 10
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryBarbarisStack
+  name: stack-st-food-berry-barbaris
+  spawn: StalkerFoodBarbaris
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryBrusnikaStack
+  name: stack-st-food-berry-brusnika
+  spawn: StalkerFoodBrusnika
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryChereshnaStack
+  name: stack-st-food-berry-chereshna
+  spawn: StalkerFoodChereshna
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryEjevikaStack
+  name: stack-st-food-berry-ejevika
+  spawn: StalkerFoodEjevika
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryGojiStack
+  name: stack-st-food-berry-goji
+  spawn: StalkerFoodGoji
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryGolubikaStack
+  name: stack-st-food-berry-golubika
+  spawn: StalkerFoodGolubika
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryIrgaStack
+  name: stack-st-food-berry-irga
+  spawn: StalkerFoodIrga
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryKlubnikaStack
+  name: stack-st-food-berry-klubnika
+  spawn: StalkerFoodKlubnika
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryKlukvaStack
+  name: stack-st-food-berry-klukva
+  spawn: StalkerFoodKlukva
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryKrijovnikStack
+  name: stack-st-food-berry-krijovnik
+  spawn: StalkerFoodKrijovnik
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryMalinaStack
+  name: stack-st-food-berry-malina
+  spawn: StalkerFoodMalina
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryVishnaStack
+  name: stack-st-food-berry-vishna
+  spawn: StalkerFoodVishna
+
+- type: stack
+  parent: STOWIngredientBaseStack
+  id: STOWBerryVolkStack
+  name: stack-st-food-berry-volk
+  spawn: StalkerFoodVolk

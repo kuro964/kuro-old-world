@@ -104,6 +104,10 @@
   id: FoodPizzaMeat
   description: Greasy pizza with delicious meat.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - meaty
@@ -126,6 +130,10 @@
   id: FoodPizzaMeatSlice
   description: A nutritious slice of meatpizza.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.125
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - meaty
@@ -150,6 +158,10 @@
   id: FoodPizzaMushroom
   description: Very special pizza.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - mushroom
@@ -167,6 +179,10 @@
   id: FoodPizzaMushroomSlice
   description: Maybe it is the last slice of pizza in your life.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.125
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - mushroom
@@ -414,6 +430,10 @@
   id: FoodPizzaPineapple
   description: Makes people burst into tears. Tears of joy or sadness depends on the person's fondness for pineapple.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - meaty
@@ -437,6 +457,10 @@
   id: FoodPizzaPineappleSlice
   description: A slice of joy/sin.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.125
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - meaty

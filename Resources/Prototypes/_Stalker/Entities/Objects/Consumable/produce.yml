@@ -7,6 +7,13 @@
   description: This is a cherished fruit that can be found in abandoned gardens and abandoned areas of the Zone. Its bright red berries contrast with the dull palette of dead forests and crumbling buildings, attracting the attention of stalkers sophisticated in cooking and alchemy. Despite its beauty, barberry is an ambiguous symbol its sweet taste is deceptive, and only experienced stalkers are aware of its possible properties.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryBarbarisStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -85,6 +92,13 @@
   description: This is a unique berry that frames the myths and legends of the Zone. Outwardly, they resemble ordinary berries, but their bright red color hides special properties. Legends say that the Goji absorbed the power of the Zone, receiving both a blessing and a curse from it.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryGojiStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -163,6 +177,13 @@
   description: Take a look at this mysterious bunch of irgi, which brings the atmosphere of long-forgotten forests to the world of the Zone. Clusters of bright dark blue berries seem to glow under the soft light of the cloudy sun, attracting the attention of adventurers. Irga is a rare gift of nature that grows in places that are difficult for humans to access, often protected by anomalies and mutants.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryIrgaStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -241,6 +262,13 @@
   description: It is a small berry that lives in the abandoned and semi-abandoned corners of the Chernobyl zone. It has a bright red color that stands out against the background of mosses and dead geometries, creating a contrast with the gray of the surrounding nature.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryKlukvaStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -319,6 +347,13 @@
   description: These are small berries hiding among the thorny shrubs overgrown in the abandoned corners of the Zone. These fruits seem to absorb abnormal energy, giving them an unusual taste and properties. They can be both poisonous and beneficial, depending on the place of gathering and the time of the year.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryKrijovnikStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -397,6 +432,13 @@
   description: These are small but powerful fruits growing in the abandoned corners of the Zone. Their bright red color attracts attention, like a dangerous light in a dark void. Raspberries have not only a sweet, but also a slightly sour taste, which makes stalkers nostalgic for bygone times.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryMalinaStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -475,6 +517,10 @@
   description: This is a rare and mysterious berry plant that lives in unexplored corners of the Zone. These bright orange berries grow on low-growing bushes, preferring the moist spheres of dimly lit wells and swampy areas where the magic of anomalies seeps through.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -553,6 +599,10 @@
   description: Mysterious sea buckthorn berries are hiding in the dense thickets of the abandoned forests of the Zone where nature has again prevailed over the ruins of civilization. These bright orange fruits, resembling bright beads, attract attention with their unusual shape and rich color. However, do not be deceived by their beauty sea buckthorn in the Zone is endowed with strange properties.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -631,6 +681,13 @@
   description: In the gloomy and mysterious expanses of the Zone, among the moss and dead trees, a tiny lingonberry berry lurks. Unlike its bright counterparts, this berry has a darkened, almost black skin, which makes it almost invisible against the background of wriggling roots and a leafy underlying layer.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryBrusnikaStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -709,6 +766,13 @@
   description: Berries are the main thing. Large, round, the color of the night sky, with a slight bluish coating. It was as if the deepest radiance of the Zone was frozen in them. From a distance, they look like jewels and beckon to you. And for good reason, I'll tell you.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryGolubikaStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -787,6 +851,10 @@
   description: They look like ordinary grapes, well, almost. The vine is gnarled, and the leaves are faded, as if the sun had burned them out. The clusters, however, are noticeable — large, juicy berries from bright green to dark purple. But don't rush to rejoice — the "Drunken Bush" is known for its surprise.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -865,6 +933,13 @@
   description: The berries are large, juicy, dark maroon, almost black in color. From a distance, they look like drops of blood hanging from the branches. They look delicious, but don't rush to reach for them. The zone does not forgive mistakes.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryVishnaStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -943,6 +1018,13 @@
   description: The berries are small, like beads, but black, glossy, like varnish. They look tempting, but, as always in the Zone, it's not that simple. If you're lucky, you can get a good portion, but if you're not…
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryEjevikaStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -1021,6 +1103,13 @@
   description: Like a precious stone, scattered on the dead grass. The berries are small, but bright red, glossy, as if varnished. The smell is intoxicating, sweet as nectar. It's tempting to pick and eat. But don't rush! In the Zone, even the most beautiful things can be deadly.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryKlubnikaStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -1099,6 +1188,10 @@
   description: Currant and in the currant Zone, would you say? Not quite. This one is similar to the usual one, but it has its own highlight. The bushes are usually low-growing, sprawling, with a pungent tart smell. The leaves are dark green, rough to the touch. The berries, depending on the type, are black or red, strung on a brush like beads. And you need to be careful with these beads.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -1177,6 +1270,13 @@
   description: It's a piece of a former life, lost in the radioactive chaos. The berries are large, fleshy, from light pink to maroon, almost black. They look like a reminder of a happy past that cannot be returned. But be careful, nostalgia can be deadly.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryChereshnaStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -1255,6 +1355,13 @@
   description: The consequences can be terrible. Nausea, vomiting, severe abdominal pain, cramps, burns of the mucous membrane of the mouth and throat, internal bleeding. In severe cases, kidney failure, paralysis, and death.
   suffix: Stalker, Berries
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.1
+  - type: Stack
+    stackType: STOWBerryVolkStack
+    count: 1
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - berry
@@ -1331,6 +1438,10 @@
   description: The living embodiment of a nightmare lurking in the shadow of the Zone. Meeting Voronets is a bad sign, stalker. Stay away if life is precious. Don't touch, don't taste, don't even breathe in his direction.
   suffix: Stalker, Berries
   components:
+    # ST:OW begin
+    - type: STWeight
+      self: 0.1
+    # ST:OW end
     - type: FlavorProfile
       flavors:
         - grass
@@ -1412,6 +1523,10 @@
   description: Don't be fooled by the gentle look, stalker. In the Zone, even beauty can be deadly. Lily of the Valley is a vivid example of this. Delicate, graceful, with snow-white bells, it seems to remind of a carefree life that was left far behind. But look more closely, and you will see the shadow of death hidden behind this beauty.
   suffix: Stalker, Berries
   components:
+    # ST:OW begin
+    - type: STWeight
+      self: 0.1
+    # ST:OW end
     - type: FlavorProfile
       flavors:
         - grass
@@ -1493,6 +1608,10 @@
   description: Ochanka officinalis is a useful herb that can help you in the conditions of the Zone. But remember that this is not a panacea for all diseases. Be careful, and knowledge will help you survive.
   suffix: Stalker, Berries
   components:
+    # ST:OW begin
+    - type: STWeight
+      self: 0.1
+    # ST:OW end
     - type: FlavorProfile
       flavors:
         - grass
@@ -1576,6 +1695,10 @@
   description: The area is inhospitable, and the grass here grows to match it — tough, prickly, surviving against all odds. But even among this dead meat, you can find useful plants if you know what to look for. Remember, stalker, knowledge is your best defense.
   suffix: Stalker, Berries
   components:
+    # ST:OW begin
+    - type: STWeight
+      self: 0.1
+    # ST:OW end
     - type: FlavorProfile
       flavors:
         - grass
@@ -1659,6 +1782,10 @@
   description: In the Zone, any medicine is worth its weight in gold, and even if it grows right under your nose... ordinary calamus, known to stalkers as the root of health, is just such a treasure. This modest-looking plant has amazing properties.
   suffix: Stalker, Berries
   components:
+    # ST:OW begin
+    - type: STWeight
+      self: 0.1
+    # ST:OW end
     - type: FlavorProfile
       flavors:
         - grass
@@ -1742,6 +1869,10 @@
   description: Among the ugly mutants and sinister anomalies of the Zone, seeing a blooming lime tree is like meeting a guardian angel. The heart—shaped linden is not just a tree, it is a symbol of hope and peace in this cursed place.
   suffix: Stalker, Berries
   components:
+    # ST:OW begin
+    - type: STWeight
+      self: 0.1
+    # ST:OW end
     - type: FlavorProfile
       flavors:
         - grass
@@ -1825,6 +1956,10 @@
   description: Only the strong survive in the Zone. A rare plant that can give you this power. The Spotted Hawthorn is not conspicuous, but experienced stalkers know that it harbors powerful potential.
   suffix: Stalker, Berries
   components:
+    # ST:OW begin
+    - type: STWeight
+      self: 0.1
+    # ST:OW end
     - type: FlavorProfile
       flavors:
         - grass
