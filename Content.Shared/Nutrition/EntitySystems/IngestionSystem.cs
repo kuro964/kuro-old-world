@@ -18,7 +18,6 @@ using Content.Shared.Inventory;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Popups;
-using Content.Shared.Stacks; // ST:OW
 using Content.Shared.Tools.EntitySystems;
 using Content.Shared.UserInterface;
 using Content.Shared.Verbs;
@@ -504,11 +503,7 @@ public sealed partial class IngestionSystem : EntitySystem
             };
             RaiseLocalEvent(args.Target, ref ev);
 
-            // ST:OW begin
-            // Each bite of a stack eats one whole unit (see SharedStackSystem.OnBeforeEaten), so repeating
-            // would eat the entire stack in one go. One use eats one unit of a stack.
-            args.Repeat = !args.ForceFed && !HasComp<StackComponent>(entity);
-            // ST:OW end
+            args.Repeat = !args.ForceFed;
             return;
         }
 

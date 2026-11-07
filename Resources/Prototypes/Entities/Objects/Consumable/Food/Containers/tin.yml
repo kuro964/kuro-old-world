@@ -83,10 +83,6 @@
   name: tinned peaches
   description: Just a nice can of ripe peaches swimming in their own juices.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.4
-  # ST:OW end
   - type: Item
     storedOffset: 0,-3
   - type: Sprite
@@ -153,10 +149,6 @@
   name: tin of beans
   description: Musical fruit in a slightly less musical container.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.4
-  # ST:OW end
   - type: Item
     storedOffset: 0,-3
   - type: Sprite
@@ -188,10 +180,6 @@
   name: tinned meat
   description: A standard issue tin of meat with a convenient pull tab.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.4
-  # ST:OW end
   - type: Item
     size: Tiny
     shape:

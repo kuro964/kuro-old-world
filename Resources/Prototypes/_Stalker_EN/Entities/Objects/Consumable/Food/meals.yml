@@ -64,7 +64,7 @@
     - FoodBowlBig
     utensil: Spoon
   - type: STWeight
-    self: 0.6 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -100,7 +100,7 @@
       - Spoon
       - Fork
   - type: STWeight
-    self: 0.6 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -136,7 +136,7 @@
       - FoodBowlBig
     utensil: Spoon
   - type: STWeight
-    self: 0.6 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -170,7 +170,7 @@
     - FoodBowlBig
     utensil: Spoon
   - type: STWeight
-    self: 0.6 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -200,7 +200,7 @@
       - FoodBowlBig
     utensil: Spoon
   - type: STWeight
-    self: 0.6 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -229,7 +229,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: deruny
   - type: STWeight
-    self: 0.45 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -259,7 +259,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: deruny2
   - type: STWeight
-    self: 0.15 # ST:OW
+    self: 0.25
   - type: Item
     size: Tiny
     shape:
@@ -289,7 +289,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: hrechanyky
   - type: STWeight
-    self: 0.45 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -319,7 +319,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: hrechanyky2
   - type: STWeight
-    self: 0.15 # ST:OW
+    self: 0.25
   - type: Item
     size: Tiny
     shape:
@@ -350,7 +350,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: syrnyk
   - type: STWeight
-    self: 0.45 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -381,7 +381,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: syrnyk2
   - type: STWeight
-    self: 0.15 # ST:OW
+    self: 0.25
   - type: Item
     size: Tiny
     shape:
@@ -411,7 +411,7 @@
     sprite: Objects/Consumable/Food/Baked/misc.rsi
     state: pancakes1
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -439,7 +439,7 @@
     sprite: Objects/Consumable/Food/Baked/misc.rsi
     state: onionrings
   - type: STWeight
-    self: 0.2 # ST:OW
+    self: 0.5
   - type: Item
     size: Small
     shape:
@@ -466,7 +466,7 @@
     sprite: Objects/Consumable/Food/meals.rsi
     state: friedegg
   - type: STWeight
-    self: 0.2 # ST:OW
+    self: 0.5
   - type: Item
     size: Small
     shape:
@@ -494,7 +494,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: fishfry
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -523,7 +523,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: froglegs
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 1
   - type: Item
     size: Small
     shape:
@@ -554,7 +554,7 @@
     sprite: Objects/Consumable/Food/Baked/cake.rsi
     state: plain
   - type: STWeight
-    self: 1.6 # ST:OW
+    self: 3
   - type: Item
     size: Normal
     shape:
@@ -585,7 +585,7 @@
     sprite: Objects/Consumable/Food/Baked/cake.rsi
     state: plain-slice
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 0.5
   - type: Item
     size: Small
     shape:
@@ -617,7 +617,7 @@
     sprite: Objects/Consumable/Food/Baked/cake.rsi
     state: berry_delight
   - type: STWeight
-    self: 1.6 # ST:OW
+    self: 3
   - type: Item
     size: Normal
     shape:
@@ -648,7 +648,7 @@
     sprite: Objects/Consumable/Food/Baked/cake.rsi
     state: berry_delight_slice
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 0.5
   - type: Item
     size: Small
     shape:
@@ -679,7 +679,7 @@
     sprite: Objects/Consumable/Food/frozen.rsi
     state: sundae
   - type: STWeight
-    self: 0.2 # ST:OW
+    self: 0.5
   - type: Item
     size: Small
     shape:
@@ -712,7 +712,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: braid
   - type: STWeight
-    self: 0.5 # ST:OW
+    self: 2
   - type: Item
     size: Small
     shape:
@@ -744,7 +744,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: kebabmeat
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 2
   - type: Item
     size: Small
     shape:
@@ -774,7 +774,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meals.rsi
     state: kebabveggie
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 2
   - type: Item
     size: Small
     shape:
@@ -889,7 +889,7 @@
     trash:
     - STDrinkJar
   - type: STWeight
-    self: 1 # ST:OW
+    self: 2
   - type: Item
     size: Small
     shape:

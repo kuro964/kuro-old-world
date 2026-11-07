@@ -10,7 +10,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 0.6 # ST:OW
+    self: 1.0
   - type: Sprite
     sprite: Objects/Consumable/Food/meat.rsi
     state: bear
@@ -43,7 +43,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 0.5 # ST:OW
+    self: 0.8
   - type: Craftable
   - type: Tag
     tags:
@@ -115,13 +115,6 @@
   id: FoodMeatSTRottenFish
   parent: FoodMeatRotten
   components:
-  # ST:OW begin
-  - type: Stack
-    stackType: STOWRottenFishStack
-    count: 1
-  - type: STWeight
-    self: 0.2
-  # ST:OW end
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: rottenfish
@@ -135,13 +128,8 @@
   id: FoodMeatSTFishFilletRaw
   suffix: Stalker, Food
   components:
-  # ST:OW begin
-  - type: Stack
-    stackType: STOWFishFilletStack
-    count: 1
-  # ST:OW end
   - type: STWeight
-    self: 0.2 # ST:OW
+    self: 0.25
   - type: FlavorProfile
     flavors:
     - fishy
@@ -177,7 +165,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 0.15 # ST:OW
+    self: 0.25
   - type: Craftable
   - type: Tag
     tags:
@@ -245,13 +233,8 @@
   id: FoodMeatSTFishSteakRaw
   suffix: Stalker, Food
   components:
-  # ST:OW begin
-  - type: Stack
-    stackType: STOWFishSteakStack
-    count: 1
-  # ST:OW end
   - type: STWeight
-    self: 0.3 # ST:OW
+    self: 0.45
   - type: FlavorProfile
     flavors:
     - fishy
@@ -287,7 +270,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 0.25 # ST:OW
+    self: 0.40
   - type: Craftable
   - type: Tag
     tags:
@@ -459,15 +442,10 @@
   description: A chunk of raw fat, perfect for frying.
   suffix: Stalker, Food
   components:
-  # ST:OW begin
-  - type: Stack
-    stackType: STOWSaloChunkStack
-    count: 1
-  # ST:OW end
   - type: Item
     size: Tiny
   - type: STWeight
-    self: 0.15 # ST:OW
+    self: 0.3
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: salochunk
@@ -501,7 +479,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 0.1 # ST:OW
+    self: 0.05
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: cvarci
@@ -568,7 +546,7 @@
     count: 1
   # ST:OW end
   - type: STWeight
-    self: 0.1 # ST:OW
+    self: 0.01
   - type: FlavorProfile
     flavors:
     - meaty
@@ -606,7 +584,7 @@
     count: 1
   # ST:OW end
   - type: STWeight
-    self: 0.08 # ST:OW
+    self: 0.01
   - type: Craftable
   - type: Tag
     tags:
@@ -677,7 +655,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 0.6 # ST:OW
+    self: 1.0
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: bearspiced
@@ -712,7 +690,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 0.3 # ST:OW
+    self: 0.75
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: bearjerkedwhole
@@ -752,7 +730,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: bearjerked
   - type: STWeight
-    self: 0.1 # ST:OW
+    self: 0.25
   - type: Item
     size: Tiny
     shape:
@@ -790,7 +768,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 0.5 # ST:OW
+    self: 1.0
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: boarspiced
@@ -824,7 +802,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 0.25 # ST:OW
+    self: 0.75
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: boarjerkedwhole
@@ -865,7 +843,7 @@
     state: boarjerked
     scale: 0.9,0.9
   - type: STWeight
-    self: 0.06 # ST:OW
+    self: 0.25
   - type: Item
     size: Tiny
     shape:
@@ -910,7 +888,7 @@
     duration: 300
   # ST:OW end
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 1.0
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: dogspiced
@@ -949,7 +927,7 @@
     count: 1
   # ST:OW end
   - type: STWeight
-    self: 0.2 # ST:OW
+    self: 0.75
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: dogjerkedwhole
@@ -995,7 +973,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: dogjerked
   - type: STWeight
-    self: 0.05 # ST:OW
+    self: 0.25
   - type: Item
     size: Tiny
     shape:
@@ -1040,7 +1018,7 @@
     duration: 20
   # ST:OW end
   - type: STWeight
-    self: 0.1 # ST:OW
+    self: 0.1
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: ratspiced
@@ -1076,7 +1054,7 @@
     count: 1
   # ST:OW end
   - type: STWeight
-    self: 0.05 # ST:OW
+    self: 0.1
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: ratjerked
@@ -1134,7 +1112,7 @@
   suffix: Stalker, Food
   components:
   - type: STWeight
-    self: 1 # ST:OW
+    self: 1.5
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: suckerjerkedwhole
@@ -1176,7 +1154,7 @@
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi
     state: suckerjerked
   - type: STWeight
-    self: 0.25 # ST:OW
+    self: 0.25
   - type: Item
     size: Tiny
     shape:

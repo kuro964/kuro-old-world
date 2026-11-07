@@ -28,10 +28,6 @@
   name: boiled spaghetti
   description: A plain dish of noodles, this needs more ingredients.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.4
-  # ST:OW end
   - type: Item
     storedOffset: 0,-4
   - type: FlavorProfile
@@ -101,10 +97,6 @@
   name: spaghetti and meatballs
   description: Now that's a nice-a meatball!
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.4
-  # ST:OW end
   - type: Item
     storedOffset: 0,-4
   - type: FlavorProfile

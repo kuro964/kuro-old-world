@@ -302,10 +302,6 @@
   name: big bite burger
   description: Forget the Big Mac. THIS is the future!
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.3
-  # ST:OW end
   - type: Item
     size: Normal
     shape:
@@ -879,10 +875,6 @@
   name: McGuffin
   description: A cheap and greasy imitation of an eggs Benedict.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.3
-  # ST:OW end
   - type: Item
     storedOffset: 0,1
     inhandVisuals:
@@ -925,10 +917,6 @@
   name: BBQ Rib Sandwich
   description: An elusive rib shaped burger with limited availability across the galaxy. Not as good as you remember it.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.3
-  # ST:OW end
   - type: Edible
     trash:
     - FoodKebabSkewer

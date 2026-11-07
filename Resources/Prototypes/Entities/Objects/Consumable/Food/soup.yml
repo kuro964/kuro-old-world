@@ -72,10 +72,6 @@
   id: FoodSoupPea
   description: A humble split pea soup.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.6
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - creamy
@@ -198,10 +194,6 @@
   id: FoodSaladColeslaw
   description: Shredded cabbage and red onions dressed with a vinaigrette.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.3
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - onion
@@ -931,10 +923,6 @@
   id: FoodSoupTomato
   description: Drinking this feels like being a vampire! A tomato vampire...
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.6
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - tomato
@@ -1175,12 +1163,8 @@
   name: bisque
   parent: FoodBowlBase
   id: FoodSoupBisque
-  description: A classic entrée from France. # ST:OW
+  description: A classic entrée from Space France.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.6
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - creamy
@@ -1268,10 +1252,6 @@
   id: FoodSoupEscargot
   description: A creamy and rich bowl of snails, bon appetit!
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.6
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - creamy

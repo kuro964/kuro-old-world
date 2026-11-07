@@ -4,10 +4,6 @@
   id: FoodPelmeniBowl
   description: Lots of meat, little dough.
   components:
-    # ST:OW begin
-    - type: STWeight
-      self: 0.6
-    # ST:OW end
     - type: FlavorProfile
       flavors:
         - meaty

@@ -7,10 +7,6 @@
   name: skewer
   description: A thin rod of metal used to skewer just about anything and cook it.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.02
-  # ST:OW end
   - type: Item
     shape:
     - 0,0,1,0

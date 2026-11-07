@@ -677,10 +677,6 @@
   suffix: Fresh
   description: A fresh baked brownie.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.06
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - sweet

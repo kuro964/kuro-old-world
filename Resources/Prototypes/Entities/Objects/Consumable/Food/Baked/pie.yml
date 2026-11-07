@@ -71,10 +71,6 @@
   id: FoodPieApple
   description: A pie containing sweet, sweet love... or apple.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.8
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - sweet
@@ -95,10 +91,6 @@
   parent: FoodPieSliceBase
   id: FoodPieAppleSlice
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.2
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - sweet
@@ -296,10 +288,6 @@
   id: FoodPieMeat
   description: An old barber recipe, very delicious!
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.8
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - meaty
@@ -319,10 +307,6 @@
   parent: FoodPieSliceBase
   id: FoodPieMeatSlice
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.2
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - meaty
@@ -553,10 +537,6 @@
   id: FoodTartGapple
   description: A tasty dessert that won't make it through a metal detector.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.3
-  # ST:OW end
   - type: FlavorProfile
     flavors:
       - apple

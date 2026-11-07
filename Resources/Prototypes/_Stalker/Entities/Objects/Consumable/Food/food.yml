@@ -24,13 +24,6 @@
   id: FoodMeatRotten
   description: Halfway to becoming fertilizer for your garden.
   components:
-  # ST:OW begin
-  - type: Stack
-    stackType: STOWRottenMeatStack
-    count: 1
-  - type: STWeight
-    self: 0.4
-  # ST:OW end
   - type: Tag
     tags:
     - Raw
@@ -77,7 +70,7 @@
   suffix: Stalker, еда
   components:
   - type: STWeight
-    self: 0.5 # ST:OW
+    self: 1.0
   - type: Sprite
     sprite: _Stalker_EN/Objects/Consumable/Food/meat.rsi # EN
     state: salo # EN
@@ -113,7 +106,7 @@
   suffix: Stalker, еда
   components:
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 0.8
   - type: Craftable
   - type: Tag
     tags:
@@ -206,10 +199,6 @@
   description: Неизвестно, кто умудряется печь батоны на территории Зоны, или каким образом их протаскивают через периметр. Однако этот хлеб не заражён, не радиоактивен, достаточно свеж и вполне съедобен. Во всяком случае, никто из сталкеров пока не жаловался.
   suffix: Stalker, еда
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.5
-  # ST:OW end
   - type: Edible
   - type: Sprite
     layers:
@@ -227,13 +216,6 @@
   id: STFoodBreadPlainSlice
   description: Кусок хлеба. На первый взгляд достаточно свеж и вполне съедобен.
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.1
-  - type: Stack
-    stackType: STOWBreadSliceStack
-    count: 1
-  # ST:OW end
   - type: Edible
   - type: Sprite
     layers:
@@ -258,13 +240,8 @@
   description:  Если присмотреться достаточно внимательно, можно заметить, что кусок колбасы состоит из мяса не самого высокого качества.
   suffix: Stalker, еда
   components:
-  # ST:OW begin
-  - type: Stack
-    stackType: STOWSalamiSliceStack
-    count: 1
-  # ST:OW end
   - type: STWeight
-    self: 0.1 # ST:OW
+    self: 0.2
   - type: Sprite
     state: salami-slice
   - type: SolutionContainerManager
@@ -284,10 +261,6 @@
   description: Часто за неимением лучшего, эта колбаса — смесь курятины и соевого заменителя — становится завтраком, обедом и ужином сталкера. Из-за большого количества консервантов довольно долго не портится
   suffix: Stalker, еда
   components:
-  # ST:OW begin
-  - type: STWeight
-    self: 0.5
-  # ST:OW end
   - type: Sprite
     sprite: Objects/Consumable/Food/salami.rsi
     state: salami
@@ -347,7 +320,7 @@
   suffix: Stalker, еда
   components:
   - type: STWeight
-    self: 0.5 # ST:OW
+    self: 1.0
   - type: Sprite
     sprite: _Stalker/Objects/Counsumable/Food/meat
     state: boarraw
@@ -381,7 +354,7 @@
   suffix: Stalker, еда
   components:
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 0.8
   - type: Craftable
   - type: Tag
     tags:
@@ -438,7 +411,7 @@
     count: 1
   # ST:OW end
   - type: STWeight
-    self: 0.4 # ST:OW
+    self: 0.8
   - type: Sprite
     sprite: _Stalker/Objects/Counsumable/Food/meat
     state: dograw
@@ -472,7 +445,7 @@
   suffix: Stalker, еда
   components:
   - type: STWeight
-    self: 0.3 # ST:OW
+    self: 0.6
   - type: Craftable
   - type: Tag
     tags:
@@ -615,7 +588,7 @@
   suffix: Stalker, еда
   components:
   - type: STWeight
-    self: 0.15 # ST:OW
+    self: 0.36
   - type: Craftable
   - type: FlavorProfile
     flavors:
@@ -643,42 +616,6 @@
     - Potato
     - Vegetable
 
-
-# ST:OW begin
-# Ported from ST14 RU
-- type: entity
-  name: чищенный картофель
-  parent: FoodProduceBase
-  id: FoodPotatoCleaned
-  description: Чищенныё картофель, который может быть как простым, так и праздничным, изысканным блюдом.
-  suffix: Stalker, еда
-  components:
-  - type: STWeight
-    self: 0.19
-  - type: Craftable
-  - type: FlavorProfile
-    flavors:
-      - potatoes
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        maxVol: 13
-        reagents:
-        - ReagentId: Nutriment
-          Quantity: 11
-        - ReagentId: Vitamin
-          Quantity: 2
-  - type: Sprite
-    sprite: Objects/Weapons/Bombs/hot_potato.rsi
-    state: icon
-  - type: Item
-    sprite: Objects/Specific/Hydroponics/potato.rsi
-    size: Small
-  - type: Tag
-    tags:
-    - Potato
-    - Vegetable
-# ST:OW end
 
 - type: entity
   name: картофельные очистки
@@ -718,7 +655,7 @@
   description: Ломтик хлеба или булки с намазанной или уложенной сверху начинкой из какого-либо продукта, готового к употреблению.
   components:
   - type: STWeight
-    self: 0.15 # ST:OW
+    self: 0.34
   - type: Craftable
   - type: Sprite
     sprite: _Stalker/Objects/Counsumable/Food/meat_buterbread.rsi
