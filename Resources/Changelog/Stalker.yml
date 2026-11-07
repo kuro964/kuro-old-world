@@ -1,11 +1,4 @@
 ﻿Entries:
-- author: crocodilecarousel
-  changes:
-  - message: Fixes the glass shard anomaly hitbox
-    type: Fix
-  id: 4
-  time: '2026-01-26T01:56:32.527350+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/347
 - author: teecoding
   changes:
   - message: Loadout system no longer removes unremovable items (faction chips, implants)
@@ -4510,5 +4503,22 @@
   id: 503
   time: '2026-11-06T16:24:54.466405+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/200
+- author: kuro964
+  changes:
+  - message: Fixed M14 sprites when wielded
+    type: Fix
+  - message: Reduced the weight of bolts
+    type: Tweak
+  - message: Reduced the weight of most food items & ingredients
+    type: Tweak
+  - message: Made most food items & ingredients stackable
+    type: Tweak
+  - message: Fixed bugs with eating a stack of items
+    type: Fix
+  - message: Fixed bugs with a stack of meat rotting
+    type: Fix
+  id: 504
+  time: '2026-11-07T11:24:43.379327+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/201
 Name: Stalker
 Order: -1
