@@ -13,7 +13,7 @@
       count: 1
     # ST:OW end
     - type: STWeight
-      self: 0.4
+      self: 0.5 # ST:OW
     - type: Item
       size: Small
       shape:
@@ -110,7 +110,7 @@
       count: 1
     # ST:OW end
     - type: STWeight
-      self: 0.1
+      self: 0.05 # ST:OW
     - type: Item
       size: Tiny
       shape:
@@ -145,7 +145,7 @@
       count: 1
     # ST:OW end
     - type: STWeight
-      self: 0.05
+      self: 0.02 # ST:OW
     - type: Item
       size: Tiny
       shape:
@@ -182,7 +182,7 @@
       count: 1
     # ST:OW end
     - type: STWeight
-      self: 0.05
+      self: 0.06 # ST:OW
     - type: Sprite # temp
       sprite: Objects/Consumable/Food/egg.rsi
       state: white
@@ -214,7 +214,7 @@
       count: 1
     # ST:OW end
     - type: STWeight
-      self: 2
+      self: 1 # ST:OW
     - type: Item
       size: Small
       shape:
@@ -245,7 +245,7 @@
       count: 1
     # ST:OW end
     - type: STWeight
-      self: 2
+      self: 1 # ST:OW
     - type: Item
       size: Small
       shape:
@@ -279,7 +279,7 @@
       count: 1
     # ST:OW end
     - type: STWeight
-      self: 2
+      self: 1 # ST:OW
     - type: Item
       size: Small
       shape:
@@ -311,7 +311,7 @@
       count: 1
     # ST:OW end
     - type: STWeight
-      self: 0.25
+      self: 1 # ST:OW
     - type: Item
       size: Small
       shape:

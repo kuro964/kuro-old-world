@@ -1,3 +1,4 @@
+using Content.Shared._Stalker_OW.Stacks; // ST:OW
 using Content.Shared.Hands.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
@@ -44,6 +45,10 @@ public abstract partial class SharedStackSystem
 
         SetCount(donor, donor.Comp.Count - transferred);
         SetCount(recipient, recipient.Comp.Count + transferred);
+        
+        var mergedEv = new StackMergedEvent(donor.Owner, transferred); // ST:OW
+        RaiseLocalEvent(recipient.Owner, ref mergedEv); // ST:OW
+
         return true;
     }
 

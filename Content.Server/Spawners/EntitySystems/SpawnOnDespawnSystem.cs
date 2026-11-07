@@ -17,6 +17,7 @@ public sealed class SpawnOnDespawnSystem : EntitySystem
     [Dependency] private readonly SharedStorageSystem _storage = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedStackSystem _stacks = default!;
+    [Dependency] private readonly StackedFoodSystem _stackedFood = default!;
     // ST:OW end
     public override void Initialize()
     {
@@ -31,6 +32,9 @@ public sealed class SpawnOnDespawnSystem : EntitySystem
         if (!TryComp(uid, out TransformComponent? xform))
             return;
 
+        // Stackable meats that are cured will produce the same amount of jerky pieces
+        var units = HasComp<STOWCuringStackComponent>(uid) ? _stacks.GetCount((uid, null)) : 1;
+
         var hadContainer = _container.TryGetContainingContainer(
             (uid, xform, null),
             out var containingContainer);
@@ -38,27 +42,24 @@ public sealed class SpawnOnDespawnSystem : EntitySystem
         var mapCoords = _transform.GetMapCoordinates(uid, xform);
         var replacement = Spawn(comp.Prototype, mapCoords);
 
-        // Stackable meats that are cured will produce the same amount of jerky pieces
-        // This does not affect other SpawnOnDespawn transformations
-        if (HasComp<STOWCuringStackComponent>(uid) &&
-            TryComp<StackComponent>(uid, out var sourceStack) &&
-            TryComp<StackComponent>(replacement, out var resultStack))
-        {
-            _stacks.SetCount((replacement, resultStack), _stacks.GetCount((uid, sourceStack)));
-        }
-
         Transform(replacement).LocalRotation = xform.LocalRotation;
 
-        if (!hadContainer || containingContainer == null)
-            return;
+        if (hadContainer && containingContainer != null)
+            PutInOriginalPlace(uid, replacement, containingContainer);
 
+        if (units > 1)
+            _stackedFood.DistributeUnits(replacement, units);
+    }
+
+    private void PutInOriginalPlace(EntityUid original, EntityUid replacement, BaseContainer containingContainer)
+    {
         var hadStorageLocation = _storage.TryGetStorageLocation(
-            uid,
+            original,
             out var storageContainer,
             out var storage,
             out var storageLocation);
 
-        _container.Remove(uid, containingContainer, force: true);
+        _container.Remove(original, containingContainer, force: true);
 
         if (hadStorageLocation &&
             storageContainer != null &&

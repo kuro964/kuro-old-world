@@ -720,6 +720,10 @@
   id: FoodCheese
   description: A big wheel of delicious Cheddar.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 1
+  # ST:OW end
   - type: Item
     size: Normal
   - type: FlavorProfile
@@ -737,6 +741,10 @@
   name: cheese wedge
   description: A wedge of delicious Cheddar. The cheese wheel it was cut from can't have gone far.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.25
+  # ST:OW end
   - type: FlavorProfile
     flavors:
       - cheesy
@@ -853,6 +861,13 @@
   name: tofu slice
   description: A slice of tofu. Ingredient of various vegetarian dishes.
   components:
+  # ST:OW begin
+  - type: STWeight
+    self: 0.05
+  - type: Stack
+    stackType: STOWTofuSliceStack
+    count: 1
+  # ST:OW end
   - type: Item
     size: Tiny
   - type: FlavorProfile

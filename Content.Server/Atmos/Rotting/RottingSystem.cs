@@ -13,6 +13,8 @@ using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Containers;
 using Content.Shared.Storage.EntitySystems; // ST:OW
+using Content.Shared.Stacks; // ST:OW
+using Content.Server._Stalker_OW.Food; // ST:OW
 
 namespace Content.Server.Atmos.Rotting;
 
@@ -28,6 +30,8 @@ public sealed class RottingSystem : SharedRottingSystem
     [Dependency] private readonly IConsoleHost _console = default!; // Stalker-Changes
     [Dependency] private readonly SharedStorageSystem _storage = default!; // ST:OW
     [Dependency] private readonly SharedTransformSystem _transform = default!; // ST:OW
+    [Dependency] private readonly SharedStackSystem _stack = default!; // ST:OW
+    [Dependency] private readonly StackedFoodSystem _stackedFood = default!; // ST:OW
 
     public override void Initialize()
     {
@@ -162,6 +166,9 @@ public sealed class RottingSystem : SharedRottingSystem
         string prototype,
         TransformComponent xform)
     {
+        // A stack rots into the same number of rotten items
+        var units = _stack.GetCount((uid, null));
+
         var hadContainer = _container.TryGetContainingContainer(
             (uid, xform, null),
             out var containingContainer);
@@ -171,17 +178,23 @@ public sealed class RottingSystem : SharedRottingSystem
 
         Transform(replacement).LocalRotation = xform.LocalRotation;
 
-        if (!hadContainer || containingContainer == null)
-            return;
+        if (hadContainer && containingContainer != null)
+            PutInOriginalPlace(uid, replacement, containingContainer);
 
+        if (units > 1)
+            _stackedFood.DistributeUnits(replacement, units);
+    }
+
+    private void PutInOriginalPlace(EntityUid original, EntityUid replacement, BaseContainer containingContainer)
+    {
         var hadStorageLocation = _storage.TryGetStorageLocation(
-            uid,
+            original,
             out var storageContainer,
             out var storage,
             out var storageLocation);
 
-        _container.Remove(uid, containingContainer, force: true);
-    
+        _container.Remove(original, containingContainer, force: true);
+
         if (hadStorageLocation &&
             storageContainer != null &&
             storage != null &&
