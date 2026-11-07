@@ -8,10 +8,15 @@
   id: FoodSTTomato
   suffix: Stalker, Food, Ingredient
   components:
+    # ST:OW begin
+    - type: Stack
+      stackType: STOWFoodTomatoStack
+      count: 1
+    # ST:OW end
     - type: STBulkBuyable # ST:OW
       maxQuantity: 10
     - type: STWeight
-      self: 0.25
+      self: 0.15 # ST:OW
     - type: Item
       size: Tiny
       shape:
@@ -74,6 +79,12 @@
   description: A humble delivery vessel for starch.
   suffix: Stalker, Food, Ingredient
   components:
+  # ST:OW begin
+  - type: Craftable
+  - type: Stack
+    stackType: STOWFoodPotatoStack
+    count: 1
+  # ST:OW end
   - type: STBulkBuyable # ST:OW
     maxQuantity: 10
   - type: FlavorProfile
@@ -89,7 +100,7 @@
         - ReagentId: Vitamin
           Quantity: 2
   - type: STWeight
-    self: 0.25
+    self: 0.2 # ST:OW
   - type: Item
     size: Tiny
     shape:
@@ -115,10 +126,15 @@
   id: FoodSTCarrot
   suffix: Stalker, Food, Ingredient
   components:
+    # ST:OW begin
+    - type: Stack
+      stackType: STOWFoodCarrotStack
+      count: 1
+    # ST:OW end
     - type: STBulkBuyable # ST:OW
       maxQuantity: 10
     - type: STWeight
-      self: 0.25
+      self: 0.1 # ST:OW
     - type: Item
       size: Tiny
       shape:
@@ -157,10 +173,15 @@
   id: FoodSTCabbage
   suffix: Stalker, Food, Ingredient
   components:
+    # ST:OW begin
+    - type: Stack
+      stackType: STOWFoodCabbageStack
+      count: 1
+    # ST:OW end
     - type: STBulkBuyable # ST:OW
       maxQuantity: 10
     - type: STWeight
-      self: 0.25
+      self: 1 # ST:OW
     - type: Item
       size: Small
       shape:
@@ -196,7 +217,7 @@
   - type: STBulkBuyable # ST:OW
     maxQuantity: 10
   - type: STWeight
-    self: 0.1
+    self: 0.25 # ST:OW
   - type: Item
     size: Tiny
     shape:
@@ -230,10 +251,15 @@
   id: FoodSTOnion
   suffix: Stalker, Food, Ingredient
   components:
+    # ST:OW begin
+    - type: Stack
+      stackType: STOWFoodOnionStack
+      count: 1
+    # ST:OW end
     - type: STBulkBuyable # ST:OW
       maxQuantity: 10
     - type: STWeight
-      self: 0.1
+      self: 0.1 # ST:OW
     - type: Item
       size: Tiny
       shape:
@@ -268,10 +294,15 @@
   id: FoodSTBeet
   suffix: Stalker, Food, Ingredient
   components:
+    # ST:OW begin
+    - type: Stack
+      stackType: STOWFoodBeetStack
+      count: 1
+    # ST:OW end
     - type: STBulkBuyable # ST:OW
       maxQuantity: 10
     - type: STWeight
-      self: 0.1
+      self: 0.2 # ST:OW
     - type: Item
       size: Tiny
       shape:

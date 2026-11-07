@@ -162,6 +162,38 @@ public abstract class SharedRottingSystem : EntitySystem
             rotting.TotalRotTime = total - perishable.RotAfter;
     }
 
+    // ST:OW begin
+    public void InheritRotProgress(EntityUid source, EntityUid target)
+    {
+        if (!TryComp<PerishableComponent>(source, out var sourcePerishable) ||
+            !TryComp<PerishableComponent>(target, out var targetPerishable))
+        {
+            return;
+        }
+
+        if (sourcePerishable.RotAccumulator > targetPerishable.RotAccumulator)
+            targetPerishable.RotAccumulator = sourcePerishable.RotAccumulator;
+
+        if (sourcePerishable.Stage > targetPerishable.Stage)
+        {
+            targetPerishable.Stage = sourcePerishable.Stage;
+            Dirty(target, targetPerishable);
+        }
+
+        if (!TryComp<RottingComponent>(source, out var sourceRotting))
+            return;
+
+        if (!TryComp<RottingComponent>(target, out var targetRotting))
+        {
+            targetRotting = AddComp<RottingComponent>(target);
+            targetRotting.NextRotUpdate = _timing.CurTime + targetRotting.RotUpdateRate;
+        }
+
+        if (sourceRotting.TotalRotTime > targetRotting.TotalRotTime)
+            targetRotting.TotalRotTime = sourceRotting.TotalRotTime;
+    }
+    // ST:OW end
+
     /// <summary>
     /// Return the rot stage, usually from 0 to 2 inclusive.
     /// </summary>
