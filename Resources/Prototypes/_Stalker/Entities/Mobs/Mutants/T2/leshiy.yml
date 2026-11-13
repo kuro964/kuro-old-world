@@ -43,14 +43,21 @@
   - type: SlowOnDamage
     speedModifierThresholds:
       250: 0.7
+  - type: STBrain
+    rangeMin: 10
+    rangeMax: 16
   - type: HTN
     rootTask:
-      task: SimpleRangedHostileCompound
+      task: STSimpleRangedHostileCompound
     blackboard:
       VisionRadius: !type:Single
         20
       AggroVisionRadius: !type:Single
         25
+      STPreferredRangeMin: !type:Single
+        10
+      STPreferredRangeMax: !type:Single
+        16
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 3
   - type: BasicEntityAmmoProvider

@@ -223,7 +223,7 @@
           variation: 0.3
     - type: HTN
       rootTask:
-        task: SimpleRangedHostileCompound
+        task: STSimpleRangedHostileCompound
     - type: Sprite
       layers:
         - map: ["enum.DamageStateVisualLayers.Base"]

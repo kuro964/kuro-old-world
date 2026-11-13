@@ -1,6 +1,8 @@
+using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Server._Stalker_EN.NPC.Anomaly;
 using Content.Server._Stalker_EN.NPC.Doors;
 using Content.Server._Stalker_EN.NPC.Steering;
 using Content.Server.Administration.Managers;
@@ -67,10 +69,12 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
     [Dependency] private readonly SharedMeleeWeaponSystem _melee = default!;
     [Dependency] private readonly SharedMoverController _mover = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly STAnomalyAvoidanceSystem _anomalies = default!;
+    [Dependency] private readonly STChasmAvoidanceSystem _chasms = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedCombatModeSystem _combat = default!;
     [Dependency] private readonly STDoorBasherSystem _doorBasher = default!;
-    [Dependency] private readonly STStuckSmashSystem _stuckSmash = default!;
+    [Dependency] private readonly STStuckSystem _stuck = default!;
 
     private EntityQuery<FixturesComponent> _fixturesQuery;
     private EntityQuery<MovementSpeedModifierComponent> _modifierQuery;
@@ -91,6 +95,11 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
     private bool _pathfinding = true;
 
     public static readonly Vector2[] Directions = new Vector2[InterestDirections];
+
+    private static readonly TimeSpan BeelineInterval = TimeSpan.FromSeconds(0.5);
+    private const int ShortcutNodes = 6;
+
+    public const float MinMoveSpeed = 0.1f;
 
     private readonly HashSet<ICommonSession> _subscribedSessions = new();
 
@@ -348,6 +357,13 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         var offsetRot = -_mover.GetParentGridAngle(mover);
         _modifierQuery.TryGetComponent(uid, out var modifier);
         var moveSpeed = GetSprintSpeed(uid, modifier);
+        if (moveSpeed < MinMoveSpeed)
+        {
+            ResetStuck(steering, xform.Coordinates);
+            SetDirection(uid, mover, steering, Vector2.Zero, false);
+            return;
+        }
+
         var body = _physicsQuery.GetComponent(uid);
         var dangerPoints = steering.DangerPoints;
         dangerPoints.Clear();
@@ -387,6 +403,16 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
 
         Separation(uid, offsetRot, worldPos, agentRadius, layer, mask, body, xform, danger);
 
+        foreach (var (direction, weight) in steering.ExtraInterest)
+        {
+            ApplySeek(interest, offsetRot.RotateVec(direction), weight);
+        }
+
+        foreach (var (direction, weight) in steering.ExtraDanger)
+        {
+            ApplyDanger(danger, offsetRot.RotateVec(direction), weight);
+        }
+
         // Blend last and current tick
         Blend(steering, frameTime, interest, danger);
 
@@ -409,7 +435,13 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
 
         if (desiredDirection != -1)
         {
-            resultDirection = new Angle(desiredDirection * InterestRadians).ToVec();
+            var leftIndex = (desiredDirection + InterestDirections - 1) % InterestDirections;
+            var rightIndex = (desiredDirection + 1) % InterestDirections;
+            var left = Math.Clamp(steering.Interest[leftIndex] - steering.Danger[leftIndex], 0f, 1f);
+            var right = Math.Clamp(steering.Interest[rightIndex] - steering.Danger[rightIndex], 0f, 1f);
+            var curve = left - 2f * desiredValue + right;
+            var offset = curve < -0.0001f ? Math.Clamp(0.5f * (left - right) / curve, -0.5f, 0.5f) : 0f;
+            resultDirection = new Angle((desiredDirection + offset) * InterestRadians).ToVec();
         }
 
         steering.LastSteerDirection = resultDirection;
@@ -425,6 +457,52 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         return new EntityCoordinates(poly.GraphUid, poly.Box.Center);
     }
 
+    private bool TryBeeline(EntityUid uid, NPCSteeringComponent steering)
+    {
+        var targetPoly = _pathfindingSystem.GetPoly(steering.Coordinates);
+        if (targetPoly == null ||
+            steering.ForcePath ||
+            !TryComp<PhysicsComponent>(uid, out var physics))
+        {
+            return false;
+        }
+
+        var bodyRadius = BodyRadius(uid, steering);
+        var walkMask = (CollisionGroup) physics.CollisionMask;
+        var here = _transform.GetMapCoordinates(uid);
+        var direct = steering.Coordinates.Position.Equals(Vector2.Zero)
+            ? CanBeeline(uid, steering.Coordinates.EntityId, bodyRadius, walkMask)
+            : CanWalk(uid, here, _transform.ToMapCoordinates(steering.Coordinates), bodyRadius, walkMask);
+
+        if (!direct ||
+            _anomalies.LineHazard(uid, steering.Coordinates) ||
+            _chasms.LineCrosses(uid, steering.Coordinates, bodyRadius))
+        {
+            var ahead = Math.Min(steering.CurrentPath.Count - 1, ShortcutNodes);
+            for (var skip = ahead; skip >= 1; skip--)
+            {
+                var node = GetCoordinates(steering.CurrentPath.ElementAt(skip));
+                if (!CanWalk(uid, here, _transform.ToMapCoordinates(node), bodyRadius, walkMask) ||
+                    _anomalies.LineHazard(uid, node) ||
+                    _chasms.LineCrosses(uid, node, bodyRadius))
+                {
+                    continue;
+                }
+
+                for (var i = 0; i < skip; i++)
+                    steering.CurrentPath.Dequeue();
+
+                break;
+            }
+
+            return false;
+        }
+
+        steering.CurrentPath.Clear();
+        steering.CurrentPath.Enqueue(targetPoly);
+        return true;
+    }
+
     /// <summary>
     /// Get a new job from the pathfindingsystem
     /// </summary>
@@ -436,23 +514,14 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
             return;
 
         // Short-circuit with no path.
-        var targetPoly = _pathfindingSystem.GetPoly(steering.Coordinates);
-
         // If this still causes issues future sloth adjust the collision mask.
         // Thanks past sloth I already realised.
-        if (targetPoly != null &&
-            steering.Coordinates.Position.Equals(Vector2.Zero) &&
-            !steering.ForcePath &&
-            TryComp<PhysicsComponent>(uid, out var physics) &&
-            CanBeeline(uid, steering.Coordinates.EntityId, steering.Radius, (CollisionGroup) physics.CollisionMask))
-        {
-            steering.CurrentPath.Clear();
-            steering.CurrentPath.Enqueue(targetPoly);
+        if (TryBeeline(uid, steering))
             return;
-        }
 
         steering.ForcePath = false;
-        steering.PathfindToken = new CancellationTokenSource();
+        var token = new CancellationTokenSource();
+        steering.PathfindToken = token;
 
         var flags = _pathfindingSystem.GetFlags(uid);
 
@@ -461,9 +530,12 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
             xform.Coordinates,
             steering.Coordinates,
             steering.Range,
-            steering.PathfindToken.Token,
+            token.Token,
             flags,
             GetAvoidTiles(uid));
+
+        if (token.IsCancellationRequested)
+            return;
 
         steering.PathfindToken = null;
 
@@ -489,11 +561,50 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
 
     private void AvoidNextTile(EntityUid uid, NPCSteeringComponent steering)
     {
-        if (steering.CurrentPath.Count <= 1 || !steering.CurrentPath.TryPeek(out var next))
+        var next = steering.CurrentPath.Count > 1 && steering.CurrentPath.TryPeek(out var node) ? node : PolyAhead(uid, steering);
+        if (next == null)
             return;
 
         var avoid = EnsureComp<STNPCAvoidTilesComponent>(uid);
         avoid.Tiles[(next.GraphUid, next.ChunkOrigin, next.TileIndex)] = _timing.CurTime + avoid.AvoidTime;
+    }
+
+    private PathPoly? PolyAhead(EntityUid uid, NPCSteeringComponent steering)
+    {
+        var from = _transform.GetMapCoordinates(uid);
+        var to = _transform.ToMapCoordinates(steering.Coordinates);
+        var dir = to.Position - from.Position;
+        if (from.MapId != to.MapId || dir.LengthSquared() < 0.01f)
+            return null;
+
+        var ahead = from.Offset(Vector2.Normalize(dir) * (BodyRadius(uid, steering) + 0.5f));
+        var poly = _pathfindingSystem.GetPoly(_transform.ToCoordinates(Transform(uid).ParentUid, ahead));
+        return poly == null || poly.Equals(_pathfindingSystem.GetPoly(steering.Coordinates)) ? null : poly;
+    }
+
+    public void Unstick(EntityUid uid, NPCSteeringComponent steering)
+    {
+        AvoidNextTile(uid, steering);
+        steering.ForcePath = true;
+        steering.CurrentPath.Clear();
+    }
+
+    public float BodyRadius(EntityUid uid, NPCSteeringComponent? steering = null)
+    {
+        var radius = steering?.Radius ?? 0f;
+        if (!TryComp<FixturesComponent>(uid, out var fixtures))
+            return radius;
+
+        foreach (var fixture in fixtures.Fixtures.Values)
+        {
+            if (!fixture.Hard)
+                continue;
+
+            var bounds = fixture.Shape.ComputeAABB(new Transform(Vector2.Zero, 0f), 0);
+            radius = MathF.Max(radius, MathF.Max(bounds.Width, bounds.Height) / 2f);
+        }
+
+        return radius;
     }
 
     private HashSet<(EntityUid Graph, Vector2i Chunk, byte Tile)>? GetAvoidTiles(EntityUid uid)
@@ -520,16 +631,22 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
         if (!_interaction.InRangeUnobstructed(uid, target, range: 30f, mask))
             return false;
 
-        var from = _transform.GetMapCoordinates(uid);
-        var to = _transform.GetMapCoordinates(target);
-        var dir = to.Position - from.Position;
+        return SidesClear(_transform.GetMapCoordinates(uid), _transform.GetMapCoordinates(target), radius, mask, ent => ent == uid || ent == target);
+    }
 
+    public bool CanWalk(EntityUid uid, MapCoordinates from, MapCoordinates to, float radius, CollisionGroup mask)
+    {
+        SharedInteractionSystem.Ignored ignore = ent => ent == uid;
+        return _interaction.InRangeUnobstructed(from, to, 0f, mask, ignore) && SidesClear(from, to, radius, mask, ignore);
+    }
+
+    private bool SidesClear(MapCoordinates from, MapCoordinates to, float radius, CollisionGroup mask, SharedInteractionSystem.Ignored ignore)
+    {
+        var dir = to.Position - from.Position;
         if (dir.LengthSquared() < 0.0001f)
             return true;
 
         var side = new Vector2(-dir.Y, dir.X).Normalized() * radius;
-        SharedInteractionSystem.Ignored ignore = ent => ent == uid || ent == target;
-
         return _interaction.InRangeUnobstructed(from.Offset(side), to.Offset(side), 0f, mask, ignore) &&
                _interaction.InRangeUnobstructed(from.Offset(-side), to.Offset(-side), 0f, mask, ignore);
     }

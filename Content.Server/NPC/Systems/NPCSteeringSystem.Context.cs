@@ -33,6 +33,19 @@ public sealed partial class NPCSteeringSystem
         }
     }
 
+    private void ApplyDanger(Span<float> danger, Vector2 direction, float weight)
+    {
+        if (weight <= 0f || direction == Vector2.Zero)
+            return;
+
+        var norm = direction.Normalized();
+
+        for (var i = 0; i < InterestDirections; i++)
+        {
+            danger[i] = MathF.Max(Vector2.Dot(norm, Directions[i]) * weight, danger[i]);
+        }
+    }
+
     #region Seek
 
     /// <summary>
@@ -290,7 +303,7 @@ public sealed partial class NPCSteeringSystem
                 // and I don't want to spam grafana even harder than it gets spammed rn.
                 Log.Debug($"NPC {ToPrettyString(uid)} found stuck at {ourCoordinates}");
 
-                if ((steering.Flags & PathFlags.Smashing) != 0x0 && _stuckSmash.TrySmashWhenStuck(uid, steering))
+                if ((steering.Flags & PathFlags.Smashing) != 0x0 && _stuck.TrySmashWhenStuck(uid, steering))
                 {
                     ResetStuck(steering, ourCoordinates);
                     return true;
@@ -332,7 +345,13 @@ public sealed partial class NPCSteeringSystem
         if (steering is { Pathfind: true, CurrentPath.Count: 0 })
             return true;
 
-        if (moveSpeed == 0f || direction == Vector2.Zero)
+        if (moveSpeed == 0f)
+        {
+            ResetStuck(steering, ourCoordinates);
+            return false;
+        }
+
+        if (direction == Vector2.Zero)
         {
             steering.Status = SteeringStatus.NoPath;
             return false;
@@ -388,6 +407,15 @@ public sealed partial class NPCSteeringSystem
                 lastDistance > steering.RepathRange)
             {
                 needsPath = true;
+            }
+
+            if (!needsPath &&
+                _timing.CurTime >= steering.NextBeeline &&
+                (steering.CurrentPath.Count > 1 || _pathfindingSystem.GetPoly(steering.Coordinates) is { } goalPoly && steering.CurrentPath.Peek() != goalPoly))
+            {
+                steering.NextBeeline = _timing.CurTime + BeelineInterval;
+                if (TryBeeline(uid, steering))
+                    return;
             }
         }
 

@@ -5,6 +5,10 @@
   id: MobStalkerZombieMeleeBase
   description: A poor person who has lost his mind to the Zone...
   components:
+  - type: STAwareness
+    hearingFactor: 1.5
+  - type: STAlertGroup
+    group: Zombie
   - type: HTN
     rootTask:
       task: STSimpleHostileCompound

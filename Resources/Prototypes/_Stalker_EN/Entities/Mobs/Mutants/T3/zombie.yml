@@ -72,6 +72,28 @@
     angleDecay: 50
     availableModes:
       - SemiAuto     
+  - type: STBrain
+    kind: Rusher
+  - type: HTN
+    rootTask:
+      task: STMonolith
+    blackboard:
+      VisionRadius: !type:Single
+        25
+      AggroVisionRadius: !type:Single
+        30
+      NavInteract: !type:Bool
+        true
+      NavPry: !type:Bool
+        true
+      STPreferredRangeMin: !type:Single
+        0
+      STPreferredRangeMax: !type:Single
+        1.5
+      STRush: !type:Bool
+        true
+      ShootDelay: !type:Single
+        1.2
 
 - type: entity
   name: Zombified
@@ -230,6 +252,28 @@
     angleDecay: 50
     availableModes:
       - SemiAuto    
+  - type: STBrain
+    kind: Rusher
+  - type: HTN
+    rootTask:
+      task: STMonolith
+    blackboard:
+      VisionRadius: !type:Single
+        25
+      AggroVisionRadius: !type:Single
+        30
+      NavInteract: !type:Bool
+        true
+      NavPry: !type:Bool
+        true
+      STPreferredRangeMin: !type:Single
+        0
+      STPreferredRangeMax: !type:Single
+        1.5
+      STRush: !type:Bool
+        true
+      ShootDelay: !type:Single
+        1.2
 
 - type: entity
   name: Zombified

@@ -1,0 +1,103 @@
+- type: entity
+  id: MobStalkerGuardPatrolMixin
+  abstract: true
+  components:
+  - type: HTN
+    rootTask:
+      task: STMonolith
+    blackboard:
+      VisionRadius: !type:Single
+        25
+      AggroVisionRadius: !type:Single
+        30
+      NavInteract: !type:Bool
+        true
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 2.5
+
+- type: entity
+  id: MobStalkerGuardSentryMixin
+  abstract: true
+  components:
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 0.0000000000000001
+    baseSprintSpeed: 0.0000000000000001
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobBanditSecurityLow ]
+  id: MobBanditPatrolLow
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobBanditSecurityTop ]
+  id: MobBanditPatrolTop
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobClearSkySecurityLow ]
+  id: MobClearSkyPatrolLow
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobClearSkySecurityTop ]
+  id: MobClearSkyPatrolTop
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobDutySecurityLow ]
+  id: MobDutyPatrolLow
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobDutySecurityTop ]
+  id: MobDutyPatrolTop
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobFreedomSecurityLow ]
+  id: MobFreedomPatrolLow
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobFreedomSecurityTop ]
+  id: MobFreedomPatrolTop
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobNeutralSecurity ]
+  id: MobNeutralPatrol
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobStalkerGuard ]
+  id: MobStalkerGuardPatrol
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobVoenstalSecurityTop ]
+  id: MobVoenstalPatrolTop
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobStalkerMilitaryGuard ]
+  id: MobStalkerMilitaryPatrol
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobEcologistGuard ]
+  id: MobEcologistPatrol
+  suffix: Ecologist, Т6, NPC, Patrol
+
+- type: entity
+  parent: [ MobStalkerGuardPatrolMixin, MobRenegatGuard ]
+  id: MobRenegatPatrol
+  suffix: Stalker, Т6, NPC, Patrol
+
+- type: entity
+  parent: [ MobStalkerGuardSentryMixin, MobMonolithGuardPatroolMarlyaAKS ]
+  id: MobMonolithGuardSentryMarlyaAKS
+
+- type: entity
+  parent: [ MobStalkerGuardSentryMixin, MobMonolithGuardPatroolGas1L85 ]
+  id: MobMonolithGuardSentryGas1L85
+
+- type: entity
+  parent: [ MobStalkerGuardSentryMixin, MobMonolithGuardPatroolBalaLR300 ]
+  id: MobMonolithGuardSentryBalaLR300
+
+- type: entity
+  parent: [ MobStalkerGuardSentryMixin, MobMonolithGuardPatroolSevaAbakan ]
+  id: MobMonolithGuardSentrySevaAbakan
+
+- type: entity
+  parent: [ MobStalkerGuardSentryMixin, MobHostileGuardPatrool ]
+  id: MobHostileGuardSentry

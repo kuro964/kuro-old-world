@@ -5,6 +5,9 @@
   suffix: ST, Boss
   description: Гиганский мутировавший олень
   components:
+    - type: STBrain
+      rangeMin: 8
+      rangeMax: 14
     - type: Butcherable
       spawned:
         - id: CraftHide
@@ -105,7 +108,7 @@
       self: 50
     - type: HTN
       rootTask:
-        task: SimpleRangedHostileCompound
+        task: STSimpleRangedHostileCompound
     - type: RechargeBasicEntityAmmo
       rechargeCooldown: 5
     - type: Gun

@@ -17,6 +17,9 @@ public sealed partial class NPCMeleeCombatComponent : Component
 
     [ViewVariables]
     public CombatStatus Status = CombatStatus.Normal;
+
+    [ViewVariables]
+    public float LostRange = 14f;
 }
 
 public enum CombatStatus : byte

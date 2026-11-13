@@ -27,6 +27,8 @@ public sealed partial class NPCCombatSystem : EntitySystem
     [Dependency] private readonly SharedMeleeWeaponSystem _melee = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly STFriendlyFireSystem _friendlyFire = default!;
+    [Dependency] private readonly STShotLineSystem _shotLine = default!;
+    [Dependency] private readonly STFireGateSystem _fireGate = default!;
 
     /// <summary>
     /// If disabled we'll move into range but not attack.

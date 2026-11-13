@@ -9,6 +9,7 @@
       permanent: true
       implantAction: STActivateSeraSuicideEvent
     - type: TriggerOnActivateImplant
+    - type: STNpcBombCondition
     - type: TriggerOnMobstateChange
       mobState:
       - Dead  

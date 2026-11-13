@@ -42,6 +42,7 @@
           layer:
             - MobLayer
     - type: Jumpscare
+      recoveryTime: 1
       chargeDamage:
         types:
           Blunt: 12

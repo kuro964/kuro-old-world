@@ -5,6 +5,17 @@
   suffix: ST, T2
   description: A mutated wolf that can cause a lot of trouble to an unprepared stalker.
   components:
+    - type: STBrain
+      kind: Pack
+      maxBiters: 2
+      targetQuery: STMeleeAliveTargets
+      downedQuery: STMeleeCritTargets
+      barkSound:
+        collection: STBlindDogBark
+    - type: STAlertGroup
+      group: Canine
+      sound:
+        path: /Audio/_Stalker/Mutants/pdog_threaten_1.ogg
     - type: Damageable
       damageModifierSet: STMutantT2DamageModifierSet
     - type: HTN

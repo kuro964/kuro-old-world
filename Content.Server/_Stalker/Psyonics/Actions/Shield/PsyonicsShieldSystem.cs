@@ -1,3 +1,4 @@
+using Content.Server._Stalker.NPCs;
 using Content.Shared._Stalker.Psyonics;
 using Content.Shared._Stalker.Psyonics.Actions;
 using Content.Shared._Stalker.Psyonics.Actions.Shield;
@@ -15,7 +16,14 @@ public sealed class PsyonicsShieldSystem : BasePsyonicsActionSystem<PsyonicsActi
     {
         base.Initialize();
         SubscribeLocalEvent<PsyonicsActionShieldComponent, DamageModifyEvent>(OnDamageModified);
+        SubscribeLocalEvent<PsyonicsActionShieldComponent, NPCUseActionAttemptEvent>(OnNPCUseActionAttempt);
     }
+
+    private void OnNPCUseActionAttempt(Entity<PsyonicsActionShieldComponent> ent, ref NPCUseActionAttemptEvent args)
+    {
+        args.Cancelled |= ent.Comp.IsActive;
+    }
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);

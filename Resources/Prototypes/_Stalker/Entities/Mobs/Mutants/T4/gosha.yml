@@ -6,6 +6,14 @@
   suffix: ST, T4
   components:
     # AI
+    - type: STBrain
+      kind: Pack
+      skirmish: true
+      eatsFood: true
+      ringRadius: 6
+      barkSound:
+        path: /Audio/_Stalker/Mutated/Gosha/gosha_roar.ogg
+      barkDelay: 5
     - type: HTN
       rootTask:
         task: STGoshaCompound

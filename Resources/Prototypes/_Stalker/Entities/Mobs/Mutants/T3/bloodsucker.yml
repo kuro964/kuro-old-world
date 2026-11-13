@@ -5,6 +5,20 @@
   suffix: ST, T3
   description: A humanoid mutant with abilities beyond the biological capabilities of earthly species.
   components:
+    - type: STReveal
+    - type: STBrain
+      kind: Pack
+      stalk: true
+      skirmish: true
+      ringRadius: 8
+      stalkTime: 10
+      biteTime: 4
+      restTime: 5
+    - type: STAwareness
+      memoryTime: 20
+      trackTime: 15
+      pursueTime: 15
+    - type: STDrag
     - type: HTN
       rootTask:
         task: STBloodsuckerCompound
@@ -12,7 +26,7 @@
         VisionRadius: !type:Single
           25
         AggroVisionRadius: !type:Single
-          30
+          35
         NavInteract: !type:Bool
           true
         NavPry: !type:Bool

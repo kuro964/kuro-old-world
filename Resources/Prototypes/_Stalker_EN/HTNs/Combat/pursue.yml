@@ -7,11 +7,12 @@
     tasks:
     - !type:HTNPrimitiveTask
       operator: !type:MoveToOperator
-        pathfindInPlanning: false
+        pathfindInPlanning: true
         removeKeyOnFinish: false
         targetKey: STLastKnownCoordinates
         pathfindKey: STLastKnownPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:SetBoolOperator
         targetKey: STReachedLastKnown

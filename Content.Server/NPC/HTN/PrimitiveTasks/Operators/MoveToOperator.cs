@@ -6,6 +6,7 @@ using Content.Server.NPC.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Timing;
 
 namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
 
@@ -15,9 +16,12 @@ namespace Content.Server.NPC.HTN.PrimitiveTasks.Operators;
 public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdown
 {
     [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
     private NPCSteeringSystem _steering = default!;
     private PathfindingSystem _pathfind = default!;
     private SharedTransformSystem _transform = default!;
+
+    private const float StalePathRange = 1.5f;
 
     /// <summary>
     /// When to shut the task down.
@@ -61,7 +65,16 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
     [DataField("stopOnLineOfSight")]
     public bool StopOnLineOfSight;
 
+    [DataField]
+    public bool AllowPartial;
+
     private const string MovementCancelToken = "MovementCancelToken";
+
+    private const string PartialTargetKey = "MovementPartialTarget";
+
+    private const string PartialHoldKey = "MovementPartialHold";
+
+    private static readonly TimeSpan PartialHold = TimeSpan.FromSeconds(1.5);
 
     public override void Initialize(IEntitySystemManager sysManager)
     {
@@ -118,6 +131,20 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
             cancelToken,
             _pathfind.GetFlags(blackboard));
 
+        if (AllowPartial && path.Result == PathResult.NoPath)
+            path = await _pathfind.GetPartialPath(owner, xform.Coordinates, targetCoordinates, range, cancelToken, _pathfind.GetFlags(blackboard));
+
+        if (path.Result == PathResult.PartialPath && path.Path.Count > 0)
+        {
+            var closest = path.Path[^1];
+            return (true, new Dictionary<string, object>()
+            {
+                {NPCBlackboard.OwnerCoordinates, targetCoordinates},
+                {PathfindKey, path},
+                {PartialTargetKey, new EntityCoordinates(closest.GraphUid, closest.Box.Center)}
+            });
+        }
+
         if (path.Result != PathResult.Path)
         {
             return (false, null);
@@ -139,8 +166,18 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
 
         // Need to remove the planning value for execution.
         blackboard.Remove<EntityCoordinates>(NPCBlackboard.OwnerCoordinates);
-        var targetCoordinates = blackboard.GetValue<EntityCoordinates>(TargetKey);
+        var partial = blackboard.TryGetValue<EntityCoordinates>(PartialTargetKey, out var partialTarget, _entManager);
+        var targetCoordinates = partial ? partialTarget : blackboard.GetValue<EntityCoordinates>(TargetKey);
+        blackboard.Remove<EntityCoordinates>(PartialTargetKey);
+        blackboard.Remove<TimeSpan>(PartialHoldKey);
         var uid = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
+        if (partial)
+        {
+            var settled = _entManager.TryGetComponent<NPCSteeringComponent>(uid, out var current) &&
+                          current.Status == SteeringStatus.InRange &&
+                          current.Coordinates.Equals(targetCoordinates);
+            blackboard.SetValue(PartialHoldKey, settled ? TimeSpan.Zero : TimeSpan.MaxValue);
+        }
 
         // Re-use the path we may have if applicable.
         var comp = _steering.Register(uid, targetCoordinates);
@@ -151,15 +188,21 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
             comp.Range = range;
         }
 
-        if (blackboard.TryGetValue<PathResultEvent>(PathfindKey, out var result, _entManager))
+        if (blackboard.TryGetValue<PathResultEvent>(PathfindKey, out var result, _entManager) &&
+            result.Path.Count > 0 &&
+            _entManager.EntityExists(targetCoordinates.EntityId) &&
+            _entManager.EntityExists(result.Path[0].GraphUid))
         {
-            if (blackboard.TryGetValue<EntityCoordinates>(NPCBlackboard.OwnerCoordinates, out var coordinates, _entManager))
-            {
-                var mapCoords = _transform.ToMapCoordinates(coordinates);
-                _steering.PrunePath(uid, mapCoords, _transform.ToMapCoordinates(targetCoordinates).Position - mapCoords.Position, result.Path);
-            }
+            var mapCoords = _transform.GetMapCoordinates(uid);
+            _steering.PrunePath(uid, mapCoords, _transform.ToMapCoordinates(targetCoordinates).Position - mapCoords.Position, result.Path);
 
-            comp.CurrentPath = new Queue<PathPoly>(result.Path);
+            if (result.Path.Count > 0 &&
+                result.Path[0] is var next &&
+                next.IsValid() &&
+                _transform.GetWorldMatrix(next.GraphUid).TransformBox(next.Box.Enlarged(StalePathRange)).Contains(mapCoords.Position))
+            {
+                comp.CurrentPath = new Queue<PathPoly>(result.Path);
+            }
         }
     }
 
@@ -169,6 +212,25 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
 
         if (!_entManager.TryGetComponent<NPCSteeringComponent>(owner, out var steering))
             return HTNOperatorStatus.Failed;
+
+        if (blackboard.TryGetValue<TimeSpan>(PartialHoldKey, out var holdUntil, _entManager))
+        {
+            switch (steering.Status)
+            {
+                case SteeringStatus.NoPath:
+                    return HTNOperatorStatus.Failed;
+                case SteeringStatus.Moving:
+                    return HTNOperatorStatus.Continuing;
+            }
+
+            if (holdUntil == TimeSpan.MaxValue)
+            {
+                blackboard.SetValue(PartialHoldKey, _timing.CurTime + PartialHold);
+                return HTNOperatorStatus.Continuing;
+            }
+
+            return _timing.CurTime < holdUntil ? HTNOperatorStatus.Continuing : HTNOperatorStatus.Finished;
+        }
 
         // Just keep moving in the background and let the other tasks handle it.
         if (ShutdownState == HTNPlanState.PlanFinished && steering.Status == SteeringStatus.Moving)
@@ -196,6 +258,7 @@ public sealed partial class MoveToOperator : HTNOperator, IHtnConditionalShutdow
 
         // OwnerCoordinates is only used in planning so dump it.
         blackboard.Remove<PathResultEvent>(PathfindKey);
+        blackboard.Remove<TimeSpan>(PartialHoldKey);
 
         if (RemoveKeyOnFinish)
         {

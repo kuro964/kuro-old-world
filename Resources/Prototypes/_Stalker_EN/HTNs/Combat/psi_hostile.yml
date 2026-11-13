@@ -3,25 +3,7 @@
   branches:
     - tasks:
         - !type:HTNPrimitiveTask
-          operator: !type:UnPullOperator
-          preconditions:
-            - !type:PulledPrecondition
-              isPulled: true
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STPsiMeleeCombatCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STPursueLastKnownCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STSearchAreaCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: FollowCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: IdleCompound
+          operator: !type:STBrainOperator
 
 - type: htnCompound
   id: STPsiMeleeCombatCompound
@@ -45,6 +27,7 @@
             targetKey: TargetCoordinates
             pathfindKey: TargetPathfind
             rangeKey: MeleeRange
+            allowPartial: true
         - !type:HTNPrimitiveTask
           operator: !type:MeleeOperator
             targetKey: Target

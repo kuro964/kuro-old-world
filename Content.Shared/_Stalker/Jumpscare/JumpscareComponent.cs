@@ -19,6 +19,9 @@ namespace Content.Shared._Stalker.Jumpscare
         [DataField, ViewVariables(VVAccess.ReadWrite)]
         public float JumpPower = 14f;
 
+        [DataField, ViewVariables(VVAccess.ReadWrite)]
+        public bool Away;
+
         [DataField(required: true), ViewVariables(VVAccess.ReadWrite)]
         public DamageSpecifier ChargeDamage = default!;
 
@@ -27,7 +30,9 @@ namespace Content.Shared._Stalker.Jumpscare
         [AutoPausedField]
         public TimeSpan? EndTime = TimeSpan.FromSeconds(0f);
 
+        [DataField, ViewVariables(VVAccess.ReadWrite)]
         public float ReloadTime = 6f;
+        [DataField, ViewVariables(VVAccess.ReadWrite)]
         public float RandomiseReloadTime = 2f;
 
         [AutoPausedField]
@@ -62,10 +67,10 @@ namespace Content.Shared._Stalker.Jumpscare
         [ViewVariables(VVAccess.ReadWrite)]
         public int CurrentStep = 0;
 
-        [ViewVariables(VVAccess.ReadWrite)]
+        [DataField, ViewVariables(VVAccess.ReadWrite)]
         public int TotalSteps = 3;
 
-        [ViewVariables(VVAccess.ReadWrite)]
+        [DataField, ViewVariables(VVAccess.ReadWrite)]
         public float StepInterval = 0.025f;
 
         [AutoPausedField]
@@ -73,5 +78,23 @@ namespace Content.Shared._Stalker.Jumpscare
 
         [ViewVariables(VVAccess.ReadWrite)]
         public bool MovingToJumpTarget = false;
+
+        [DataField]
+        public float HitRange;
+
+        [DataField]
+        public TimeSpan HitKnockdown;
+
+        [DataField]
+        public float HitThrow;
+
+        [DataField]
+        public TimeSpan RecoveryTime;
+
+        [DataField]
+        public Robust.Shared.Audio.SoundSpecifier? WindupSound;
+
+        [ViewVariables]
+        public EntityUid? LungeTarget;
     }
 }

@@ -5,9 +5,26 @@
   suffix: ST, T3
   description: A mangy sort of bear, its eyes are milky white and number in three.
   components:
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 2
+  - type: BasicEntityAmmoProvider
+    proto: STBulletPsy
+    capacity: 1
+    count: 1
+  - type: Gun
+    fireRate: 0.5
+    useKey: false
+    selectedMode: FullAuto
+    availableModes:
+      - FullAuto
+    soundGunshot: /Audio/_Stalker/Mutants/controller_shot.ogg
+  - type: STBrain
+    rangeMin: 6
+    rangeMax: 12
+    chargeWhenShielded: true
   - type: HTN
     rootTask:
-      task: SimpleRangedHostileCompound
+      task: STSimpleRangedHostileCompound
     blackboard:
       VisionRadius: !type:Single
         15
@@ -85,19 +102,24 @@
     damage: 15
   - type: NPCUseAction
     actionId: ActionPsyonicsShieldMutant
+    maxRange: 25
+    requireLineOfSight: false
+    interval: 8
+    jitter: 2
   - type: Psyonics
     psy: 1000000
   - type: PsyonicsActionShield
     cost: 0
     periodSeconds: 3
     health: 200
+    maxHealth: 200
     actionId: ActionPsyonicsShieldMutant
   - type: PsyonicsShieldVisuals
     sprite: _Stalker/Effects/psyonic_shield.rsi
     state: Standing
   - type: MovementSpeedModifier
     baseWalkSpeed: 2.7
-    baseSprintSpeed: 3.5
+    baseSprintSpeed: 4
   - type: SlowOnDamage
     speedModifierThresholds:
       500: 1.5 # its funny sorry

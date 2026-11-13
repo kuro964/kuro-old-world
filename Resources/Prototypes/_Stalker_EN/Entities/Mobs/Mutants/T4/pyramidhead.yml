@@ -6,6 +6,10 @@
   suffix: ST, T4, SH
   description: Red Pyramid Thing.
   components:
+  - type: STAwareness
+    memoryTime: 30
+    trackTime: 20
+    pursueTime: 30
   - type: Sprite
     layers:
       - map: [ "enum.DamageStateVisualLayers.Base", "movement" ]

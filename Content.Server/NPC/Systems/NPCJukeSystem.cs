@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Server._Stalker_EN.NPC.Steering;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.Events;
 using Content.Server.NPC.HTN.PrimitiveTasks.Operators.Combat;
@@ -22,6 +23,7 @@ public sealed class NPCJukeSystem : EntitySystem
     [Dependency] private readonly MeleeWeaponSystem _melee = default!;
     [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly STChasmAvoidanceSystem _chasm = default!;
 
     private EntityQuery<NPCMeleeCombatComponent> _npcMeleeQuery;
     private EntityQuery<NPCRangedCombatComponent> _npcRangedQuery;
@@ -74,6 +76,9 @@ public sealed class NPCJukeSystem : EntitySystem
                 {
                     var index = (startIndex + i) % 8;
                     var neighbor = ((Direction)index).ToIntVec() + currentTile;
+                    if (_chasm.IsChasm(args.Transform.GridUid.Value, currentTile - ((Direction)index).ToIntVec()))
+                        continue;
+
                     var valid = true;
 
                     // TODO: Probably make this a helper on engine maybe

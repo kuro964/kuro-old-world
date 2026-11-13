@@ -62,7 +62,7 @@ public sealed class ProjectileSystem : SharedProjectileSystem
         }
         var deleted = Deleted(target);
 
-        if (_damageableSystem.TryChangeDamage((target, damageableComponent), ev.Damage, out var damage, component.IgnoreResistances, damageTier: component.ProjectileClass) && Exists(component.Shooter)) // stalker-en-changes : damageTier
+        if (_damageableSystem.TryChangeDamage((target, damageableComponent), ev.Damage, out var damage, component.IgnoreResistances, origin: Exists(component.Shooter) ? component.Shooter : null, damageTier: component.ProjectileClass) && Exists(component.Shooter)) // stalker-en-changes : damageTier
         {
             if (!deleted)
             {

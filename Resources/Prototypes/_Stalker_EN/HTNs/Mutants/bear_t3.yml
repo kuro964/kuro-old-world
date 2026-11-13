@@ -1,23 +1,9 @@
 - type: htnCompound
   id: STBearT3Compound
   branches:
-  - tasks:
-    - !type:HTNCompoundTask
-      task: STBearT3MeleeCombatAliveCompound
-  - tasks:
-    - !type:HTNCompoundTask
-      task: STBearT3MeleeCombatCritCompound
-  - tasks:
-    - !type:HTNCompoundTask
-      task: STPursueLastKnownCompound
-  - tasks:
-    - !type:HTNCompoundTask
-      task: STSearchAreaCompound
-  - tasks:
-    - !type:HTNCompoundTask
-      task: STBearT3RoarRestoreCompound
-    - !type:HTNCompoundTask
-      task: IdleCompound
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:STBrainOperator
 
 - type: htnCompound
   id: STBearT3RoarRestoreCompound
@@ -65,6 +51,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
         jukeType: AdjacentTile
@@ -79,6 +66,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
         jukeType: AdjacentTile
@@ -124,6 +112,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
         jukeType: AdjacentTile
@@ -138,6 +127,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
         jukeType: AdjacentTile
@@ -183,6 +173,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
         jukeType: AdjacentTile
@@ -197,6 +188,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
         jukeType: AdjacentTile

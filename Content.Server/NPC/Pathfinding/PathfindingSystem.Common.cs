@@ -15,7 +15,11 @@ public sealed partial class PathfindingSystem
     /// <summary>
     /// Maximum amount of nodes we're allowed to expand.
     /// </summary>
-    private const int NodeLimit = 512;
+    private const int NodeLimit = 2048;
+
+    private const float NarrowPortalCost = 15f;
+
+    private const float PortalSlop = 0.01f;
 
     private sealed class PathComparer : IComparer<ValueTuple<float, PathPoly>>
     {
@@ -55,6 +59,15 @@ public sealed partial class PathfindingSystem
         if (request.Avoid != null && request.Avoid.Contains((end.GraphUid, end.ChunkOrigin, end.TileIndex)))
             return 0f;
 
+        if (request.ExtraCost != null)
+        {
+            var extra = request.ExtraCost(start, end);
+            if (float.IsPositiveInfinity(extra))
+                return 0f;
+
+            modifier += extra;
+        }
+
         if ((request.CollisionLayer & end.Data.CollisionMask) != 0x0 ||
             (request.CollisionMask & end.Data.CollisionLayer) != 0x0)
         {
@@ -87,7 +100,21 @@ public sealed partial class PathfindingSystem
             }
         }
 
-        return modifier * OctileDistance(end, start);
+        var cost = modifier * OctileDistance(end, start);
+
+        if (request.Clearance > 0f && PortalWidth(start, end) < request.Clearance)
+            cost += NarrowPortalCost;
+
+        return cost;
+    }
+
+    private static float PortalWidth(PathPoly a, PathPoly b)
+    {
+        if (a.GraphUid != b.GraphUid)
+            return float.MaxValue;
+
+        var shared = a.Box.Enlarged(PortalSlop).Intersect(b.Box.Enlarged(PortalSlop));
+        return MathF.Max(shared.Width, shared.Height) - PortalSlop * 2f;
     }
 
     #region Simplifier

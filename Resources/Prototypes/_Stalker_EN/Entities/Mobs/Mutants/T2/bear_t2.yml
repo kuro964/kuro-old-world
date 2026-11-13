@@ -5,6 +5,29 @@
   suffix: ST, T2
   description: Bears are a normal sight in the wilds, but it's hard to say what effect radiation has had on the ones living in the Zone.
   components:
+  - type: Jumpscare
+    attackRadius: 6
+    jumpDistance: 4
+    jumpPower: 9
+    reloadTime: 8
+    preparingReloadTime: 0.6
+    recoveryTime: 1.2
+    hitRange: 1.9
+    hitThrow: 2
+    windupSound:
+      path: /Audio/Animals/bear.ogg
+    chargeDamage:
+      types:
+        Blunt: 20
+  - type: STBrain
+    kind: Pack
+    maxBiters: 2
+    biteTime: 6
+    restTime: 2
+    ringRadius: 3
+    barkDelay: 0.6
+    barkSound:
+      path: /Audio/Animals/bear.ogg
   - type: HTN
     rootTask:
       task: STBearCompound
@@ -75,7 +98,7 @@
     damage: 10
   - type: MovementSpeedModifier
     baseWalkSpeed: 2.4
-    baseSprintSpeed: 3.2
+    baseSprintSpeed: 4
   - type: SlowOnDamage
     speedModifierThresholds:
       375: 0.6

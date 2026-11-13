@@ -2,22 +2,8 @@
   id: STCatCompound
   branches:
     - tasks:
-      - !type:HTNCompoundTask
-        task: STCatMeleeCombatAliveCompound
-    - tasks:
-      - !type:HTNCompoundTask
-        task: STCatMeleeCombatCritCompound
-    - tasks:
-      - !type:HTNCompoundTask
-        task: STPursueLastKnownCompound
-    - tasks:
-      - !type:HTNCompoundTask
-        task: STSearchAreaCompound
-    - tasks:
-      - !type:HTNCompoundTask
-        task: STCatRoarRestoreCompound
-      - !type:HTNCompoundTask
-        task: IdleCompound
+        - !type:HTNPrimitiveTask
+          operator: !type:STBrainOperator
 
 - type: htnCompound
   id: STCatRoarRestoreCompound
@@ -54,6 +40,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: RangedRange
+        allowPartial: true
 
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
@@ -82,6 +69,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: RangedRange
+        allowPartial: true
 
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
@@ -110,6 +98,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: RangedRange
+        allowPartial: true
 
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
@@ -160,6 +149,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
         jukeType: AdjacentTile
@@ -206,6 +196,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
         jukeType: AdjacentTile
@@ -252,6 +243,7 @@
         targetKey: TargetCoordinates
         pathfindKey: TargetPathfind
         rangeKey: MeleeRange
+        allowPartial: true
     - !type:HTNPrimitiveTask
       operator: !type:JukeOperator
         jukeType: AdjacentTile

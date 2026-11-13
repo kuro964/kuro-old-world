@@ -5,6 +5,16 @@
   suffix: ST, T3
   description: C какой-то стороны удачный эксперимент учёных по добавлению пси способностей монстрам
   components:
+  - type: STThrallMaster
+    groups:
+    - Zombie
+    - Canine
+  - type: STAlertGroup
+    group: Controller
+    radius: 15
+    alsoAlerts:
+    - Zombie
+    - Canine
   - type: Damageable
     damageModifierSet: STMutantT3DamageModifierSet
   - type: Sprite
@@ -32,14 +42,29 @@
       types:
         Psy: 10
         Slash: 10
+  - type: STPulse
+    range: 4
+    windup: 0
+    cooldown: 2
+    holdStill: false
+    damage:
+      types:
+        Psy: 6
+  - type: STBrain
+    rangeMin: 14
+    rangeMax: 20
   - type: HTN
     rootTask:
-      task: SimpleRangedHostileCompound
+      task: STSimpleRangedHostileCompound
     blackboard:
       VisionRadius: !type:Single
         20
       AggroVisionRadius: !type:Single
         25
+      STPreferredRangeMin: !type:Single
+        14
+      STPreferredRangeMax: !type:Single
+        20
       NavInteract: !type:Bool
         true
   - type: Tag
@@ -48,8 +73,14 @@
       - STMaterialOrganic
       - FootstepSound
       - DoorBumpOpener
-  - type: NPCUseActionOnTarget
+  - type: NPCUseAction
     actionId: ActionPsyonicsDizzyMutant
+    maxRange: 18
+    interval: 12
+    jitter: 3
+    windUp: 0.6
+    windUpSound:
+      path: /Audio/_Stalker/Mutants/controller_dizzy_sound.ogg
   - type: Psyonics
     psy: 1000000
   - type: PsyonicsActionDizzy

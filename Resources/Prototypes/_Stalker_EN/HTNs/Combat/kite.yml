@@ -1,0 +1,7 @@
+- type: htnCompound
+  id: STSimpleRangedHostileCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:STBrainOperator
+

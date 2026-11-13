@@ -32,6 +32,14 @@
       types:
         Slash: 15
         Blunt: 5
+  - type: STTelekinesis
+  - type: STPulse
+    range: 3
+    windup: 0.6
+    cooldown: 10
+    knockback: 3.5
+    popup: st-burer-blast
+    doing: gathering a blast
   - type: HTN
     rootTask:
       task: STBurerHostileCompound # ST:OW
@@ -40,6 +48,10 @@
         20
       AggroVisionRadius: !type:Single
         25
+      STPreferredRangeMin: !type:Single
+        6
+      STPreferredRangeMax: !type:Single
+        10
       NavInteract: !type:Bool
         true
   - type: Tag
@@ -50,12 +62,17 @@
       - DoorBumpOpener
   - type: NPCUseAction
     actionId: ActionPsyonicsShieldMutant
+    maxRange: 25
+    requireLineOfSight: false
+    interval: 8
+    jitter: 2
   - type: Psyonics
     psy: 1000000
   - type: PsyonicsActionShield
     cost: 0
     periodSeconds: 5
     health: 250
+    maxHealth: 250
     actionId: ActionPsyonicsShieldMutant
   - type: PsyonicsShieldVisuals
     sprite: _Stalker/Effects/psyonic_shield.rsi

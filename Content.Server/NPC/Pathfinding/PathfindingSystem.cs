@@ -3,11 +3,14 @@ using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Content.Server._Stalker_EN.NPC.Pathfinding;
+using Content.Server._Stalker_EN.NPC.Steering;
 using Content.Server.Administration.Managers;
 using Content.Server.Destructible;
 using Content.Server.NPC.Systems;
 using Content.Shared.Access.Components;
 using Content.Shared.Administration;
+using Content.Shared.Chasm;
 using Content.Shared.Climbing.Components;
 using Content.Shared.Doors.Components;
 using Content.Shared.NPC;
@@ -16,6 +19,7 @@ using Robust.Shared.Enums;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
@@ -52,6 +56,7 @@ namespace Content.Server.NPC.Pathfinding
         [Dependency] private readonly SharedMapSystem _maps = default!;
         [Dependency] private readonly SharedPhysicsSystem _physics = default!;
         [Dependency] private readonly SharedTransformSystem _transform = default!;
+        [Dependency] private readonly STChasmAvoidanceSystem _chasms = default!;
 
         private readonly Dictionary<ICommonSession, PathfindingDebugMode> _subscribedSessions = new();
 
@@ -72,7 +77,9 @@ namespace Content.Server.NPC.Pathfinding
         private EntityQuery<DestructibleComponent> _destructibleQuery;
         private EntityQuery<DoorComponent> _doorQuery;
         private EntityQuery<ClimbableComponent> _climbableQuery;
+        private EntityQuery<ChasmComponent> _chasmQuery;
         private EntityQuery<FixturesComponent> _fixturesQuery;
+        private EntityQuery<PhysicsComponent> _physicsQuery;
         private EntityQuery<MapGridComponent> _gridQuery;
         private EntityQuery<TransformComponent> _xformQuery;
 
@@ -84,7 +91,9 @@ namespace Content.Server.NPC.Pathfinding
             _destructibleQuery = GetEntityQuery<DestructibleComponent>();
             _doorQuery = GetEntityQuery<DoorComponent>();
             _climbableQuery = GetEntityQuery<ClimbableComponent>();
+            _chasmQuery = GetEntityQuery<ChasmComponent>();
             _fixturesQuery = GetEntityQuery<FixturesComponent>();
+            _physicsQuery = GetEntityQuery<PhysicsComponent>();
             _gridQuery = GetEntityQuery<MapGridComponent>();
             _xformQuery = GetEntityQuery<TransformComponent>();
 
@@ -269,13 +278,18 @@ namespace Content.Server.NPC.Pathfinding
 
             var layer = 0;
             var mask = 0;
+            var clearance = 0f;
 
             if (TryComp<FixturesComponent>(entity, out var fixtures))
             {
                 (layer, mask) = _physics.GetHardCollision(entity, fixtures);
+                clearance = GetClearance(fixtures);
             }
 
-            var request = new BFSPathRequest(maxRange, limit, start.Coordinates, flags, layer, mask, cancelToken);
+            var ev = new STPathCostEvent(null);
+            RaiseLocalEvent(entity, ref ev);
+
+            var request = new BFSPathRequest(maxRange, limit, start.Coordinates, flags, layer, mask, cancelToken) { Clearance = clearance, ExtraCost = ev.Cost };
             var path = await GetPath(request);
 
             if (path.Result != PathResult.Path)
@@ -343,6 +357,17 @@ namespace Content.Server.NPC.Pathfinding
         {
             var request = GetRequest(entity, start, end, range, cancelToken, flags);
             return await GetPath(request);
+        }
+
+        public async Task<PathResultEvent> GetPartialPath(
+            EntityUid entity,
+            EntityCoordinates start,
+            EntityCoordinates end,
+            float range,
+            CancellationToken cancelToken,
+            PathFlags flags = PathFlags.None)
+        {
+            return await GetPath(GetRequest(entity, start, end, range, cancelToken, flags, true));
         }
 
         /// <summary>
@@ -427,17 +452,41 @@ namespace Content.Server.NPC.Pathfinding
             return null;
         }
 
-        private PathRequest GetRequest(EntityUid entity, EntityCoordinates start, EntityCoordinates end, float range, CancellationToken cancelToken, PathFlags flags)
+        private PathRequest GetRequest(EntityUid entity, EntityCoordinates start, EntityCoordinates end, float range, CancellationToken cancelToken, PathFlags flags, bool partial = false)
         {
             var layer = 0;
             var mask = 0;
 
+            var clearance = 0f;
+
             if (TryComp<FixturesComponent>(entity, out var fixtures))
             {
                 (layer, mask) = _physics.GetHardCollision(entity, fixtures);
+                clearance = GetClearance(fixtures);
             }
 
-            return new AStarPathRequest(start, end, flags, range, layer, mask, cancelToken);
+            var ev = new STPathCostEvent(partial ? null : end);
+            RaiseLocalEvent(entity, ref ev);
+
+            return new AStarPathRequest(start, end, flags, range, layer, mask, cancelToken) { Clearance = clearance, ExtraCost = ev.Cost, Partial = partial };
+        }
+
+        private const float MaxClearance = 0.95f;
+
+        private static float GetClearance(FixturesComponent fixtures)
+        {
+            Box2? bounds = null;
+
+            foreach (var fixture in fixtures.Fixtures.Values)
+            {
+                if (!fixture.Hard)
+                    continue;
+
+                var aabb = fixture.Shape.ComputeAABB(new Transform(Vector2.Zero, 0f), 0);
+                bounds = bounds?.Union(aabb) ?? aabb;
+            }
+
+            return bounds is { } b ? MathF.Min(MathF.Min(b.Width, b.Height), MaxClearance) : 0f;
         }
 
         public PathFlags GetFlags(EntityUid uid)

@@ -33,10 +33,31 @@
         20
       AggroVisionRadius: !type:Single
         25
+  - type: STBrain
+    roots:
+    - STGoshaCompound
+    - STMonolith
+    - STSimpleHostileCompound
+    - STSimpleRangedHostileCompound
+    - STBurerHostileCompound
+    - STChimeraHostileCompound
+    - STBearCompound
+    - STBearT3Compound
+    - STCatCompound
+    - STPsidogCompound
+    - STPsiHostileCompound
+    - STBloodsuckerCompound
+    - STAmbushHostileCompound
+    - STBlindDogRedCompound
+    - STBlindDogSmallCompound
+    - STBlindDogTallCompound
+    - STBlindDogWhiteCompound
   - type: STAwareness
     managedRoots:
+    - STGoshaCompound
     - STSimpleHostileCompound
     - SimpleRangedHostileCompound
+    - STSimpleRangedHostileCompound
     - STMonolith
     - STBlindDogRedCompound
     - STBlindDogSmallCompound
@@ -54,6 +75,7 @@
     - STAmbushHostileCompound
     - GoliathCompound
   - type: STDoorBasher
+  - type: STAnomalyAvoidance
   - type: NpcFactionMember
     factions:
       - Mutated
@@ -229,11 +251,40 @@
         Acidic: [Touch, Ingestion]
     - type: InputMover
     - type: MobMover
+    - type: STBrain
+      roots:
+      - STGoshaCompound
+      - STMonolith
+      - STSimpleHostileCompound
+      - STSimpleRangedHostileCompound
+      - STBurerHostileCompound
+      - STChimeraHostileCompound
+      - STBearCompound
+      - STBearT3Compound
+      - STCatCompound
+      - STPsidogCompound
+      - STPsiHostileCompound
+      - STBloodsuckerCompound
+      - STAmbushHostileCompound
+      - STBlindDogRedCompound
     - type: STAwareness
       managedRoots:
+      - STGoshaCompound
       - STPsidogCompound
       - STBlindDogRedCompound
+      - STSimpleHostileCompound
+      - STSimpleRangedHostileCompound
+      - STBurerHostileCompound
+      - STChimeraHostileCompound
+      - STBearCompound
+      - STBearT3Compound
+      - STCatCompound
+      - STPsiHostileCompound
+      - STBloodsuckerCompound
+      - STAmbushHostileCompound
+      - STMonolith
     - type: STDoorBasher
+    - type: STAnomalyAvoidance
     - type: NpcFactionMember
       factions:
         - Mutated

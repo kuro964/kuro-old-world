@@ -6,6 +6,16 @@
   suffix: ST, T3, SH
   description: A fleshy creature, looks like patches of skin grafted together into a straight jacket. You're not sure where limbs start and end.
   components:
+  - type: STBrain
+    wanderRange: 0
+  - type: HTN
+    rootTask:
+      task: STAmbushHostileCompound
+    blackboard:
+      VisionRadius: !type:Single
+        3
+      AggroVisionRadius: !type:Single
+        15
   - type: Sprite
     layers:
       - map: [ "enum.DamageStateVisualLayers.Base", "movement" ]

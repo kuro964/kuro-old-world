@@ -13,16 +13,17 @@ public sealed partial class PathfindingSystem
             return PathResult.Path;
         }
 
-        if (request.Task.IsCanceled)
+        if (request.Task.IsCanceled || request.CancelToken.IsCancellationRequested)
         {
             return PathResult.NoPath;
         }
 
         // TODO: Need partial planning that uses best node.
         PathPoly? currentNode = null;
+        var firstRun = !request.Started;
 
         // First run
-        if (!request.Started)
+        if (firstRun)
         {
             request.Frontier = new PriorityQueue<(float, PathPoly)>(PathPolyComparer);
             request.Started = true;
@@ -62,12 +63,16 @@ public sealed partial class PathfindingSystem
         }
 
         currentNode = startNode;
-        request.Frontier.Add((0.0f, startNode));
-        request.CostSoFar[startNode] = 0.0f;
+        if (firstRun)
+        {
+            request.Frontier.Add((0.0f, startNode));
+            request.CostSoFar[startNode] = 0.0f;
+        }
+
         var count = 0;
         var arrived = false;
 
-        while (request.Frontier.Count > 0 && count < NodeLimit)
+        while (request.Frontier.Count > 0 && request.Expanded < NodeLimit)
         {
             // Handle whether we need to pause if we've taken too long
             if (count % 20 == 0 && count > 0 && request.Stopwatch.Elapsed > PathTime)
@@ -78,9 +83,20 @@ public sealed partial class PathfindingSystem
             }
 
             count++;
+            request.Expanded++;
 
             // Actual pathfinding here
             (_, currentNode) = request.Frontier.Take();
+
+            if (request.Partial)
+            {
+                var remaining = OctileDistance(endNode, currentNode);
+                if (remaining < request.ClosestDistance)
+                {
+                    request.ClosestDistance = remaining;
+                    request.Closest = currentNode;
+                }
+            }
 
             // If we're inside the required distance OR we're at the end node.
             if ((request.Distance > 0f &&
@@ -126,7 +142,10 @@ public sealed partial class PathfindingSystem
 
         if (!arrived)
         {
-            return PathResult.NoPath;
+            if (!request.Partial || request.Closest == null)
+                return PathResult.NoPath;
+
+            currentNode = request.Closest;
         }
 
         var route = ReconstructPath(request.CameFrom, currentNode);
@@ -145,6 +164,6 @@ public sealed partial class PathfindingSystem
 
         DebugTools.Assert(route.Count > 0);
         request.Polys = route;
-        return PathResult.Path;
+        return arrived ? PathResult.Path : PathResult.PartialPath;
     }
 }

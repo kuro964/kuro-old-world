@@ -1,6 +1,10 @@
+using Content.Server._Stalker_EN.NPC.Brain;
+using System.Numerics;
+using Content.Server._Stalker_EN.NPC.Combat;
 using Content.Server.NPC.Components;
 using Content.Shared.CombatMode;
 using Content.Shared.Interaction;
+using Content.Shared.Movement.Components;
 using Content.Shared.Physics;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
@@ -19,6 +23,7 @@ public sealed partial class NPCCombatSystem
     private EntityQuery<RechargeBasicEntityAmmoComponent> _rechargeQuery;
     private EntityQuery<PhysicsComponent> _physicsQuery;
     private EntityQuery<TransformComponent> _xformQuery;
+    private readonly HashSet<EntityUid> _aiming = new();
 
     // TODO: Don't predict for hitscan
     private const float ShootSpeed = 20f;
@@ -52,8 +57,27 @@ public sealed partial class NPCCombatSystem
         }
     }
 
+    private void SetAiming(EntityUid uid, bool aiming)
+    {
+        if (aiming)
+        {
+            if (!HasComp<NoRotateOnMoveComponent>(uid))
+            {
+                AddComp<NoRotateOnMoveComponent>(uid);
+                _aiming.Add(uid);
+            }
+
+            return;
+        }
+
+        if (_aiming.Remove(uid))
+            RemComp<NoRotateOnMoveComponent>(uid);
+    }
+
     private void OnRangedShutdown(EntityUid uid, NPCRangedCombatComponent component, ComponentShutdown args)
     {
+        SetAiming(uid, false);
+
         if (TryComp<CombatModeComponent>(uid, out var combat))
         {
             _combat.SetInCombatMode(uid, false, combat);
@@ -69,7 +93,7 @@ public sealed partial class NPCCombatSystem
             if (comp.Status == CombatStatus.Unspecified)
                 continue;
 
-            if (_steeringQuery.TryGetComponent(uid, out var steering) && steering.Status == SteeringStatus.NoPath)
+            if (_steeringQuery.TryGetComponent(uid, out var steering) && steering.Status == SteeringStatus.NoPath && !HasComp<STBrainComponent>(uid))
             {
                 comp.Status = CombatStatus.TargetUnreachable;
                 comp.ShootAccumulator = 0f;
@@ -135,9 +159,13 @@ public sealed partial class NPCCombatSystem
                 comp.LOSAccumulator += UnoccludedCooldown;
 
                 // For consistency with NPC steering.
-                var collisionGroup = comp.UseOpaqueForLOSChecks ? CollisionGroup.Opaque : (CollisionGroup.Impassable | CollisionGroup.InteractImpassable);
-                comp.TargetInLOS = _interaction.InRangeUnobstructed(uid, comp.Target, distance + 0.1f, collisionGroup);
+                comp.TargetInLOS = (comp.UseOpaqueForLOSChecks
+                                       ? _interaction.InRangeUnobstructed(uid, comp.Target, distance + 0.1f, CollisionGroup.Opaque)
+                                       : _shotLine.Unobstructed(uid, new MapCoordinates(worldPos, xform.MapID), new MapCoordinates(targetPos, xform.MapID), comp.Target)) &&
+                                   _shotLine.Check(uid, comp.Target) != STShotLine.Blocked;
             }
+
+            SetAiming(uid, comp.TargetInLOS);
 
             if (!comp.TargetInLOS)
             {
@@ -164,8 +192,10 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-            var mapVelocity = targetBody.LinearVelocity;
-            var targetSpot = targetPos + mapVelocity * distance / ShootSpeed;
+            var targetSpot = targetPos + targetBody.LinearVelocity * distance / (gun.ProjectileSpeedModified > 0f ? gun.ProjectileSpeedModified : ShootSpeed);
+            var muzzle = new MapCoordinates(worldPos, xform.MapID);
+            if (!_shotLine.TryAim(uid, muzzle, ref targetSpot, comp.Target))
+                continue;
 
             // If we have a max rotation speed then do that.
             var goalRotation = (targetSpot - worldPos).ToWorldAngle();
@@ -184,7 +214,11 @@ public sealed partial class NPCCombatSystem
 
             // TODO: Check if we can face
 
-            if (!Enabled || !_gun.CanShoot(gun) || _friendlyFire.IsAllyInLine(uid, comp.Target, gun.CurrentAngle))
+            var aim = targetSpot - worldPos;
+            var aimLength = aim.Length();
+            var aimDir = aimLength > 0.01f ? aim / aimLength : Vector2.Zero;
+
+            if (!Enabled || !_gun.CanShoot(gun) || !_fireGate.Allows(uid, gun, muzzle, targetSpot, distance, comp.Target))
                 continue;
 
             EntityCoordinates targetCordinates;
@@ -202,7 +236,7 @@ public sealed partial class NPCCombatSystem
 
             if (gun.NextFire > _timing.CurTime)
             {
-                return;
+                continue;
             }
 
             _gun.AttemptShoot(uid, gunUid, gun, targetCordinates, comp.Target);

@@ -21,6 +21,10 @@ public abstract class PathRequest
 
     public bool Started = false;
 
+    public readonly CancellationToken CancelToken;
+
+    public int Expanded;
+
     #region Pathfinding state
 
     public readonly Stopwatch Stopwatch = new();
@@ -38,6 +42,10 @@ public abstract class PathRequest
 
     public HashSet<(EntityUid Graph, Vector2i Chunk, byte Tile)>? Avoid;
 
+    public float Clearance;
+
+    public Func<PathPoly, PathPoly, float>? ExtraCost;
+
     #endregion
 
     public PathRequest(EntityCoordinates start, PathFlags flags, int layer, int mask, CancellationToken cancelToken)
@@ -46,7 +54,8 @@ public abstract class PathRequest
         Flags = flags;
         CollisionLayer = layer;
         CollisionMask = mask;
-        Tcs = new TaskCompletionSource<PathResult>(cancelToken);
+        CancelToken = cancelToken;
+        Tcs = new TaskCompletionSource<PathResult>();
     }
 }
 
@@ -58,6 +67,12 @@ public sealed class AStarPathRequest : PathRequest
     /// How close we need to be to the end node to be considered as arrived.
     /// </summary>
     public float Distance;
+
+    public bool Partial;
+
+    public PathPoly? Closest;
+
+    public float ClosestDistance = float.MaxValue;
 
     public AStarPathRequest(
         EntityCoordinates start,

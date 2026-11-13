@@ -43,8 +43,11 @@
         6
       AggroVisionRadius: !type:Single
         10
-  - type: NPCUseActionOnTarget
+  - type: NPCUseAction
     actionId: STActionGoliathTentacle
+    maxRange: 10
+    interval: 8
+    jitter: 2
   - type: Tag
     tags:
     - CannotSuicide

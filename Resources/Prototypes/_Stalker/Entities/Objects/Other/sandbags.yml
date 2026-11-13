@@ -16,6 +16,7 @@
         - TableMask
         layer:
         - MachineLayer
+  - type: STLowCover
   - type: Sprite
     sprite: _Stalker/Structures/sandbags.rsi
   - type: Icon

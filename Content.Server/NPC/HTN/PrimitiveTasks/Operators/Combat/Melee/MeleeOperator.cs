@@ -40,6 +40,7 @@ public sealed partial class MeleeOperator : HTNOperator, IHtnConditionalShutdown
         var melee = _entManager.EnsureComponent<NPCMeleeCombatComponent>(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
         melee.MissChance = blackboard.GetValueOrDefault<float>(NPCBlackboard.MeleeMissChance, _entManager);
         melee.Target = blackboard.GetValue<EntityUid>(TargetKey);
+        melee.LostRange = MathF.Max(melee.LostRange, blackboard.GetValueOrDefault<float>(blackboard.GetVisionRadiusKey(_entManager), _entManager) + 1f);
     }
 
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard,

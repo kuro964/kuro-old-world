@@ -5,6 +5,23 @@
   id: MobMonolithGuardPatroolBase
   abstract: true
   components:
+  - type: STBark
+    enemy:
+      collection: MonolithEnemy
+    attack:
+      collection: MonolithAttack
+    cover:
+      collection: MonolithCover
+    grenade:
+      collection: MonolithGrenade
+    backup:
+      collection: MonolithBackup
+    kill:
+      collection: MonolithLaugh
+    death:
+      collection: MonolithDeath
+  - type: STBrain
+    grenades: true
   - type: HTN
     rootTask:
       task: STMonolith

@@ -5,6 +5,14 @@
   id: MobMutantPoltergeistFire
   suffix: ST, T2, fire
   components:
+  - type: STBrain
+    rangeMin: 10
+    rangeMax: 16
+  - type: STTelekinesis
+    orbit: false
+    disarm: false
+    throwCooldown: 8
+    throwWindup: 1
   - type: Damageable
     damageModifierSet: STMutantAnomImmuneT2DamageModifierSet
   - type: Butcherable
@@ -40,12 +48,16 @@
           path: /Audio/Magic/ethereal_exit.ogg
   - type: HTN
     rootTask:
-      task: SimpleRangedHostileCompound
+      task: STSimpleRangedHostileCompound
     blackboard:
       VisionRadius: !type:Single
         20
       AggroVisionRadius: !type:Single
         25
+      STPreferredRangeMin: !type:Single
+        10
+      STPreferredRangeMax: !type:Single
+        16
   - type: MovementSpeedModifier
     baseWalkSpeed: 4
     baseSprintSpeed: 5.5
@@ -77,12 +89,13 @@
   - type: Jumpscare
     # damageRadius: 1 # Stalker-TODO: This field does not exist!
     # reloadTime: 3 # Stalker-TODO: This field exists in component but is not a datafield!
-    attackRadius: 12
+    attackRadius: 5
+    away: true
     chargeDamage:
       types:
         Shock: 10
-    jumpPower: 90
-    updateCooldown: 1
+    jumpPower: 14
+    updateCooldown: 0.25
   - type: Fixtures
     fixtures:
       fix1:

@@ -1,0 +1,12 @@
+st-npc-grenade-warning = Grenade!
+st-burer-lifts = { CAPITALIZE(THE($item)) } lifts off the ground!
+st-burer-orbit = Guns rise into the air around it!
+st-bloodsucker-drags = It drags you away!
+st-psidog-splits = Its outline shimmers and splits!
+st-burer-disarm = Something tugs at your weapon!
+st-burer-blast = The air tightens around it!
+st-bayun-scream = It draws breath to scream!
+st-controller-aura = Your head splits with pain!
+st-giant-stomp = It rears up!
+st-thrall-slumps = It sags, its master gone.
+st-thrall-linked = Its head snaps toward you!

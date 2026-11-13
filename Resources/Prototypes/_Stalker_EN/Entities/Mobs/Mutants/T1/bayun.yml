@@ -5,6 +5,21 @@
   suffix: ST, T1
   description: A cat with some psionic abilities. They're often found napping in piles of trash.
   components:
+    - type: STPulse
+      range: 4
+      windup: 0.5
+      cooldown: 12
+      stun: 1.5
+      popup: st-bayun-scream
+      doing: screaming
+      sound:
+        collection: CatAttack
+    - type: STBrain
+      kind: Pack
+      skirmish: true
+      ringRadius: 5
+      barkSound:
+        collection: CatAttack
     - type: HTN
       rootTask:
         task: STCatCompound

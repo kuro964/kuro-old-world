@@ -8,6 +8,7 @@ using Robust.Shared.Collections;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
+using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -237,6 +238,9 @@ public sealed partial class PathfindingSystem
 
     private void OnCollisionChange(ref CollisionChangeEvent ev)
     {
+        if (_fixturesQuery.TryGetComponent(ev.BodyUid, out var fixtures) && !IsBodyRelevant(fixtures))
+            return;
+
         var xform = Transform(ev.BodyUid);
 
         if (xform.GridUid == null)
@@ -249,6 +253,13 @@ public sealed partial class PathfindingSystem
 
     private void OnCollisionLayerChange(ref CollisionLayerChangeEvent ev)
     {
+        if (MetaData(ev.Body.Owner).EntityLifeStage < EntityLifeStage.Initialized &&
+            _fixturesQuery.TryGetComponent(ev.Body.Owner, out var fixtures) &&
+            !IsBodyRelevant(fixtures))
+        {
+            return;
+        }
+
         var xform = Transform(ev.Body);
 
         if (xform.GridUid == null)
@@ -278,17 +289,14 @@ public sealed partial class PathfindingSystem
         }
 
         var gridUid = ev.Component.GridUid;
-        var oldGridUid = ev.OldPosition.EntityId == ev.NewPosition.EntityId
-            ? gridUid
-            : _transform.GetGrid((ev.Entity.Owner, ev.Component));
 
-        if (oldGridUid != null && oldGridUid != gridUid)
+        if (ev.ParentChanged && _gridQuery.HasComponent(ev.OldPosition.EntityId))
         {
             var aabb = _lookup.GetAABBNoContainer(ev.Sender, ev.OldPosition.Position, ev.OldRotation);
-            DirtyChunkArea(oldGridUid.Value, aabb);
+            DirtyChunkArea(ev.OldPosition.EntityId, aabb);
         }
 
-        if (gridUid != null)
+        if (gridUid != null && ev.NewPosition.EntityId == gridUid)
         {
             var aabb = _lookup.GetAABBNoContainer(ev.Sender, ev.NewPosition.Position, ev.NewRotation);
             DirtyChunkArea(gridUid.Value, aabb);
@@ -297,17 +305,16 @@ public sealed partial class PathfindingSystem
 
     private void OnGridInit(GridInitializeEvent ev)
     {
-        EnsureComp<GridPathfindingComponent>(ev.EntityUid);
+        var comp = EnsureComp<GridPathfindingComponent>(ev.EntityUid);
 
         // Pathfinder refactor
         var mapGrid = Comp<MapGridComponent>(ev.EntityUid);
+        var tiles = _maps.GetAllTilesEnumerator(ev.EntityUid, mapGrid);
 
-        for (var x = Math.Floor(mapGrid.LocalAABB.Left); x <= Math.Ceiling(mapGrid.LocalAABB.Right + ChunkSize); x += ChunkSize)
+        while (tiles.MoveNext(out var tile))
         {
-            for (var y = Math.Floor(mapGrid.LocalAABB.Bottom); y <= Math.Ceiling(mapGrid.LocalAABB.Top + ChunkSize); y += ChunkSize)
-            {
-                DirtyChunk(ev.EntityUid, _maps.GridTileToLocal(ev.EntityUid, mapGrid, new Vector2i((int)x, (int)y)));
-            }
+            var indices = tile.Value.GridIndices;
+            comp.DirtyChunks.Add(new Vector2i((int) Math.Floor(indices.X / (float) ChunkSize), (int) Math.Floor(indices.Y / (float) ChunkSize)));
         }
     }
 
@@ -426,7 +433,7 @@ public sealed partial class PathfindingSystem
                 tilePolys.Clear();
 
                 var tile = _maps.GetTileRef(grid.Owner, grid.Comp, tilePos);
-                var flags = tile.Tile.IsEmpty ? PathfindingBreadcrumbFlag.Space : PathfindingBreadcrumbFlag.None;
+                var flags = tile.Tile.IsEmpty || IsChasm(grid, tilePos) ? PathfindingBreadcrumbFlag.Space : PathfindingBreadcrumbFlag.None;
                 // var isBorder = x < 0 || y < 0 || x == ChunkSize - 1 || y == ChunkSize - 1;
 
                 tileEntities.Clear();
@@ -444,7 +451,7 @@ public sealed partial class PathfindingSystem
                     var xform = _xformQuery.GetComponent(ent);
 
                     if (xform.ParentUid != grid.Owner ||
-                        _maps.LocalToTile(grid.Owner, grid.Comp, xform.Coordinates) != tilePos)
+                        !IsStatic(ent, xform) && _maps.LocalToTile(grid.Owner, grid.Comp, xform.Coordinates) != tilePos)
                     {
                         continue;
                     }
@@ -461,9 +468,11 @@ public sealed partial class PathfindingSystem
 
                         // Subtile
                         var localPos = new Vector2(StepOffset + gridOrigin.X + x + (float) subX / SubStep, StepOffset + gridOrigin.Y + y + (float) subY / SubStep);
+                        var cell = Box2.CenteredAround(localPos, new Vector2((StepOffset - CellInset) * 2f));
                         var collisionMask = 0x0;
                         var collisionLayer = 0x0;
                         var damage = 0f;
+                        var walled = false;
 
                         foreach (var ent in tileEntities)
                         {
@@ -471,11 +480,13 @@ public sealed partial class PathfindingSystem
                                 continue;
 
                             var colliding = false;
+                            var door = _doorQuery.HasComponent(ent);
 
                             foreach (var fixture in fixtures.Fixtures.Values)
                             {
                                 // Don't need to re-do it.
                                 if (!fixture.Hard ||
+                                    (door || walled) &&
                                     (collisionMask & fixture.CollisionMask) == fixture.CollisionMask &&
                                     (collisionLayer & fixture.CollisionLayer) == fixture.CollisionLayer)
                                 {
@@ -487,7 +498,7 @@ public sealed partial class PathfindingSystem
 
                                 foreach (var proxy in fixture.Proxies)
                                 {
-                                    if (!proxy.AABB.Contains(localPos))
+                                    if (!proxy.AABB.Intersects(cell))
                                         continue;
 
                                     intersects = true;
@@ -499,7 +510,7 @@ public sealed partial class PathfindingSystem
                                     continue;
                                 }
 
-                                if (!_fixtures.TestPoint(fixture.Shape, new Transform(xform.LocalPosition, xform.LocalRotation), localPos))
+                                if (!TestCell(fixture.Shape, new Transform(xform.LocalPosition, xform.LocalRotation), localPos))
                                 {
                                     continue;
                                 }
@@ -513,12 +524,14 @@ public sealed partial class PathfindingSystem
                             if (!colliding)
                                 continue;
 
+                            walled |= !door;
+
                             if (_accessQuery.HasComponent(ent))
                             {
                                 flags |= PathfindingBreadcrumbFlag.Access;
                             }
 
-                            if (_doorQuery.HasComponent(ent))
+                            if (door)
                             {
                                 flags |= PathfindingBreadcrumbFlag.Door;
                             }
@@ -545,7 +558,7 @@ public sealed partial class PathfindingSystem
                         var crumb = new PathfindingBreadcrumb()
                         {
                             Coordinates = new Vector2i(xOffset, yOffset),
-                            Data = new PathfindingData(flags, collisionLayer, collisionMask, damage),
+                            Data = new PathfindingData(walled ? flags & ~(PathfindingBreadcrumbFlag.Door | PathfindingBreadcrumbFlag.Access) : flags, collisionLayer, collisionMask, damage),
                         };
 
                         points[xOffset, yOffset] = crumb;
@@ -825,5 +838,35 @@ public sealed partial class PathfindingSystem
         DebugTools.Assert((polyB.Data.Flags & PathfindingBreadcrumbFlag.Invalid) == 0x0);
         polyA.Neighbors.Add(polyB);
         polyB.Neighbors.Add(polyA);
+    }
+
+    private const float CellInset = 0.01f;
+
+    private bool IsChasm(Entity<MapGridComponent> grid, Vector2i tile)
+    {
+        var anchored = _maps.GetAnchoredEntitiesEnumerator(grid.Owner, grid.Comp, tile);
+        while (anchored.MoveNext(out var ent))
+        {
+            if (_chasmQuery.HasComponent(ent))
+                return !_chasms.Covered(ent.Value, grid.Owner, grid.Comp, tile);
+        }
+
+        return false;
+    }
+
+    private bool IsStatic(EntityUid uid, TransformComponent xform)
+    {
+        return xform.Anchored || _physicsQuery.TryGetComponent(uid, out var body) && body.BodyType == BodyType.Static;
+    }
+
+    private bool TestCell(IPhysShape shape, Transform transform, Vector2 center)
+    {
+        const float half = StepOffset - CellInset;
+
+        return _fixtures.TestPoint(shape, transform, center) ||
+               _fixtures.TestPoint(shape, transform, center + new Vector2(-half, -half)) ||
+               _fixtures.TestPoint(shape, transform, center + new Vector2(half, -half)) ||
+               _fixtures.TestPoint(shape, transform, center + new Vector2(-half, half)) ||
+               _fixtures.TestPoint(shape, transform, center + new Vector2(half, half));
     }
 }

@@ -1,0 +1,17 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Made for Stalker14 by WeeblyMon",
+    "size": {
+        "x": 10,
+        "y": 16
+    },
+    "states": [
+        {
+            "name": "frame"
+        },
+        {
+            "name": "fill"
+        }
+    ]
+}

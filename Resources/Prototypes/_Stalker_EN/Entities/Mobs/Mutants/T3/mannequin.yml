@@ -80,6 +80,8 @@
     damage: 40
   - type: Puller
     needsHands: false
+  - type: STBrain
+    wanderRange: 0
   - type: HTN
     rootTask:
       task: STAmbushHostileCompound # stand still until a player comes within VisionRadius (or it's damaged), then hunt like a normal mutant

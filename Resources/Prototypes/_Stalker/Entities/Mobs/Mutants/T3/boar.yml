@@ -5,6 +5,19 @@
   suffix: ST, T3
   description: A large and aggressive mutant beast, mutated from a wild boar. A beast weighing three hundred kilos is not your toy!
   components:
+    - type: STBrain
+      kind: Pack
+      maxBiters: 3
+    - type: STAlertGroup
+      group: Boar
+    - type: HTN
+      rootTask:
+        task: STSimpleHostileCompound
+      blackboard:
+        VisionRadius: !type:Single
+          20
+        AggroVisionRadius: !type:Single
+          35
     - type: Damageable
       damageModifierSet: STMutantBoarDamageModifierSet
     - type: Butcherable
@@ -140,11 +153,17 @@
           MutantPartOldBoarHoof: STMutantPartLegendaryOldBoarHoof
     # Stalker-EN end
     - type: Jumpscare
+      preparingReloadTime: 0.6
+      recoveryTime: 1.2
+      hitRange: 1.9
+      hitThrow: 1.5
+      windupSound:
+        path: /Audio/_Stalker/Mutants/boar_aggressive_3.ogg
       chargeDamage:
         types:
           Blunt: 25
-      jumpPower: 2
-      jumpDistance: 4
+      jumpPower: 9
+      jumpDistance: 5
       updateCooldown: 0.25
       #totalSteps: 6 # Stalker-TODO: This field exists in component but is not a datafield!
       #stepInterval: 0.001 # Stalker-TODO: This field exists in component but is not a datafield!

@@ -10,8 +10,6 @@ namespace Content.Server.NPC.Systems;
 
 public sealed partial class NPCCombatSystem
 {
-    private const float TargetMeleeLostRange = 14f;
-
     private void InitializeMelee()
     {
         SubscribeLocalEvent<NPCMeleeCombatComponent, ComponentStartup>(OnMeleeStartup);
@@ -79,7 +77,7 @@ public sealed partial class NPCCombatSystem
             return;
         }
 
-        if (distance > TargetMeleeLostRange)
+        if (distance > component.LostRange)
         {
             component.Status = CombatStatus.TargetUnreachable;
             return;
@@ -93,7 +91,8 @@ public sealed partial class NPCCombatSystem
         }
 
         // TODO: When I get parallel operators move this as NPC combat shouldn't be handling this.
-        _steering.Register(uid, new EntityCoordinates(component.Target, Vector2.Zero), steering);
+        if (!HasComp<Content.Server._Stalker_EN.NPC.Brain.STBrainComponent>(uid))
+            _steering.Register(uid, new EntityCoordinates(component.Target, Vector2.Zero), steering);
 
         if (distance > weapon.Range)
         {

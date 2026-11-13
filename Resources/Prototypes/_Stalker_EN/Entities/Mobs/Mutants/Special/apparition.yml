@@ -5,6 +5,9 @@
   suffix: ST, T0
   description: A mysterious something.
   components:
+  - type: STBrain
+    kind: Pack
+    targetQuery: STNearbyMindedMeleeTargets
   - type: HTN
     rootTask:
       task: STPsiHostileCompound

@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Numerics;
+using Content.Server._Stalker_EN.NPC.Awareness;
 using Content.Server.Administration.Logs;
 using Content.Server.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
@@ -242,6 +243,9 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
         var posFound = _transformSystem.TryGetMapOrGridCoordinates(uid, out var gridPos, pos);
 
         QueueExplosion(mapPos, typeId, totalIntensity, slope, maxTileIntensity, uid, tileBreakScale, maxTileBreak, canCreateVacuum, addLog: false);
+
+        var heard = new STExplosionHeardEvent(mapPos, totalIntensity, user);
+        RaiseLocalEvent(ref heard);
 
         if (!addLog)
             return;

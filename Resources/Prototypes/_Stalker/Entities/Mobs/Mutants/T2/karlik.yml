@@ -47,14 +47,21 @@
       types:
         Slash: 15
         Blunt: 5
+  - type: STBrain
+    rangeMin: 6
+    rangeMax: 10
   - type: HTN
     rootTask:
-      task: SimpleRangedHostileCompound
+      task: STSimpleRangedHostileCompound
     blackboard:
       VisionRadius: !type:Single
         20
       AggroVisionRadius: !type:Single
         25
+      STPreferredRangeMin: !type:Single
+        6
+      STPreferredRangeMax: !type:Single
+        10
       NavInteract: !type:Bool
         true
   - type: Tag

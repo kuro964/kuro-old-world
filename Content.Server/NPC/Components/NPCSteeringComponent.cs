@@ -37,6 +37,12 @@ public sealed partial class NPCSteeringComponent : Component
     // TODO: Update radius, also danger points debug only
     public readonly List<Vector2> DangerPoints = new();
 
+    [ViewVariables]
+    public readonly List<(Vector2 Direction, float Weight)> ExtraInterest = new();
+
+    [ViewVariables]
+    public readonly List<(Vector2 Direction, float Weight)> ExtraDanger = new();
+
     #endregion
 
     /// <summary>
@@ -68,6 +74,9 @@ public sealed partial class NPCSteeringComponent : Component
 
     [ViewVariables]
     public bool ForcePath;
+
+    [ViewVariables]
+    public TimeSpan NextBeeline;
 
     [ViewVariables]
     public bool StuckHandled;

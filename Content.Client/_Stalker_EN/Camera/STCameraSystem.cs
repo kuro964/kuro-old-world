@@ -66,10 +66,17 @@ public sealed class STCameraSystem : SharedSTCameraSystem
         if (doAfterOverlay != null)
             _overlayManager.RemoveOverlay(doAfterOverlay);
 
+        _overlayManager.TryGetOverlay<Content.Client._Stalker_EN.NPC.Awareness.STNoticeMeterOverlay>(out var noticeOverlay);
+        if (noticeOverlay != null)
+            _overlayManager.RemoveOverlay(noticeOverlay);
+
         state.Viewport.Viewport.Screenshot(screenshot =>
         {
             if (doAfterOverlay != null)
                 _overlayManager.AddOverlay(doAfterOverlay);
+
+            if (noticeOverlay != null)
+                _overlayManager.AddOverlay(noticeOverlay);
 
             ProcessScreenshot(screenshot, token, effect);
         });

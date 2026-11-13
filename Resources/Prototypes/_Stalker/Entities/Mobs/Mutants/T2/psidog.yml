@@ -41,7 +41,16 @@
     - type: MovementSpeedModifier
       baseWalkSpeed : 2.6
       baseSprintSpeed : 5.2
-    - type: NPCUseActionOnTarget
+    - type: NPCUseAction
+      actionId: ActionPsyonicsDizzyMutant
+      maxRange: 10
+      interval: 10
+      jitter: 2
+      windUp: 0.6
+      windUpSound:
+        path: /Audio/_Stalker/Mutants/controller_dizzy_sound.ogg
+    - type: PsyonicsActionDizzy
+      cost: 0
       actionId: ActionPsyonicsDizzyMutant
     - type: Psyonics
       psy: 1000000
@@ -85,14 +94,11 @@
             - !type:PlaySoundBehavior
               sound:
                 path: /Audio/_Stalker/Mutants/bdog_die_0.ogg
-    - type: Timer
-    - type: TimedSpawner
-      prototypes:
-        - MutantPsidogCopy
-      chance: 1
-      intervalSeconds: 4
-      minimumEntitiesSpawned: 1
-      maximumEntitiesSpawned: 2
+    - type: STIllusions
+    - type: STBrain
+      kind: Pack
+      hangBack: true
+      ringRadius: 9
     # Stalker-EN start
     - type: STMobVariantConfig
       variants:
@@ -144,6 +150,13 @@
   description: Мутировавший волк, обладающий существенными пси-способностями и способный создавать иллюзии. Редкая и очень опасная тварь.
   suffix: Stalker, Мутант, Копия
   components:
+    - type: STBrain
+      kind: Pack
+      maxBiters: 2
+      targetQuery: STMeleeAliveTargets
+      downedQuery: STMeleeCritTargets
+      barkSound:
+        collection: STBlindDogBark
     - type: HTN
       rootTask:
         task: STBlindDogRedCompound

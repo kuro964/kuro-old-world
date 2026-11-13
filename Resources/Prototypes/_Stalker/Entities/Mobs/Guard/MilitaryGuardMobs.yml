@@ -58,6 +58,8 @@
         Base: dead
       Dead:
         Base: dead
+  - type: STBrain
+    grenades: true
   - type: HTN
     rootTask:
       task: STMonolith
@@ -66,6 +68,19 @@
         30
       AggroVisionRadius: !type:Single
         35
+      STPreferredRangeMin: !type:Single
+        14
+      STPreferredRangeMax: !type:Single
+        25
+  - type: STNpcMagazine
+    capacity: 10
+    reloadTime: 3.5
+    burstMin: 1
+    burstMax: 1
+    burstPauseMin: 0.8
+    burstPauseMax: 2
+    reloadSound:
+      path: /Audio/Weapons/Guns/MagIn/sfrifle_magin.ogg
   - type: PredictedBatterySelfRecharger
     autoRechargeRate: 25
   - type: PredictedBattery

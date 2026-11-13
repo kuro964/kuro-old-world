@@ -4,6 +4,21 @@
   name: база слепого пса
   abstract: true
   components:
+    - type: STAwareness
+      sightFactor: 2
+      hearingFactor: 1.5
+    - type: STBrain
+      kind: Pack
+      maxBiters: 2
+      breakFraction: 0.34
+      targetQuery: STMeleeAliveTargets
+      downedQuery: STMeleeCritTargets
+      barkSound:
+        collection: STBlindDogBark
+    - type: STAlertGroup
+      group: Canine
+      sound:
+        path: /Audio/_Stalker/Mutants/blinddog_roar.ogg
     - type: Damageable
       damageModifierSet: STMutantT1DamageModifierSet
     - type: HTN
@@ -89,9 +104,21 @@
   name: слепой пёс
   description: Мелкий слепой пёс, примесь бультерьера с радиацией.
   components:
+    - type: STBrain
+      barkSound:
+        collection: STBlindDogBark
+        params:
+          pitch: 1.5
     - type: HTN
       rootTask:
         task: STBlindDogSmallCompound
+      blackboard:
+        VisionRadius: !type:Single
+          20
+        AggroVisionRadius: !type:Single
+          25
+        Roared: !type:Bool
+          false
     - type: Butcherable
       spawned:
         - id: MutantPartBlindDogTail
@@ -195,6 +222,11 @@
   name: слепой пёс
   description: Худощавый, высокий слепой пёс с длинными лапами, которые позволяют ему разгоняться до больших скоростей.
   components:
+    - type: STBrain
+      barkSound:
+        collection: STBlindDogBark
+        params:
+          pitch: 1.3
     - type: HTN
       rootTask:
         task: STBlindDogTallCompound
@@ -391,6 +423,11 @@
   name: глава стаи слепой пёс
   description: Белый, огромный слепой пёс, походящий на примесь собаки и белого медведя, — вожак стаи.
   components:
+    - type: STBrain
+      barkSound:
+        collection: STBlindDogBark
+        params:
+          pitch: 0.6
     - type: HTN
       rootTask:
         task: STBlindDogWhiteCompound

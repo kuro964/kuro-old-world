@@ -76,6 +76,9 @@ public sealed partial class GunOperator : HTNOperator, IHtnConditionalShutdown
         {
             ranged.SoundTargetInLOS = losSound;
         }
+
+        if (blackboard.TryGetValue<float>("ShootDelay", out var shootDelay, _entManager))
+            ranged.ShootDelay = shootDelay;
     }
 
     public void ConditionalShutdown(NPCBlackboard blackboard)

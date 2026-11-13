@@ -4,6 +4,11 @@
   suffix: ST, T1
   name: Паук Лапач
   components:
+    - type: STAlertGroup
+      group: Spider
+    - type: STBrain
+      kind: Pack
+      maxBiters: 3
     - type: Damageable
       damageModifierSet: STMutantT1DamageModifierSet
     - type: NoSlip

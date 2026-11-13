@@ -5,6 +5,19 @@
   id: MobStalkerZombieBase
   description:
   components:
+    - type: STAwareness
+      hearingFactor: 1.5
+    - type: STAlertGroup
+      group: Zombie
+    - type: STNpcMagazine
+      capacity: 20
+      reloadTime: 4
+      reloadJitter: 1.5
+      earlyReloadChance: 0
+      burstMin: 4
+      burstMax: 12
+      burstPauseMin: 0.4
+      burstPauseMax: 1.4
     - type: Stamina
       decay: 14
       cooldown: 5
@@ -63,6 +76,8 @@
         Male: MaleHuman
         Female: FemaleHuman
         Unsexed: MaleHuman
+    - type: STBrain
+      kind: Rusher
     - type: HTN
       rootTask:
         task: STMonolith
@@ -75,6 +90,14 @@
           true
         NavPry: !type:Bool
           true
+        STPreferredRangeMin: !type:Single
+          0
+        STPreferredRangeMax: !type:Single
+          1.5
+        STRush: !type:Bool
+          true
+        ShootDelay: !type:Single
+          1.2
     - type: ApproachEmitter # ST14-EN: changed zeroing to be `enabled: false`
       enabled: false
     - type: STWeight

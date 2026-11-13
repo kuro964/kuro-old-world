@@ -5,6 +5,12 @@
   suffix: ST, T1
   description: Злая, голодная, большая крыса.
   components:
+  - type: STAlertGroup
+    group: Rodent
+  - type: STBrain
+    kind: Pack
+    maxBiters: 6
+    breakFraction: 0.34
   - type: Fixtures
     fixtures:
       fix1:

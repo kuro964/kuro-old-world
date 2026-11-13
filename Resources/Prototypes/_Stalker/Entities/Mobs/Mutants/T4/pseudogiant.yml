@@ -5,6 +5,18 @@
   suffix: ST, T4
   description: A massive, terrifying mutant that towers over other creatures in the Zone.
   components:
+    - type: STPulse
+      range: 4
+      windup: 1
+      cooldown: 14
+      knockdown: 2
+      popup: st-giant-stomp
+      doing: rearing up to stomp
+      sound:
+        path: /Audio/_Stalker/Mutants/pseudogiant_aggro.ogg
+      damage:
+        types:
+          Blunt: 20
     - type: HTN
       rootTask:
         task: STSimpleHostileCompound

@@ -3,28 +3,7 @@
   branches:
     - tasks:
         - !type:HTNPrimitiveTask
-          operator: !type:UnPullOperator
-          preconditions:
-            - !type:PulledPrecondition
-              isPulled: true
-    - tasks: # start EN changes
-        - !type:HTNCompoundTask
-          task: STSimpleMeleeCombatAliveCompound
-    - tasks:
-      - !type:HTNCompoundTask
-        task: STSimpleMeleeCombatCritCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STPursueLastKnownCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STSearchAreaCompound
-    - tasks:
-      - !type:HTNCompoundTask
-        task: FollowCompound # end EN changes
-    - tasks:
-        - !type:HTNCompoundTask
-          task: IdleCompound
+          operator: !type:STBrainOperator
 
 - type: htnCompound
   id: STSimpleMeleeCombatCompound
@@ -51,6 +30,7 @@
             targetKey: TargetCoordinates
             pathfindKey: TargetPathfind
             rangeKey: MeleeRange
+            allowPartial: true
         - !type:HTNPrimitiveTask
           operator: !type:MeleeOperator
             targetKey: Target
@@ -128,7 +108,35 @@
       operator: !type:UtilityOperator
         proto: STMeleeCritTargets
     - !type:HTNCompoundTask
-      task: STSimpleMeleeAttackTargetCompound
+      task: STSimpleMeleeAttackCritTargetCompound
+
+- type: htnCompound
+  id: STSimpleMeleeAttackCritTargetCompound
+  branches:
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            shutdownState: PlanFinished
+            pathfindInPlanning: true
+            removeKeyOnFinish: false
+            targetKey: TargetCoordinates
+            pathfindKey: TargetPathfind
+            rangeKey: MeleeRange
+            allowPartial: true
+        - !type:HTNPrimitiveTask
+          operator: !type:MeleeOperator
+            targetKey: Target
+          preconditions:
+            - !type:KeyExistsPrecondition
+              key: Target
+            - !type:TargetInRangePrecondition
+              targetKey: Target
+              rangeKey: MeleeRange
+          services:
+            - !type:UtilityService
+              id: MeleeService
+              proto: STMeleeCritTargets
+              key: Target
 # end EN
 
 # ST:OW begin
@@ -136,51 +144,14 @@
 - type: htnCompound
   id: STBurerHostileCompound
   branches:
-    # Normal ranged attack
     - tasks:
-        - !type:HTNCompoundTask
-          task: InnateRangedCombatCompound
+        - !type:HTNPrimitiveTask
+          operator: !type:STBrainOperator
 
-    # Normal melee attack
-    - tasks:
-        - !type:HTNCompoundTask
-          task: MeleeCombatCompound
-
-    # Finish off critical targets
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STSimpleMeleeCombatCritCompound
-
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STPursueLastKnownCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STSearchAreaCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: IdleCompound
-# Chimera Combat
 - type: htnCompound
   id: STChimeraHostileCompound
   branches:
-    # Normal melee attack
     - tasks:
-        - !type:HTNCompoundTask
-          task: MeleeCombatCompound
+        - !type:HTNPrimitiveTask
+          operator: !type:STBrainOperator
 
-    # Finish off critical targets
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STSimpleMeleeCombatCritCompound
-
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STPursueLastKnownCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: STSearchAreaCompound
-    - tasks:
-        - !type:HTNCompoundTask
-          task: IdleCompound          
-# ST:OW end

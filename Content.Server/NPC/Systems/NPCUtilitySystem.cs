@@ -57,6 +57,7 @@ public sealed class NPCUtilitySystem : EntitySystem
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
     [Dependency] private readonly MobThresholdSystem _thresholdSystem = default!;
     [Dependency] private readonly TurretTargetSettingsSystem _turretTargetSettings = default!;
+    [Dependency] private readonly Content.Server._Stalker_EN.NPC.Awareness.STAwarenessSystem _awareness = default!;
 
     private EntityQuery<PuddleComponent> _puddleQuery;
     private EntityQuery<TransformComponent> _xformQuery;
@@ -321,6 +322,9 @@ public sealed class NPCUtilitySystem : EntitySystem
             }
             case TargetInLOSOrCurrentCon:
             {
+                if (_awareness.Gates(owner) && !_awareness.Noticed(owner, targetUid))
+                    return 0f;
+
                 var radius = blackboard.GetValueOrDefault<float>(blackboard.GetVisionRadiusKey(EntityManager), EntityManager);
                 const float bufferRange = 0.5f;
 

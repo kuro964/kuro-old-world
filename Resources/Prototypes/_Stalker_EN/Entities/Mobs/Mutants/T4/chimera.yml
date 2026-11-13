@@ -5,6 +5,15 @@
   suffix: ST, T4
   description: A deadly mutant with lightning fast reflexes. It's said to stalk its prey for hours before taking them down.
   components:
+  - type: STAwareness
+    memoryTime: 20
+    trackTime: 15
+  - type: STBrain
+    kind: Pack
+    skirmish: true
+    stalk: true
+    ringRadius: 7
+    restTime: 4
   - type: Sprite
     sprite: /Textures/_Stalker_EN/Mobs/Mutants/chimera.rsi
     layers:
@@ -81,6 +90,9 @@
       AggroVisionRadius: !type:Single
        80
   - type: Jumpscare
+    hitRange: 1.9
+    hitKnockdown: 1.5
+    recoveryTime: 1
     #damageRadius: 1.5 # Stalker-TODO: This field does not exist!
     #attackRadius: 20 # Stalker-TODO: This field does not exist!
     chargeDamage:
@@ -89,7 +101,9 @@
         Slash: 30
     jumpPower: 10
     jumpDistance: 10
-    updateCooldown: 3
+    attackRadius: 10
+    updateCooldown: 0.25
+    reloadTime: 9
     # reloadTime: 9 # Stalker-TODO: This field exists in component but is not a datafield!
     # totalSteps: 3 # Stalker-TODO: This field exists in component but is not a datafield!
     # stepInterval: 0.5 # Stalker-TODO: This field exists in component but is not a datafield!

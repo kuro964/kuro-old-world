@@ -8,16 +8,17 @@ public sealed partial class PathfindingSystem
 {
     private PathResult UpdateBFSPath(IRobustRandom random, BFSPathRequest request)
     {
-        if (request.Task.IsCanceled)
+        if (request.Task.IsCanceled || request.CancelToken.IsCancellationRequested)
         {
             return PathResult.NoPath;
         }
 
         // TODO: Need partial planning that uses best node.
         PathPoly? currentNode = null;
+        var firstRun = !request.Started;
 
         // First run
-        if (!request.Started)
+        if (firstRun)
         {
             request.Frontier = new PriorityQueue<(float, PathPoly)>(PathPolyComparer);
             request.Started = true;
@@ -55,11 +56,15 @@ public sealed partial class PathfindingSystem
             return PathResult.NoPath;
         }
 
-        request.Frontier.Add((0.0f, startNode));
-        request.CostSoFar[startNode] = 0.0f;
+        if (firstRun)
+        {
+            request.Frontier.Add((0.0f, startNode));
+            request.CostSoFar[startNode] = 0.0f;
+        }
+
         var count = 0;
 
-        while (request.Frontier.Count > 0 && count < NodeLimit && count < request.ExpansionLimit)
+        while (request.Frontier.Count > 0 && request.Expanded < NodeLimit && request.Expanded < request.ExpansionLimit)
         {
             // Handle whether we need to pause if we've taken too long
             if (count % 20 == 0 && count > 0 && request.Stopwatch.Elapsed > PathTime)
@@ -70,6 +75,7 @@ public sealed partial class PathfindingSystem
             }
 
             count++;
+            request.Expanded++;
 
             // Actual pathfinding here
             (_, currentNode) = request.Frontier.Take();
@@ -104,7 +110,7 @@ public sealed partial class PathfindingSystem
         }
 
         // Pick a random node to use?
-        (currentNode, _) = random.Pick(request.CostSoFar);
+        currentNode = PickWanderNode(random, request);
 
         var route = ReconstructPath(request.CameFrom, currentNode);
         var path = new Queue<EntityCoordinates>(route.Count);
@@ -123,5 +129,30 @@ public sealed partial class PathfindingSystem
         DebugTools.Assert(route.Count > 0);
         request.Polys = route;
         return PathResult.Path;
+    }
+
+    private static PathPoly PickWanderNode(IRobustRandom random, BFSPathRequest request)
+    {
+        var safe = 0;
+        if (request.ExtraCost != null)
+        {
+            foreach (var node in request.CostSoFar.Keys)
+            {
+                if (request.ExtraCost(node, node) == 0f)
+                    safe++;
+            }
+        }
+
+        if (safe == 0)
+            return random.Pick(request.CostSoFar).Key;
+
+        var index = random.Next(safe);
+        foreach (var node in request.CostSoFar.Keys)
+        {
+            if (request.ExtraCost!(node, node) == 0f && index-- == 0)
+                return node;
+        }
+
+        return random.Pick(request.CostSoFar).Key;
     }
 }

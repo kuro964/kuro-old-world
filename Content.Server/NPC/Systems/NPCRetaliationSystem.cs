@@ -1,8 +1,11 @@
+using Content.Server._Stalker_EN.NPC.Awareness;
 using Content.Server.NPC.Components;
+using Content.Server.NPC.HTN;
 using Content.Shared.CombatMode;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Mobs.Components;
+using Content.Shared.NPC;
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Systems;
 using Robust.Shared.Collections;
@@ -17,6 +20,7 @@ public sealed class NPCRetaliationSystem : EntitySystem
 {
     [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly STAwarenessSystem _awareness = default!;
 
     /// <inheritdoc />
     public override void Initialize()
@@ -30,10 +34,36 @@ public sealed class NPCRetaliationSystem : EntitySystem
         if (!args.DamageIncreased)
             return;
 
-        if (args.Origin is not {} origin)
+        if (args.Origin is not {} origin || IsStray(ent, origin))
             return;
 
         TryRetaliate(ent, origin);
+    }
+
+    public bool IsStray(EntityUid victim, EntityUid attacker)
+    {
+        if (!HasComp<ActiveNPCComponent>(attacker) || !TryComp<HTNComponent>(attacker, out var htn) || _awareness.IsHostile(attacker, victim))
+            return false;
+
+        var aims = 0;
+        if (htn.Blackboard.TryGetValue<EntityUid>("Target", out var target, EntityManager) && Aimed(target, victim, ref aims) ||
+            TryComp<NPCRangedCombatComponent>(attacker, out var ranged) && Aimed(ranged.Target, victim, ref aims) ||
+            TryComp<NPCMeleeCombatComponent>(attacker, out var melee) && Aimed(melee.Target, victim, ref aims) ||
+            TryComp<STAwarenessComponent>(attacker, out var awareness) && awareness.Target is { } remembered && Aimed(remembered, victim, ref aims))
+        {
+            return false;
+        }
+
+        return aims > 0;
+    }
+
+    private static bool Aimed(EntityUid aimed, EntityUid victim, ref int aims)
+    {
+        if (!aimed.IsValid())
+            return false;
+
+        aims++;
+        return aimed == victim;
     }
 
     private void OnDisarmed(Entity<NPCRetaliationComponent> ent, ref DisarmedEvent args)

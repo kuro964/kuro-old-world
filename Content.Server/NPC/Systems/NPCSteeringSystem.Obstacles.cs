@@ -77,6 +77,10 @@ public sealed partial class NPCSteeringSystem
             var obstacleEnts = new List<EntityUid>();
 
             GetObstacleEntities(poly, mask, layer, obstacleEnts);
+
+            if (obstacleEnts.Count == 0)
+                return SteeringObstacleStatus.Completed;
+
             var isDoor = (poly.Data.Flags & PathfindingBreadcrumbFlag.Door) != 0x0;
             var isAccessRequired = (poly.Data.Flags & PathfindingBreadcrumbFlag.Access) != 0x0;
             var isClimbable = (poly.Data.Flags & PathfindingBreadcrumbFlag.Climb) != 0x0;

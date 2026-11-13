@@ -99,7 +99,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
             ? _damageableSystem.ChangeDamage(target,
                 ev.Damage,
                 component.IgnoreResistances,
-                origin: component.Shooter,
+                origin: Exists(component.Shooter) ? component.Shooter : null,
                 damageTier: projectile.Comp1.ProjectileClass) // stalker-en-changes : damageTier
             : new DamageSpecifier(ev.Damage);
         var deleted = Deleted(target);

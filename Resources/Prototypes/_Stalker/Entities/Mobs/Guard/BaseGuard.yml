@@ -6,9 +6,24 @@
   description:
   abstract: true
   components:
+  - type: STAwareness
+    noticeTimeFar: 2.5
+    noticeMeter: true
+    noticeSound:
+      path: /Audio/_Stalker_EN/NPC/alert.ogg
+    trackTime: 20
+    searchTime: 20
+    pursueTime: 20
   - type: STHoldFireForAllies
+  - type: STReturnFire
+  - type: STAnomalyAvoidance
+    weight: 1
+    ignoreWhileChasing: false
+  - type: STAlertGroup
+    group: Guard
+  - type: STNpcMagazine
   - type: NPCRetaliation
-    attackMemoryLength: 10
+    attackMemoryLength: 45
   - type: PredictedBatterySelfRecharger
     autoRechargeRate: 2
   - type: PredictedBattery
@@ -73,7 +88,7 @@
       task: STGuard
     blackboard:
       VisionRadius: !type:Single
-        12
+        16
       AggroVisionRadius: !type:Single
         5
   - type: STWeight

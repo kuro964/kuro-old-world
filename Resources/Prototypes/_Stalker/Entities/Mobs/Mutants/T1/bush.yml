@@ -5,6 +5,16 @@
   suffix: ST, T1
   description: Wait, is he moving?
   components:
+    - type: STBrain
+      wanderRange: 0
+    - type: HTN
+      rootTask:
+        task: STAmbushHostileCompound
+      blackboard:
+        VisionRadius: !type:Single
+          3
+        AggroVisionRadius: !type:Single
+          15
     - type: Butcherable
       spawned:
         - id: RandomSpawnerBushStalker
