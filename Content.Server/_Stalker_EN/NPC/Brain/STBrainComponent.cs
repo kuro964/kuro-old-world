@@ -70,6 +70,9 @@ public sealed partial class STBrainComponent : Component
     [ViewVariables]
     public TimeSpan StalkUntil;
 
+    [ViewVariables]
+    public bool Commit;
+
     [DataField]
     public float RingRadius = 4.5f;
 

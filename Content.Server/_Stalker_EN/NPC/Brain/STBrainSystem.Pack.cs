@@ -15,8 +15,9 @@ public sealed partial class STBrainSystem
     private static readonly float[] SlotAngles = { 100f, -100f, 180f, 50f, -50f, 140f, -140f };
     private static readonly TimeSpan SlotBan = TimeSpan.FromSeconds(1.5);
     private const float SlotCommit = 0.6f;
-    private const float SurroundRange = 5f;
+    private const float SurroundLead = 1.5f;
     private const float SurroundRing = 3.5f;
+    private const float ChargeMargin = 0.5f;
     private const float CrowdRange = 0.7f;
     private const float BackOff = 0.6f;
     private const float MinGap = 0.55f;
@@ -167,10 +168,10 @@ public sealed partial class STBrainSystem
         }
         else if (brain.Biting)
         {
-            if ((mates >= brain.MaxBiters || brain.Skirmish) && distance <= reach && brain.BiteUntil == TimeSpan.Zero)
+            if ((mates >= brain.MaxBiters || brain.Skirmish && !brain.Commit) && distance <= reach && brain.BiteUntil == TimeSpan.Zero)
                 brain.BiteUntil = now + brain.BiteTime * _random.NextFloat(0.7f, 1.3f);
 
-            if (brain.BiteUntil != TimeSpan.Zero && now >= brain.BiteUntil && (ready || brain.Skirmish) || biters >= brain.MaxBiters && distance > reach)
+            if (brain.BiteUntil != TimeSpan.Zero && now >= brain.BiteUntil && (ready || brain.Skirmish && !brain.Commit) || biters >= brain.MaxBiters && distance > reach)
             {
                 brain.StalkUntil = TimeSpan.Zero;
                 brain.Biting = false;
@@ -181,7 +182,7 @@ public sealed partial class STBrainSystem
         }
         else if (!mobile || now >= brain.RestUntil && biters < brain.MaxBiters)
         {
-            if (mobile && brain.Stalk && distance > StalkClose && Watched(target, self, to, brain.StalkCone))
+            if (mobile && brain.Stalk && !brain.Commit && distance > StalkClose && Watched(target, self, to, brain.StalkCone))
             {
                 if (brain.StalkUntil == TimeSpan.Zero)
                     brain.StalkUntil = now + brain.StalkTime;
@@ -421,7 +422,10 @@ public sealed partial class STBrainSystem
 
         if (side is { } bearing && (crowded || distance > stand + SlotCommit))
         {
-            var slot = _transform.ToCoordinates(parent, to.Offset(bearing * (distance > SurroundRange ? MathF.Max(stand, SurroundRing) : stand)));
+            var ring = TryComp<Content.Shared._Stalker.Jumpscare.JumpscareComponent>(uid, out var leap) && !leap.Away
+                ? MathF.Max(SurroundRing, leap.AttackRadius + ChargeMargin)
+                : SurroundRing;
+            var slot = _transform.ToCoordinates(parent, to.Offset(bearing * (distance > ring + SurroundLead ? MathF.Max(stand, ring) : stand)));
             if (_pathfinding.GetPoly(slot) is { } poly && (poly.Data.Flags & PathfindingBreadcrumbFlag.Space) == 0 && !_anomalies.InHazard(uid, slot))
             {
                 _mover.MoveTo(uid, slot, SlotArrive);

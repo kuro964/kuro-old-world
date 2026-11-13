@@ -22,7 +22,7 @@ namespace Content.Server._Stalker_EN.NPC.Abilities;
 public sealed partial class STDragComponent : Component
 {
     [DataField]
-    public TimeSpan Cooldown = TimeSpan.FromSeconds(30);
+    public TimeSpan Cooldown = TimeSpan.FromSeconds(20);
 
     [DataField]
     public TimeSpan DragTime = TimeSpan.FromSeconds(7);
@@ -34,7 +34,7 @@ public sealed partial class STDragComponent : Component
     public TimeSpan LockTime = TimeSpan.FromSeconds(10);
 
     [DataField]
-    public float GrabRange = 2.2f;
+    public float GrabRange = 2.5f;
 
     [DataField]
     public float DragMin = 8f;
@@ -85,7 +85,7 @@ public sealed class STDragSystem : EntitySystem
     private const string TargetKey = STAwarenessSystem.TargetKey;
     private const int Directions = 16;
     private static readonly TimeSpan ThinkInterval = TimeSpan.FromSeconds(0.3);
-    private static readonly TimeSpan SeenSlack = TimeSpan.FromSeconds(1);
+    private static readonly TimeSpan SeenSlack = TimeSpan.FromSeconds(4);
     private static readonly TimeSpan StallTime = TimeSpan.FromSeconds(1.2);
     private const float StallStep = 0.3f;
     private const float DetourStep = 5f;
@@ -148,7 +148,10 @@ public sealed class STDragSystem : EntitySystem
             }
 
             if (now < comp.NextDrag || awareness.State != STAwarenessState.Engaged)
+            {
+                brain.Commit = false;
                 continue;
+            }
 
             _players.Clear();
             foreach (var (hostile, track) in awareness.Notice)
@@ -158,7 +161,12 @@ public sealed class STDragSystem : EntitySystem
             }
 
             if (_players.Count < 2)
+            {
+                brain.Commit = false;
                 continue;
+            }
+
+            brain.Commit = true;
 
             var straggler = EntityUid.Invalid;
             var apart = -1f;
@@ -181,13 +189,27 @@ public sealed class STDragSystem : EntitySystem
             brain.TargetLock = straggler;
             brain.TargetLockUntil = now + comp.LockTime;
 
-            if (!htn.Blackboard.TryGetValue<EntityUid>(TargetKey, out var target, EntityManager) ||
-                target != straggler ||
-                (_transform.GetWorldPosition(straggler) - self.Position).Length() > comp.GrabRange ||
-                !_pulling.TryStartPull(uid, straggler))
+            if ((_transform.GetWorldPosition(straggler) - self.Position).Length() > comp.GrabRange)
             {
-                continue;
+                straggler = EntityUid.Invalid;
+                var reach = comp.GrabRange;
+                foreach (var player in _players)
+                {
+                    var gap = (_transform.GetWorldPosition(player) - self.Position).Length();
+                    if (gap > reach)
+                        continue;
+
+                    reach = gap;
+                    straggler = player;
+                }
             }
+
+            if (!straggler.IsValid() || !_pulling.TryStartPull(uid, straggler))
+                continue;
+
+            brain.Commit = false;
+            brain.TargetLock = straggler;
+            brain.TargetLockUntil = now + comp.LockTime;
 
             comp.Victim = straggler;
             comp.StillAt = self.Position;
