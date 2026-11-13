@@ -1,26 +1,6 @@
 ﻿Entries:
 - author: teecoding
   changes:
-  - message: Loadout system no longer removes unremovable items (faction chips, implants)
-    type: Fix
-  - message: Loadout switching no longer causes item duplication
-    type: Fix
-  - message: Items in boot slots are now properly saved and restored
-    type: Fix
-  - message: Partial cigarette packs and pill boxes now restore with correct contents
-    type: Fix
-  - message: Gun attachments (magazine, silencer, scope) now properly saved and restored
-    type: Fix
-  - message: Items in backpacks and vests now restore to their correct grid positions
-    type: Fix
-  - message: Items already in correct positions no longer cause unnecessary stash
-      pulls
-    type: Fix
-  id: 5
-  time: '2026-01-27T02:15:49.453679+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/348
-- author: teecoding
-  changes:
   - message: 5-second cooldown to personal stash portal to prevent rapid teleportation
     type: Add
   id: 6
@@ -4520,5 +4500,25 @@
   id: 504
   time: '2026-11-07T11:24:43.379327+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/201
+- author: WeeblyMon
+  changes:
+  - message: 'Soldiers fight as a squad: they take cover, hold sandbags, suppress
+      the corner you hid behind, throw grenades, and send one man round the side.'
+    type: Add
+  - message: Soldiers keep hunting you for about 20 seconds after losing sight, then
+      search where they last saw you.
+    type: Add
+  - message: Guards and patrols show a notice meter and play an alert sound when they
+      spot you. Mutants notice you on sight.
+    type: Add
+  - message: Burers throw loose objects, raise a ring of floating guns, blast you
+      away up close, and can tear the weapon out of your hands.
+    type: Add
+  - message: Bloodsuckers stalk you from behind and can drag one player away from
+      a group.
+    type: Add
+  id: 505
+  time: '2026-11-13T22:10:20.033654+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/205
 Name: Stalker
 Order: -1
