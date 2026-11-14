@@ -74,3 +74,166 @@
     - MobRenegatGuard
     restricted:
     - MobRenegatGuard
+
+- type: entity
+  name: Monolith Sentry Spawner (1) (100%)
+  id: STGuardSpawnerMonolithSentry
+  parent: STGuardSpawnerStalker
+  components:
+  - type: Sprite
+    layers:
+    - state: blue
+    - sprite: /Textures/_Stalker/NPC/Random/Monolith/Suit/AKS-74/Armed/marlya.rsi
+      state: alive
+    - state: ai
+  - type: SpawnOnApproach
+    cooldown: 1800
+    prototypes:
+    - MobMonolithGuardSentryMarlyaAKS
+    - MobMonolithGuardSentryGas1L85
+    - MobMonolithGuardSentryBalaLR300
+    - MobMonolithGuardSentrySevaAbakan
+    restricted:
+    - MobMonolithGuardSentryMarlyaAKS
+    - MobMonolithGuardSentryGas1L85
+    - MobMonolithGuardSentryBalaLR300
+    - MobMonolithGuardSentrySevaAbakan
+
+- type: entity
+  name: Monolith Sentry Spawner (2) (100%)
+  id: STGuardSpawnerMonolithSentry2100
+  parent: STGuardSpawnerStalker
+  components:
+  - type: Sprite
+    layers:
+    - state: blue
+    - sprite: /Textures/_Stalker/NPC/Random/Monolith/Suit/AKS-74/Armed/marlya.rsi
+      state: alive
+    - state: ai
+  - type: SpawnOnApproach
+    cooldown: 1800
+    chance: 1
+    minAmount: 2
+    maxAmount: 2
+    maxOffset: 2
+    minOffset: 3
+    prototypes:
+    - MobMonolithGuardSentryMarlyaAKS
+    - MobMonolithGuardSentryGas1L85
+    restricted:
+    - MobMonolithGuardSentryMarlyaAKS
+    - MobMonolithGuardSentryGas1L85
+
+- type: entity
+  name: Monolith Sentry Spawner (3-5) (50%)
+  id: STGuardSpawnerMonolithSentry3550
+  parent: STGuardSpawnerStalker
+  components:
+  - type: Sprite
+    layers:
+    - state: blue
+    - sprite: /Textures/_Stalker/NPC/Random/Monolith/Suit/L85/Armed/gas1.rsi
+      state: alive
+    - state: ai
+  - type: SpawnOnApproach
+    cooldown: 6000
+    chance: 0.5
+    minAmount: 3
+    maxAmount: 5
+    maxOffset: 3
+    minOffset: 5
+    prototypes:
+    - MobMonolithGuardSentryMarlyaAKS
+    - MobMonolithGuardSentryGas1L85
+    - MobMonolithGuardSentryBalaLR300
+    - MobMonolithGuardSentrySevaAbakan
+    restricted:
+    - MobMonolithGuardSentryMarlyaAKS
+    - MobMonolithGuardSentryGas1L85
+    - MobMonolithGuardSentryBalaLR300
+    - MobMonolithGuardSentrySevaAbakan
+
+- type: entity
+  name: Monolith Sentry Spawner, AKS-74 (1) (100%)
+  id: STGuardSpawnerMonolithSentryMarlyaAKS
+  parent: STGuardSpawnerStalker
+  components:
+  - type: Sprite
+    layers:
+    - state: blue
+    - sprite: /Textures/_Stalker/NPC/Random/Monolith/Suit/AKS-74/Armed/marlya.rsi
+      state: alive
+    - state: ai
+  - type: SpawnOnApproach
+    cooldown: 1800
+    prototypes:
+    - MobMonolithGuardSentryMarlyaAKS
+    restricted:
+    - MobMonolithGuardSentryMarlyaAKS
+
+- type: entity
+  name: Monolith Sentry Spawner, L85 (1) (100%)
+  id: STGuardSpawnerMonolithSentryGas1L85
+  parent: STGuardSpawnerStalker
+  components:
+  - type: Sprite
+    layers:
+    - state: blue
+    - sprite: /Textures/_Stalker/NPC/Random/Monolith/Suit/L85/Armed/gas1.rsi
+      state: alive
+    - state: ai
+  - type: SpawnOnApproach
+    cooldown: 1800
+    prototypes:
+    - MobMonolithGuardSentryGas1L85
+    restricted:
+    - MobMonolithGuardSentryGas1L85
+
+- type: entity
+  name: Monolith Sentry Spawner, LR-300 (1) (100%)
+  id: STGuardSpawnerMonolithSentryBalaLR300
+  parent: STGuardSpawnerStalker
+  components:
+  - type: Sprite
+    layers:
+    - state: blue
+    - sprite: /Textures/_Stalker/NPC/Random/Monolith/Suit/LR-300/Armed/balaklava.rsi
+      state: alive
+    - state: ai
+  - type: SpawnOnApproach
+    cooldown: 1800
+    prototypes:
+    - MobMonolithGuardSentryBalaLR300
+    restricted:
+    - MobMonolithGuardSentryBalaLR300
+
+- type: entity
+  name: Monolith Sentry Spawner, Abakan (1) (100%)
+  id: STGuardSpawnerMonolithSentrySevaAbakan
+  parent: STGuardSpawnerStalker
+  components:
+  - type: Sprite
+    layers:
+    - state: blue
+    - sprite: /Textures/_Stalker/NPC/Random/Monolith/Seva/Abakan/Armed/standard.rsi
+      state: alive
+    - state: ai
+  - type: SpawnOnApproach
+    cooldown: 1800
+    prototypes:
+    - MobMonolithGuardSentrySevaAbakan
+    restricted:
+    - MobMonolithGuardSentrySevaAbakan
+
+- type: entity
+  name: Hostile Sentry Spawner (1) (10%)
+  id: STGuardSpawnerHostileSentry
+  parent: STGuardSpawnerStalker
+  components:
+  - type: SpawnOnApproach
+    cooldown: 3600
+    chance: 0.1
+    prototypes:
+    - MobHostileGuardSentry
+    restricted:
+    - MobHostileGuardSentry
