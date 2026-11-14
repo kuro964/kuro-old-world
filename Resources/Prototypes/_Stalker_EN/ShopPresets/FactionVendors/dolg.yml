@@ -316,6 +316,9 @@
         STOWModuleGravityT1Blueprint: 3000
         STOWModuleGravityT2Blueprint: 6000
         STOWModuleGravityT3Blueprint: 9000
+        STOWModulePsyT1Blueprint: 3000
+        STOWModulePsyT2Blueprint: 6000
+        STOWModulePsyT3Blueprint: 9000
 
     - name: shop-category-grenades
       priority: 13

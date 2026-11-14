@@ -190,3 +190,32 @@
   components:
     - type: STBlueprint
       blueprint: STOWModuleGravityT3Recipe
+      
+# Psy
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModulePsyT1Blueprint
+  name: Advanced Head Shielding T1 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModulePsyT1Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModulePsyT2Blueprint
+  name: Advanced Head Shielding T2 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModulePsyT2Recipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Module
+  id: STOWModulePsyT3Blueprint
+  name: Advanced Head Shielding T3 Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWModulePsyT3Recipe

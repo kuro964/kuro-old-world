@@ -478,3 +478,56 @@
           Compression: -2
       interval: 1
       ignoreResistances: true # EN
+      
+# Psy
+
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModulePsyT1
+  name: Advanced Head Shielding Tier 1
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Psy: 0.8
+          Heat: 1.2
+          Cold: 1.2
+        flatReductions:
+          Psy: 1
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModulePsyT2
+  name: Advanced Head Shielding Tier 2
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Psy: 0.7
+          Heat: 1.3
+          Cold: 1.3
+        flatReductions:
+          Psy: 3
+      
+- type: entity
+  parent: STOWDutyModuleBase
+  id: STOWModulePsyT3
+  name: Advanced Head Shielding Tier 3
+  description: A module for the Workbench allowing it to modify certain armors.
+  components:
+    - type: Sprite
+      state: cpu_science
+    - type: ArmorModuleEffect
+      modifiers:
+        coefficients:
+          Psy: 0.6
+          Heat: 1.3
+          Cold: 1.3
+        flatReductions:
+          Psy: 6

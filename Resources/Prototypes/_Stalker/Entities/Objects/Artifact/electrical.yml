@@ -236,7 +236,7 @@
     modifiers:
       coefficients:
         Shock: 0.4
-        Psy: 0.5
+        Psy: 0.7
         Heat: 1.6
         Cold: 1.6
   - type: Tag

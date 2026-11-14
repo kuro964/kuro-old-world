@@ -450,3 +450,74 @@
     STCraftGlueKitT3:
       amount: 2
 
+# Psy
+
+- type: craftRecipe
+  id: STOWModulePsyT1Recipe
+  resultProtos:
+    - STOWModulePsyT1
+  craftTime: 20
+  items:
+    STOWModulePsyT1Blueprint:
+      amount: 1
+      catalyzer: true
+    STCraftBasicPCBT1:
+      amount: 2
+    STCraftPlasticFittingT2:
+      amount: 2
+    STCraftBasicThreadKitT1:
+      amount: 2
+    STCraftSheetCopperT1:
+      amount: 2
+    STCraftCottonFabricT1:
+      amount: 1
+    STCraftCoil:
+      amount: 1
+
+- type: craftRecipe
+  id: STOWModulePsyT2Recipe
+  resultProtos:
+    - STOWModulePsyT2
+  craftTime: 20
+  items:
+    STOWModulePsyT2Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModulePsyT1:
+      amount: 1
+    STCraftStandardPCBT2:
+      amount: 3
+    STCraftHideT2:
+      amount: 1
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetIronT2:
+      amount: 2
+    STCraftTapeKitT2:
+      amount: 2
+    STCraftCoil:
+      amount: 3
+
+- type: craftRecipe
+  id: STOWModulePsyT3Recipe
+  resultProtos:
+    - STOWModulePsyT3
+  craftTime: 20
+  items:
+    STOWModulePsyT3Blueprint:
+      amount: 1
+      catalyzer: true
+    STOWModulePsyT2:
+      amount: 1
+    STCraftMultilayerPCBT3:
+      amount: 3
+    STCraftPlasticFittingT3:
+      amount: 2
+    STCraftSheetBrassT3:
+      amount: 2
+    STCraftSturdyHideT3:
+      amount: 1
+    STCraftGlueKitT3:
+      amount: 2
+    STCraftCoil:
+      amount: 4
