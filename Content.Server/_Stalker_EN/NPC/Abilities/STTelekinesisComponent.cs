@@ -134,6 +134,11 @@ public sealed partial class STTelekinesisComponent : Component
 }
 
 [RegisterComponent]
+public sealed partial class STOrbitGunComponent : Component
+{
+}
+
+[RegisterComponent]
 public sealed partial class STHurledComponent : Component
 {
     [ViewVariables]

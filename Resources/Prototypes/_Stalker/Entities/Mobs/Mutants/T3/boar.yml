@@ -8,6 +8,7 @@
     - type: STBrain
       kind: Pack
       maxBiters: 3
+      chaseNearest: true
     - type: STAlertGroup
       group: Boar
     - type: HTN
@@ -92,8 +93,8 @@
     - type: BonusMeleeDamage
       heavyDamageMultiplier: 1.5
     - type: MovementSpeedModifier
-      baseWalkSpeed: 2.2
-      baseSprintSpeed: 3.4
+      baseWalkSpeed: 2.4
+      baseSprintSpeed: 3.75
     - type: Sprite
       layers:
         - map: ["enum.DamageStateVisualLayers.Base"]

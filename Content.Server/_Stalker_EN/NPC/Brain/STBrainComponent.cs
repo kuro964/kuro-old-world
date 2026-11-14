@@ -35,6 +35,12 @@ public sealed partial class STBrainComponent : Component
     public int MaxBiters = 99;
 
     [DataField]
+    public float Suppression = 1f;
+
+    [DataField]
+    public bool ChaseNearest;
+
+    [DataField]
     public bool HangBack;
 
     [DataField]
@@ -266,6 +272,15 @@ public sealed partial class STBrainComponent : Component
 
     [ViewVariables]
     public int SlotShift;
+
+    [ViewVariables]
+    public readonly Dictionary<EntityUid, (TimeSpan At, float Damage)> Attackers = new();
+
+    [ViewVariables]
+    public TimeSpan TargetSince;
+
+    [ViewVariables]
+    public TimeSpan FanUntil;
 
     [ViewVariables]
     public TimeSpan? DeniedSince;

@@ -13,13 +13,21 @@
       NavInteract: !type:Bool
         true
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2.5
-    baseSprintSpeed: 2.5
+    baseWalkSpeed: 3.25
+    baseSprintSpeed: 4.5
 
 - type: entity
   id: MobStalkerGuardSentryMixin
   abstract: true
   components:
+  - type: STBrain
+    suppression: 2.5
+  - type: STAwareness
+    noticeFrontArc: 360
+  - type: BatteryAmmoProvider
+    fireCost: 1
+  - type: PredictedBatterySelfRecharger
+    autoRechargeRate: 4
   - type: MovementSpeedModifier
     baseWalkSpeed: 0.0000000000000001
     baseSprintSpeed: 0.0000000000000001

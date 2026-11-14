@@ -69,7 +69,6 @@ public sealed partial class STBrainSystem : EntitySystem
     private const string UseCoverKey = "STUseCover";
     private const string RushKey = "STRush";
     private const float MinSpeed = NPCSteeringSystem.MinMoveSpeed;
-    private const float SwitchMargin = 1.3f;
     private const float FinishRange = 2f;
     private const float ArriveRange = 1.5f;
     private const float SearchRange = 5f;
@@ -78,6 +77,22 @@ public sealed partial class STBrainSystem : EntitySystem
     private const int RecentKept = 8;
     private static readonly TimeSpan KickTime = TimeSpan.FromSeconds(2);
     private const float EatRange = 1.5f;
+    private static readonly TimeSpan AttackMemory = TimeSpan.FromSeconds(8);
+    private static readonly TimeSpan TargetDwell = TimeSpan.FromSeconds(1.5);
+    private static readonly TimeSpan SeenRecent = TimeSpan.FromSeconds(1);
+    private const float AttackerThreat = 0.6f;
+    private const float DamageThreat = 0.004f;
+    private const float DamageThreatMax = 0.3f;
+    private const float SeenThreat = 0.25f;
+    private const float CloseThreat = 0.35f;
+    private const float CloseThreatRange = 4f;
+    private const float CrowdThreat = 0.15f;
+    private const float StickThreat = 0.3f;
+    private const int GunnerShare = 2;
+    private const int PackShare = 3;
+    private readonly HashSet<Entity<STBrainComponent>> _rivals = new();
+    private readonly List<EntityUid> _expiredAttackers = new();
+    private const float NearestSlack = 1.5f;
     private static readonly TimeSpan GiveUpStill = TimeSpan.FromSeconds(3.5);
     private const string FollowKey = "FollowTarget";
     private const float FollowRange = 5f;
@@ -108,6 +123,10 @@ public sealed partial class STBrainSystem : EntitySystem
         {
             ent.Comp.HitFrom = _transform.GetMapCoordinates(attacker);
             ent.Comp.HitAt = _timing.CurTime;
+            var dealt = args.DamageDelta?.GetTotal().Float() ?? 0f;
+            var before = ent.Comp.Attackers.TryGetValue(attacker, out var seen) && _timing.CurTime - seen.At < AttackMemory ? seen.Damage : 0f;
+            ent.Comp.Attackers[attacker] = (_timing.CurTime, before + dealt);
+            ent.Comp.NextScan = TimeSpan.Zero;
         }
     }
 
@@ -381,13 +400,45 @@ public sealed partial class STBrainSystem : EntitySystem
             bestScore = score;
         }
 
+        if (brain.ChaseNearest && has && _mobState.IsAlive(current))
+        {
+            var here = _transform.GetWorldPosition(uid);
+            var nearest = current;
+            var nearestGap = (_transform.GetWorldPosition(current) - here).Length() - NearestSlack;
+            foreach (var (ent, score) in scores)
+            {
+                if (score <= 0f || ent == current)
+                    continue;
+
+                var gap = (_transform.GetWorldPosition(ent) - here).Length();
+                if (gap >= nearestGap)
+                    continue;
+
+                nearest = ent;
+                nearestGap = gap;
+            }
+
+            if (nearest != current)
+            {
+                blackboard.SetValue(TargetKey, nearest);
+                return;
+            }
+        }
+
         if (has && _mobState.IsAlive(current))
         {
-            scores.TryGetValue(current, out var currentScore);
-            if (best.IsValid() && best != current && bestScore > currentScore * SwitchMargin)
-                blackboard.SetValue(TargetKey, best);
-            else if (!_awareness.IsHostile(uid, current))
+            if (!_awareness.IsHostile(uid, current))
+            {
                 blackboard.Remove<EntityUid>(TargetKey);
+                return;
+            }
+
+            var pick = MostThreatening(uid, brain, scores, current, now);
+            if (pick != current)
+            {
+                blackboard.SetValue(TargetKey, pick);
+                brain.TargetSince = now;
+            }
 
             return;
         }
@@ -395,6 +446,7 @@ public sealed partial class STBrainSystem : EntitySystem
         if (best.IsValid())
         {
             blackboard.SetValue(TargetKey, SquadTarget(uid, brain, scores) ?? best);
+            brain.TargetSince = now;
             return;
         }
 
@@ -403,6 +455,74 @@ public sealed partial class STBrainSystem : EntitySystem
             blackboard.SetValue(TargetKey, downed);
         else if (has)
             blackboard.Remove<EntityUid>(TargetKey);
+    }
+
+    private EntityUid MostThreatening(EntityUid uid, STBrainComponent brain, Dictionary<EntityUid, float> scores, EntityUid current, TimeSpan now)
+    {
+        _expiredAttackers.Clear();
+        foreach (var (attacker, hit) in brain.Attackers)
+        {
+            if (now - hit.At >= AttackMemory || TerminatingOrDeleted(attacker))
+                _expiredAttackers.Add(attacker);
+        }
+
+        foreach (var attacker in _expiredAttackers)
+            brain.Attackers.Remove(attacker);
+
+        if (scores.Count < 2 && brain.Attackers.Count == 0)
+            return current;
+
+        var here = _transform.GetMapCoordinates(uid);
+        _rivals.Clear();
+        _lookup.GetEntitiesInRange(here, SquadRange, _rivals);
+        TryComp<STAwarenessComponent>(uid, out var awareness);
+
+        float Threat(EntityUid ent, float utility)
+        {
+            var threat = utility;
+            if (brain.Attackers.TryGetValue(ent, out var hit))
+            {
+                var fresh = 1f - (float) ((now - hit.At).TotalSeconds / AttackMemory.TotalSeconds);
+                threat += AttackerThreat * fresh + MathF.Min(DamageThreatMax, hit.Damage * DamageThreat);
+            }
+
+            var seen = awareness != null && awareness.Notice.TryGetValue(ent, out var track) && now - track.LastSeen <= SeenRecent;
+            threat += seen ? SeenThreat : -SeenThreat;
+            if ((_transform.GetWorldPosition(ent) - here.Position).Length() <= CloseThreatRange)
+                threat += CloseThreat;
+
+            var sharing = 0;
+            foreach (var rival in _rivals)
+            {
+                if (rival.Owner != uid && rival.Comp.LastTarget == ent && rival.Comp.Behaviour == STBehaviour.Fight && _faction.IsEntityFriendly(uid, rival.Owner))
+                    sharing++;
+            }
+
+            var room = brain.Kind == STBrainKind.Pack ? Math.Min(brain.MaxBiters, PackShare) : GunnerShare;
+            threat -= CrowdThreat * Math.Max(0, sharing - room + 1);
+            return threat;
+        }
+
+        scores.TryGetValue(current, out var currentUtility);
+        var best = current;
+        var bestThreat = Threat(current, currentUtility) + StickThreat;
+        foreach (var (ent, utility) in scores)
+        {
+            if (ent == current || utility <= 0f || !_mobState.IsAlive(ent))
+                continue;
+
+            var threat = Threat(ent, utility);
+            if (threat <= bestThreat)
+                continue;
+
+            best = ent;
+            bestThreat = threat;
+        }
+
+        if (best != current && now - brain.TargetSince < TargetDwell && !brain.Attackers.ContainsKey(best))
+            return current;
+
+        return best;
     }
 
     private EntityUid? SquadTarget(EntityUid uid, STBrainComponent brain, Dictionary<EntityUid, float> scores)
@@ -454,6 +574,12 @@ public sealed partial class STBrainSystem : EntitySystem
         if (!mobile)
         {
             brain.Doing = "watching where the target was";
+            if (brain.Suppression > 1f)
+            {
+                brain.Doing = "suppressing where the target was";
+                brain.SuppressAim = spot;
+            }
+
             _rotate.TryFaceCoordinates(uid, spot.Position);
             return;
         }
@@ -673,8 +799,9 @@ public sealed partial class STBrainSystem : EntitySystem
 
         if (now >= brain.NextSuppress)
         {
-            brain.SuppressUntil = now + SuppressTime;
-            brain.NextSuppress = brain.SuppressUntil + _random.Next(SuppressGapMin, SuppressGapMax);
+            var keen = MathF.Max(0.1f, brain.Suppression);
+            brain.SuppressUntil = now + SuppressTime * keen;
+            brain.NextSuppress = brain.SuppressUntil + _random.Next(SuppressGapMin, SuppressGapMax) / keen;
         }
 
         if (now >= brain.SuppressUntil ||

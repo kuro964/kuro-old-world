@@ -15,7 +15,9 @@ public sealed partial class STBrainSystem
     private static readonly float[] SlotAngles = { 100f, -100f, 180f, 50f, -50f, 140f, -140f };
     private static readonly TimeSpan SlotBan = TimeSpan.FromSeconds(1.5);
     private const float SlotCommit = 0.6f;
-    private const float SurroundLead = 1.5f;
+    private static readonly TimeSpan FanTime = TimeSpan.FromSeconds(4);
+    private const float FanInside = 0.6f;
+    private const float FanArrive = 1.2f;
     private const float SurroundRing = 3.5f;
     private const float ChargeMargin = 0.5f;
     private const float CrowdRange = 0.7f;
@@ -194,11 +196,18 @@ public sealed partial class STBrainSystem
             {
                 brain.Biting = true;
                 brain.BiteUntil = TimeSpan.Zero;
+                brain.FanUntil = now + FanTime;
             }
         }
 
         if (brain.Biting && distance > ChaseRange)
         {
+            if (brain.Partial != null || now < brain.PartialUntil || _mover.NoPathTo(uid, target))
+            {
+                CloseIn(uid, brain, blackboard, Transform(target).Coordinates, now);
+                return;
+            }
+
             brain.Doing = "running the target down";
             RemComp<NPCMeleeCombatComponent>(uid);
             _mover.MoveTo(uid, new EntityCoordinates(target, System.Numerics.Vector2.Zero), 1f);
@@ -425,14 +434,23 @@ public sealed partial class STBrainSystem
             var ring = TryComp<Content.Shared._Stalker.Jumpscare.JumpscareComponent>(uid, out var leap) && !leap.Away
                 ? MathF.Max(SurroundRing, leap.AttackRadius + ChargeMargin)
                 : SurroundRing;
-            var slot = _transform.ToCoordinates(parent, to.Offset(bearing * (distance > ring + SurroundLead ? MathF.Max(stand, ring) : stand)));
+            var own = CompOrNull<STBrainComponent>(uid);
+            var wide = to.Offset(bearing * MathF.Max(stand, ring));
+            var fanning = own != null && _timing.CurTime < own.FanUntil && distance > ring * FanInside;
+            if (fanning && (wide.Position - self.Position).Length() <= FanArrive)
+            {
+                own!.FanUntil = TimeSpan.Zero;
+                fanning = false;
+            }
+
+            var slot = _transform.ToCoordinates(parent, fanning ? wide : to.Offset(bearing * stand));
             if (_pathfinding.GetPoly(slot) is { } poly && (poly.Data.Flags & PathfindingBreadcrumbFlag.Space) == 0 && !_anomalies.InHazard(uid, slot))
             {
                 _mover.MoveTo(uid, slot, SlotArrive);
                 return;
             }
 
-            if (TryComp<STBrainComponent>(uid, out var own))
+            if (own != null)
                 own.SlotShift++;
         }
 

@@ -217,7 +217,7 @@ public sealed class STTelekinesisSystem : EntitySystem
                 HasComp<STHurledComponent>(ent) ||
                 !TryComp<PhysicsComponent>(ent, out var body) ||
                 body.BodyType == BodyType.Static ||
-                !body.CanCollide ||
+                HasComp<STOrbitGunComponent>(ent) ||
                 Transform(ent).Anchored ||
                 _container.IsEntityInContainer(ent))
             {
@@ -254,6 +254,9 @@ public sealed class STTelekinesisSystem : EntitySystem
             return;
 
         var mass = TryComp<PhysicsComponent>(held, out var body) ? body.FixturesMass : 1f;
+        if (body != null && !body.CanCollide)
+            _physics.SetCanCollide(held, true, body: body);
+
         var hurled = EnsureComp<STHurledComponent>(held);
         hurled.Thrower = uid;
         hurled.Damage = Math.Clamp(mass * comp.DamagePerMass, comp.MinDamage, comp.MaxDamage);
@@ -277,6 +280,8 @@ public sealed class STTelekinesisSystem : EntitySystem
             RemComp<ItemComponent>(gun);
             if (TryComp<PhysicsComponent>(gun, out var body))
                 _physics.SetCanCollide(gun, false, body: body);
+
+            AddComp<STOrbitGunComponent>(gun);
 
             comp.Guns.Add(gun);
         }

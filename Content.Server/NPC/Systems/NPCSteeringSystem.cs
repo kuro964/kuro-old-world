@@ -482,7 +482,8 @@ public sealed partial class NPCSteeringSystem : SharedNPCSteeringSystem
             for (var skip = ahead; skip >= 1; skip--)
             {
                 var node = GetCoordinates(steering.CurrentPath.ElementAt(skip));
-                if (!CanWalk(uid, here, _transform.ToMapCoordinates(node), bodyRadius, walkMask) ||
+                if (!node.IsValid(EntityManager) ||
+                    !CanWalk(uid, here, _transform.ToMapCoordinates(node), bodyRadius, walkMask) ||
                     _anomalies.LineHazard(uid, node) ||
                     _chasms.LineCrosses(uid, node, bodyRadius))
                 {

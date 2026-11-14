@@ -18,8 +18,8 @@
       NavPry: !type:Bool
         true
   - type: MovementSpeedModifier
-    baseWalkSpeed: 1.2
-    baseSprintSpeed: 1.4
+    baseWalkSpeed: 1.55
+    baseSprintSpeed: 1.8
   - type: NpcFactionMember
     factions:
     - Hostile
