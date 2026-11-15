@@ -4,7 +4,7 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/20/2026 18:54:49
+  time: 11/15/2026 20:44:34
   entityCount: 20019
 maps:
 - 1
@@ -35178,7 +35178,6 @@ entities:
     missingComponents:
     - Clothing
     - Armor
-    - Reflect
     - Item
     - MovedByPressure
     - Pullable
@@ -35190,7 +35189,6 @@ entities:
       parent: 1
     missingComponents:
     - Armor
-    - Reflect
     - Item
     - MovedByPressure
     - Pullable
@@ -36290,6 +36288,13 @@ entities:
     components:
     - type: Transform
       pos: -68.5,-67.5
+      parent: 1
+- proto: DV-Divide-TeleportOW
+  entities:
+  - uid: 15411
+    components:
+    - type: Transform
+      pos: 41.5,112.5
       parent: 1
 - proto: DynamicRadiationSpawner20
   entities:
@@ -77971,13 +77976,6 @@ entities:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 106.5,46.5
-      parent: 1
-- proto: RedForest-DarkValley
-  entities:
-  - uid: 19072
-    components:
-    - type: Transform
-      pos: 41.5,112.5
       parent: 1
 - proto: Retractor
   entities:
@@ -133899,7 +133897,7 @@ entities:
       pos: 62.5,76.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -115587.98
+      secondsUntilStateChange: -115675.05
       state: Opening
   - uid: 13775
     components:

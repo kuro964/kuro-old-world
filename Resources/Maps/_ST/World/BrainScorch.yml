@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/14/2026 21:43:37
-  entityCount: 2235
+  time: 11/15/2026 21:06:44
+  entityCount: 2236
 maps:
 - 1
 grids:
@@ -3191,7 +3191,7 @@ entities:
       pos: 25.5,13.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -24017.107
+      secondsUntilStateChange: -24054.559
       state: Opening
 - proto: BookshelfStalker1
   entities:
@@ -8356,7 +8356,7 @@ entities:
       accessListsOriginal:
       - - Monolith
     - type: Door
-      secondsUntilStateChange: -24898.541
+      secondsUntilStateChange: -24935.992
       state: Opening
   - uid: 1142
     components:
@@ -8472,7 +8472,7 @@ entities:
       pos: -9.5,18.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -24063.008
+      secondsUntilStateChange: -24100.459
       state: Opening
   - uid: 1401
     components:
@@ -10979,6 +10979,7 @@ entities:
       generators:
       - invalid
       - invalid
+      - 110
 - proto: STBrainBurner2
   entities:
   - uid: 436
@@ -11002,7 +11003,15 @@ entities:
       pos: -15.5,18.5
       parent: 1
     - type: BrainScorcher
-      generators: []
+      generators:
+      - 110
+- proto: STBrainScorcherAlarm
+  entities:
+  - uid: 2236
+    components:
+    - type: Transform
+      pos: 51.5,24.5
+      parent: 1
 - proto: STBucket
   entities:
   - uid: 2103
