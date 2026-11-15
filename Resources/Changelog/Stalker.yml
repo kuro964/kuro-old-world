@@ -1,11 +1,4 @@
 ﻿Entries:
-- author: teecoding
-  changes:
-  - message: 5-second cooldown to personal stash portal to prevent rapid teleportation
-    type: Add
-  id: 6
-  time: '2026-01-27T22:45:36.512994+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/351
 - author: crocodilecarousel
   changes:
   - message: Update to satchel of holding
@@ -4520,5 +4513,12 @@
   id: 505
   time: '2026-11-13T22:10:20.033654+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/205
+- author: Remminia
+  changes:
+  - message: A ton of new maps.
+    type: Add
+  id: 506
+  time: '2026-11-15T00:54:56.799678+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/213
 Name: Stalker
 Order: -1
