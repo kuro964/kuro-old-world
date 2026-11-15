@@ -16,6 +16,8 @@
       amount: 2
     STCraftTapeKitT2:
       amount: 1
+    ClothingOuterArmorZaryaStalkerModifedType1:
+      amount: 1
 
 - type: craftRecipe
   id: newrecipeClothingOuterArmorZaryaStalkerModifedType1
@@ -117,17 +119,23 @@
   id: newrecipeClothingOuterArmorSpark
   resultProtos:
     - ClothingOuterArmorSpark
-  craftTime: 5
+  craftTime: 10
   items:
     ClothingOuterArmorSparkBlueprint:
       amount: 1
       catalyzer: true
-    ClothingOuterArmorZaryaStalker:
+    ClothingOuterArmorZaryaStalkerModifedType2:
       amount: 1
     STCraftBasicThreadKitT1:
       amount: 1
+    STCraftSheetCopperT1:
+      amount: 2
     ZoneArtifactPellicle:
       amount: 1
+    STCraftTapeKitT2:
+      amount: 1
+    STCraftPlasticFittingT2:
+      amount: 3
 
 # Кольчуга
 

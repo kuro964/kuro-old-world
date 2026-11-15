@@ -48,9 +48,9 @@
           Disabled: { state: screen_off }
           Detected: { state: screen_detected }
   - type: ZoneArtifactDetector
-    level: 1
+    level: 7
     detectionDistance: 3
-    activationDistance: 2
+    activationDistance: 3
 
 - type: entity
   parent: ZoneArtifactBaseDetector
@@ -306,8 +306,8 @@
           Enabled: { state: icon }
           Detected: { state: active }
   - type: ZoneArtifactDetector
-    level: 1
-    detectionDistance: 8
+    level: 2
+    detectionDistance: 10
     activationDistance: 2
   - type: ZoneArtifactDetectorSoundIndicator
     maxInterval: 2

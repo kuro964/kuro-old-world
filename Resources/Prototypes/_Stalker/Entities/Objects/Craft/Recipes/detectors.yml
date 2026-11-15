@@ -77,10 +77,12 @@
     STCraftGlassT2:
       amount: 1
     STCraftPlasticFittingT2:
-      amount: 4
+      amount: 2
     STCraftBasicPCBT1:
       amount: 1
-
+    ZoneArtifactDetectorHunter:
+      amount: 1
+      
 - type: craftRecipe
   id: recipeZoneArtifactDetectorResponse
   resultProtos:

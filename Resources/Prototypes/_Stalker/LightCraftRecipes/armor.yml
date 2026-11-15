@@ -15,9 +15,9 @@
   results:
   - ClothingOuterArmorZaryaStalkerModifedType1
   steps:
-    firstIngredient: ToolkitTearOne
+    firstIngredient: STCraftHideT2
     secondIngredient: ClothingOuterArmorZaryaStalker
-    keepFirst: true
+    keepFirst: false
     time: 60
 
 - type: lightCraftingRecipe
@@ -25,7 +25,17 @@
   results:
   - ClothingOuterArmorZaryaStalkerModifedType2
   steps:
-    firstIngredient: ToolkitTearTwo
+    firstIngredient: STCraftCoil
     secondIngredient: ClothingOuterArmorZaryaStalker
-    keepFirst: true
+    keepFirst: false
+    time: 60
+
+- type: lightCraftingRecipe
+  id: LightCraftRecipeOuterArmorStalker
+  results:
+    - ClothingOuterArmorStalker
+  steps:
+    firstIngredient: STOWCraftBallisticPlateT3
+    secondIngredient: ClothingOuterArmorAborigineStalker
+    keepFirst: false
     time: 60

@@ -1782,7 +1782,7 @@
     - type: SpawnItemsOnUse
       items:
         - id: STClothingOuterArmorRCBZ
-        - id: ZoneArtifactDetectorResponse
+        - id: ZoneArtifactDetectorPulse
         - id: WeaponPistolStalkerTT
         - id: TTMag
         - id: TTMag

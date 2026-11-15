@@ -381,8 +381,7 @@
         ClothingOuterArmorSevaStalker: 7000 # T3 - ENV
         SetZaryaStalkerBuyableCrate: 2250 # T2 - PVE
         STOWClothingOuterArmorT3VestStalker: 14000 # ST:OW T3 - PvP - Changed to allow Loners faction equiv.
-        ClothingOuterArmorStalker: 14000 # T3 - PvP
-        ClothingOuterArmorAborigineStalker: 10000 # T3 - PvE
+        ClothingOuterArmorAborigineStalker: 14000 # T3 - PvE
         #ClothingOuterArmor6B2: 2000 # ST:OW
         STClothingOuterArmorRCBZ: 1800 # T2 - ENV
         #STClothingOuterArmorLightPlateVestBaseStalker: 1250 # ST:OW

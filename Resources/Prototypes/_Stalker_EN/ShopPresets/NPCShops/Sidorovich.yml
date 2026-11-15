@@ -385,8 +385,8 @@
         ZoneAnomalyDetectorAD1: 50 # T1
           # Detectors
         ZoneArtifactDetectorPulse: 100 # T1
-        ZoneArtifactDetectorHunter: 500 # T2
-        ZoneArtifactDetectorResponse: 1500 # T2
+        ZoneArtifactDetectorHunter: 500 # T1
+        ZoneArtifactDetectorResponse: 4000 # T2
 
     - name: shop-category-utilities
       priority: 10
