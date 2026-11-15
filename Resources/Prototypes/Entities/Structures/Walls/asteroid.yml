@@ -781,14 +781,15 @@
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: Metallic
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 150
-      behaviors:
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
+# STOW change
+#  - type: Destructible
+#    thresholds:
+#    - trigger:
+#        !type:DamageTrigger
+#        damage: 150
+#      behaviors:
+#      - !type:DoActsBehavior
+#        acts: ["Destruction"]
   - type: IconSmooth
     key: walls
     mode: NoSprite
