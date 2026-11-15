@@ -324,6 +324,7 @@
       BoxArtcontOrange: 700
       ZoneAnomalyDetectorAD1: 450 # T1
       ZoneAnomalyDetectorAD2: 750 # T1
+      ZoneArtifactDetectorSpruce: 2200 # T2
 
   - name: shop-category-utilities
     priority: 10
