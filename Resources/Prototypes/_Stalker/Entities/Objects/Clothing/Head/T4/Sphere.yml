@@ -24,12 +24,6 @@
         Radiation: 0.70
   - type: ExplosionResistance
     damageCoefficient: 0.70
-  - type: Reflect
-    reflectProb: 0.10
-    spread: 360
-    reflects:
-      - NonEnergy
-    soundOnReflect: /Audio/_Stalker/Effects/sear.ogg
   - type: HideLayerClothing
     slots:
     - Hair

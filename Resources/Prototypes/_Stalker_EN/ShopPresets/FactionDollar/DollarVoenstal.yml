@@ -6,21 +6,35 @@
 
 
   categories:
-#  - name: shop-category-weapons
-#    priority: 1
-#    items:
-      #Special
-#  - name: shop-category-magazines
-#    priority: 2
-#    items:
-      #Special
-  - name: shop-category-ammunition
-    priority: 3
+  - name: shop-category-weapons
+    priority: 1
     items:
-      KhattabkaGrenade: 2
-#  - name: shop-category-armor
-#    priority: 4
+      #SMG
+      STWeaponSMGPPS43: 250
+      #Snipers
+      STWeaponSniperSVDS: 400
+      #Rifles
+      STWeaponRifleAK103: 200
+      STWeaponRifleAK203: 250
+      STWeaponRifleAM17: 200
+      #Shotgun
+      STWeaponShotgunSaiga12: 300
+      #Special
+  - name: shop-category-magazines
+    priority: 2
+    items:
+      Saiga1270Mag10: 10
+      Saiga1270Drum: 15
+      #Special
+ # - name: shop-category-ammunition
+#    priority: 3
 #    items:
+
+  - name: shop-category-armor
+    priority: 4
+    items:
+      STClothingOuterArmorVeryHeavyFreedom: 450
+      STClothingOuterArmorBerill5M: 600
       #Special
   - name: shop-category-storage-and-containers
     priority: 5
@@ -42,10 +56,10 @@
       ThermoOintment: 5
       STOintmentGood: 5
       STTourniquet: 3
-#  - name: shop-category-modules
-#    priority: 11
-#    items:
-      #Special
+  - name: shop-category-blueprints
+    priority: 11
+    items:
+      STOW104riflerecipe: 50
 
 
 # Machine

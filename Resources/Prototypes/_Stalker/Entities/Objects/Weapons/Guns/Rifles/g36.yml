@@ -114,3 +114,12 @@
       magState: mag
       steps: 1
       zeroVisible: true
+    - type: Gun
+      fireRate: 9
+      soundGunshot:
+        path: /Audio/_Stalker/Effects/Guns/n_g36_shot.ogg
+        params:
+          volume: -2
+      angleIncrease: 1.3
+      minAngle: 50
+      maxAngle: 80

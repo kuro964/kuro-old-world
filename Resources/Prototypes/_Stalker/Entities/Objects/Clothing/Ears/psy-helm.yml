@@ -19,7 +19,7 @@
   id: STPsyHelm1
   name: пси-шлем
   description: Кустарный прототип устройства защиты от пси-излучения. Внешне выглядит как большие наушники.
-  suffix: ST
+  suffix: ST, T2
   components:
   - type: Sprite
     sprite: _Stalker/Objects/Clothing/Ears/psy-helm-1.rsi
@@ -29,7 +29,7 @@
     armorClass: 0
     modifiers:
       flatReductions:
-        Psy: 2
+        Psy: 4
 
 - type: entity
   parent: STClothingPsyHelm
@@ -46,7 +46,7 @@
     armorClass: 0
     modifiers:
       flatReductions:
-        Psy: 4
+        Psy: 6
 
 - type: entity
   parent: STClothingPsyHelm
@@ -63,4 +63,24 @@
     armorClass: 0
     modifiers:
       flatReductions:
-        Psy: 6
+        Psy: 8
+
+- type: entity
+  parent: STClothingPsyHelm
+  id: STPsyHelm4
+  name: psy helmet
+  description: A customized prototype developed by scientists to protect against psi radiation.
+  suffix: ST, T1
+  components:
+    - type: Sprite
+      sprite: _Stalker/Objects/Clothing/hats/psyhelm.rsi
+    - type: Clothing
+      sprite: _Stalker/Objects/Clothing/hats/psyhelm.rsi
+    - type: Tag
+      tags:
+        - ClothMade
+    - type: Armor
+      armorClass: 0
+      modifiers:
+        flatReductions:
+          Psy: 2

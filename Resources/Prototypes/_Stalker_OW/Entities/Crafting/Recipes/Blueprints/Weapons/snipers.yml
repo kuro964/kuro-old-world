@@ -1,0 +1,8 @@
+﻿- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWvsssniperrecipe
+  name: VSS recipe
+  components:
+    - type: STBlueprint
+      blueprint: vsssniperrecipe

@@ -15,10 +15,6 @@
     sprite: _Stalker/Objects/Clothing/mask/unix5000.rsi
   - type: Armor
     modifiers:
-      coefficients: # EN change start
-        #Radiation: 0.75
-        #Caustic: 0.65
-        Piercing: 0.97
       flatReductions:
         Piercing: 1
         Radiation: 10 # EN change end

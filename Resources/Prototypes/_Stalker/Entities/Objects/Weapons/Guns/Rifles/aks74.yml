@@ -215,10 +215,10 @@
   - type: Gun
     soundGunshot:
       path: /Audio/_Stalker/Effects/Guns/103_shoot.ogg
-    minAngle: 45
-    maxAngle: 85
+    minAngle: 50
+    maxAngle: 100
     fireRate: 8
-    angleIncrease: 1
+    angleIncrease: 2
   - type: ItemSlots
     slots:
       gun_magazine:
@@ -242,12 +242,9 @@
         whitelist:
           tags:
           - STWeaponModuleRifleSilencerRu
-      gun_module_scope:
-        name: Scope
-        priority: 2
-        whitelist:
-          tags:
-          - STWeaponModuleRifleScopeRu
+  - type: Scope
+    zoom: 1.1
+    offset: 21
 
 # AKS 74u
 - type: entity
@@ -325,7 +322,10 @@
   description: Russian compact assault rifle developed by the Kalashnikov Concern. This rifle was created to replace the AKS-74U assault rifles in special forces of the Russian Armed Forces and the Ministry of Internal Affairs.
   components:
   - type: Gun
-    fireRate: 8
+    fireRate: 10
+    angleIncrease: 2.5
+    angleDecay: 9
+    maxAngle: 100
   - type: Clothing
     sprite: _Stalker/Objects/Weapons/Guns/Rifles/_Skins/am17.rsi
   - type: Item

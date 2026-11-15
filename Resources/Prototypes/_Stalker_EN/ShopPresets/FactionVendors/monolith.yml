@@ -302,11 +302,13 @@
       STWeaponRifleG36Mono: 24 # OW
       STWeaponRifleStalkerAK12Mono: 12 # OW
       STWeaponRifleStalkerAbakanWinterMono: 48 # OW
+      STWeaponRifleAK103Mono: 40
       STWeaponShotgunProtecta: 10
+      STWeaponShotgunSaiga12Auto: 40
       STSharpenedKnife: 1
       STKnifeShard: 85 # munny sink
       WeaponPistolGSH18: 1
-      #STWeaponSniperSVDMono: 85 - StalkerOW: Removed until T4 is back.
+      STWeaponSniperSVDMono: 85
       STClothingBeltThrowingKnifes: 5
       STWeaponSMGThompson: 8 # OW
       # STWeaponSMGStalkerCP2Veresk: 8 old world change
@@ -314,6 +316,9 @@
     priority: 2
     items:
       GSH-18Mag18: 1
+      Saiga1270Mag10: 5
+      Saiga1270Drum: 10
+      754Mag20: 10
       #vityazmag: 1 old world change
   - name: shop-category-armor
     priority: 3

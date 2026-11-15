@@ -16,9 +16,9 @@
       path: /Audio/_Stalker/Effects/Guns/103_shoot.ogg
     minAngle: 50
     maxAngle: 100
-    angleIncrease: 1.8
-    angleDecay: 8
-    fireRate: 7
+    angleIncrease: 3
+    angleDecay: 10
+    fireRate: 9
   - type: ItemSlots
     slots:
       gun_magazine:

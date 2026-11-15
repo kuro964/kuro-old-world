@@ -157,12 +157,10 @@
       STWeaponShotgunSPAS: 1300 # T3
       # SMGs
       STWeaponSMGUMP: 1800
-      STWeaponSMGMP5: 2000
       # Rifles
       STWeaponRifleL85Forecaster: 2250
       STWeaponRifleFAL: 5000
       STWeaponRifleM4: 5000
-      STWeaponRifleM14: 6000
       STWeaponRifleAKS74: 4000
       STWeaponRifleStalkerAK105SwampThing: 8000
       STMetroWeaponRifleVSV: 9000
@@ -371,7 +369,6 @@
       ClothingMaskGasChN: 500 # T1
       ClothingMaskGasM40: 1500 # T2
       ClothingMaskM50: 3800 # T3
-      ClothingMaskGP21: 7500 # T4
 
   - name: shop-category-research-equipment
     priority: 9
@@ -389,7 +386,7 @@
       ZoneArtifactDetectorPulse: 50 # T1
       ZoneArtifactDetectorHunter: 100 # T2
       ZoneArtifactDetectorResponse: 600 # T2
-      ZoneArtifactDetectorSpruce: 3000 # T2
+      ZoneArtifactDetectorSpruce: 4000 # T3
       ZoneArtifactDetectorBarracuda: 6000 # T3
 
 

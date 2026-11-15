@@ -17,7 +17,7 @@
       flatReductions:
         Blunt: 5
         Slash: 10
-        Piercing: 8
+        Piercing: 6
         Radiation: 8
       coefficients:
         Blunt: 0.65 # EN, 0.9 -> 0.65

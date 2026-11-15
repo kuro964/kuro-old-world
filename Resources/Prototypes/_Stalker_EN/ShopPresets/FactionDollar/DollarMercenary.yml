@@ -9,19 +9,30 @@
   - name: shop-category-weapons
     priority: 1
     items:
+      #SMG
+      STWeaponSMGVector9Black: 200
+      #Shotgun
+      STWeaponShotgunUSAS: 300
+      #Rifle
       STWeaponRifleSCARH: 200
+      STWeaponRifleSCARHShort: 200
+      STWeaponRifleF2000: 250
+      STWeaponRifleSIG550Black: 200
+      #Sniper
+      STWeaponSniperOSV96: 400
+      #Pistol
       STWeaponPistolDesertEagleGolden: 100
-#  - name: shop-category-magazines
-#    priority: 2
-#    items:
-#      #Special
-  - name: shop-category-ammunition
-    priority: 3
+  - name: shop-category-magazines
+    priority: 2
     items:
-      KhattabkaGrenade: 2
-      DG05SmokeGrenade: 3
-      TearGasGrenadeStalker: 5
-      RGD5Grenade: 7
+      Magazine10USAS12x70: 10
+      Magazine20USAS12x70: 20
+      50bmgMag10: 10
+      #Special
+#  - name: shop-category-ammunition
+#    priority: 3
+#    items:
+
   - name: shop-category-armor
     priority: 4
     items:

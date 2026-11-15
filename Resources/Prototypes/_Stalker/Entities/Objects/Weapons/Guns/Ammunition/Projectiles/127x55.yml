@@ -13,7 +13,8 @@
       types:
         Blunt: 6
         Slash: 6
-        Piercing: 44.5
+        Mutant: 80
+        Piercing: 15
   # - type: StaminaDamageOnCollide
     # damage: 5
 
@@ -26,12 +27,11 @@
   - type: TimedDespawn
     lifetime: 4
   - type: Projectile
-    projectileClass: 2
+    projectileClass: 3
     damage:
       types:
-        Blunt: 6.5
-        Slash: 6.5
-        Piercing: 54
+        Piercing: 30
+        Mutant: 40
   # - type: StaminaDamageOnCollide
     # damage: 5
 
@@ -48,6 +48,7 @@
     projectileClass: 4
     damage:
       types:
-        Piercing: 65
+        Piercing: 30
+        Mutant: 85
   # - type: StaminaDamageOnCollide
     # damage: 5

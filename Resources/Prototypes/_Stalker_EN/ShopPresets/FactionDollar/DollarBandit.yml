@@ -10,6 +10,7 @@
     priority: 1
     items:
       STWeaponSMGThompson: 200
+      STWeaponSMGMPLPahanka: 200
   - name: shop-category-magazines
     priority: 2
     items:

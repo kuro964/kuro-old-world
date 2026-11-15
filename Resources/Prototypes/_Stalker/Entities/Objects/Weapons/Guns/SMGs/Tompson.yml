@@ -4,7 +4,7 @@
   id: STBaseWeaponSMGThompson
   components:
   - type: STWeight
-    self: 4.9
+    self: 5.5
   - type: Item
     size: Large
     sprite: _Stalker/Objects/Weapons/Guns/SMGs/tommygun.rsi
@@ -16,11 +16,11 @@
   - type: Clothing
     sprite: _Stalker/Objects/Weapons/Guns/SMGs/tommygun.rsi
   - type: Gun
-    minAngle: 40
-    maxAngle: 85
+    minAngle: 50
+    maxAngle: 100
     angleIncrease: 1.7
     angleDecay: 10
-    fireRate: 6.5  #OW change
+    fireRate: 8  #OW change
     selectedMode: FullAuto
     availableModes:
     - Burst

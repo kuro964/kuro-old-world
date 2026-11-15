@@ -167,9 +167,9 @@
 - type: entity
   parent: BaseCraftTool
   id: ToolkitTearThree
-  name: инструменты для калибровки
-  description: Профессиональный набор инструментов для тонкой доводки оборудования. Надпись на ящике гласит, что набор произведён в ГДР. Того, что включено в комплект, достаточно для проведения почти любых работ по настройке и калибровке.
-  suffix: Stalker, Инструменты
+  name: Calibration Tools
+  description: A professional set of tools for fine-tuning equipment. The writing on the box says the set was made in the GDR. What’s included in the kit is enough to carry out almost any adjustment and calibration work.
+  suffix: Stalker, Tools
   components:
   - type: STWeight
     self: 3

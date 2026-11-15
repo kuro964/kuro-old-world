@@ -15,7 +15,7 @@
     - { id: STCraftGlueKitT3, prob: 0.2 }
     - { id: STCraftPlasticFittingT3, prob: 0.4 }
     - { id: STCraftSheetBrassT3, prob: 0.5 }
-    - { id: STOWCraftBallisticPlateT3, prob: 0.2 }
+    - { id: STOWCraftBallisticPlateT3, prob: 0.3 }
 
     # Crafting materials - T4
     - { id: STCraftHighPerformanceChipT4, prob: 0.2 }
@@ -23,6 +23,9 @@
     - { id: STCraftPlasticFittingT4, prob: 0.2 }
     - { id: STCraftPolymerFabricT4, prob: 0.2 }
     - { id: STCraftIndustrialThreadStaplesKitT4, prob: 0.2 }
+    - { id: STOWCraftGunScrapT4, prob: 0.2 }
+    - { id: STOWCraftElectronicScrapT4, prob: 0.2 }
+    - { id: STOWCraftRodSteelT4, prob: 0.3 }
 
     # Electronics and gunpowder
     - { id: CraftMaterialGunpowder, prob: 0.3 }
@@ -39,8 +42,9 @@
     - { id: antiradpill, prob: 0.12 }
     - { id: radioprotectpill, prob: 0.12 }
     - { id: psyblock, prob: 0.12 }
-    - { id: MedkitMilitary, prob: 0.08 }
-    - { id: MedkitScience, prob: 0.02 }
+    - { id: MedkitMilitary, prob: 0.1 }
+    - { id: MedkitScience, prob: 0.1 }
+    - { id: MedkitElite, prob: 0.08 }
 
     # Food and drink
     - { id: STDrinkJarDirtyWater, prob: 0.08 }
@@ -56,6 +60,18 @@
     - { id: CraftLeatherbox, prob: 0.003 }
     - { id: ToolkitTearOne, prob: 0.002 }
     - { id: ToolkitTearTwo, prob: 0.001 }
+    - { id: STOWzastavariflerecipe, prob: 0.05 }
+    - { id: STOWpersecutorriflerecipe, prob: 0.05 }
+    - { id: STOWvsssniperrecipe, prob: 0.05 }
+    - { id: STOW939PSOBoxCinkBlueprint, prob: 0.05 }
+    - { id: STOW939BPBoxCinkBlueprint, prob: 0.05 }
+    - { id: STOW939SP5BoxCinkBlueprint, prob: 0.05 }
+    - { id: STOWTier4Toolsrecipe, prob: 0.1 }
+    - { id: STOWSilencerRiflesT4Rurecipe, prob: 0.05 }
+    - { id: STOWSilencerRiflesT4natorecipe, prob: 0.05 }
+    - { id: STOWSilencerSniperT4recipe, prob: 0.05 }
+    - { id: STOWSilencerSMGT4recipe, prob: 0.05 }
+    - { id: ClothingEarsPsyHelmT4Blueprint, prob: 0.05 }
 
     # Weapons and explosives
     - { id: RGD5Grenade, prob: 0.1, rolls: 3 }

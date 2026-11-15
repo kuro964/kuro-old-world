@@ -1,0 +1,8 @@
+﻿- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWTier4Toolsrecipe
+  name: Precisions Tools recipe
+  components:
+    - type: STBlueprint
+      blueprint: tier4toolsrecipe

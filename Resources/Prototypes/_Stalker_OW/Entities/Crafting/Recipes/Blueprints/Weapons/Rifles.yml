@@ -1,0 +1,69 @@
+﻿- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOW104riflerecipe
+  name: AK-104 recipe
+  components:
+    - type: STBlueprint
+      blueprint: 104riflerecipe
+      
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWzastavariflerecipe
+  name: Zastava rifle recipe
+  components:
+    - type: STBlueprint
+      blueprint: zastavariflerecipe
+      
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWpersecutorriflerecipe
+  name: Persecutor rifle recipe
+  components:
+    - type: STBlueprint
+      blueprint: persecutorriflerecipe
+      
+# Modules
+# Rifles
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWSilencerRiflesT4Rurecipe
+  name: Advanced rifle silencer recipe for Warsaw weapons
+  components:
+    - type: STBlueprint
+      blueprint: silencerriflesT4rurecipe
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWSilencerRiflesT4natorecipe
+  name: Advanced rifle silencer recipe for NATO weapons
+  components:
+    - type: STBlueprint
+      blueprint: silencerriflesT4natorecipe
+      
+# Snipers
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWSilencerSniperT4recipe
+  name: Advanced sniper silencer recipe
+  components:
+    - type: STBlueprint
+      blueprint: silencersniperT4recipe
+      
+# SMGs
+
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWSilencerSMGT4recipe
+  name: Advanced SMG silencer recipe
+  components:
+    - type: STBlueprint
+      blueprint: silencersmgT4recipe

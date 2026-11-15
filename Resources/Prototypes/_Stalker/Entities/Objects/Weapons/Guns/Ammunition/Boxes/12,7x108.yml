@@ -2,7 +2,7 @@
   parent: BaseAmmoBoxStalker
   id: 50bmgFMJBox
   name: box of bullets (50 BMG) FMJ
-  description: For the OSV-96 rifle, comes in a box of 10. Can penetrate level 4 armor.
+  description: For the OSV-96 rifle, comes in a box of 10. Can penetrate level 3 armor.
   suffix: Stalker
   components:
   - type: MagazineVisuals

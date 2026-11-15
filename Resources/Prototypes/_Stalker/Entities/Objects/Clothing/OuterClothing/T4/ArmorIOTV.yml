@@ -25,13 +25,13 @@
       flatReductions:
         Blunt: 9
         Slash: 5 # EN, 4 -> 5
-        Piercing: 7 # EN, 8 -> 7
+        Piercing: 6 # EN, 8 -> 7
       coefficients:
         Blunt: 0.60
         Slash: 0.60
         Piercing: 0.65 # EN, 0.60 -> 0.65
   - type: GrantsArtifactSlots
-    slots: 2 # EN
+    slots: 1 # EN
   - type: ExplosionResistance
     damageCoefficient: 0.65
   - type: Craftable
@@ -74,11 +74,11 @@
       flatReductions:
         Blunt: 8
         Slash: 2
-        Piercing: 9 # EN, 7 -> 9
+        Piercing: 6 # EN, 7 -> 9
       coefficients:
         Blunt: 0.80
         Slash: 0.80
-        Piercing: 0.65 # EN, 0.55 -> 0.65
+        Piercing: 0.7 # EN, 0.55 -> 0.65
 
 - type: entity
   parent: ClothingOuterArmorPSZ9D
@@ -96,10 +96,10 @@
       flatReductions:
         Blunt: 4
         Slash: 2
-        Piercing: 8 # EN, 10 -> 8
+        Piercing: 6 # EN, 10 -> 8
       coefficients:
         Blunt: 0.80
         Slash: 0.80
-        Piercing: 0.60
+        Piercing: 0.7
   - type: GrantsArtifactSlots
-    slots: 2 # EN
+    slots: 1 # EN

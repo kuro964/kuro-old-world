@@ -1,9 +1,9 @@
 ﻿- type: entity
   parent: STSheetMetalBase
-  id: STOWCraftRodSteelT3
-  name: Steel Rod T3
+  id: STOWCraftRodSteelT4
+  name: T4 Steel Rod 
   description: A steel rod kept safe from the horrors of the zone.
-  suffix: STOW, Material, T3
+  suffix: STOW, Material, T4
   components:
     - type: STWeight
       self: 1

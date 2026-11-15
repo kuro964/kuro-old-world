@@ -47,7 +47,7 @@
       - type: STAnomalyTipsViewing
       - type: AutoImplant
         implants:
-        - STMonoBombImplant # Stalker EN change start
+        - STOWMonoPlayerBombImplant # Stalker EN change start
       # ST:OW begin
       - type: MonolithHivemind
       # ST:OW end

@@ -14,7 +14,7 @@
   - type: PersonalDamage
     damage:
       types:
-        Radiation: 6.65
+        Radiation: 14
 
 - type: entity
   parent: STBaseWeaponRifleAK103

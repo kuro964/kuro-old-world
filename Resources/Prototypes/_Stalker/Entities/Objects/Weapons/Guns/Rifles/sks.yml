@@ -63,7 +63,7 @@
     #maxAngle: 110
     maxAngle: 90
     #fireRate: 3.2
-    fireRate: 4
+    fireRate: 6
     #angleIncrease: 3
     angleIncrease: 0.5
     # StalkerOW - End

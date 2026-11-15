@@ -6,13 +6,25 @@
 
 
   categories:
-#  - name: shop-category-weapons
-#    priority: 1
-#    items:
-      #Special
-#  - name: shop-category-magazines
-#    priority: 2
-#    items:
+  - name: shop-category-weapons
+    priority: 1
+    items:
+      #Rifles
+      STWeaponRifleARX160: 200
+      STWeaponRifleM14: 200
+      #Snipers
+      STWeaponSniperSVU: 400
+      #Shotgun
+      STWeaponShotgunAA: 300
+      #SMG
+      STWeaponSMGFNP90: 250
+  - name: shop-category-magazines
+    priority: 2
+    items:
+      Base754Mag5: 5
+      754Mag10: 15
+      DrumAutoAssSmall: 10
+      DrumAutoAssBig: 20
       #Special
   - name: shop-category-ammunition
     priority: 3

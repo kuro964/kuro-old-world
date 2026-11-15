@@ -9,20 +9,29 @@
   - name: shop-category-weapons
     priority: 1
     items:
+      #SMG
+      STWeaponSMGPPS43: 250
+      #Rifles
       STWeaponRifleAK103: 200
-      STWeaponSniperSVU: 400
+      STWeaponRifleStalkerAK15: 250
+      STWeaponRifleAH12: 300
+      STWeaponRifleStalkerAek971: 250
+      #Snipers
+      STWeaponSniperSVDS: 400
+      #Shotguns
+      STShotgunKS23: 300
   - name: shop-category-magazines
     priority: 2
     items:
       Base754Mag5: 5
       754Mag10: 15
+      AS12Mag: 10
   - name: shop-category-ammunition
     priority: 3
     items:
-      KhattabkaGrenade: 2
-      DG05SmokeGrenade: 3
-      TearGasGrenadeStalker: 5
-      RGD5Grenade: 7
+      2375ShrapnelBuckshotBox: 2
+      2375BarricadaBulletBox: 2
+      2375VolnaRBulletBox: 2
   - name: shop-category-armor
     priority: 4
     items:
@@ -48,9 +57,15 @@
       ThermoOintment: 5
       STOintmentGood: 5
       STTourniquet: 3
-#  - name: shop-category-modules
-#    priority: 11
-#    items:
+  - name: shop-category-blueprints
+    priority: 11
+    items:
+      STOWks23mrecipe: 50
+      STOW104riflerecipe: 50
+      STOW1255TPCinkrecipe: 50
+      STOW1255PS12ACinkrecipe: 50
+
+
       #Special
 
 

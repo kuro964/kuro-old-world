@@ -180,8 +180,8 @@
     fireRate: 8
     soundGunshot:
       path: /Audio/_Stalker/Effects/Guns/203_Sound.ogg
-    minAngle: 48
-    maxAngle: 93
+    minAngle: 50
+    maxAngle: 100
   - type: ItemSlots
     slots:
       gun_magazine:

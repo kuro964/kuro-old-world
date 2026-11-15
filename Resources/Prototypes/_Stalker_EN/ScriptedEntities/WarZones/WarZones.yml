@@ -34,7 +34,7 @@
   id: CordonPigFarm
   rewardPointsPerPeriod: 1
   rewardPeriod: 60 # 1 minute
-  captureCooldownHours: 0.5
+  captureCooldownHours: 0.1
   captureTime: 120 # 2 minutes
   requirements:
   - !type:ZoneOwnershipRequirenment

@@ -1,0 +1,41 @@
+﻿- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOW1255PS12ACinkrecipe
+  name: 12.7x55 PS Crate recipe
+  components:
+    - type: STBlueprint
+      blueprint: 1255PS12ACinkrecipe
+      
+- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOW1255TPCinkrecipe
+  name: 12.7x55 TP Crate recipe 
+  components:
+    - type: STBlueprint
+      blueprint: 1255TPCinkrecipe
+      
+- type: entity
+  parent: STBaseBlueprint
+  id: STOW939SP5BoxCinkBlueprint
+  name: 9x39 SP5 Crate Recipe
+  components:
+    - type: STBlueprint
+      blueprint: STOWrecipe939SP5BoxCink
+
+- type: entity
+  parent: STBaseBlueprint
+  id: STOW939BPBoxCinkBlueprint
+  name: 9x39 PAB-9 Crate Recipe
+  components:
+    - type: STBlueprint
+      blueprint: STOWrecipe939BPBoxCink
+      
+- type: entity
+  parent: STBaseBlueprint
+  id: STOW939PSOBoxCinkBlueprint
+  name: 9x39 PSO Crate Recipe
+  components:
+    - type: STBlueprint
+      blueprint: STOWrecipe939PSOBoxCink

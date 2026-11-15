@@ -1,0 +1,22 @@
+﻿- type: craftRecipe
+  id: vsssniperrecipe
+  resultProtos:
+    - STWeaponSniperVSS
+  craftTime: 20
+  items:
+    ToolkitTierFour:
+      amount: 1
+      catalyzer: true
+    STOWvsssniperrecipe:
+      amount: 1
+      catalyzer: true
+    STWeaponRifleASVAL:
+      amount: 1
+    STCraftSheetAluminumT4:
+      amount: 2
+    STOWCraftGunScrapT4:
+      amount: 3
+    STOWCraftElectronicScrapT4:
+      amount: 3
+    STOWCraftRodSteelT4:
+      amount: 2

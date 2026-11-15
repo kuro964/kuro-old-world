@@ -1,0 +1,78 @@
+﻿# Rifles
+
+- type: entity
+  parent: STBaseModuleSilencerRifles
+  id: STOWModuleSilencerRiflesT4Ru
+  name: Advanced Warsaw rifle silencer
+  suffix: STOW, silencer, T4, RU
+  components:
+    - type: Tag
+      tags:
+        - STWeaponModuleRifleSilencerRu
+    - type: STWeaponModule
+      effect:
+        soundGunshotVolumeAddition: -10
+        farshotSoundDecrease: 0.3 # OW, 0.6 - 0.3
+    - type: Sprite
+      state: silencer_T2_ru
+    - type: Icon
+      state: silencer_T2_ru
+
+- type: entity
+  parent: STBaseModuleSilencerRifles
+  id: STOWModuleSilencerRiflesT4Nato
+  name: Advanced NATO rifle silencer
+  suffix: STOW, silencer, T4, NATO
+  components:
+    - type: Tag
+      tags:
+        - STWeaponModuleRifleSilencerNato
+    - type: STWeaponModule
+      effect:
+        soundGunshotVolumeAddition: -10
+        farshotSoundDecrease: 0.3 # OW, 0.6 - 0.3
+    - type: Sprite
+      state: silencer_T2_nato
+    - type: Icon
+      state: silencer_T2_nato
+      
+# Snipers
+
+- type: entity
+  parent: STBaseModuleSilencerSniper
+  id: STOWModuleSilencerSniperT4
+  name: Advanced Sniper Silencer
+  suffix: STOW, silencer, T4
+  components:
+    - type: Tag
+      tags:
+        - STWeaponModuleSniperSilencer
+    - type: STWeaponModule
+      effect:
+        soundGunshotVolumeAddition: -14
+        farshotSoundDecrease: 0.3 # EN, 0.2 -> 0.6
+    - type: Sprite
+      state: sniper_silencer_T4
+    - type: Icon
+      state: sniper_silencer_T4
+      
+# SMGs
+
+- type: entity
+  parent: STBaseModuleSilencerSMG
+  id: STModuleSilencerSMGT4
+  name: Advanced SMG Silencer
+  suffix: ST, silencer, T4
+  components:
+    - type: Tag
+      tags:
+        - STWeaponModuleSMGSilencer
+    - type: STWeaponModule
+      effect:
+        soundGunshotVolumeAddition: -13
+        farshotSoundDecrease: 0.3 # EN, 0.2 -> 0.6
+    - type: Sprite
+      state: smg_silencer_T4
+    - type: Icon
+      state: smg_silencer_T4
+

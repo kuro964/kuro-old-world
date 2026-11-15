@@ -13,7 +13,7 @@
       flatReductions:
         Blunt: 5
         Slash: 5
-        Piercing: 7
+        Piercing: 5
       coefficients:
         Blunt: 0.70
         Slash: 0.70
@@ -85,7 +85,7 @@
        flatReductions:
          Blunt: 5
          Slash: 6
-         Piercing: 6
+         Piercing: 4
          Radiation: 1
        coefficients:
          Blunt: 0.7
@@ -97,7 +97,7 @@
          Shock: 0.85
          Compression: 0.75
     - type: GrantsArtifactSlots
-      slots: 2 # EN
+      slots: 3 # EN
 
 - type: entity
   parent: STClothingOuterArmor6B13Base

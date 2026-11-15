@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseAmmoBoxStalker
   id: Ammobox1255PS12A
-  name: Коробка 12,7x55 ПС12А
-  description: Для РШ и АШ-12, 1й класс пробития, 20 штук
+  name: Box 12.7x55 PS12A
+  description: For RS and ASH-12, penetration class 1 with 20 rounds inside
   components:
   - type: MagazineVisuals
     magState: 1270red
@@ -22,8 +22,8 @@
 - type: entity
   parent: BaseAmmoBoxStalker
   id: Ammobox1255TP
-  name: Коробка 12,7x55 ТП
-  description: Для РШ и АШ-12, 2й класс пробития, 20 штук
+  name: Box 12.7x55 TP
+  description: For RS and ASH-12, penetration class 3 with 20 rounds inside
   components:
   - type: MagazineVisuals
     magState: 1270red
@@ -64,8 +64,8 @@
 - type: entity
   parent: BaseAmmoCinkBoxStalker
   id: Ammobox1255PS12ACink
-  name: ящик 12,7x55 ПС12А
-  description: Для РШ и АШ-12, 1й класс пробития, 200 штук
+  name: Large box 12.7x55 PS12A
+  description: For RS and ASH-12, penetration class 1 with 200 rounds inside
   components:
   - type: BallisticAmmoProvider
     capacity: 200
@@ -83,8 +83,8 @@
 - type: entity
   parent: BaseAmmoCinkBoxStalker
   id: Ammobox1255TPCink
-  name: ящик 12,7x55 ТП
-  description: Для РШ и АШ-12, 2й класс пробития, 200 штук
+  name: Large box 12.7x55 TP
+  description: For RS and ASH-12, 3rd penetration class with 200 rounds inside
   components:
   - type: BallisticAmmoProvider
     capacity: 200
@@ -103,7 +103,7 @@
   parent: BaseAmmoCinkBoxStalker
   id: Ammobox1255BPCink
   name: ящик 12,7x55 БП
-  description: Для РШ и АШ-12, 4й класс пробития, 200 штук
+  description: For RS and ASH-12, 4th penetration class with 200 rounds inside
   components:
   - type: BallisticAmmoProvider
     capacity: 200

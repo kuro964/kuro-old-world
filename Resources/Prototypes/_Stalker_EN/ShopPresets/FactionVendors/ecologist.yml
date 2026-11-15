@@ -294,7 +294,6 @@
         ClothingMaskXoma: 300 # T1
         STClothingMaskGasPPM88: 1000 # T2
         ClothingMaskGP7: 3400 # T3
-        ClothingMaskGP21: 7500 # T4
 
     - name: shop-category-research-equipment
       priority: 9
@@ -306,6 +305,7 @@
         BoxArtcontYellow: 250
         BoxArtcontOrange: 250
         BoxArtcontEco: 1500
+        STPsyHelm4: 4000
         ZoneAnomalyDetectorAD1: 250 # T1
         ZoneAnomalyDetectorAD2: 1000 # T2
         ZoneAnomalyDetectorAD3: 2400 # Т3
@@ -476,6 +476,7 @@
         STDetectorAD3Blueprint: 3000
         STZoneArtifactDetectorBushBlueprint: 3000
         ClothingEarsPsyHelmBlueprint: 5000
+        ClothingEarsPsyHelmT3Blueprint: 7500
         ClothingOuterArmorSevaSciMauveBlueprint: 2000
         STZoneArtifactDetectorResponseBlueprint: 6000
         STZoneArtifactDetectorSpruceBlueprint: 12000

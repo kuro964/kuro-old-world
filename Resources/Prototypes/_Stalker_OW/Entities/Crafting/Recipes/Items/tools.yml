@@ -1,0 +1,22 @@
+﻿- type: craftRecipe
+  id: tier4toolsrecipe
+  resultProtos:
+    - ToolkitTierFour
+  craftTime: 20
+  items:
+    ToolkitTearThree:
+      amount: 1
+    STOWTier4Toolsrecipe:
+      amount: 1
+      catalyzer: true
+    CraftSaw:
+      amount: 1
+      catalyzer: true
+    STOWCraftRodSteelT4:
+      amount: 3
+    STCraftSheetAluminumT4:
+      amount: 2
+    STCraftIndustrialThreadStaplesKitT4:
+      amount: 2
+    STCraftHighPerformanceChipT4:
+      amount: 1

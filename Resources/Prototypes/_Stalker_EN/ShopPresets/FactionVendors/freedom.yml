@@ -99,13 +99,11 @@
         STWeaponShotgunSPAS: 2000 # T3
         # SMGs
         STWeaponSMGMP5: 1800 # T3
-        STWeaponSMGThompson: 4000 # ow
         # Nato Rifles
         STWeaponRifleM16: 2500 # T2
         STWeaponRifleM4: 6000 # T2
         STWeaponRifleFAL: 1750 # T3
         STWeaponRifleGalil: 7000 # T3
-        STWeaponMachineGunM249SAW: 9000 # OW
         STWeaponRifleFALo: 8000 # T3
         # Snipers
         STWeaponSniperMosin: 1200
@@ -119,7 +117,6 @@
         Base556Mag10: 80
         556Mag20: 220
         556Mag30: 400
-        556box249: 1000 # OW
         BaseMP5Mag: 260
         GlockMag17: 150
         GlockMag33: 600
@@ -283,7 +280,7 @@
         ZoneArtifactDetectorPulse: 50 # T1
         ZoneArtifactDetectorResponseCvoboda: 100 # T2
         ZoneArtifactDetectorResponse: 1000 # T2
-        ZoneArtifactDetectorSpruce: 2750 # T2
+        ZoneArtifactDetectorSpruce: 4000 # T3
         Blunt: 100
 
     - name: shop-category-utilities

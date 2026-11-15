@@ -1,0 +1,82 @@
+﻿- type: craftRecipe
+  id: 1255PS12ACinkrecipe
+  resultProtos:
+    - Ammobox1255PS12ACink
+    - Ammobox1255PS12ACink
+  craftTime: 30
+  requiredWorkbench: StalkerWorktable1
+  items:
+    STOW1255PS12ACinkrecipe:
+      amount: 1
+      catalyzer: true
+    CraftMaterialGunpowder:
+      amount: 5
+    STCraftSheetAluminumT4:
+      amount: 3
+
+- type: craftRecipe
+  id: 1255TPCinkrecipe
+  resultProtos:
+    - Ammobox1255TPCink
+    - Ammobox1255TPCink
+  craftTime: 30
+  requiredWorkbench: StalkerWorktable1
+  items:
+    STOW1255TPCinkrecipe:
+      amount: 1
+      catalyzer: true
+    CraftMaterialGunpowder:
+      amount: 5
+    STCraftSheetAluminumT4:
+      amount: 4
+
+- type: craftRecipe
+  id: STOWrecipe939SP5BoxCink
+  resultProtos:
+    - 939SP5BoxCink
+    - 939SP5BoxCink
+    - 939SP5BoxCink
+  craftTime: 30
+  requiredWorkbench: StalkerWorktable1
+  items:
+    ST939SP5BoxCinkBlueprint:
+      amount: 1
+      catalyzer: true
+    CraftMaterialGunpowder:
+      amount: 3
+    STCraftSheetAluminumT4:
+      amount: 4
+
+- type: craftRecipe
+  id: STOWrecipe939BPBoxCink
+  resultProtos:
+    - 939BPBoxCink
+    - 939BPBoxCink
+    - 939BPBoxCink
+  craftTime: 30
+  requiredWorkbench: StalkerWorktable1
+  items:
+    ST939BPBoxCinkBlueprint:
+      amount: 1
+      catalyzer: true
+    CraftMaterialGunpowder:
+      amount: 4
+    STCraftSheetAluminumT4:
+      amount: 5
+      
+- type: craftRecipe
+  id: STOWrecipe939PSOBoxCink
+  resultProtos:
+    - STOW939PSOBoxCink
+    - STOW939PSOBoxCink
+    - STOW939PSOBoxCink
+  craftTime: 30
+  requiredWorkbench: StalkerWorktable1
+  items:
+    STOW939PSOBoxCinkBlueprint:
+      amount: 1
+      catalyzer: true
+    CraftMaterialGunpowder:
+      amount: 4
+    STCraftSheetAluminumT4:
+      amount: 3

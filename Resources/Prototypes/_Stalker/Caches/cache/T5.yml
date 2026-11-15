@@ -19,6 +19,9 @@
     - { id: STCraftPolymerFabricT4, prob: 0.1 }
     - { id: STCraftIndustrialThreadStaplesKitT4, prob: 0.4 }
     - { id: STCraftIndustrialThreadStaplesKitT4, prob: 0.1 }
+    - { id: STOWCraftGunScrapT4, prob: 0.4 }
+    - { id: STOWCraftElectronicScrapT4, prob: 0.4 }
+    - { id: STOWCraftRodSteelT4, prob: 0.4 }
 
     # Crafting materials - T5
     - { id: STCraftNanoChipT5, prob: 0.3 }
@@ -32,23 +35,21 @@
     - { id: CraftMaterialGunpowder, prob: 0.4 }
 
     # Medical supplies
-    - { id: STBrutepack, prob: 0.4, rolls: 3 }
-    - { id: STGauze, prob: 0.4, rolls: 3 }
-    - { id: STOintment, prob: 0.4, rolls: 3 }
-    - { id: STTourniquet, prob: 0.15 }
+    - { id: STTourniquet, prob: 0.3 }
     - { id: antiradpill, prob: 0.15 }
     - { id: radioprotectpill, prob: 0.15 }
     - { id: psyblock, prob: 0.15 }
-    - { id: MedkitAI2, prob: 0.25 }
-    - { id: MedkitMilitary, prob: 0.1 }
-    - { id: MedkitScience, prob: 0.025 }
+    - { id: MedkitMilitary, prob: 0.2 }
+    - { id: MedkitScience, prob: 0.2 }
+    - { id: MedkitElite, prob: 0.3 }
+
 
     # Utility equipment
     - { id: BoxArtcont, prob: 0.05 }
-    - { id: CraftLeatherbox, prob: 0.004 }
-    - { id: ToolkitTearOne, prob: 0.003 }
-    - { id: ToolkitTearTwo, prob: 0.002 }
-    - { id: ToolkitTearThree, prob: 0.001 }
+    - { id: CraftLeatherbox, prob: 0.04 }
+    - { id: ToolkitTearOne, prob: 0.03 }
+    - { id: ToolkitTearTwo, prob: 0.02 }
+    - { id: ToolkitTearThree, prob: 0.01 }
 
     # Weapons and explosives
     - { id: RGD5Grenade, prob: 0.1, rolls: 4 }

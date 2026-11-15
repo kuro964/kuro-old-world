@@ -401,19 +401,9 @@
     # StalkerOW - Begin
     # Changed most of the prices for artifacts so they as least matched the prices for mutant parts by ease of acquisition.
     # ---GRAVITY---
-    #Т2
-    ZoneArtifactFireball: 0
-    ZoneArtifactBattery: 5
-    ZoneArtifactAmoeba: 4
-    ZoneArtifactBlood: 10
-    ZoneArtifactEye: 8
-    #T3
-    ArtMedusa: 0
-    ZoneArtifactVyvert: 0
-    ZoneArtifactFlower: 10
     #T4
-    ZoneArtifactGravi: 90
-    ZoneArtifactNightStar: 90
+    ZoneArtifactGravi: 70
+    ZoneArtifactNightStar: 70
     #T5
     ZoneArtifactDistorter: 200
     ZoneArtifactFocus: 200
@@ -422,141 +412,58 @@
     ZoneArtifactStuntman: 200
     ZoneArtifactDarkCube: 0 # its too scary
     # ---THERMAL---
-    #T3
-    ZoneArtifactFlame: 50
-    ZoneArtifactRock: 65
-    ZoneArtifactBunch: 40
     #T4
-    ZoneArtifactCristall: 90
-    ZoneArtifactRoot: 90
-    ZoneArtifactSun: 90
+    ZoneArtifactCristall: 70
+    ZoneArtifactRoot: 70
+    ZoneArtifactSun: 70
     #T5
     ZoneArtifactLithosphere: 220
     # ---ELECTRICAL---
-    #T3
-    ArtMoon: 65
-    ZoneArtifactFlash: 50
-    ZoneArtifactAccumulator: 40
     #T4
-    ZoneArtifactDiamond: 90
+    ZoneArtifactDiamond: 70
     #T5
     ZoneArtifactIce: 200
     ZoneArtifactTesla: 200
     # ---SPATIAL---
-    #T1
-    ZoneArtifactFloodlight: 1
-    #T3
-    ZoneArtifactArf: 40
-    ZoneArtifactThorn: 60
     #T4
-    ZoneArtifactAtom: 90
+    ZoneArtifactAtom: 70
     ZoneArtifactCompass: 100 # more valueable to forester specifically
     #T5
     ZoneArtifactSoul: 200
     ZoneArtifactCrucifix: 200
     # ---ACIDIC---
-    #T3
-    ZoneArtifactMeat: 40
     #T4
     ZoneArtifactBaloon: 70
     ZoneArtifactKolobok: 70
     # Mutant parts
     # Nerfed Bloodsucker prices and buffed most other parts by tier to diversify what's worth selling to Forester.
-    # Boar
-    MutantPartBoarHoof: 2 # T1
-    MutantPartSeasonedBoarHoof: 5 # T2
-    MutantPartOldBoarHoof: 7 # T3
-    # Bear
-    MutantPartBearClaw: 5
-    MutantPartBearPaw: 9
-    MutantPartBearEye: 32
-    ClothingHeadBear: 60
-    #T1 -------- Health * 1
-    MutantPartBlindDogTail: 4
-    MutantPartFleshEye: 7
-    MutantPartCatGland: 7
-    #T2 -------- Health * 1.8
-    MutantPartLeshiyRoot: 15
-    MutantPartPseudodogTail: 10
-    MutantPartSnorkFoot: 15
-    MutantPartPsiDogTail: 20
-    MutantPartFrogLeg: 15
     #T3+ -------- Health * 3
     MutantPartBloodsuckerTentacles: 40
-    MutantPartOraculeEye: 60
+    MutantPartOraculeEye: 40
     MutantPartPseudogiantHeart: 700
     MutantPartZombieHand: 5
-    MutantPartBloodsuckerHead: 160
+    MutantPartBloodsuckerHead: 120
     ClothingMaskChimera: 100
     MutantPartChimeraTooth: 200
     MutantPartIzlomArm: 70
     MutantPartBurerBrain: 30
-    MutantPartControllerBrain: 80
+    MutantPartControllerBrain: 60
 
   categories:
   - name: shop-category-weapons
     priority: 2
     items:
-      # Melee
-      # Shotguns
-      STWeaponShotgunProtecta: 200
-      STWeaponShotgunSaiga12: 350
-      # Pistols
-      WeaponPistolStalkerLP08: 90
-      STWeaponRevolverRH12: 600
-      # SMGs
-      # Rifles
-      STWeaponRifleM14: 250
-      STWeaponRifleStalkerAek971: 450
-      # Snipers
-      STWeaponSniperVepr: 300
-      STWeaponSniperSVDS: 600
-      STWeaponSniperVSS: 700
-      STWeaponSniperOSV96: 800
+      STWeaponRifleASVAL: 300
   - name: shop-category-magazines
     priority: 2
     items:
-      # saiga-12
-      Saiga1270Mag10: 10
-      Saiga1270Drum: 40
-      # 5.45x39
-      545Mag20: 2
-      545Mag30: 5
-      545Mag45: 10
-      # 7.62x54
-      Base754Mag5: 15
-      754Mag10: 35
-      # 9x19
-      LP08Drum: 20
-      # 50 bmg
-      50bmgMag10: 20
-      # 9x39
-      Base939Mag10: 10
-      939Mag20: 25
-      #1255
-      AS12Mag: 25
+      939Mag30: 20
+      939Mag45: 35
   - name: shop-category-ammunition
     priority: 3
     items:
-      # buckshot
-      6mmBuckshotBoxCink: 25 # Express
-      8mmBuckshotBoxCink: 60 # Magnum
-      # 5.45x39
-      545HPBoxCink: 35 # mutant
-      545PCBoxCink: 45 # T3
-      # 7.62x54
-      754HPBox: 20 # mutant
-      754FMJBox: 50 # T3
-      # 9x19
-      919PBMBoxCink: 45 # T3
-      # 9x39
-      STBox9x39SP5: 15 # T2
-      STBox9x39PAB9: 25 # T3
-      #1255
-      Ammobox1255BP: 60
-      # 50 bmg
-      50bmgFMJBox: 100
-      50bmgHPBox: 60
+      STBox9x39PAB9: 30
+      STBox9x39PSO: 25
   - name: shop-category-medicine
     priority: 4
     items:
@@ -576,14 +483,12 @@
     priority: 6
     items:
       # Helmets
-      ClothingHeadHelmetBerill5MMilitary: 50
-      ClothingHeadHelmetUlach: 170
+      ClothingHeadHelmetUlach: 400
       # OuterClothing
-      STClothingOuterArmorIOTVBlack: 300
-      STClothingOuterIOTVGEN4: 300
-      ClothingOuterArmorHazmatRf: 400
-      ClothingOuterArmorStalkerCombat: 450
-      STClothingOuterArmorVeryHeavy: 600
+      STClothingOuterIOTVGEN4: 600
+      ClothingOuterArmorHazmatRf: 700
+      ClothingOuterArmorStalkerCombat: 600
+      STClothingOuterArmorVeryHeavy: 700
   - name: shop-category-storage-and-containers
     priority: 7
     items:
@@ -596,21 +501,19 @@
     priority: 8
     items:
       # Gas masks
-      ClothingMaskGP21: 60 # T4
-      ClothingMaskM51: 60 # T4
-      ClothingMaskRCBZ2: 100 # T5
-      ClothingMaskunix5000: 100 # T5
+      ClothingMaskGP21: 200 # T4
+      ClothingMaskM51: 200 # T4
+      ClothingMaskRCBZ2: 300 # T5
+      ClothingMaskunix5000: 300 # T5
   - name: shop-category-research-equipment
     priority: 9
     items:
       BoxArtcont1: 40
       BoxArtcont: 5
+      ToolkitTierFour: 150
       STBoltBagOliveGrayFilledGolden: 300
       TrashDetectorTier4: 80
       ZoneAnomalyDetectorAD3: 20
-      ZoneArtifactDetectorSpruce: 20
-      ZoneArtifactDetectorBear: 500
-      ZoneArtifactDetectorWolfhound: 1250
       STRuggedPdaEN: 250
   - name: shop-category-modules
     priority: 10

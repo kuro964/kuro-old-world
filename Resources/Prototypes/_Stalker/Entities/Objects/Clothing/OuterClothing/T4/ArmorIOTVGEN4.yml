@@ -17,7 +17,7 @@
       flatReductions:
         Blunt: 7
         Slash: 2
-        Piercing: 8 # EN, 10 -> 8
+        Piercing: 6 # EN, 10 -> 8
       coefficients:
         Blunt: 0.80
         Slash: 0.80

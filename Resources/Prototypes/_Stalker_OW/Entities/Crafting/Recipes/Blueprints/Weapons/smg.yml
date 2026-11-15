@@ -1,0 +1,8 @@
+﻿- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWpahankasmgrecipe
+  name: MPL Pahanka recipe
+  components:
+    - type: STBlueprint
+      blueprint: pahankasmgrecipe

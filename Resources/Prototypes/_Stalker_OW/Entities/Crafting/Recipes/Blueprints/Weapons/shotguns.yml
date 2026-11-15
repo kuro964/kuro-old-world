@@ -1,0 +1,8 @@
+﻿- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, Blueprint, T4
+  id: STOWks23mrecipe
+  name: KS-23M recipe
+  components:
+    - type: STBlueprint
+      blueprint: ks23mrecipe

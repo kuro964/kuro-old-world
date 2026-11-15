@@ -1,0 +1,39 @@
+﻿- type: entity
+  parent: BaseCraftTool
+  id: ToolkitTierFour
+  name: Precision Tools
+  description: A professional set of tools for fine-tuning equipment. The writing on the box says the set was made in the GDR. What’s included in the kit is enough to carry out almost any adjustment and calibration work.
+  suffix: Stalker, Tools
+  components:
+    - type: STWeight
+      self: 3
+    - type: Item
+      shape:
+        - 0,0,4,1
+      sprite: _Stalker/Objects/Tools/Craft/32.rsi # Stalker-TODO: Need an inhand sprite for this item
+      size: Normal
+    - type: Sprite
+      sprite: _Stalker/Objects/Tools/Craft/32.rsi
+      state: tools_3
+      scale: 0.7,0.7
+    - type: MeleeWeapon
+      damage:
+        types:
+          Blunt: 6
+      soundHit:
+        path: /Audio/Weapons/smash.ogg
+    - type: Wieldable
+    - type: EmitSoundOnLand
+      sound:
+        path: /Audio/Items/toolbox_drop.ogg
+    - type: UserInterface
+      interfaces:
+        enum.StorageUiKey.Key:
+          type: StorageBoundUserInterface
+    - type: ContainerContainer
+      containers:
+        storagebase: !type:Container
+          ents: []
+    - type: Craftable
+    - type: RepositoryItem
+      categoryName: repository-tools-category

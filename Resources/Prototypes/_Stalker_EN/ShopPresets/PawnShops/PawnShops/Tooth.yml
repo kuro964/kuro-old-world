@@ -290,7 +290,7 @@
   - name: shop-category-raincoats-and-gasmasks
     priority: 9
     items:
-      ClothingMaskGP7: 3800 # T3
+      STClothingMaskGasPPM88: 2000 # T2
       ClothingMaskXoma: 500 # T1
       ClothingCloakShortCoverBlack: 1000
       ClothingOuterCoatStalker: 1000
@@ -457,6 +457,11 @@
       ToolkitTearTwo: 12000
       CraftGunpowderBank: 500
       CraftMaterialGunpowder: 100
+
+  - name: shop-category-blueprints
+    priority: 15
+    items:
+      DetectorVelesBlueprint: 12000
 
   sponsorCategories:
     SponsorBacker:

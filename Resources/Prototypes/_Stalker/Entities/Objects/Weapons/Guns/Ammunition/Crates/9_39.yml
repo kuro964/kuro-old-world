@@ -50,3 +50,20 @@
           map: ["enum.GunVisualLayers.Base"]
         - state: cink
           map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  parent: BaseAmmoCinkBoxStalker
+  id: STOW939PSOBoxCink
+  name: ящик патронов (9x39) СП-5
+  description: For automatic rifles and special sniper rifles, 300 rounds per box. Provides no penetration.
+  suffix: Stalker
+  components:
+    - type: BallisticAmmoProvider
+      capacity: 300
+      proto: STBullet9x39PSO
+    - type: Sprite
+      layers:
+        - state: cink
+          map: ["enum.GunVisualLayers.Base"]
+        - state: cink
+          map: ["enum.GunVisualLayers.Mag"]

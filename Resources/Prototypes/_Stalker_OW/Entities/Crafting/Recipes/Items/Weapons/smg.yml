@@ -1,0 +1,22 @@
+﻿- type: craftRecipe
+  id: pahankasmgrecipe
+  resultProtos:
+    - STWeaponSMGMPLPahanka
+  craftTime: 20
+  items:
+    ToolkitTierFour:
+      amount: 1
+      catalyzer: true
+    STOWpahankasmgrecipe:
+      amount: 1
+      catalyzer: true
+    STWeaponSMGMPL:
+      amount: 1
+    STCraftSheetAluminumT4:
+      amount: 2
+    STOWCraftGunScrapT4:
+      amount: 3
+    STOWCraftElectronicScrapT4:
+      amount: 2
+    STOWCraftRodSteelT4:
+      amount: 1

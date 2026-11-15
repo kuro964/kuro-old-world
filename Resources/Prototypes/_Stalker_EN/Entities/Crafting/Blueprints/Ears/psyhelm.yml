@@ -2,16 +2,25 @@
   parent: STBaseBlueprint
   id: ClothingEarsPsyHelmBlueprint
   name: makeshift psi-helm blueprint
-  suffix: Crafting, T1
+  suffix: Crafting, T2
   components:
   - type: STBlueprint
     blueprint: recipeClothingEarsPsyHelm
 
 - type: entity
   parent: STBaseBlueprint
-  id: ClothingEarsPsyHelmT2Blueprint
+  id: ClothingEarsPsyHelmT3Blueprint
   name: psi-helm blueprint
-  suffix: Crafting, T2
+  suffix: Crafting, T3
   components:
   - type: STBlueprint
-    blueprint: recipeClothingEarsPsyHelmT2
+    blueprint: recipeClothingEarsPsyHelmT3
+
+- type: entity
+  parent: STBaseBlueprint
+  id: ClothingEarsPsyHelmT4Blueprint
+  name: psi-helm blueprint
+  suffix: Crafting, T4
+  components:
+    - type: STBlueprint
+      blueprint: recipeClothingEarsPsyHelmT4

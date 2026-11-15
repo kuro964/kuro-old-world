@@ -8,28 +8,50 @@
       amount: 1
       catalyzer: true
     STCraftPlasticFittingT3:
-      amount: 2
+      amount: 3
     STCraftStandardPCBT2:
       amount: 2
     STCraftGlueKitT3:
-      amount: 1
-    STCraftCoil:
       amount: 2
+    STCraftCoil:
+      amount: 3
 
 - type: craftRecipe
-  id: recipeClothingEarsPsyHelmT2
+  id: recipeClothingEarsPsyHelmT3
   resultProtos:
   - STPsyHelm2
   craftTime: 10
   items:
-    ClothingEarsPsyHelmT2Blueprint:
+    ClothingEarsPsyHelmT3Blueprint:
       amount: 1
       catalyzer: true
+    STPsyHelm1: 
+      amount: 1
     STCraftPlasticFittingT3:
-      amount: 2
+      amount: 3
     STCraftHighPerformanceChipT4:
-      amount: 1
-    STCraftGlueKitT3:
-      amount: 1
-    STCraftCoil:
       amount: 2
+    STCraftGlueKitT3:
+      amount: 3
+    STCraftCoil:
+      amount: 3
+
+- type: craftRecipe
+  id: recipeClothingEarsPsyHelmT4
+  resultProtos:
+    - STPsyHelm3
+  craftTime: 10
+  items:
+    ClothingEarsPsyHelmT4Blueprint:
+      amount: 1
+      catalyzer: true
+    STPsyHelm2:
+      amount: 1
+    STCraftPlasticFittingT4:
+      amount: 3
+    STCraftHighPerformanceChipT4:
+      amount: 2
+    STCraftIndustrialThreadStaplesKitT4:
+      amount: 3
+    STCraftCoil:
+      amount: 3

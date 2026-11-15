@@ -80,11 +80,11 @@
       flatReductions:
         Blunt: 2
         Slash: 6
-        Piercing: 7 # EN, 8 -> 7
+        Piercing: 5 # EN, 8 -> 7
       coefficients:
         Blunt: 0.7
         Slash: 0.7
-        Piercing: 0.65 # EN, 0.60 -> 0.65
+        Piercing: 0.7 # EN, 0.60 -> 0.65
         Heat: 0.9
         Radiation: 0.95
         Caustic: 0.95

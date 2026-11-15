@@ -21,15 +21,17 @@
   suffix: ST, Кастомка
   parent: STWeaponRifleAK74M
   id: STWeaponRifleStalkerAek971
-  description: Советский автомат, разработанный в 1978 году на заводе имени Дегтярёва в Коврове под руководством Станислава Ивановича Кокшарова на основе автоматов систем Константинова.
+  description: A Soviet machine gun developed in 1978 at the Degtyarev factory in Kovrov under the guidance of Stanislav Ivanovich Koksharov, based on Konstantinov system rifles.
   components:
   - type: Clothing
-    sprite: _Stalker/Objects/Weapons/Guns/Rifles/aek971.rsi
+    sprite: _Stalker_OW/Objects/Weapons/_Skins/dutyaek971.rsi
   - type: Item
-    sprite: _Stalker/Objects/Weapons/Guns/Rifles/aek971.rsi
+    sprite: _Stalker_OW/Objects/Weapons/_Skins/dutyaek971.rsi
   - type: Sprite
-    sprite: _Stalker/Objects/Weapons/Guns/Rifles/aek971.rsi
+    sprite: _Stalker_OW/Objects/Weapons/_Skins/dutyaek971.rsi
   - type: Gun
     soundGunshot:
       path: /Audio/_Stalker/Effects/Guns/aek971.ogg
-    fireRate: 9
+    fireRate: 10
+    angleIncrease: 2
+    angleDecay: 6

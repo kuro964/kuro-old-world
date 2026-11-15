@@ -6,7 +6,7 @@
   id: STBaseWeaponShotgunUSAS
   components:
   - type: STWeight
-    self: 3.6
+    self: 5.45
   - type: Clothing
     sprite: _Stalker/Objects/Weapons/Guns/Shotguns/usas/usas.rsi
   - type: Item
@@ -31,7 +31,7 @@
     maxAngle: 80
     angleIncrease: 10
     angleDecay: 50
-    fireRate: 4
+    fireRate: 3
     selectedMode: FullAuto
     availableModes:
     - SemiAuto

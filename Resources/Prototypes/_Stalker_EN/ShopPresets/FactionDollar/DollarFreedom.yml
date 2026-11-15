@@ -9,27 +9,36 @@
   - name: shop-category-weapons
     priority: 1
     items:
-      STWeaponRifleFALo: 200
-      STWeaponSniperSVDSGrass: 400
+      #SMG
+      STWeaponSMGThompson: 200
+      #Rifle
+      STWeaponRifleSCARH: 200
+      STWeaponRifleSCARHShort: 200
+      STWeaponRifleAUG: 200
+      STWeaponMachineGunM249SAW: 150
+      STWeaponRifleHK416: 200
+      #Shotgun
+      STWeaponShotgunAA: 300
+      #Sniper
+      STWeaponSniperOSV96: 400
   - name: shop-category-magazines
     priority: 2
     items:
-      Base754Mag5: 5
-      754Mag10: 15
+      DrumAutoAssSmall: 10
+      DrumAutoAssBig: 20
+      556box249: 10 # OW
+      50bmgMag10: 10
   - name: shop-category-ammunition
     priority: 3
     items:
-      KhattabkaGrenade: 2
-      DG05SmokeGrenade: 3
-      TearGasGrenadeStalker: 5
-      RGD5Grenade: 7
+      50bmgFMJBox: 75
+      50bmgHPBox: 75
   - name: shop-category-armor
     priority: 4
     items:
       ClothingHeadHelmetUlach: 170
       STClothingOuterArmorIOTVFreedom: 200
       STClothingOuterArmorVolchankaFreedom: 400
-      STClothingOuterArmorVeryHeavyFreedom: 450
   - name: shop-category-storage-and-containers
     priority: 5
     items:

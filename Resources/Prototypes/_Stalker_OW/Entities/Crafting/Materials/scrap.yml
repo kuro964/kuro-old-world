@@ -1,0 +1,63 @@
+﻿- type: entity
+  parent: STSheetMetalBase
+  id: STOWCraftGunScrapT4
+  name: T4 Gun Scrap
+  description: Ruined pieces of various weaponry from the Zone.
+  suffix: STOW, Material, T4
+  components:
+    - type: STWeight
+      self: 1
+    - type: PhysicalComposition
+      materialComposition:
+        Steel: 100
+    - type: Stack
+      stackType: STOWGunScrap
+      count: 1
+    - type: Sprite
+      sprite: Objects/Materials/Scrap/generic.rsi
+      scale: .5, .5
+      layers:
+        - state: metal-1
+          map: [ "base" ]
+    - type: RandomSprite
+      available:
+        - base:
+            metal-1: ""
+            metal-2: ""
+            metal-3: ""
+    - type: Craftable
+    - type: Appearance
+    - type: RepositoryItem
+      categoryName: repository-materials-category
+      
+- type: entity
+  parent: STSheetMetalBase
+  id: STOWCraftElectronicScrapT4
+  name: T4 Electronic Scrap
+  description: Ruined pieces of various advanced electronics from the Zone.
+  suffix: STOW, Material, T4
+  components:
+    - type: STWeight
+      self: 1
+    - type: PhysicalComposition
+      materialComposition:
+        Steel: 100
+    - type: Stack
+      stackType: STOWElectronicScrap
+      count: 1
+    - type: Sprite
+      sprite: Objects/Materials/Scrap/generic.rsi
+      scale: .5, .5
+      layers:
+        - state: junk-intercom-1
+          map: [ "base" ]
+    - type: RandomSprite
+      available:
+        - base:
+            junk-intercom-1: ""
+            junk-intercom-2: ""
+            junk-intercom-3: ""
+    - type: Craftable
+    - type: Appearance
+    - type: RepositoryItem
+      categoryName: repository-materials-category

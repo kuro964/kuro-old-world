@@ -283,10 +283,6 @@
         #ClothingHeadHelmetInfantry: 400
         STOWClothingHeadHelmetT2PVEStalker: 1000
         # ST:OW - End
-        ClothingOuterArmorSpark: 1750
-        ClothingOuterArmorZaryaStalkerModifedType2: 2500
-        ClothingOuterArmorZaryaStalkerModifedType1: 3800
-        ClothingOuterArmorZaryaHunter: 2500
     - name: shop-category-storage-and-containers
       priority: 5
       items:
@@ -306,7 +302,7 @@
       items:
         ClothingMaskXoma: 600 # T1
         ClothingMaskGP5White: 500 # T1
-        ClothingMaskGP7: 3800 # T3
+        STClothingMaskGasPPM88: 2000 # T2
     - name: shop-category-research-equipment
       priority: 7
       items:

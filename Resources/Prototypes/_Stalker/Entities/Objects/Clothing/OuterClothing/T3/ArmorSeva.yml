@@ -207,7 +207,7 @@
   - type: PersonalDamage
     damage:
       types:
-        Radiation: 18.01
+        Radiation: 40
   - type: Armor # OW Change start
     armorClass: 3
     modifiers:

@@ -59,3 +59,49 @@
       state: icon
   - type: InstantAction
     event: !type:ActivateImplantEvent
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: STOWMonoPlayerBombImplant
+  name: Monolith Bomb Implant
+  description: Use to blow yourself up and praise the monolith!
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: SubdermalImplant
+      permanent: true
+      implantAction: STActivateSeraSuicideEvent
+    - type: TriggerOnActivateImplant
+    - type: TwoStageTrigger
+      keysIn:
+        - timer
+      triggerDelay: 3
+      components:
+        - type: ExplodeOnTrigger
+          keysIn:
+            - stageTwo
+        - type: GibOnTrigger # EN
+          targetUser: true
+          deleteItems: false
+          keysIn:
+            - stageTwo
+    - type: EmitSoundOnTrigger
+      sound: /Audio/Effects/chopstickbreak.ogg
+      positional: true
+      keysIn:
+        - timer
+    - type: TimerTrigger
+      delay: 0.2
+      initialBeepDelay: 0
+      beepInterval: 50
+      beepSound:
+        path: /Audio/_Stalker_EN/VoiceLines/Monolith/Death/death_2.ogg
+    - type: Explosive
+      explosionType: Default
+      totalIntensity: 160
+      intensitySlope: 4
+      maxIntensity: 60
+      canCreateVacuum: false
+    - type: Tag
+      tags:
+        - SubdermalImplant
+        - HideContextMenu

@@ -1,0 +1,23 @@
+﻿- type: craftRecipe
+  id: ks23mrecipe
+  resultProtos:
+    - STWeaponShotgunKS23M
+  craftTime: 20
+  items:
+    ToolkitTierFour:
+      amount: 1
+      catalyzer: true
+    STOWks23mrecipe:
+      amount: 1
+      catalyzer: true
+    CraftSaw:
+      amount: 1
+      catalyzer: true
+    STShotgunKS23:
+      amount: 1
+    STCraftSheetAluminumT4:
+      amount: 2
+    STOWCraftGunScrapT4:
+      amount: 3
+    STOWCraftElectronicScrapT4:
+      amount: 1

@@ -4,3 +4,17 @@
   icon: { sprite: _Stalker_OW/Objects/Materials/ballisticplate.rsi, state: plate }
   spawn: STOWCraftBallisticPlateT3
   maxCount: 5
+
+- type: stack
+  id: STOWGunScrap
+  name: stack-stow-gunscrap
+  icon: { sprite: Objects/Materials/Scrap/generic.rsi, state: metal-1 }
+  spawn: STOWCraftGunScrapT4
+  maxCount: 5
+  
+- type: stack
+  id: STOWElectronicScrap
+  name: stack-stow-electronicscrap
+  icon: { sprite: Objects/Materials/Scrap/generic.rsi, state: junk-intercom-1 }
+  spawn: STOWCraftElectronicScrapT4
+  maxCount: 5

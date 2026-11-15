@@ -63,12 +63,12 @@
       flatReductions:
         Blunt: 6
         Slash: 6
-        Piercing: 7
+        Piercing: 5
         Radiation: 2
       coefficients:
         Blunt: 0.6
         Slash: 0.6
-        Piercing: 0.6
+        Piercing: 0.30
         Caustic: 0.6
         Heat: 0.75
         Compression: 0.75
@@ -94,7 +94,7 @@
   - type: PersonalDamage
     damage:
       types:
-        Radiation: 18.01
+        Radiation: 40
   - type: Contraband # EN
     severity: Monolith
   - type: GrantsArtifactSlots

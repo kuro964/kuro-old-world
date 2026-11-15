@@ -217,7 +217,7 @@
     - type: PersonalDamage
       damage:
         types:
-          Radiation: 6.65
+          Radiation: 14
 # ST:OW end
 
 # SCAR-H
@@ -341,3 +341,14 @@
     sprite: _Stalker_EN/Objects/Weapons/Guns/_Skins/Pahanka.rsi
   - type: Sprite
     sprite: _Stalker_EN/Objects/Weapons/Guns/_Skins/Pahanka.rsi
+  - type: Gun
+    projectileSpeed: 50
+    minAngle: 45
+    maxAngle: 120
+    angleIncrease: 2.1
+    selectedMode: FullAuto
+    availableModes:
+      - SemiAuto
+      - FullAuto
+    angleDecay: 9
+    fireRate: 14

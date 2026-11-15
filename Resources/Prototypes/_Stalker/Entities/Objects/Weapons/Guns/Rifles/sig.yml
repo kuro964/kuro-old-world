@@ -12,7 +12,7 @@
   - type: Clothing
     sprite: _Stalker/Objects/Weapons/Guns/Rifles/sig-550.rsi
   - type: Gun
-    fireRate: 6
+    fireRate: 6.5
     soundGunshot:
       path: /Audio/_Stalker/Effects/Guns/n_sig550_shot.ogg
       params:

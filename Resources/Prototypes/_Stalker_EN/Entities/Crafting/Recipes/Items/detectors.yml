@@ -8,15 +8,15 @@
       amount: 1
       catalyzer: true
     STCraftMultilayerPCBT3:
+      amount: 3
+    STCraftQuartzCrystalT3:
       amount: 2
-    STCraftGlassT2:
-      amount: 1
-    STCraftSheetIronT2:
+    STCraftSheetBrassT3:
       amount: 2
-    STCraftPlasticFittingT2:
-      amount: 2
+    STCraftPlasticFittingT3:
+      amount: 3
     STCraftCapacitor:
-      amount: 2
+      amount: 3
 
 - type: craftRecipe
   id: recipeDetectorSvarog

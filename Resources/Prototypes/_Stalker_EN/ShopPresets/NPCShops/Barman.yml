@@ -442,7 +442,7 @@
         ClothingMaskGasZaryaMono: 600 # T1
         ClothingMaskXoma: 600 # T1
         STClothingMaskGasPPM88: 1800 # T2
-        ClothingMaskGP7: 4100 # T3
+        ClothingMaskGP7: 5000 # T3
 
     - name: shop-category-research-equipment
       priority: 10
@@ -464,8 +464,7 @@
         ZoneArtifactDetectorPulse: 100
         ZoneArtifactDetectorHunter: 500
         ZoneArtifactDetectorResponse: 1500
-        ZoneArtifactDetectorSpruce: 6575 #T3
-        Veles: 8000 # T3
+        ZoneArtifactDetectorSpruce: 8000 #T3
         TrashDetectorTier1: 200
         TrashDetectorTier2: 5000
 
