@@ -20,4 +20,18 @@ public sealed partial class STDogTagInfoComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public int OwnerAge;
+
+    // ST:OW begin
+    /// <summary>
+    /// Whether the character's real name or nickname is displayed.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool NameScratched;
+
+    /// <summary>
+    /// The real name originally stamped on the tag.
+    /// </summary>
+    [DataField, ViewVariables(VVAccess.ReadOnly)]
+    public string OriginalName = string.Empty;
+    // ST:OW end
 }

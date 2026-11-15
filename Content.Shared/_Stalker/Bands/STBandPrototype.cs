@@ -52,4 +52,11 @@ public sealed class STBandPrototype : IPrototype
     [DataField]
     public ProtoId<JobPrototype>? DisguiseTargetJobId { get; set; }
 
+    // ST:OW begin
+    /// <summary>
+    /// Whether this band is listed on the Igor's points tab.
+    /// </summary>
+    [DataField]
+    public bool ShowInPoints { get; set; }
+    // ST:OW end
 }

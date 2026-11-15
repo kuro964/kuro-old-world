@@ -215,6 +215,8 @@ namespace Content.Client.Lobby.UI
             InitializeAliasControls();
             // stalker-en-changes-end
 
+            InitializeNicknameControls(); // ST:OW
+
             #endregion Name
 
             #region Appearance
@@ -960,6 +962,7 @@ namespace Content.Client.Lobby.UI
             RefreshPortraits(); // stalker-en-changes
             RefreshFlavorText();
             UpdateAliasControls(); // stalker-en-changes
+            UpdateNicknameControls(); // ST:OW
             ReloadPreview();
 
             if (Profile != null)
@@ -1391,6 +1394,7 @@ namespace Content.Client.Lobby.UI
         {
             Profile = Profile?.WithName(newName);
             SetDirty();
+            UpdateNicknamePreview(); // ST:OW
 
             if (!IsDirty)
                 return;

@@ -3,6 +3,7 @@ using Content.Shared.GameTicking;
 using Content.Shared.Inventory;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
+using Content.Server._Stalker_OW.PublicName; // ST:OW
 
 namespace Content.Server._Stalker_EN.DogTag;
 
@@ -15,6 +16,7 @@ public sealed class STDogTagInfoSystem : EntitySystem
 {
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly TagSystem _tags = default!;
+    [Dependency] private readonly STNicknameSystem _nickname = default!; // ST:OW
 
     private const string DogtagSlot = "dogtag";
     private static readonly ProtoId<TagPrototype> DogtagTag = "Dogtag";
@@ -37,6 +39,27 @@ public sealed class STDogTagInfoSystem : EntitySystem
         var info = EnsureComp<STDogTagInfoComponent>(dogtagEntity.Value);
         info.OwnerName = args.Profile.Name;
         info.OwnerAge = args.Profile.Age;
+
+        // ST:OW begin
+        // Tags carry the player's character name by default
+        // Player can choose to "etch in" their nickname in character customization screen
+        info.OriginalName = args.Profile.Name;
+        (info.OwnerName, info.NameScratched) = ChooseInscription(
+            args.Profile.Name,
+            args.Profile.STUseNicknameOnDogtag,
+            _nickname.GetValidatedNickname(args.Profile));
+        // ST:OW end
+
         Dirty(dogtagEntity.Value, info);
     }
+
+    // ST:OW begin
+    internal static (string Inscription, bool Scratched) ChooseInscription(string realName, bool useNickname, string validatedNickname)
+    {
+        if (useNickname && !string.IsNullOrEmpty(validatedNickname))
+            return (validatedNickname, true);
+
+        return (realName, false);
+    }
+    // ST:OW end
 }

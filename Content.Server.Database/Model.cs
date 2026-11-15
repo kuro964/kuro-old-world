@@ -63,6 +63,7 @@ namespace Content.Server.Database
         public DbSet<StalkerCharacterRank> StalkerCharacterRanks { get; set; } = null!; // stalker-en-changes
         public DbSet<StalkerPersistentCraftProfile> StalkerPersistentCraftProfiles { get; set; } = null!; // stalker-en-changes
         public DbSet<StalkerNewsArticlePhoto> StalkerNewsArticlePhotos { get; set; } = null!; // stalker-en-changes
+        public DbSet<StalkerBandMemberTitle> StalkerBandMemberTitles { get; set; } = null!; // ST:OW
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Preference>()
@@ -424,6 +425,11 @@ namespace Content.Server.Database
                 .HasKey(p => new { p.UserId, p.CharacterName });
             // stalker-en-changes-end
 
+            // ST:OW begin
+            modelBuilder.Entity<StalkerBandMemberTitle>()
+                .HasKey(t => new { t.PlayerUserId, t.BandId });
+            // ST:OW end
+
             // Changes for modern HWID integration
             modelBuilder.Entity<Player>()
                 .OwnsOne(p => p.LastSeenHWId)
@@ -527,6 +533,13 @@ namespace Content.Server.Database
         [MaxLength(16)]
         public string STAliasColor { get; set; } = string.Empty;
         // stalker-en-changes-end
+
+        // ST:OW begin
+        [MaxLength(32)]
+        public string STNickname { get; set; } = string.Empty;
+        public bool STUseNicknameOnDogtag { get; set; } = false;
+        public int STNicknameDisplayMode { get; set; }
+        // ST:OW end
     }
 
     public class Job
@@ -1811,6 +1824,24 @@ namespace Content.Server.Database
         public string ProfileJson { get; set; } = "{}";
     }
     // stalker-en-changes-end
+
+    // ST:OW begin
+    public sealed class StalkerBandMemberTitle
+    {
+        [Required]
+        public Guid PlayerUserId { get; set; }
+
+        [Required]
+        public string BandId { get; set; } = default!;
+
+        [Required, MaxLength(24)]
+        public string Title { get; set; } = string.Empty;
+
+        public bool AdminLocked { get; set; }
+
+        public Guid? SetByUserId { get; set; }
+    }
+    // ST:OW end
 
     #endregion
 }

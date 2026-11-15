@@ -37,6 +37,7 @@ using Robust.Shared.Replays;
 using Robust.Shared.Utility;
 using Content.Shared._Stalker_OW.Monolith; // ST:OW
 using Content.Shared._Stalker_OW.CCVar; // ST:OW
+using Content.Shared._Stalker_OW.PublicName; // ST:OW
 
 namespace Content.Server.Chat.Systems;
 
@@ -63,6 +64,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly ReplacementAccentSystem _wordreplacement = default!;
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
+    [Dependency] private readonly STPublicNameSystem _publicName = default!; // ST:OW
 
 public new const int VoiceRange = 15; // how far voice goes in world units
     public new const int WhisperClearRange = 2; // how far whisper goes while still being understandable, in world units
@@ -441,10 +443,11 @@ public new const int VoiceRange = 15; // how far voice goes in world units
                 speech = proto;
         }
 
+        var nameMarkup = _publicName.GetNameMarkup(source, name); // ST:OW
         name = FormattedMessage.EscapeText(name);
 
         var wrappedMessage = Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message",
-            ("entityName", name),
+            ("entityName", nameMarkup), // ST:OW
             ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
             ("fontType", speech.FontId),
             ("fontSize", speech.FontSize),
@@ -520,7 +523,7 @@ public new const int VoiceRange = 15; // how far voice goes in world units
         var obfuscatedMessage = ObfuscateMessageReadability(message, 0.2f);
 
         // get the entity's name by visual identity (if no override provided).
-        string nameIdentity = FormattedMessage.EscapeText(nameOverride ?? Identity.Name(source, EntityManager));
+        string nameIdentity = _publicName.GetNameMarkup(source, nameOverride ?? Identity.Name(source, EntityManager)); // ST:OW
         // get the entity's name by voice (if no override provided).
         string name;
         if (nameOverride != null)
@@ -533,10 +536,11 @@ public new const int VoiceRange = 15; // how far voice goes in world units
             RaiseLocalEvent(source, nameEv);
             name = nameEv.VoiceName;
         }
+        var nameMarkup = _publicName.GetNameMarkup(source, name); // ST:OW
         name = FormattedMessage.EscapeText(name);
 
         var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
-            ("entityName", name), ("message", FormattedMessage.EscapeText(message)));
+            ("entityName", nameMarkup), ("message", FormattedMessage.EscapeText(message))); // ST:OW
 
         var wrappedobfuscatedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
             ("entityName", nameIdentity), ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
@@ -606,10 +610,11 @@ public new const int VoiceRange = 15; // how far voice goes in world units
         // get the entity's apparent name (if no override provided).
         var ent = Identity.Entity(source, EntityManager);
         string name = FormattedMessage.EscapeText(nameOverride ?? Name(ent));
+        var nameMarkup = _publicName.GetNameMarkup(source, nameOverride ?? Name(ent)); // ST:OW
 
         // Emotes use Identity.Name, since it doesn't actually involve your voice at all.
         var wrappedMessage = Loc.GetString("chat-manager-entity-me-wrap-message",
-            ("entityName", name),
+            ("entityName", nameMarkup), // ST:OW
             ("entity", ent),
             ("message", FormattedMessage.RemoveMarkupOrThrow(action)));
 

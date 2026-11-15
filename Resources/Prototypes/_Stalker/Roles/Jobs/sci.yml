@@ -186,6 +186,7 @@
 
 - type: stBand
   id: STSciBand
+  showInPoints: true # ST:OW
   name: Scientists
   factionId: Scientists
   maxMembers: 16

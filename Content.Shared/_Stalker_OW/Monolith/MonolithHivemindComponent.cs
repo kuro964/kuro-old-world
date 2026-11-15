@@ -3,7 +3,6 @@ using Robust.Shared.GameObjects;
 
 namespace Content.Shared._Stalker_OW.Monolith;
 
-// ST:OW begin
 /// <summary>
 /// Marks an entity as connected to the Monolith hivemind
 /// </summary>
@@ -28,4 +27,3 @@ public record struct MonolithHivemindSendAttemptEvent(EntityUid Sender, string M
     public readonly RadioChannelPrototype Channel = Channel;
     public bool Cancelled = false;
 }
-// ST:OW end

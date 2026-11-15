@@ -102,6 +102,7 @@
 
 - type: stBand
   id: STClearSkyBand
+  showInPoints: true # ST:OW
   name: Clear Sky
   factionId: ClearSky
   maxMembers: 16

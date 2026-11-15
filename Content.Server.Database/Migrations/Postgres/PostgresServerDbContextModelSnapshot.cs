@@ -905,6 +905,20 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("character varying(64)")
                         .HasColumnName("stalias_noun");
 
+                    b.Property<string>("STNickname")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("stnickname");
+
+                    b.Property<int>("STNicknameDisplayMode")
+                        .HasColumnType("integer")
+                        .HasColumnName("stnickname_display_mode");
+
+                    b.Property<bool>("STUseNicknameOnDogtag")
+                        .HasColumnType("boolean")
+                        .HasColumnName("stuse_nickname_on_dogtag");
+
                     b.Property<string>("Sex")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1426,6 +1440,36 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasName("PK_stalker_bands");
 
                     b.ToTable("stalker_bands", (string)null);
+                });
+
+            modelBuilder.Entity("Content.Server.Database.StalkerBandMemberTitle", b =>
+                {
+                    b.Property<Guid>("PlayerUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("player_user_id");
+
+                    b.Property<string>("BandId")
+                        .HasColumnType("text")
+                        .HasColumnName("band_id");
+
+                    b.Property<bool>("AdminLocked")
+                        .HasColumnType("boolean")
+                        .HasColumnName("admin_locked");
+
+                    b.Property<Guid?>("SetByUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("set_by_user_id");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(24)
+                        .HasColumnType("character varying(24)")
+                        .HasColumnName("title");
+
+                    b.HasKey("PlayerUserId", "BandId")
+                        .HasName("PK_stalker_band_member_titles");
+
+                    b.ToTable("stalker_band_member_titles", (string)null);
                 });
 
             modelBuilder.Entity("Content.Server.Database.StalkerCharacterRank", b =>

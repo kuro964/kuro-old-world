@@ -284,6 +284,7 @@
 
 - type: stBand
   id: STMilitaryBand
+  showInPoints: true # ST:OW
   name: Military
   factionId: Military
   maxMembers: 30

@@ -475,6 +475,14 @@ namespace Content.Server.Database
         Task SetStalkerPersistentCraftProfileAsync(Guid userId, string characterName, string profileJson);
         Task DeleteAllStalkerPersistentCraftProfilesAsync();
         // stalker-en-changes-end
+
+        // ST:OW begin - Faction titles and member listing
+        Task<List<StalkerBandMemberTitle>> GetAllStalkerBandMemberTitlesAsync();
+        Task SetStalkerBandMemberTitleAsync(Guid userId, string bandId, string title, bool adminLocked, Guid? setByUserId);
+        Task DeleteStalkerBandMemberTitleAsync(Guid userId, string bandId);
+        Task RemoveStalkerBandMemberAsync(Guid userId, string bandId, IReadOnlyCollection<string> roleIds);
+        Task<List<StalkerBandMemberRow>> GetStalkerBandMembersAsync(IReadOnlyCollection<string> roleIds, CancellationToken cancel = default);
+        // ST:OW end
         #endregion
     }
     /// <summary>
@@ -1449,6 +1457,38 @@ namespace Content.Server.Database
             return RunDbCommand(() => _db.DeleteAllStalkerPersistentCraftProfilesAsync());
         }
         // stalker-en-changes-end
+
+        // ST:OW begin - Faction titles and band member listing
+        public Task<List<StalkerBandMemberTitle>> GetAllStalkerBandMemberTitlesAsync()
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetAllStalkerBandMemberTitlesAsync());
+        }
+
+        public Task SetStalkerBandMemberTitleAsync(Guid userId, string bandId, string title, bool adminLocked, Guid? setByUserId)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SetStalkerBandMemberTitleAsync(userId, bandId, title, adminLocked, setByUserId));
+        }
+
+        public Task DeleteStalkerBandMemberTitleAsync(Guid userId, string bandId)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.DeleteStalkerBandMemberTitleAsync(userId, bandId));
+        }
+
+        public Task RemoveStalkerBandMemberAsync(Guid userId, string bandId, IReadOnlyCollection<string> roleIds)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.RemoveStalkerBandMemberAsync(userId, bandId, roleIds));
+        }
+
+        public Task<List<StalkerBandMemberRow>> GetStalkerBandMembersAsync(IReadOnlyCollection<string> roleIds, CancellationToken cancel = default)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetStalkerBandMembersAsync(roleIds, cancel));
+        }
+        // ST:OW end
 
         public Task SetStalkerBandAsync(ProtoId<STBandPrototype> band, float rewardPoints)
         {

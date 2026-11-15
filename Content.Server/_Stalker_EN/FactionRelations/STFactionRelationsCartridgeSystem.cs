@@ -14,6 +14,7 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Content.Server._Stalker_OW.Bands; // ST:OW
 
 namespace Content.Server._Stalker_EN.FactionRelations;
 
@@ -348,6 +349,8 @@ public sealed class STFactionRelationsCartridgeSystem : EntitySystem
     /// </summary>
     private void BroadcastUiUpdate()
     {
+        RaiseLocalEvent(new STFactionRelationsChangedEvent()); // ST:OW
+
         if (_activeLoaders.Count == 0)
             return;
 

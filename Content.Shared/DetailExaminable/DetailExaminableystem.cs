@@ -1,3 +1,4 @@
+using Content.Shared._Stalker_OW.PublicName; // ST:OW
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Verbs;
@@ -8,6 +9,7 @@ namespace Content.Shared.DetailExaminable;
 public sealed class DetailExaminableSystem : EntitySystem
 {
     [Dependency] private readonly ExamineSystemShared _examine = default!;
+    [Dependency] private readonly STPublicNameSystem _publicName = default!; // ST:OW
 
     public override void Initialize()
     {
@@ -18,7 +20,7 @@ public sealed class DetailExaminableSystem : EntitySystem
 
     private void OnGetExamineVerbs(Entity<DetailExaminableComponent> ent, ref GetVerbsEvent<ExamineVerb> args)
     {
-        if (Identity.Name(args.Target, EntityManager) != MetaData(args.Target).EntityName)
+        if (Identity.Name(args.Target, EntityManager) != _publicName.GetPublicName(args.Target)) // ST:OW
             return;
 
         var detailsRange = _examine.IsInDetailsRange(args.User, ent);

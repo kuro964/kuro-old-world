@@ -23,28 +23,52 @@
                                     <Button Name="RandomizeEverythingButton" HorizontalAlignment="Center"
                                             HorizontalExpand="False" MaxWidth="256"
                                             Text="{Loc 'humanoid-profile-editor-randomize-everything-button'}" />
-                                    <RichTextLabel Name="WarningLabel" HorizontalExpand="False"
-                                                   VerticalExpand="True" MaxWidth="425"
+                                    <RichTextLabel Name="WarningLabel" HorizontalExpand="False" MaxWidth="425"
                                                    HorizontalAlignment="Left" />
+                                    <Button Name="NameSettingsButton" ToggleMode="True"
+                                            Text="{Loc 'st-profile-editor-name-settings'}" />
                                 </BoxContainer>
                             </ui:HighlightedContainer>
-                            <!-- stalker-en-changes-start: Anonymous Alias -->
-                            <ui:HighlightedContainer>
-                                <BoxContainer Orientation="Vertical">
-                                    <Label Text="{Loc 'st-profile-editor-alias-label'}" />
-                                    <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
-                                        <OptionButton Name="AliasAdjectiveButton" HorizontalExpand="True" />
-                                        <OptionButton Name="AliasNounButton" HorizontalExpand="True" />
-                                        <Button Name="AliasRandomize" Text="{Loc 'st-profile-editor-alias-random'}" />
+                            <!-- ST:OW begin -->
+                            <BoxContainer Name="NameSettingsContainer" Orientation="Vertical" Visible="False">
+                                <ui:HighlightedContainer>
+                                    <BoxContainer Orientation="Vertical">
+                                        <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                                            <Label Text="{Loc 'st-profile-editor-nickname-label'}" />
+                                            <LineEdit Name="NicknameEdit" HorizontalExpand="True" VerticalAlignment="Center"
+                                                      Margin="5 0 0 0"
+                                                      PlaceHolder="{Loc 'st-profile-editor-nickname-placeholder'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                                            <Label Text="{Loc 'st-profile-editor-name-display'}" />
+                                            <Control HorizontalExpand="True" />
+                                            <OptionButton Name="NicknameDisplayButton" />
+                                        </BoxContainer>
+                                        <CheckBox Name="NicknameDogtagCheckBox"
+                                                  Text="{Loc 'st-profile-editor-nickname-dogtag'}" />
+                                        <RichTextLabel Name="NicknamePreviewLabel" HorizontalExpand="False" MaxWidth="425"
+                                                       HorizontalAlignment="Left" />
                                     </BoxContainer>
-                                    <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
-                                        <Label Text="{Loc 'st-profile-editor-alias-color-label'}" />
-                                        <Control HorizontalExpand="True"/>
-                                        <OptionButton Name="AliasColorButton" HorizontalAlignment="Right" />
+                                </ui:HighlightedContainer>
+                                <!-- stalker-en-changes-start: Anonymous Alias -->
+                                <ui:HighlightedContainer>
+                                    <BoxContainer Orientation="Vertical">
+                                        <Label Text="{Loc 'st-profile-editor-alias-label'}" />
+                                        <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                                            <OptionButton Name="AliasAdjectiveButton" HorizontalExpand="True" />
+                                            <OptionButton Name="AliasNounButton" HorizontalExpand="True" />
+                                            <Button Name="AliasRandomize" Text="{Loc 'st-profile-editor-alias-random'}" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                                            <Label Text="{Loc 'st-profile-editor-alias-color-label'}" />
+                                            <Control HorizontalExpand="True"/>
+                                            <OptionButton Name="AliasColorButton" HorizontalAlignment="Right" />
+                                        </BoxContainer>
                                     </BoxContainer>
-                                </BoxContainer>
-                            </ui:HighlightedContainer>
-                            <!-- stalker-en-changes-end -->
+                                </ui:HighlightedContainer>
+                                <!-- stalker-en-changes-end -->
+                            </BoxContainer>
+                            <!-- ST:OW end -->
                         </BoxContainer>
                     </ui:HighlightedContainer>
                 </BoxContainer>

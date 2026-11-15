@@ -104,6 +104,7 @@
 
 - type: stBand
   id: STDolgBand
+  showInPoints: true # ST:OW
   name: Dolg
   factionId: Dolg
   maxMembers: 21

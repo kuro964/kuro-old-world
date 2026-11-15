@@ -27,6 +27,7 @@ using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+using Content.Shared._Stalker_OW.PublicName; // ST:OW
 
 namespace Content.Server.Database
 {
@@ -288,7 +289,10 @@ namespace Content.Server.Database
                 profile.Changeable,
                 profile.STAliasAdjective, // stalker-en-changes
                 profile.STAliasNoun, // stalker-en-changes
-                profile.STAliasColor // stalker-en-changes
+                profile.STAliasColor, // stalker-en-changes
+                stNickname: profile.STNickname, // ST:OW
+                stUseNicknameOnDogtag: profile.STUseNicknameOnDogtag, // ST:OW
+                stNicknameDisplayMode: (STNicknameDisplay) profile.STNicknameDisplayMode // ST:OW
             );
         }
 
@@ -325,6 +329,11 @@ namespace Content.Server.Database
             profile.STAliasNoun = humanoid.STAliasNoun;
             profile.STAliasColor = humanoid.STAliasColor;
             // stalker-en-changes-end
+            // ST:OW begin
+            profile.STNickname = humanoid.STNickname;
+            profile.STUseNicknameOnDogtag = humanoid.STUseNicknameOnDogtag;
+            profile.STNicknameDisplayMode = (int) STNicknameRules.ValidateDisplay(humanoid.STNicknameDisplayMode);
+            // ST:OW end
 
             profile.Jobs.Clear();
             profile.Jobs.AddRange(
@@ -2624,6 +2633,118 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}
             await db.DbContext.StalkerPersistentCraftProfiles.ExecuteDeleteAsync();
         }
         // stalker-en-changes-end
+
+        // ST:OW begin - Faction titles and member listing
+        public async Task<List<StalkerBandMemberTitle>> GetAllStalkerBandMemberTitlesAsync()
+        {
+            await using var db = await GetDb();
+            return await db.DbContext.StalkerBandMemberTitles.AsNoTracking().ToListAsync();
+        }
+
+        public async Task SetStalkerBandMemberTitleAsync(Guid userId, string bandId, string title, bool adminLocked, Guid? setByUserId)
+        {
+            await using var db = await GetDb();
+
+            var existing = await db.DbContext.StalkerBandMemberTitles
+                .FirstOrDefaultAsync(t => t.PlayerUserId == userId && t.BandId == bandId);
+
+            if (existing is null)
+            {
+                db.DbContext.StalkerBandMemberTitles.Add(new StalkerBandMemberTitle
+                {
+                    PlayerUserId = userId,
+                    BandId = bandId,
+                    Title = title,
+                    AdminLocked = adminLocked,
+                    SetByUserId = setByUserId,
+                });
+            }
+            else
+            {
+                existing.Title = title;
+                existing.AdminLocked = adminLocked;
+                existing.SetByUserId = setByUserId;
+            }
+
+            await db.DbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteStalkerBandMemberTitleAsync(Guid userId, string bandId)
+        {
+            await using var db = await GetDb();
+            await db.DbContext.StalkerBandMemberTitles
+                .Where(t => t.PlayerUserId == userId && t.BandId == bandId)
+                .ExecuteDeleteAsync();
+        }
+
+        //
+        /// Removes a player from a faction and their title in one transaction
+        public async Task RemoveStalkerBandMemberAsync(Guid userId, string bandId, IReadOnlyCollection<string> roleIds)
+        {
+            await using var db = await GetDb();
+            var roleList = roleIds.ToList();
+
+            await using var transaction = await db.DbContext.Database.BeginTransactionAsync();
+
+            await db.DbContext.RoleWhitelists
+                .Where(w => w.PlayerUserId == userId && roleList.Contains(w.RoleId))
+                .ExecuteDeleteAsync();
+
+            await db.DbContext.StalkerBandMemberTitles
+                .Where(t => t.PlayerUserId == userId && t.BandId == bandId)
+                .ExecuteDeleteAsync();
+
+            await transaction.CommitAsync();
+        }
+        
+        public async Task<List<StalkerBandMemberRow>> GetStalkerBandMembersAsync(IReadOnlyCollection<string> roleIds, CancellationToken cancel = default)
+        {
+            await using var db = await GetDb(cancel);
+            var roleList = roleIds.ToList();
+
+            var rows = await db.DbContext.RoleWhitelists
+                .Where(rw => roleList.Contains(rw.RoleId))
+                .Select(rw => new { rw.PlayerUserId, rw.RoleId, rw.Player.LastSeenUserName })
+                .ToListAsync(cancel);
+
+            if (rows.Count == 0)
+                return new List<StalkerBandMemberRow>();
+
+            var userIds = rows.Select(r => r.PlayerUserId).Distinct().ToList();
+
+            var names = await db.DbContext.Preference
+                .Where(p => userIds.Contains(p.UserId))
+                .Select(p => new
+                {
+                    p.UserId,
+                    Name = p.Profiles
+                        .Where(pr => pr.Slot == p.SelectedCharacterSlot)
+                        .Select(pr => pr.CharacterName)
+                        .FirstOrDefault(),
+                    Nickname = p.Profiles
+                        .Where(pr => pr.Slot == p.SelectedCharacterSlot)
+                        .Select(pr => pr.STNickname)
+                        .FirstOrDefault(),
+                    DisplayMode = p.Profiles
+                        .Where(pr => pr.Slot == p.SelectedCharacterSlot)
+                        .Select(pr => pr.STNicknameDisplayMode)
+                        .FirstOrDefault(),
+                })
+                .ToListAsync(cancel);
+
+            var nameLookup = new Dictionary<Guid, (string? Name, string? Nickname, int DisplayMode)>();
+            foreach (var entry in names)
+                nameLookup[entry.UserId] = (entry.Name, entry.Nickname, entry.DisplayMode);
+
+            return rows
+                .Select(r =>
+                {
+                    var (name, nickname, displayMode) = nameLookup.GetValueOrDefault(r.PlayerUserId);
+                    return new StalkerBandMemberRow(r.PlayerUserId, r.LastSeenUserName, r.RoleId, name, nickname, STNicknameRules.ValidateDisplay((STNicknameDisplay) displayMode));
+                })
+                .ToList();
+        }
+        // ST:OW end
 
         #endregion
         #region Job Whitelists

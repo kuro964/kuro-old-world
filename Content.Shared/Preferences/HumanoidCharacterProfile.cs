@@ -16,6 +16,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
+using Content.Shared._Stalker_OW.PublicName; // ST:OW
 
 namespace Content.Shared.Preferences
 {
@@ -138,6 +139,20 @@ namespace Content.Shared.Preferences
 
         // stalker-en-changes-end
 
+        // ST:OW begin - nickname
+        /// <summary>
+        /// Optional nickname used in chat, examine, etc
+        /// </summary>
+        [DataField]
+        public string STNickname { get; set; } = string.Empty;
+
+        [DataField]
+        public STNicknameDisplay STNicknameDisplayMode { get; set; }
+        
+        [DataField]
+        public bool STUseNicknameOnDogtag { get; set; }
+        // ST:OW end
+
         /// <summary>
         /// When spawning into a round what's the preferred spot to spawn.
         /// </summary>
@@ -185,7 +200,10 @@ namespace Content.Shared.Preferences
             string stAliasNoun = "", // stalker-en-changes
             string stAliasColor = "", // stalker-en-changes
             string selectedPortraitId = "", // stalker-en-changes: portrait
-            string disguisePortraitId = "") // stalker-en-changes: disguise
+            string disguisePortraitId = "", // stalker-en-changes: disguise
+            string stNickname = "", // ST:OW
+            bool stUseNicknameOnDogtag = false, // ST:OW
+            STNicknameDisplay stNicknameDisplayMode = STNicknameDisplay.NicknameOnly) // ST:OW
         {
             Name = name;
             FlavorText = flavortext;
@@ -206,6 +224,9 @@ namespace Content.Shared.Preferences
             STAliasColor = stAliasColor; // stalker-en-changes
             SelectedPortraitId = selectedPortraitId; // stalker-en-changes: portrait
             DisguisePortraitId = disguisePortraitId; // stalker-en-changes: disguise
+            STNickname = stNickname; // ST:OW
+            STUseNicknameOnDogtag = stUseNicknameOnDogtag; // ST:OW
+            STNicknameDisplayMode = STNicknameRules.ValidateDisplay(stNicknameDisplayMode); // ST:OW
             var hasHighPrority = false;
             foreach (var (key, value) in _jobPriorities)
             {
@@ -241,7 +262,10 @@ namespace Content.Shared.Preferences
                 other.STAliasNoun, // stalker-en-changes
                 other.STAliasColor, // stalker-en-changes
                 other.SelectedPortraitId, // stalker-en-changes: portrait
-                other.DisguisePortraitId) // stalker-en-changes: disguise
+                other.DisguisePortraitId, // stalker-en-changes: disguise
+                other.STNickname, // ST:OW
+                other.STUseNicknameOnDogtag, // ST:OW
+                other.STNicknameDisplayMode) // ST:OW
         {
         }
 
@@ -410,6 +434,23 @@ namespace Content.Shared.Preferences
             return new(this) { DisguisePortraitId = portraitId };
         }
         // stalker-en-changes-end
+
+        // ST:OW begin
+        public HumanoidCharacterProfile WithSTNickname(string nickname)
+        {
+            return new(this) { STNickname = nickname };
+        }
+
+        public HumanoidCharacterProfile WithSTNicknameDisplayMode(STNicknameDisplay display)
+        {
+            return new(this) { STNicknameDisplayMode = STNicknameRules.ValidateDisplay(display) };
+        }
+
+        public HumanoidCharacterProfile WithSTUseNicknameOnDogtag(bool useNickname)
+        {
+            return new(this) { STUseNicknameOnDogtag = useNickname };
+        }
+        // ST:OW end
 
         public HumanoidCharacterProfile WithSpawnPriorityPreference(SpawnPriorityPreference spawnPriority)
         {
@@ -589,6 +630,9 @@ namespace Content.Shared.Preferences
             if (SelectedPortraitId != other.SelectedPortraitId) return false;
             if (DisguisePortraitId != other.DisguisePortraitId) return false;
             // stalker-en-changes-end
+            if (STNicknameDisplayMode != other.STNicknameDisplayMode) return false; // ST:OW
+            if (STNickname != other.STNickname) return false; // ST:OW
+            if (STUseNicknameOnDogtag != other.STUseNicknameOnDogtag) return false; // ST:OW
             return Appearance.MemberwiseEquals(other.Appearance);
         }
 
@@ -748,6 +792,20 @@ namespace Content.Shared.Preferences
                 STAliasColor = STAliasColor[..16];
             // stalker-en-changes-end
 
+            // ST:OW begin
+            STNicknameDisplayMode = STNicknameRules.ValidateDisplay(STNicknameDisplayMode);
+            STNickname = STNicknameRules.Sanitize(
+                STNickname,
+                configManager.GetCVar(CCVars.RestrictedNames));
+
+            // A nickname identical to the real name is just the real name
+            if (STNickname == name)
+                STNickname = string.Empty;
+
+            if (string.IsNullOrEmpty(STNickname))
+                STUseNicknameOnDogtag = false;
+            // ST:OW end
+
             // stalker-en-changes: portrait validation
             // Validate main portrait texture path
             if (!string.IsNullOrEmpty(SelectedPortraitId))
@@ -883,6 +941,9 @@ namespace Content.Shared.Preferences
             hashCode.Add(SelectedPortraitId);
             hashCode.Add(DisguisePortraitId);
             // stalker-en-changes-end
+            hashCode.Add(STNicknameDisplayMode); // ST:OW
+            hashCode.Add(STNickname); // ST:OW
+            hashCode.Add(STUseNicknameOnDogtag); // ST:OW
             return hashCode.ToHashCode();
         }
 

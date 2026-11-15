@@ -1,4 +1,5 @@
 using Content.Shared.Examine;
+using Robust.Shared.Utility; // ST:OW
 
 namespace Content.Shared._Stalker_EN.DogTag;
 
@@ -11,6 +12,7 @@ public sealed class STDogTagInfoExamineSystem : EntitySystem
     private const string LocExamineName = "st-dogtag-examine-name";
     private const string LocExamineAge = "st-dogtag-examine-age";
     private const string LocUnknown = "st-dogtag-examine-unknown";
+    private const string LocScratched = "st-dogtag-examine-scratched"; // ST:OW
 
     public override void Initialize()
     {
@@ -33,6 +35,14 @@ public sealed class STDogTagInfoExamineSystem : EntitySystem
         {
             args.PushMarkup(Loc.GetString(LocExamineName, ("name", name)));
             args.PushMarkup(Loc.GetString(LocExamineAge, ("age", age)));
+
+            // ST:OW begin
+            if (component.NameScratched && !string.IsNullOrEmpty(component.OwnerName))
+            {
+                args.PushMarkup(Loc.GetString(LocScratched,
+                    ("name", FormattedMessage.EscapeText(component.OwnerName))));
+            }
+            // ST:OW end
         }
     }
 }

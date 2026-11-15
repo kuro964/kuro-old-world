@@ -105,6 +105,7 @@
 
 - type: stBand
   id: STBanditsBand
+  showInPoints: true # ST:OW
   name: Bandits
   factionId: Bandit
   maxMembers: 16

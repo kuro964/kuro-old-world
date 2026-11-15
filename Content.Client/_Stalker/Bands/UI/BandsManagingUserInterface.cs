@@ -30,6 +30,7 @@ namespace Content.Client._Stalker.Bands.UI
                 _window.OnRespondProposalPressed += RespondProposal;
                 _window.OnCancelProposalPressed += CancelProposal;
                 // stalker-en-changes end
+                _window.OnSetTitleRequested += SetTitle; // ST:OW
             }
         }
 
@@ -66,6 +67,27 @@ namespace Content.Client._Stalker.Bands.UI
         }
         // stalker-en-changes end
 
+        // ST:OW begin
+        private void SetTitle(Guid memberUserId, string title, int requestId)
+        {
+            SendMessage(new BandsManagingSetTitleMessage(memberUserId, title, requestId));
+        }
+        
+        protected override void ReceiveMessage(BoundUserInterfaceMessage message)
+        {
+            base.ReceiveMessage(message);
+            switch (message)
+            {
+                case BandsManagingStateMessage stateMessage:
+                    _window?.UpdateState(stateMessage.State);
+                    break;
+                case BandsManagingTitleResultMessage titleResult:
+                    _window?.OnTitleResult(titleResult.PlayerUserId, titleResult.RequestId, titleResult.Saved, titleResult.Title);
+                    break;
+            }
+        }
+        // ST:OW end
+
         protected override void UpdateState(BoundUserInterfaceState state)
         {
             base.UpdateState(state);
@@ -86,6 +108,7 @@ namespace Content.Client._Stalker.Bands.UI
                 _window.OnRespondProposalPressed -= RespondProposal;
                 _window.OnCancelProposalPressed -= CancelProposal;
                 // stalker-en-changes end
+                _window.OnSetTitleRequested -= SetTitle; // ST:OW
                 _window.Dispose();
             }
         }

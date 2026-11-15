@@ -106,6 +106,7 @@
 
 - type: stBand
   id: STFreedomBand
+  showInPoints: true # ST:OW
   name: Freedom
   factionId: Freedom
   maxMembers: 21

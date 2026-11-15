@@ -16,6 +16,7 @@ using Robust.Shared.Utility; // stalker-en-changes: FormattedMessage.EscapeText
 using Robust.Shared.Enums;
 using Robust.Shared.GameObjects.Components.Localization;
 using Robust.Shared.Timing;
+using Content.Shared._Stalker_OW.PublicName; // ST:OW
 
 namespace Content.Shared.IdentityManagement;
 
@@ -33,6 +34,7 @@ public sealed class IdentitySystem : EntitySystem
     [Dependency] private readonly SharedHumanoidAppearanceSystem _humanoid = default!;
     [Dependency] private readonly SharedIdCardSystem _idCard = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!; // stalker-en-changes
+    [Dependency] private readonly STPublicNameSystem _publicName = default!; // ST:OW
 
     // The name of the container holding the identity entity
     private const string SlotName = "identity";
@@ -253,7 +255,7 @@ public sealed class IdentitySystem : EntitySystem
         }
 
         var ageString = _humanoid.GetAgeRepresentation(species, age);
-        var trueName = Name(target);
+        var trueName = _publicName.GetPublicName(target, Name(target)); // ST:OW
         if (!Resolve(target, ref target.Comp1, false))
             return new(trueName, gender, ageString, string.Empty);
 

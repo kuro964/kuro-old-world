@@ -85,6 +85,18 @@ namespace Content.Shared._Stalker.Bands
         public Dictionary<string, string> FactionDisplayNames { get; }
         // stalker-en-changes end
 
+        // ST:OW begin
+        /// <summary>
+        /// Maps player's faction ID.
+        /// </summary>
+        public string? BandId { get; }
+
+        /// <summary>
+        /// If player can change faction relations.
+        /// </summary>
+        public bool CanManageRelations { get; }
+        // ST:OW end
+
         public BandsManagingBoundUserInterfaceState(
             string? bandName,
             int maxMembers,
@@ -101,8 +113,10 @@ namespace Content.Shared._Stalker.Bands
             List<STFactionRelationProposalEntry>? outgoingProposals = null,
             Dictionary<string, float>? cooldownsRemaining = null,
             bool hideRelationsTab = false,
-            Dictionary<string, string>? factionDisplayNames = null)
+            Dictionary<string, string>? factionDisplayNames = null,
             // stalker-en-changes end
+            string? bandId = null, // ST:OW
+            bool canManageRelations = false) // ST:OW
         {
             BandName = bandName;
             MaxMembers = maxMembers;
@@ -121,6 +135,8 @@ namespace Content.Shared._Stalker.Bands
             HideRelationsTab = hideRelationsTab;
             FactionDisplayNames = factionDisplayNames ?? new Dictionary<string, string>();
             // stalker-en-changes end
+            BandId = bandId; // ST:OW
+            CanManageRelations = canManageRelations; // ST:OW
         }
     }
 
@@ -129,12 +145,12 @@ namespace Content.Shared._Stalker.Bands
     [Serializable, NetSerializable]
     public sealed class WarZoneInfo
     {
-        public string ZoneId { get; }
-        public string Owner { get; }
+        public string ZoneId { get; } // ST:OW
+        public string Owner { get; } // ST:OW
         public float Cooldown { get; } // In seconds
-        public string Attacker { get; }
+        public string Attacker { get; } // ST:OW
         public string Defender { get; }
-        public float Progress { get; } // 0.0 to 1.0. TODO: Not implemented yet
+        public float Progress { get; } // ST:OW - 0.0 to 1.0.
 
         public WarZoneInfo(string zoneId, string owner, float cooldown, string attacker, string defender, float progress)
         {
@@ -172,14 +188,75 @@ namespace Content.Shared._Stalker.Bands
         public string CharacterName { get; } // Add this field
         public string RoleId { get; }
 
-        public BandMemberInfo(NetUserId userId, string playerName, string characterName, string roleId)
+        // ST:OW begin
+        public int Rank { get; }
+        public string Title { get; }
+        public bool TitleLocked { get; }
+        public bool CanEditTitle { get; }
+        public bool CanRemove { get; }
+        // ST:OW end
+
+        public BandMemberInfo(NetUserId userId, string playerName, string characterName, string roleId,
+            int rank = 0, string title = "", bool titleLocked = false, bool canEditTitle = false, bool canRemove = false) // ST:OW
         {
             UserId = userId;
             PlayerName = playerName;
             CharacterName = characterName;
             RoleId = roleId;
+            // ST:OW begin
+            Rank = rank;
+            Title = title;
+            TitleLocked = titleLocked;
+            CanEditTitle = canEditTitle;
+            CanRemove = canRemove;
         }
     }
+    
+    [Serializable, NetSerializable]
+    public sealed class BandsManagingSetTitleMessage : BoundUserInterfaceMessage
+    {
+        public Guid PlayerUserId { get; }
+        public string Title { get; }
+
+        public int RequestId { get; }
+
+        public BandsManagingSetTitleMessage(Guid playerUserId, string title, int requestId = 0)
+        {
+            PlayerUserId = playerUserId;
+            Title = title;
+            RequestId = requestId;
+        }
+    }
+    
+    [Serializable, NetSerializable]
+    public sealed class BandsManagingTitleResultMessage : BoundUserInterfaceMessage
+    {
+        public Guid PlayerUserId { get; }
+        public int RequestId { get; }
+        public bool Saved { get; }
+
+        public string Title { get; }
+
+        public BandsManagingTitleResultMessage(Guid playerUserId, int requestId, bool saved, string title)
+        {
+            PlayerUserId = playerUserId;
+            RequestId = requestId;
+            Saved = saved;
+            Title = title;
+        }
+    }
+    
+    [Serializable, NetSerializable]
+    public sealed class BandsManagingStateMessage : BoundUserInterfaceMessage
+    {
+        public BandsManagingBoundUserInterfaceState State { get; }
+
+        public BandsManagingStateMessage(BandsManagingBoundUserInterfaceState state)
+        {
+            State = state;
+        }
+    }
+    // ST:OW end
 
     [Serializable, NetSerializable]
     public sealed class BandsManagingAddMemberMessage : BoundUserInterfaceMessage

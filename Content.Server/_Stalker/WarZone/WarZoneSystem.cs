@@ -15,6 +15,7 @@ using Content.Server.Chat.Systems;
 using System.Linq;
 using Content.Server._Stalker_EN.PdaMessenger;
 using Microsoft.CodeAnalysis.Elfie.Model;
+using Content.Server._Stalker_OW.Bands; // ST:OW
 
 namespace Content.Server._Stalker.WarZone;
 
@@ -40,6 +41,7 @@ public sealed partial class WarZoneSystem : EntitySystem
     public void SetBandPoints(string protoId, float points)
     {
         _bandPoints[protoId] = points;
+        RaiseLocalEvent(new STBandPointsChangedEvent(protoId)); // ST:OW
     }
 
     public void SetFactionPoints(string protoId, float points)
@@ -86,6 +88,7 @@ public sealed partial class WarZoneSystem : EntitySystem
 
 
         _bandPoints[bandProtoId] = newPoints;
+        RaiseLocalEvent(new STBandPointsChangedEvent(bandProtoId)); // ST:OW
 
         // Persist the change to the database asynchronously.
         // We don't necessarily need to wait for this to complete before returning true,
@@ -127,6 +130,13 @@ public sealed partial class WarZoneSystem : EntitySystem
             }
 
             Logger.InfoS("warzone", "Cleared all band points and persisted changes to the DB.");
+
+            // ST:OW begin
+            foreach (var bandId in _bandPoints.Keys.ToList())
+            {
+                RaiseLocalEvent(new STBandPointsChangedEvent(bandId));
+            }
+            // ST:OW end
         }
         catch (Exception e)
         {
@@ -300,6 +310,7 @@ public sealed partial class WarZoneSystem : EntitySystem
                 ResetCaptureProgress(comp);
                 comp.CurrentAttackerBandProtoId = null;
                 comp.CurrentAttackerFactionProtoId = null;
+                RaiseLocalEvent(new STWarZoneChangedEvent()); // ST:OW
             }
             return;
         }
@@ -334,6 +345,7 @@ public sealed partial class WarZoneSystem : EntitySystem
                     ResetCaptureProgress(comp);
                     comp.CurrentAttackerBandProtoId = null;
                     comp.CurrentAttackerFactionProtoId = null;
+                    RaiseLocalEvent(new STWarZoneChangedEvent()); // ST:OW
                 }
                 return; // Conflict stops capture
             }
@@ -385,6 +397,7 @@ public sealed partial class WarZoneSystem : EntitySystem
              // Announce based on who is attacking (band or faction)
              string attackerName = GetAttackerName(currentAttackerBand, currentAttackerFaction);
              AnnounceCaptureStartedLocal(zone, comp, attackerName);
+             RaiseLocalEvent(new STWarZoneChangedEvent()); // ST:OW
         }
 
         // Check Requirements
@@ -523,6 +536,7 @@ public sealed partial class WarZoneSystem : EntitySystem
         comp.CaptureProgressTime = 0f;
         comp.CurrentAttackerBandProtoId = null;
         comp.CurrentAttackerFactionProtoId = null;
+        RaiseLocalEvent(new STWarZoneChangedEvent()); // ST:OW
     }
 
     private void ResetAllRequirements(EntityUid zone)
@@ -566,6 +580,7 @@ public sealed partial class WarZoneSystem : EntitySystem
             var currentPoints = _bandPoints.TryGetValue(bandProtoId, out var val) ? val : 0;
             var newPoints = currentPoints + points;
             _bandPoints[bandProtoId] = newPoints;
+            RaiseLocalEvent(new STBandPointsChangedEvent(bandProtoId)); // ST:OW
             _dbManager.SetStalkerBandAsync(new ProtoId<STBandPrototype>(bandProtoId), newPoints);
             Logger.InfoS("warzone", $"Awarded {points} points to band {bandProtoId} (total: {newPoints}) for controlling {wzComp.PortalName}");
             rewarded = true;

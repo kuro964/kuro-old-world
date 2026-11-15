@@ -15,6 +15,7 @@ using Robust.Shared.Replays;
 using Robust.Shared.Utility;
 // ST:OW begin
 using Content.Shared._Stalker_OW.Monolith;
+using Content.Shared._Stalker_OW.PublicName;
 // ST:OW end
 
 namespace Content.Server.Radio.EntitySystems;
@@ -30,6 +31,7 @@ public sealed class RadioSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly STPublicNameSystem _publicName = default!; // ST:OW
 
     // set used to prevent radio feedback loops.
     private readonly HashSet<string> _messages = new();
@@ -108,6 +110,7 @@ public sealed class RadioSystem : EntitySystem
             name = Name(messageSource);
         }
         // stalker-en changes end 
+            var nameMarkup = _publicName.GetNameMarkup(messageSource, name); // ST:OW
             name = FormattedMessage.EscapeText(name);
         
         SpeechVerbPrototype speech;
@@ -126,7 +129,7 @@ public sealed class RadioSystem : EntitySystem
             ("fontSize", speech.FontSize),
             ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
             ("channel", $"\\[{channel.LocalizedName}\\]"),
-            ("name", name),
+            ("name", nameMarkup), // ST:OW
             ("message", content));
 
         // most radios are relayed to chat, so lets parse the chat message beforehand

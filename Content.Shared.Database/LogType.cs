@@ -504,4 +504,11 @@ public enum LogType
     /// Camera photo actions (capture, delete, admin purge).
     /// </summary>
     STPhoto = 196, // stalker-en-changes
+
+    // ST:OW begin
+    /// <summary>
+    /// Faction management at the Igor (recruit, remove, redeem rewards).
+    /// </summary>
+    STFaction = 197,
+    // ST:OW end
 }
