@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 09/19/2026 10:06:12
-  entityCount: 7587
+  time: 11/14/2026 20:17:59
+  entityCount: 7586
 maps:
 - 1
 grids:
@@ -40991,12 +40991,12 @@ entities:
     - type: Transform
       pos: -41.5,42.5
       parent: 1
-- proto: MiracleMachineTeleporterSpawnerYantarDeadCity
+- proto: Mono-Yantar-TeleportOW
   entities:
-  - uid: 5776
+  - uid: 5231
     components:
     - type: Transform
-      pos: -58.5,43.5
+      pos: 26.5,8.5
       parent: 1
 - proto: MoonshineStill
   entities:
@@ -46385,6 +46385,36 @@ entities:
     - type: Transform
       pos: 25.5,70.5
       parent: 1
+  - uid: 6547
+    components:
+    - type: Transform
+      pos: 25.5,9.5
+      parent: 1
+  - uid: 7142
+    components:
+    - type: Transform
+      pos: 25.5,8.5
+      parent: 1
+  - uid: 7144
+    components:
+    - type: Transform
+      pos: 25.5,7.5
+      parent: 1
+  - uid: 7145
+    components:
+    - type: Transform
+      pos: 26.5,9.5
+      parent: 1
+  - uid: 7148
+    components:
+    - type: Transform
+      pos: 26.5,8.5
+      parent: 1
+  - uid: 7149
+    components:
+    - type: Transform
+      pos: 26.5,7.5
+      parent: 1
   - uid: 7187
     components:
     - type: Transform
@@ -46455,55 +46485,25 @@ entities:
     - type: Transform
       pos: -17.5,-116.5
       parent: 1
+  - uid: 7314
+    components:
+    - type: Transform
+      pos: 27.5,9.5
+      parent: 1
+  - uid: 7374
+    components:
+    - type: Transform
+      pos: 27.5,8.5
+      parent: 1
+  - uid: 7375
+    components:
+    - type: Transform
+      pos: 27.5,7.5
+      parent: 1
   - uid: 7790
     components:
     - type: Transform
       pos: 17.5,3.5
-      parent: 1
-  - uid: 7792
-    components:
-    - type: Transform
-      pos: 25.5,5.5
-      parent: 1
-  - uid: 7793
-    components:
-    - type: Transform
-      pos: 25.5,4.5
-      parent: 1
-  - uid: 7954
-    components:
-    - type: Transform
-      pos: 25.5,3.5
-      parent: 1
-  - uid: 7955
-    components:
-    - type: Transform
-      pos: 26.5,5.5
-      parent: 1
-  - uid: 7956
-    components:
-    - type: Transform
-      pos: 26.5,4.5
-      parent: 1
-  - uid: 7957
-    components:
-    - type: Transform
-      pos: 26.5,3.5
-      parent: 1
-  - uid: 7958
-    components:
-    - type: Transform
-      pos: 27.5,5.5
-      parent: 1
-  - uid: 7959
-    components:
-    - type: Transform
-      pos: 27.5,4.5
-      parent: 1
-  - uid: 7960
-    components:
-    - type: Transform
-      pos: 27.5,3.5
       parent: 1
 - proto: StalkerExplSafezoneTriggerOut
   entities:
@@ -67039,13 +67039,6 @@ entities:
     components:
     - type: Transform
       pos: -67.5,-44.5
-      parent: 1
-- proto: Yantar-Mono
-  entities:
-  - uid: 5231
-    components:
-    - type: Transform
-      pos: 26.5,8.5
       parent: 1
 - proto: Yantar-Rostok
   entities:

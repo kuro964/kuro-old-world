@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/11/2026 18:52:18
-  entityCount: 16394
+  time: 11/14/2026 20:01:10
+  entityCount: 16398
 maps:
 - 1
 grids:
@@ -36673,12 +36673,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 29.5,20.5
       parent: 1
-  - uid: 622
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 29.5,18.5
-      parent: 1
   - uid: 623
     components:
     - type: Transform
@@ -37902,6 +37896,26 @@ entities:
     components:
     - type: Transform
       pos: -172.5,-102.5
+      parent: 1
+  - uid: 8605
+    components:
+    - type: Transform
+      pos: 39.5,12.5
+      parent: 1
+  - uid: 8620
+    components:
+    - type: Transform
+      pos: 29.5,18.5
+      parent: 1
+  - uid: 8708
+    components:
+    - type: Transform
+      pos: 40.5,12.5
+      parent: 1
+  - uid: 8709
+    components:
+    - type: Transform
+      pos: 41.5,14.5
       parent: 1
   - uid: 10772
     components:
@@ -45370,6 +45384,13 @@ entities:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 43.5,15.5
+      parent: 1
+- proto: DollarShopEcologist
+  entities:
+  - uid: 8707
+    components:
+    - type: Transform
+      pos: -195.5,-141.5
       parent: 1
 - proto: DrinkBottleVodka
   entities:
@@ -73020,7 +73041,7 @@ entities:
       pos: -166.5,-69.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -2496.2046
+      secondsUntilStateChange: -2649.2434
       state: Opening
     - type: AccessReader
       accessListsOriginal:
@@ -73369,33 +73390,17 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -85.5,-32.5
       parent: 1
-- proto: MutantSpawnerBunkerT3_1_75
-  entities:
-  - uid: 8620
-    components:
-    - type: Transform
-      pos: 39.5,13.5
-      parent: 1
 - proto: MutantSpawnerBurer_1to2_100
-  entities:
-  - uid: 8638
-    components:
-    - type: Transform
-      pos: -112.5,-13.5
-      parent: 1
-- proto: MutantSpawnerBurer_1to2_25
   entities:
   - uid: 8615
     components:
     - type: Transform
-      pos: 56.5,15.5
+      pos: 56.5,16.5
       parent: 1
-- proto: MutantSpawnerBurer_1to2_75
-  entities:
-  - uid: 8605
+  - uid: 8638
     components:
     - type: Transform
-      pos: 28.5,18.5
+      pos: -112.5,-13.5
       parent: 1
 - proto: MutantSpawnerCanineT2_1to3_25
   entities:
@@ -73422,6 +73427,20 @@ entities:
     components:
     - type: Transform
       pos: -181.5,-0.5
+      parent: 1
+- proto: MutantSpawnerKarlik_1to2_50
+  entities:
+  - uid: 622
+    components:
+    - type: Transform
+      pos: 28.5,18.5
+      parent: 1
+- proto: MutantSpawnerKarlik_1to4_50
+  entities:
+  - uid: 8710
+    components:
+    - type: Transform
+      pos: 43.5,13.5
       parent: 1
 - proto: MutantSpawnerMatureBear_1to2_01
   entities:

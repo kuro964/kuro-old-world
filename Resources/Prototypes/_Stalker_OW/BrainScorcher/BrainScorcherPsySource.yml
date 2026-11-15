@@ -1,0 +1,63 @@
+- type: entity
+  parent: AnomalyHeatPsy
+  name: Brain Scorcher Psy Source (1 unit in center, 20 tiles)
+  suffix: Stalker, Brain Scorcher
+  id: BrainScorcherAnomalyHeatPsy1
+  components:
+    - type: BrainScorcherPsySource
+
+- type: entity
+  parent: AnomalyHeatPsy2
+  name: Brain Scorcher Psy Source (2 unit in center, 20 tiles)
+  suffix: Stalker, Brain Scorcher
+  id: BrainScorcherAnomalyHeatPsy2
+  components:
+    - type: BrainScorcherPsySource
+
+- type: entity
+  parent: AnomalyHeatPsy3
+  name: Brain Scorcher Psy Source (1 unit in center, 10 tiles)
+  suffix: Stalker, Brain Scorcher
+  id: BrainScorcherAnomalyHeatPsy3
+  components:
+    - type: BrainScorcherPsySource
+
+- type: entity
+  parent: AnomalyHeatPsy4
+  name: Brain Scorcher Psy Source (2 unit in center, 10 tiles)
+  suffix: Stalker, Brain Scorcher
+  id: BrainScorcherAnomalyHeatPsy4
+  components:
+    - type: BrainScorcherPsySource
+
+- type: entity
+  parent: AnomalyHeatPsy5
+  name: Brain Scorcher Psy Source (5 unit in center, 10 tiles)
+  suffix: Stalker, Brain Scorcher
+  id: BrainScorcherAnomalyHeatPsy5
+  components:
+    - type: BrainScorcherPsySource
+
+- type: entity
+  parent: AnomalyHeatPsy6
+  name: Brain Scorcher Psy Source (5 unit in center, 20 tiles)
+  suffix: Stalker, Brain Scorcher
+  id: BrainScorcherAnomalyHeatPsy6
+  components:
+    - type: BrainScorcherPsySource
+
+- type: entity
+  parent: AnomalyHeatPsy7
+  name: Brain Scorcher Psy Source (10 unit in center, 10 tiles)
+  suffix: Stalker, Brain Scorcher
+  id: BrainScorcherAnomalyHeatPsy7
+  components:
+    - type: BrainScorcherPsySource
+
+- type: entity
+  parent: AnomalyHeatPsy8
+  name: Brain Scorcher Psy Source (10 unit in center, 20 tiles)
+  suffix: Stalker, Brain Scorcher
+  id: BrainScorcherAnomalyHeatPsy8
+  components:
+    - type: BrainScorcherPsySource

@@ -32,7 +32,7 @@
     # Damage configuration
     damage:
       types:
-        Psy: 5
+        Psy: 15
 
     # Visual effects
     shakeStrength: 50

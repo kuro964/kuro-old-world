@@ -1,0 +1,59 @@
+- type: entity
+  id: BrainScorcherPsyField
+  parent: MarkerBase
+  name: Brain Scorcher Psy Field
+  description: A psy field caused by the Brain Scorcher that spawns ghosts.
+  suffix: Stalker, Psy, Brain Scorcher
+  components:
+    - type: Physics
+      bodyType: Static
+    - type: Fixtures
+      fixtures:
+        portalFixture:
+          shape:
+            !type:PhysShapeCircle
+            radius: 100
+          mask:
+          - FullTileMask
+          layer:
+          - WallLayer
+          hard: false
+    - type: Sprite
+      layers:
+      - state: blue
+      - sprite: Mobs/Aliens/Xenos/burrower.rsi
+        state: crit
+      - state: ai
+    - type: BrainScorcherSpawner
+      ghosts:
+      - MobMutantApparitionBase
+      - MobMutantApparitionDog
+      - MobMutantApparitionBoar
+      - MobMutantApparitionSnork
+      - MobMutantApparitionSucker
+
+- type: entity
+  id: BSPsyField
+  parent: BrainScorcherPsyField
+  name: Psy Field
+  description: A psy field that spawns ghosts in the surrounding area.
+  suffix: Stalker, Psy
+  components:
+  - type: BrainScorcherSpawner
+    ghosts:
+    - MobMutantApparitionBase
+    - MobMutantApparitionDog
+    - MobMutantApparitionBoar
+    - MobMutantApparitionSnork
+    - MobMutantApparitionSucker
+    brainScorcher: false
+
+- type: entity
+  id: BrainScorcherTeleporterSpawnerBase
+  suffix: Stalker, Teleporter, Miracle Machine, Spawner
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    layers:
+    - state: blue
+

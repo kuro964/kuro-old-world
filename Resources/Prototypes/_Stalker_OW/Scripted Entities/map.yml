@@ -29,3 +29,142 @@
   components:
     - type: Portal
       cooldown: 5
+#Rostok to Divide
+- type: entity
+  parent: MapTeleportBase
+  id: Rostok-Divide-TeleportOW
+  name: Rostok to Divide TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+#Dark Valley to Divide
+- type: entity
+  parent: MapTeleportBase
+  id: DV-Divide-TeleportOW
+  name: Dark Valley to Divide TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+#Divide to Red Forest
+- type: entity
+  parent: MapTeleportBase
+  id: Divide-RF-TeleportOW
+  name: Divide to Red Forest TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+#Divide to Radar
+- type: entity
+  parent: MapTeleportBase
+  id: Divide-Radar-TeleportOW
+  name: Divide to Radar TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+#Radar to Brainscorcher
+- type: entity
+  parent: MapTeleportBase
+  id: Radar-BS-TeleportOw
+  name: Radar to BrainScorcher TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+- type: entity
+  parent: MapTeleportBase
+  id: Radar-RF-TeleportOw
+  name: Radar to RedForestTeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+#Brainscorcher to RF
+- type: entity
+  parent: MapTeleportBase
+  id: BS-RF-TeleportOW
+  name: BrainScorcher to Red Forest TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+      
+- type: entity
+  parent: MapTeleportBaseUncollide
+  id: BS-RF-TeleportOWUncollide
+  name: Brainscorcher to Red Forest Uncollide
+  components:
+    - type: LinkByString
+      linkString: BS-RF-TeleportOW
+
+#Monolith RF entrance
+- type: entity
+  parent: MapTeleportBase
+  id: MonoBS-RF-TeleportOW
+  name: MonolithBS to Red Forest TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+    - type: AccessReader
+      access: [["Monolith"]]
+#Monolith Brainscorcher
+- type: entity
+  parent: MapTeleportBase
+  id: Mono-Brainscorcher-TeleportOW
+  name: Monolith to Brainscorcher TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+#Monolith CNPP
+- type: entity
+  parent: MapTeleportBase
+  id: Mono-CNPP-TeleportOW
+  name: Monolith to CNPP TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+#Monolith Yantar
+- type: entity
+  parent: MapTeleportBase
+  id: Mono-Yantar-TeleportOW
+  name: Mono to Yantar TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+#Divide Underground Connections
+- type: entity
+  parent: MapTeleportBase
+  id: DivideUnderground1-TeleportOW
+  name: Divide to Underground 1 TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+- type: entity
+  parent: MapTeleportBase
+  id: DivideUnderground2-TeleportOW
+  name: Divide to Underground 2 TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+      
+#Merc Base TPS
+- type: entity
+  parent: MapTeleportBase
+  id: MercBaseWestEntrance-TeleportOW
+  name: Merc Base West
+  components:
+    - type: Portal
+      cooldown: 5
+      
+- type: entity
+  parent: MapTeleportBase
+  id: MercBaseEastEntrance-TeleportOW
+  name: Merc Base East
+  components:
+    - type: Portal
+      cooldown: 5
+      
+- type: entity
+  parent: MapTeleportBase
+  id: MercBaseEasyExit-TeleportOW
+  name: Merc Base Exit
+  components:
+    - type: Portal
+      cooldown: 5
+      

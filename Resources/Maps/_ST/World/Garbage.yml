@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/08/2026 03:27:43
-  entityCount: 30513
+  time: 11/14/2026 20:07:29
+  entityCount: 30514
 maps:
 - 1
 grids:
@@ -89593,6 +89593,13 @@ entities:
     - type: Transform
       pos: 41.5,187.5
       parent: 1
+- proto: DollarShopBandit
+  entities:
+  - uid: 4786
+    components:
+    - type: Transform
+      pos: -138.5,384.5
+      parent: 1
 - proto: DrinkBottleVodka
   entities:
   - uid: 31548
@@ -114119,7 +114126,7 @@ entities:
       pos: -76.5,214.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -27670.908
+      secondsUntilStateChange: -27735.184
       state: Opening
   - uid: 6601
     components:
@@ -114127,7 +114134,7 @@ entities:
       pos: -78.5,220.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -27669.307
+      secondsUntilStateChange: -27733.582
       state: Opening
   - uid: 6636
     components:

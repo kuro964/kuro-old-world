@@ -83,3 +83,31 @@
           STStorm: 0.5
           STRedStorm: 0.1
         clearWeatherWeight: 3.0
+        
+#STOW Start
+#Sandstorms that sweep the land but disappear to encourage waiting them out
+      TheDivide:
+        weatherPool:
+          Sandstorm: 2.0
+          SandstormHeavy: 1.5
+          STRain: 0.1
+          STStorm: 0.1
+        clearWeatherWeight: 2.0
+#Mixed bag
+      Radar:
+        weatherPool:
+          STFogLight: 0.5
+          STFogHeavy: 0.5
+          STRain: 0.5
+          STStorm: 0.5
+          STRedStorm: 1.0
+        clearWeatherWeight: 3.0
+#Always stormy
+      BrainScorcher:
+        weatherPool:
+          STFogLight: 2.0
+          STFogHeavy: 1.0
+          STRain: 2.0
+          STStorm: 0.5
+          STRedStorm: 0.1
+        clearWeatherWeight: 0.1

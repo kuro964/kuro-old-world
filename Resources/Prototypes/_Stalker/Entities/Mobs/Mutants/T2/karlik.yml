@@ -83,7 +83,7 @@
     selectedMode: FullAuto
     availableModes:
       - FullAuto
-    soundGunshot: /Audio/_Stalker/Mutants/karlik/karlik_attack.ogg
+    soundGunshot: /Audio/Effects/picaxe2.ogg
   - type: Butcherable
     spawned:
     - id: MutantPartKarlikBolt

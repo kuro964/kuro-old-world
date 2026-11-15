@@ -121,8 +121,6 @@
       # Psy
       - protoId: ZoneAnomalyBarabashka # Thief
         weight: 1
-      - protoId: ZoneAnomalyRift
-        weight: 0.1
       # Special
       - protoId: ZoneAnomalyBeer
         weight: 1
@@ -193,8 +191,6 @@
         weight: 3
       # Psy
       - protoId: ZoneAnomalyBarabashka # Thief
-        weight: 1
-      - protoId: ZoneAnomalyRift
         weight: 1
       # Special
       - protoId: ZoneAnomalyBeer
@@ -462,3 +458,130 @@
       # Special
       - protoId: ZoneAnomalyBeer
         weight: 0.1
+
+# The Divide
+- type: stAnomalyGenerationOptions
+  id: STOWTheDivideGenerationOptions
+  options:
+    totalCount: 550
+    anomalyEntries:
+      # Electrical
+      - protoId: ZoneAnomalyElectra
+        weight: 2
+      - protoId: ZoneAnomalySource
+        weight: .5
+      - protoId: ZoneAnomalyGarland
+        weight: 2
+      
+      # Chemical
+      - protoId: ZoneAnomalyKissel
+        weight: 1
+      - protoId: ZoneAnomalyGazirovka
+        weight: 1
+      - protoId: ZoneAnomalySmoke
+        weight: 1
+      
+      # Gravity
+      - protoId: ZoneAnomalyGravi
+        weight: 2
+      - protoId: ZoneAnomalySpringboard
+        weight: 2
+      - protoId: ZoneAnomalyGrabber
+        weight: 2
+      - protoId: ZoneAnomalyVortex
+        weight: .5
+      - protoId: ZoneAnomalyGlassShards
+        weight: 1
+      
+      # Thermal
+      - protoId: ZoneAnomalyJarka
+        weight: 3
+      - protoId: ZoneAnomalySteam
+        weight: 3
+      - protoId: ZoneAnomalySol
+        weight: 2
+      - protoId: ZoneAnomalyWitchesCircle
+        weight: 1
+      
+      # Psy
+      - protoId: ZoneAnomalyLamp
+        weight: 1
+      - protoId: ZoneAnomalyBarabashka # Thief
+        weight: 2
+      
+      # Special
+      - protoId: ZoneAnomalyBeer
+        weight: 0.5
+
+# Radar
+- type: stAnomalyGenerationOptions
+  id: STOWRadarGenerationOptions
+  options:
+    totalCount: 300
+    anomalyEntries:
+      # Electrical
+      - protoId: ZoneAnomalyElectra
+        weight: 3
+      - protoId: ZoneAnomalySource
+        weight: 3
+      - protoId: ZoneAnomalyGarland
+        weight: 3
+      
+      # Chemical
+      - protoId: ZoneAnomalyKissel
+        weight: 3
+      - protoId: ZoneAnomalyGazirovka
+        weight: 3
+      - protoId: ZoneAnomalySmoke
+        weight: 3
+      
+      # Gravity
+      - protoId: ZoneAnomalyNoGravity
+        weight: 1
+      - protoId: ZoneAnomalyGravi
+        weight: 4
+      - protoId: ZoneAnomalySpringboard
+        weight: 3
+      - protoId: ZoneAnomalyGrabber
+        weight: 4
+      - protoId: ZoneAnomalyVortex
+        weight: 1
+      - protoId: ZoneAnomalyGlassShards
+        weight: 1
+      
+      # Thermal
+      - protoId: ZoneAnomalyJarka
+        weight: 3
+      - protoId: ZoneAnomalySteam
+        weight: 3
+      
+      # Psy
+      - protoId: ZoneAnomalyLamp
+        weight: 0.5
+      - protoId: ZoneAnomalyBarabashka # Thief
+        weight: 1
+      
+      # Special
+      - protoId: ZoneAnomalyBeer
+        weight: 0.5
+        
+# BrainScorcher
+- type: stAnomalyGenerationOptions
+  id: STOWBrainscorcherGenerationOptions
+  options:
+    totalCount: 40
+    anomalyEntries:
+      # Electrical
+      - protoId: ZoneAnomalyElectra
+        weight: 3
+      - protoId: ZoneAnomalySource
+        weight: 3
+      - protoId: ZoneAnomalyGarland
+        weight: 3
+      
+      # Psy
+      - protoId: ZoneAnomalyLamp
+        weight: 0.5
+      - protoId: ZoneAnomalyBarabashka # Thief
+        weight: 1
+      
