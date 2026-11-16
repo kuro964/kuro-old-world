@@ -1,16 +1,6 @@
 ﻿Entries:
 - author: teecoding
   changes:
-  - message: You can now choose when to respawn after death, giving teammates time
-      to revive you
-    type: Add
-  - message: You can see the world while dead instead of a black screen
-    type: Tweak
-  id: 8
-  time: '2026-01-29T20:58:58.913420+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/358
-- author: teecoding
-  changes:
   - message: Possible fix for faction dogtags not showing correct chat bubbles when
       spawning or reconnecting
     type: Fix
@@ -4520,5 +4510,14 @@
   id: 507
   time: '2026-11-15T22:18:33.241493+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/220
+- author: kuro964
+  changes:
+  - message: Improved projectile collision prediction
+    type: Fix
+  - message: Fixed several bugs via backporting upstream commits
+    type: Fix
+  id: 508
+  time: '2026-11-16T19:39:17.691057+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/225
 Name: Stalker
 Order: -1
