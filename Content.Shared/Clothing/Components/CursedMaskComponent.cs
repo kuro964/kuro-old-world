@@ -45,6 +45,14 @@ public sealed partial class CursedMaskComponent : Component
     [DataField]
     public ProtoId<NpcFactionPrototype> CursedMaskFaction = "SimpleHostile";
 
+    // ST:OW begin
+    /// <summary>
+    /// Whether the "Anger" expression takes over the wearer
+    /// </summary>
+    [DataField]
+    public bool Takeover = true;
+    // ST:OW end
+
     [DataField]
     public HashSet<ProtoId<NpcFactionPrototype>> OldFactions = new();
 }

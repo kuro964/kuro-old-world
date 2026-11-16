@@ -1,0 +1,73 @@
+﻿# A win first rolls a rarity using the rarityWeights of the price that was paid (in slot_machine.yml), then picks one prize of that rarity
+# Adding or removing prizes never changes a rarity's share; prizes within a rarity are equally likely unless given a weight
+# Mystery items use bonusChance to determine their rarity
+- type: slotMachinePrizePool
+  id: SlotMachineCosmetics
+  prizes:
+    # Common
+    - { id: ClothingHeadBandana1Military, rarity: Common, category: Headwear }
+    - { id: ClothingHeadBandana2Military, rarity: Common, category: Headwear }
+    - { id: ClothingHeadHatBeaniehat, rarity: Common, category: Headwear }
+    - { id: ClothingTshirtBlue, rarity: Common, category: Other }
+    - { id: ClothingTshirtOrange, rarity: Common, category: Other }
+    - { id: STClothingHeadUshanka, rarity: Common, category: Headwear }
+    - { id: ClothingNeckScarfRainbow, rarity: Common, category: Scarves }
+    - { id: ClothingNeckScarfStripedZebra, rarity: Common, category: Scarves }
+    - { id: ClothingNeckScarfBrown, rarity: Common, category: Scarves }
+    - { id: ClothingNeckScarfRed, rarity: Common, category: Scarves }
+    - { id: ClothingEyesGlassesMercenary, rarity: Common, category: Glasses }
+    - { id: ClothingEyesGlassesThermal, rarity: Common, category: Glasses }
+    - { id: STClothingNeckFacescarfBlackSkull, rarity: Common, category: Scarves }
+    - { id: ClothingHeadHatBrownFlatcap, rarity: Common, category: Headwear }
+    - { id: ClothingHandsGlovesMitts, rarity: Common, category: Gloves }
+    - { id: ClothingHeadHatCowboyBountyHunter, rarity: Common, category: Headwear }
+    - { id: ClothingEyesGlassesRedRound, rarity: Common, category: Glasses }
+    - { id: ClothingMaskSkull, rarity: Common, category: Masks }
+    - { id: ClothingMaskBandSkull, rarity: Common, category: Masks }
+    - { id: ClothingCloakShortCoverBlack, rarity: Common, category: Cloaks }
+    - { id: ClothingOuterCoatPahan, rarity: Common, category: Cloaks }
+    - { id: RMCGlassesAviators, rarity: Common, category: Glasses }
+    - { id: RMCGlassesAviatorsSilver, rarity: Common, category: Glasses }
+    - { id: RMCSunglassesBig, rarity: Common, category: Glasses }
+    - { id: RMCGlassesTriMaxYellow, rarity: Common, category: Glasses }
+    - { id: RMCGlassesTriMaxBronze, rarity: Common, category: Glasses }
+    - { id: RMCGlassesTriMaxBlack, rarity: Common, category: Glasses }
+    - { id: RMCHippieGlassesBloodred, rarity: Common, category: Glasses }
+    - { id: RMCHippieGlassesGreen, rarity: Common, category: Glasses }
+    - { id: RMCHippieGlassesNightblue, rarity: Common, category: Glasses }
+    
+    # Uncommon
+    - { id: ClothingHeadHatSovietUshankaStalker, rarity: Uncommon, category: Headwear }
+    - { id: ClothingHeadBeretUN, rarity: Uncommon, category: Headwear }
+    - { id: ClothingMaskBandBotany, rarity: Uncommon, category: Masks }
+    - { id: ClothingNeckScarfBlack, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckMantle, rarity: Uncommon, category: Cloaks }
+    - { id: ClothingCapeDeserters, rarity: Uncommon, category: Cloaks }
+    - { id: ClothingEyesGlassesJensen, rarity: Uncommon, category: Glasses }
+    - { id: ClothingHeadHatOutlawHat, rarity: Uncommon, category: Headwear }
+    - { id: ClothingMaskGasM40, rarity: Uncommon, category: Masks }
+    - { id: ClothingMaskBandGold, rarity: Uncommon, category: Masks }
+    - { id: ClothingOuterCoatReinforcedMilitia, rarity: Uncommon, category: Cloaks }
+    - { id: ClothingOuterCoatPoisk, rarity: Uncommon, category: Cloaks }
+    - { id: RMCGogglesKutjevo, rarity: Uncommon, category: Glasses }
+    - { id: RMCGlassesJensen, rarity: Uncommon, category: Glasses }
+    - { id: RMCGlassesMonocle, rarity: Uncommon, category: Glasses }
+    - { id: RMCGogglesTintedBallisticRCM, rarity: Uncommon, category: Glasses }
+    
+    # Rare
+    - { id: STClothingHeadPeakCap, rarity: Rare, category: Headwear }
+    - { id: ClothingHeadHatPoliceHat, rarity: Rare, category: Headwear }
+    - { id: ClothingHeadPilgrimDoctor, rarity: Rare, category: Masks }
+    - { id: ClothingHeadWildHatAnomalist, rarity: Rare, category: Headwear }
+    - { id: ClothingHeadWildHat, rarity: Rare, category: Headwear }
+    - { id: ClothingNeckScarfBloody, rarity: Rare, category: Scarves }
+    - { id: ClothingHeadHatGeneral, rarity: Rare, category: Headwear }
+    - { id: STClothingCapeT2SerafimPrestige, rarity: Rare, category: Cloaks }
+    - { id: ClothingNeckCloakGoliathCloak, rarity: Rare, category: Cloaks }
+    - { id: ClothingMaskGasM40Hunter, rarity: Rare, category: Masks }
+    - { id: STClothingMaskSeraphimSkull, rarity: Rare, category: Masks }
+    
+    # Mystery
+    - { id: STClothingOuterCoatHimera, rarity: Mystery }
+    - { id: ClothingMaskNeckBloodSucker, rarity: Mystery }
+    - { id: ClothingMaskGoldenCursedCosmetic, rarity: Mystery }

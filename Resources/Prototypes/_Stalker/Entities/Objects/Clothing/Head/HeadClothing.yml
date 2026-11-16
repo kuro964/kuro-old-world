@@ -25,17 +25,18 @@
   - type: Clothing
     sprite: _Stalker/Objects/Clothing/hats/militarycap.rsi
 
+# ST:OW - Cleaned up
 - type: entity
   parent: ClothingHeadBeretBase
   id: ClothingHeadBeretUN
-  name: берет ООН
+  name: берет оон
   description: Берет основного контингента ООН и старшего офицерского состава ОКСОП.
-  suffix: ST, UN # EN
+  suffix: ST, UN
   components:
-    - type: Sprite
-      sprite: _Stalker/Objects/Clothing/hats/un_beret.rsi
-    - type: Clothing
-      sprite: _Stalker/Objects/Clothing/hats/un_beret.rsi
+  - type: Sprite
+    sprite: _Stalker/Objects/Clothing/hats/un_beret.rsi
+  - type: Clothing
+    sprite: _Stalker/Objects/Clothing/hats/un_beret.rsi
 
 - type: entity
   parent: STClothingHeadBase

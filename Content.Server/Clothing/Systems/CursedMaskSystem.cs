@@ -36,6 +36,11 @@ public sealed class CursedMaskSystem : SharedCursedMaskSystem
         if (ent.Comp.CurrentState != CursedMaskExpression.Anger)
             return;
 
+        // ST:OW begin
+        if (!ent.Comp.Takeover)
+            return;
+        // ST:OW end
+
         if (TryComp<ActorComponent>(wearer, out var actor) && actor.PlayerSession.GetMind() is { } mind)
         {
             var session = actor.PlayerSession;
@@ -66,7 +71,7 @@ public sealed class CursedMaskSystem : SharedCursedMaskSystem
     protected override void OnClothingUnequip(Entity<CursedMaskComponent> ent, ref ClothingGotUnequippedEvent args)
     {
         // If we are taking off the cursed mask
-        if (ent.Comp.CurrentState == CursedMaskExpression.Anger)
+        if (ent.Comp.CurrentState == CursedMaskExpression.Anger && ent.Comp.Takeover) // ST:OW - Takeover
         {
             if (ent.Comp.HasNpc)
                 RemComp<HTNComponent>(args.Wearer);

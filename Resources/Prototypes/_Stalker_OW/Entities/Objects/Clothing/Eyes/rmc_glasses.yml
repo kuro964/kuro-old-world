@@ -1,0 +1,143 @@
+﻿# Eyewear ported from RMC-14
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGlassesAviators
+  name: aviator shades
+  description: Tan-tinted sunglasses with thin wire frames.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/aviators.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/aviators.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGlassesAviatorsSilver
+  name: silver aviator shades
+  description: Silver-tinted sunglasses with thin wire frames.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/aviators_silver.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/aviators_silver.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCSunglassesBig
+  name: wide sunglasses
+  description: A pair of wide, dark sunglasses.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/bigsunglasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/bigsunglasses.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGlassesTriMaxYellow
+  name: yellow wraparound shades
+  description: Angular wraparound shades with yellow lenses.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/trimax_yellow_glasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/trimax_yellow_glasses.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGlassesTriMaxBronze
+  name: bronze wraparound shades
+  description: Angular wraparound shades with bronze lenses.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/trimax_bronze_glasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/trimax_bronze_glasses.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGlassesTriMaxBlack
+  name: black wraparound shades
+  description: Angular wraparound shades with black lenses.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/trimax_black_glasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/trimax_black_glasses.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCHippieGlassesBloodred
+  name: red round shades
+  description: Small round shades with blood-red lenses.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/Hippie/hippie_bloodred.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/Hippie/hippie_bloodred.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCHippieGlassesGreen
+  name: green round shades
+  description: Small round shades with green lenses.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/Hippie/hippie_green.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/Hippie/hippie_green.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCHippieGlassesNightblue
+  name: blue round shades
+  description: Small round shades with night-blue lenses.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/Hippie/hippie_nightblue.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/Hippie/hippie_nightblue.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGogglesKutjevo
+  name: dust goggles
+  description: Leather-framed goggles for keeping grit out of your eyes.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/kutjevo_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/kutjevo_goggles.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGlassesJensen
+  name: augmented shades
+  description: Dark angular shades that look more advanced than they are.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/jensen_shades.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/jensen_shades.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGlassesMonocle
+  name: monocle
+  description: A single lens on a gold chain.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/monocle.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/monocle.rsi
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGogglesTintedBallisticRCM
+  name: tinted ballistic goggles
+  description: Ballistic-pattern goggles with dark lenses.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/ballistic_goggles_rcm_tint.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/ballistic_goggles_rcm_tint.rsi

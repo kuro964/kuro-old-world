@@ -1,0 +1,103 @@
+﻿- type: entity
+  abstract: true
+  parent: BaseStructure
+  id: BaseSlotMachine
+  name: slot machine
+  components:
+  - type: Sprite
+    sprite: _RMC14/Structures/hybrisa_misc_props/slot_machine.rsi
+    drawdepth: OverMobs
+    offset: 0.7, 0.5
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.3,-0.5,0.3,0.3"
+        density: 60
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+
+- type: entity
+  parent: BaseSlotMachine
+  id: SlotMachine
+  description: 99% of people quit before winning it big! Be the 1%.
+  suffix: ST:OW, Gambling
+  components:
+  - type: Sprite
+    state: slotmachine_idle
+  - type: InteractionOutline
+  - type: ActivatableUI
+    key: enum.SlotMachineUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.SlotMachineUiKey.Key:
+        type: SlotMachineBoundUserInterface
+  - type: SlotMachine
+    prizePool: SlotMachineCosmetics
+    tiers:
+    - price: 500
+      winChance: 0.01
+      rarityWeights: { Common: 90, Uncommon: 9, Rare: 1 }
+    - price: 5000
+      winChance: 0.10
+      rarityWeights: { Common: 70, Uncommon: 25, Rare: 5 }
+    - price: 50000
+      winChance: 0.80
+      rarityWeights: { Common: 40, Uncommon: 45, Rare: 15 }
+    symbols:
+    - icon: { sprite: _Stalker/Objects/artifacts.rsi, state: goldfish }
+    - icon: { sprite: _Stalker/Objects/Clothing/mask/gasmask_stalker.rsi, state: icon }
+    - icon: { sprite: _Stalker/Objects/Misc/bolts.rsi, state: icon }
+    - icon: { sprite: _Stalker_EN/Objects/Consumable/Drinks/cossackvodka.rsi, state: icon }
+    - icon: { sprite: Structures/Wallmounts/signs.rsi, state: radiation }
+    - icon: { sprite: _Stalker_EN/Objects/Anomalies/vortex.rsi, state: idle }
+    reelStopDelays: [ 2.68, 3.02, 3.44 ]
+    spinDuration: 3.95
+    spinSound:
+      path: /Audio/_Stalker_OW/SlotMachine/rolling.ogg
+      params:
+        volume: -6
+        maxDistance: 6
+    winSound:
+      path: /Audio/_Stalker_OW/SlotMachine/jackpot.ogg
+      params:
+        volume: -8
+        maxDistance: 8
+    loseSound:
+      path: /Audio/Machines/buzz-sigh.ogg
+      params:
+        volume: -8
+        maxDistance: 6
+    dispenseSound:
+      path: /Audio/Machines/machine_vend.ogg
+      params:
+        volume: -6
+        maxDistance: 6
+    rareSpinSound:
+      path: /Audio/_Stalker_OW/SlotMachine/lets_go_gambling.ogg
+      params:
+        volume: -4
+        maxDistance: 6
+    rareSpinChance: 0.01
+    rareLoseSound:
+      path: /Audio/_Stalker_OW/SlotMachine/aw_dangit.ogg
+      params:
+        volume: -4
+        maxDistance: 6
+    rareLoseChance: 0.01
+    nearMissChance: 0.25
+    bonusChance: 0.00001
+
+- type: entity
+  parent: BaseSlotMachine
+  id: SlotMachineBroken
+  description: The house lost this one.
+  suffix: ST:OW, Gambling, Broken
+  components:
+  - type: Sprite
+    state: slotmachine_broken

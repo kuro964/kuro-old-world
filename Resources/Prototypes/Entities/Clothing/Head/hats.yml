@@ -1398,21 +1398,41 @@
       - WhitelistChameleon
       - HamsterWearable
 
+# ST:OW - Cleaned up
 - type: entity
-  parent: ClothingHeadHatCowboyBrown
+  parent: Clothing
   id: ClothingHeadHatCowboyBountyHunter
   name: bounty hunter cowboy hat
   components:
-    - type: Sprite
-      sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
-    - type: Clothing
-      sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
-    - type: Tag
-      tags:
-      - PetWearable
-      - CorgiWearable
-      - WhitelistChameleon
-      - HamsterWearable
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
+  - type: Tag
+    tags:
+    - PetWearable
+    - CorgiWearable
+    - WhitelistChameleon
+    - HamsterWearable
+  - type: Clothing
+    slots:
+    - HEAD
+    sprite: Clothing/Head/Hats/cowboyhatbountyhunter.rsi
+  - type: Edible
+    requiresSpecialDigestion: true
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Fiber
+          Quantity: 10
+  - type: RepositoryItem
+    categoryName: repository-armor-category
 
 - type: entity
   parent: ClothingHeadBase

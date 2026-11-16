@@ -1,0 +1,14 @@
+﻿- files: ["lets_go_gambling.ogg", "aw_dangit.ogg"]
+  license: "Custom"
+  copyright: "On the @raxdflipnote channel at https://www.youtube.com/@raxdflipnote"
+  source: "https://www.youtube.com/watch?v=IPFiKEm-oNI"
+
+- files: ["jackpot.ogg"]
+  license: "Custom"
+  copyright: "Stock audio"
+  source: "https://www.youtube.com/watch?v=ZIcPW_uGPhU"
+
+- files: [ "rolling.ogg" ]
+  license: "Custom"
+  copyright: "Stock audio"
+  source: "https://www.youtube.com/watch?v=0afvjj9bwbc"
