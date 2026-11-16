@@ -20,8 +20,8 @@ public sealed partial class STSoftCritEnabledComponent : Component
     public float SoftCritFraction = 0.5f;
 
     /// <summary>
-    /// Movement speed multiplier applied during soft crit (0.3 = 30% of normal speed).
+    /// Movement speed multiplier applied during soft crit (0.18 = 18% of normal speed).
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float CrawlSpeedModifier = 0.3f;
+    public float CrawlSpeedModifier = 0.18f;
 }

@@ -17,7 +17,7 @@ public sealed partial class STSoftCritComponent : Component
     /// <see cref="STSoftCritEnabledComponent.CrawlSpeedModifier"/> at creation time).
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float CrawlSpeedModifier = 0.3f;
+    public float CrawlSpeedModifier = 0.18f;
 
     /// <summary>
     /// Total damage threshold at which soft crit ends and hard crit begins.

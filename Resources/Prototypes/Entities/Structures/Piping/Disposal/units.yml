@@ -163,6 +163,8 @@
   suffix: Infinite, ST:OW
   description: Littering is bad for the environment! Dispose of your trash here instead.
   components:
+    - type: ThrowInsertContainer
+      probability: 1.0
     - type: DisposalDeleteContents
     - type: DisposalUnit
       automaticEngage: true

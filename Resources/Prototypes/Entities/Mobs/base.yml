@@ -119,7 +119,7 @@
       200: Dead
   - type: STSoftCritEnabled # stalker-en-changes
     softCritFraction: 0.5
-    crawlSpeedModifier: 0.3
+    crawlSpeedModifier: 0.18 # ST:OW
   - type: STAnomalyGeneratorSpawnBlocker #Stalker-EN
     size: 5
   - type: MobStateActions

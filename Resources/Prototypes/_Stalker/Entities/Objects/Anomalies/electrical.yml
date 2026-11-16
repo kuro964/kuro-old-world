@@ -164,8 +164,8 @@
       whitelist:
         tags:
           - AnomalyGarlandActivationTarget
-      distance: 5 # ST:OW - Chaining range
-      maxTargets: 2 # ST:OW - Track onto two other garlands
+      distance: 6 # ST:OW - Chaining range
+      maxTargets: 3 # ST:OW - Track onto three other garlands
       stopRecursiveActivation: true
     - type: ZoneAnomalyEffectPlaySound
       sound: /Audio/_Stalker/Effects/electra_blast.ogg
@@ -173,7 +173,7 @@
       detectedLevel: 3
       preparingDelay: 0
       activationDelay: 1
-      chargeTime: 12 #Stalker OW change (Fuck you chudlands)
+      chargeTime: 6 # ST:OW
     - type: Fixtures
       fixtures:
         fix1:
