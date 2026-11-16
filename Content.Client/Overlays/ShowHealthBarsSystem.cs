@@ -35,6 +35,11 @@ public sealed class ShowHealthBarsSystem : EquipmentHudSystem<ShowHealthBarsComp
     {
         base.UpdateInternal(component);
 
+        // ST:OW begin - upstream #39288: drop filters and the icon left over from HUDs that are no longer worn
+        _overlay.DamageContainers.Clear();
+        _overlay.StatusIcon = null;
+        // ST:OW end
+
         foreach (var comp in component.Components)
         {
             foreach (var damageContainerId in comp.DamageContainers)
