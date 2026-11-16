@@ -435,15 +435,19 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
         {
             if (instrument.Master is {} master)
             {
+                // ST:OW begin - upstream #42331: stop processing once the band leader is gone,
+                // otherwise the transform lookup below throws for a deleted leader.
                 if (Deleted(master))
                 {
                     Clean(uid, instrument);
+                    continue;
                 }
 
                 var masterActive = activeQuery.CompOrNull(master);
                 if (masterActive == null)
                 {
                     Clean(uid, instrument);
+                    continue;
                 }
 
                 var trans = transformQuery.GetComponent(uid);
@@ -452,7 +456,9 @@ public sealed partial class InstrumentSystem : SharedInstrumentSystem
 )
                 {
                     Clean(uid, instrument);
+                    continue;
                 }
+                // ST:OW end
             }
 
             if (instrument.RespectMidiLimits &&
