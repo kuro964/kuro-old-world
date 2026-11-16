@@ -1,12 +1,4 @@
 ﻿Entries:
-- author: teecoding
-  changes:
-  - message: Possible fix for faction dogtags not showing correct chat bubbles when
-      spawning or reconnecting
-    type: Fix
-  id: 9
-  time: '2026-02-01T14:51:53.182867+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/362
 - author: LaCumbiaDelCoronavirus
   changes:
   - message: Light from flashlights and other things affected by player's rotation
@@ -4519,5 +4511,12 @@
   id: 508
   time: '2026-11-16T19:39:17.691057+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/225
+- author: kuro964
+  changes:
+  - message: Slot machines for gambling
+    type: Add
+  id: 509
+  time: '2026-11-16T23:14:18.440286+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/226
 Name: Stalker
 Order: -1
