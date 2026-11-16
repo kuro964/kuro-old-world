@@ -99,7 +99,18 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         RaiseNetworkEvent(ev);
 
         _projectile.ProjectileCollide((ent, projectile, physics), args.OtherEntity);
+        MarkPredictedHit(ent.Comp, projectile); // ST:OW
     }
+
+    // ST:OW begin
+    // Stops a predicted projectile that survives its hit (deleteOnCollide: false) from being reported again
+    // A reflected projectile is not spent, so it keeps predicting
+    private static void MarkPredictedHit(PredictedProjectileClientComponent predicted, ProjectileComponent projectile)
+    {
+        if (projectile.ProjectileSpent)
+            predicted.Hit = true;
+    }
+    // ST:OW end
 
     private void OnServerProjectileStartup(Entity<PredictedProjectileServerComponent> ent, ref ComponentStartup args)
     {
@@ -134,6 +145,13 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
             if (contacts.Count == 0)
                 continue;
 
+            // ST:OW begin - Contact processed locally must come from filtered set
+            // Filtered set is reported to server
+            var projectilePos = _transform.GetMapCoordinates(uid).Position;
+            EntityUid? localHit = null;
+            var localDistance = float.MaxValue;
+            // ST:OW end
+
             var hit = new HashSet<(NetEntity, MapCoordinates)>();
             foreach (var contact in contacts)
             {
@@ -143,15 +161,27 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
                 var netEnt = GetNetEntity(contact);
                 var pos = _transform.GetMapCoordinates(contact);
                 hit.Add((netEnt, pos));
+
+                // ST:OW begin
+                var distance = (pos.Position - projectilePos).LengthSquared();
+                if (localHit == null || distance < localDistance)
+                {
+                    localHit = contact;
+                    localDistance = distance;
+                }
+                // ST:OW end
             }
 
-            if (hit.Count == 0)
+            if (hit.Count == 0 || localHit == null) // ST:OW
                 continue;
 
             var ev = new PredictedProjectileHitEvent(uid.Id, hit);
             RaiseNetworkEvent(ev);
 
-            _projectile.ProjectileCollide((uid, projectile, physics), contacts.First());
+            // ST:OW begin
+            _projectile.ProjectileCollide((uid, projectile, physics), localHit.Value);
+            MarkPredictedHit(predicted, projectile);
+            // ST:OW end
         }
 
         var predictedQuery = EntityQueryEnumerator<PredictedProjectileHitComponent, SpriteComponent, TransformComponent>();
