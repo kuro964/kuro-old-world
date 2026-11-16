@@ -9,12 +9,14 @@
       range: 4
       windup: 0.5
       cooldown: 12
-      stun: 1.5
+      root: 2
+      holdStill: false
       popup: st-bayun-scream
       doing: screaming
       sound:
         collection: CatAttack
     - type: STBrain
+      leash: 25
       kind: Pack
       skirmish: true
       ringRadius: 5

@@ -94,6 +94,7 @@ public sealed partial class STBrainSystem : EntitySystem
     private readonly List<EntityUid> _expiredAttackers = new();
     private const float NearestSlack = 1.5f;
     private static readonly TimeSpan GiveUpStill = TimeSpan.FromSeconds(3.5);
+    private static readonly TimeSpan LeashGrace = TimeSpan.FromSeconds(4);
     private const string FollowKey = "FollowTarget";
     private const float FollowRange = 5f;
     private const float FollowClose = 2f;
@@ -127,6 +128,16 @@ public sealed partial class STBrainSystem : EntitySystem
             var before = ent.Comp.Attackers.TryGetValue(attacker, out var seen) && _timing.CurTime - seen.At < AttackMemory ? seen.Damage : 0f;
             ent.Comp.Attackers[attacker] = (_timing.CurTime, before + dealt);
             ent.Comp.NextScan = TimeSpan.Zero;
+        }
+
+        if (ent.Comp.LeashSince != null)
+            ent.Comp.LeashSince = _timing.CurTime;
+
+        if (ent.Comp.Returning)
+        {
+            ent.Comp.Returning = false;
+            ent.Comp.Override = null;
+            ent.Comp.LeashSince = _timing.CurTime;
         }
     }
 
@@ -255,11 +266,15 @@ public sealed partial class STBrainSystem : EntitySystem
         {
             ClearAim(uid);
             brain.SuppressAim = null;
-            _mover.MoveTo(uid, forced, 0.5f);
-            return;
+            if (!brain.Returning || !_transform.InRange(Transform(uid).Coordinates, forced, ArriveRange))
+            {
+                _mover.MoveTo(uid, forced, 0.5f);
+                return;
+            }
         }
 
         brain.Override = null;
+        brain.Returning = false;
         if (brain.Kind == STBrainKind.Auto || brain.AutoKind)
         {
             var charging = brain.ChargeWhenShielded && TryComp<Content.Shared._Stalker.Psyonics.Actions.Shield.PsyonicsActionShieldComponent>(uid, out var shield) && shield.IsActive;
@@ -326,6 +341,18 @@ public sealed partial class STBrainSystem : EntitySystem
         }
 
         var self = _transform.GetMapCoordinates(uid);
+        if (next == STBehaviour.Idle)
+        {
+            brain.FightOrigin = null;
+            brain.LeashSince = null;
+        }
+        else
+        {
+            brain.FightOrigin ??= self;
+            if (Leashed(uid, brain, awareness, blackboard, self, now))
+                return;
+        }
+
         brain.Home ??= Transform(uid).Coordinates;
         if ((self.Position - brain.StillAt).LengthSquared() > 0.09f)
         {
@@ -777,6 +804,39 @@ public sealed partial class STBrainSystem : EntitySystem
         RemComp<NPCMeleeCombatComponent>(uid);
     }
 
+    private bool Leashed(EntityUid uid, STBrainComponent brain, STAwarenessComponent awareness, NPCBlackboard blackboard, MapCoordinates self, TimeSpan now)
+    {
+        if (brain.Leash <= 0f || brain.FightOrigin is not { } origin)
+            return false;
+
+        var away = (self.Position - origin.Position).Length();
+        if (origin.MapId != self.MapId || away <= brain.Leash)
+        {
+            brain.LeashSince = null;
+            return false;
+        }
+
+        brain.LeashSince ??= now;
+        if (now - brain.LeashSince < LeashGrace)
+            return false;
+
+        var speed = TryComp<MovementSpeedModifierComponent>(uid, out var move) ? MathF.Max(0.5f, move.CurrentSprintSpeed) : 2f;
+        blackboard.Remove<EntityUid>(TargetKey);
+        _awareness.Forget(awareness, now);
+        RemComp<NPCMeleeCombatComponent>(uid);
+        ClearAim(uid);
+        brain.Biting = false;
+        brain.SuppressAim = null;
+        brain.Goal = null;
+        brain.LeashSince = null;
+        brain.Returning = true;
+        brain.Override = _transform.ToCoordinates(Transform(uid).ParentUid, origin);
+        brain.OverrideUntil = now + TimeSpan.FromSeconds(Math.Clamp(away / speed + 3f, 4f, 30f));
+        brain.Doing = "breaking off, too far from where the fight began";
+        _mover.MoveTo(uid, brain.Override.Value, 0.5f);
+        return true;
+    }
+
     private void Release(EntityUid uid, STBrainComponent brain)
     {
         brain.Behaviour = STBehaviour.None;
@@ -793,6 +853,9 @@ public sealed partial class STBrainSystem : EntitySystem
         var muzzle = _transform.GetMapCoordinates(uid);
         var offset = aim.Position - muzzle.Position;
         if (muzzle.MapId != aim.MapId || offset.LengthSquared() < 0.01f)
+            return;
+
+        if (brain.FireRange > 0f && offset.LengthSquared() > brain.FireRange * brain.FireRange)
             return;
 
         _rotate.TryRotateTo(uid, offset.ToWorldAngle(), frameTime, SuppressTolerance);

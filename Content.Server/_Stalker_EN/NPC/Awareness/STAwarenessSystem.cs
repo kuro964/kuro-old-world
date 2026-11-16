@@ -579,6 +579,11 @@ public sealed class STAwarenessSystem : EntitySystem
         return RememberedAlive(comp) && IsHostile(uid, comp.Target!.Value);
     }
 
+    public void Forget(STAwarenessComponent comp, TimeSpan now)
+    {
+        GiveUp(comp, now);
+    }
+
     private static void GiveUp(STAwarenessComponent comp, TimeSpan now)
     {
         comp.Target = null;

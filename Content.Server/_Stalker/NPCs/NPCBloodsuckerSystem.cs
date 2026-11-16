@@ -45,6 +45,12 @@ public sealed class NPCBloodsuckerSystem : EntitySystem
         // getting target by blackbouard Target
         while (query.MoveNext(out var uid, out var comp, out var htn))
         {
+            if (!_mobState.IsAlive(uid))
+            {
+                comp.IsSucking = false;
+                continue;
+            }
+
             if (!htn.Blackboard.TryGetValue<EntityUid>(comp.TargetKey, out var target, EntityManager))
                 continue;
 

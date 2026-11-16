@@ -51,6 +51,7 @@
       types:
         Psy: 6
   - type: STBrain
+    leash: 30
     rangeMin: 14
     rangeMax: 20
   - type: HTN

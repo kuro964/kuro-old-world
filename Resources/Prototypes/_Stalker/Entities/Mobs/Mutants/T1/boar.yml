@@ -85,8 +85,8 @@
     - type: BonusMeleeDamage
       heavyDamageMultiplier: 1.5
     - type: MovementSpeedModifier
-      baseWalkSpeed: 2.2
-      baseSprintSpeed: 3.5
+      baseWalkSpeed: 1.9
+      baseSprintSpeed: 3
     - type: Sprite
       layers:
         - map: ["enum.DamageStateVisualLayers.Base"]
@@ -155,7 +155,7 @@
       chargeDamage:
         types:
           Blunt: 25
-      jumpPower: 9
+      jumpPower: 7
       jumpDistance: 5
       updateCooldown: 0.25
       #totalSteps: 6 # Stalker-TODO: This field exists in component but is not a datafield!

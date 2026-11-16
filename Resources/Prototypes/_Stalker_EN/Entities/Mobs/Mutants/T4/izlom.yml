@@ -12,6 +12,7 @@
     trackTime: 15
     pursueTime: 20
   - type: STBrain
+    leash: 0
     kind: Pack
     skirmish: true
     retreatSpeed: 1.3

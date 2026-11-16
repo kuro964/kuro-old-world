@@ -8,6 +8,7 @@
       sightFactor: 2
       hearingFactor: 1.5
     - type: STBrain
+      leash: 25
       kind: Pack
       maxBiters: 2
       breakFraction: 0.34
@@ -105,6 +106,7 @@
   description: Мелкий слепой пёс, примесь бультерьера с радиацией.
   components:
     - type: STBrain
+      leash: 25
       barkSound:
         collection: STBlindDogBark
         params:
@@ -223,6 +225,7 @@
   description: Худощавый, высокий слепой пёс с длинными лапами, которые позволяют ему разгоняться до больших скоростей.
   components:
     - type: STBrain
+      leash: 25
       barkSound:
         collection: STBlindDogBark
         params:
@@ -424,6 +427,7 @@
   description: Белый, огромный слепой пёс, походящий на примесь собаки и белого медведя, — вожак стаи.
   components:
     - type: STBrain
+      leash: 25
       barkSound:
         collection: STBlindDogBark
         params:

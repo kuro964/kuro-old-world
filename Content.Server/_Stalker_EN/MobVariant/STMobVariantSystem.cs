@@ -29,6 +29,7 @@ public sealed class STMobVariantSystem : EntitySystem
     [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
     [Dependency] private readonly SharedScaleVisualsSystem _scaleVisuals = default!;
+    [Dependency] private readonly Content.Shared.Movement.Systems.MovementSpeedModifierSystem _movementSpeed = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -110,6 +111,7 @@ public sealed class STMobVariantSystem : EntitySystem
         ScaleDestructibleTriggers(uid, variant.HealthMultiplier);
         ScaleMeleeDamage(uid, variant.DamageMultiplier);
         ScaleSlowOnDamage(uid, variant.HealthMultiplier);
+        ScaleSpeed(uid, variant.SpeedMultiplier);
         ApplySpriteScale(uid, variant.SpriteScale);
         ApplyNameOverride(uid, variant.NameOverride);
         SwapButcherableLoot(uid, variant.ButcherSwaps);
@@ -206,6 +208,14 @@ public sealed class STMobVariantSystem : EntitySystem
     /// <summary>
     /// Applies a uniform sprite scale via the ScaleVisuals system.
     /// </summary>
+    private void ScaleSpeed(EntityUid uid, float multiplier)
+    {
+        if (MathHelper.CloseTo(multiplier, 1f) || !TryComp<Content.Shared.Movement.Components.MovementSpeedModifierComponent>(uid, out var move))
+            return;
+
+        _movementSpeed.ChangeBaseSpeed(uid, move.BaseWalkSpeed * multiplier, move.BaseSprintSpeed * multiplier, move.Acceleration, move);
+    }
+
     private void ApplySpriteScale(EntityUid uid, float scale)
     {
         // ReSharper disable once CompareOfFloatsByEqualityOperator

@@ -21,6 +21,7 @@
     death:
       collection: MonolithDeath
   - type: STBrain
+    leash: 40
     grenades: true
   - type: HTN
     rootTask:

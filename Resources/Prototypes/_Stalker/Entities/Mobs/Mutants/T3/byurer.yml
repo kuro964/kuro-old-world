@@ -32,6 +32,11 @@
       types:
         Slash: 15
         Blunt: 5
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 1.6
+    baseSprintSpeed: 2.2
+  - type: STBrain
+    leash: 30
   - type: STTelekinesis
   - type: STPulse
     range: 3
@@ -118,6 +123,7 @@
       quality: Uncommon
       nameOverride: st-mob-variant-uncommon-byurer
       healthMultiplier: 1.1
+      speedMultiplier: 1.15
       spriteScale: 1.05
       spriteTint: "#805030FF"
       spriteSaturation: 1.5
@@ -131,6 +137,7 @@
       quality: Rare
       nameOverride: st-mob-variant-rare-byurer
       healthMultiplier: 1.2
+      speedMultiplier: 1.3
       spriteScale: 1.1
       spriteTint: "#E0D8FFFF"
       spriteSaturation: 0.15
@@ -144,6 +151,7 @@
       quality: Legendary
       nameOverride: st-mob-variant-legendary-byurer
       healthMultiplier: 1.3
+      speedMultiplier: 1.45
       spriteScale: 1.15
       spriteTint: "#FFC040FF"
       spriteSaturation: 1.3

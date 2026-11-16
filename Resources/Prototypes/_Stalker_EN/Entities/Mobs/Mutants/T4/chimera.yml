@@ -9,6 +9,7 @@
     memoryTime: 20
     trackTime: 15
   - type: STBrain
+    leash: 0
     kind: Pack
     skirmish: true
     stalk: true

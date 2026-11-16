@@ -44,8 +44,9 @@
     speedModifierThresholds:
       250: 0.7
   - type: STBrain
-    rangeMin: 10
-    rangeMax: 16
+    rangeMin: 5
+    rangeMax: 7
+    fireRange: 8
   - type: HTN
     rootTask:
       task: STSimpleRangedHostileCompound
@@ -55,9 +56,9 @@
       AggroVisionRadius: !type:Single
         25
       STPreferredRangeMin: !type:Single
-        10
+        5
       STPreferredRangeMax: !type:Single
-        16
+        7
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 3
   - type: BasicEntityAmmoProvider

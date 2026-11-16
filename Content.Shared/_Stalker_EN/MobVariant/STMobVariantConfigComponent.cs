@@ -54,6 +54,9 @@ public sealed partial class STVariantEntry
     [DataField]
     public float DamageMultiplier = 1f;
 
+    [DataField]
+    public float SpeedMultiplier = 1f;
+
     /// <summary>
     /// Uniform scale factor applied to the entity's sprite.
     /// </summary>

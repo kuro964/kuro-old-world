@@ -7,6 +7,7 @@ using Content.Server.NPC.Pathfinding;
 using Content.Server.Stunnable;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Examine;
+using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Systems;
@@ -97,6 +98,13 @@ public sealed class STDragSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<STDragComponent, DamageChangedEvent>(OnDamaged);
+        SubscribeLocalEvent<STDragComponent, MobStateChangedEvent>(OnMobState);
+    }
+
+    private void OnMobState(Entity<STDragComponent> ent, ref MobStateChangedEvent args)
+    {
+        if (args.NewMobState != MobState.Alive && TryComp<STBrainComponent>(ent, out var brain))
+            Release(ent, ent.Comp, brain, _timing.CurTime);
     }
 
     private void OnDamaged(Entity<STDragComponent> ent, ref DamageChangedEvent args)
@@ -147,7 +155,7 @@ public sealed class STDragSystem : EntitySystem
                 continue;
             }
 
-            if (now < comp.NextDrag || awareness.State != STAwarenessState.Engaged)
+            if (now < comp.NextDrag || awareness.State != STAwarenessState.Engaged || !_mobState.IsAlive(uid))
             {
                 brain.Commit = false;
                 continue;

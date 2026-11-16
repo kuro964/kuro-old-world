@@ -158,6 +158,21 @@ public sealed partial class STBrainComponent : Component
     public float RangeMax = 14f;
 
     [DataField]
+    public float FireRange;
+
+    [DataField]
+    public float Leash;
+
+    [ViewVariables]
+    public MapCoordinates? FightOrigin;
+
+    [ViewVariables]
+    public TimeSpan? LeashSince;
+
+    [ViewVariables]
+    public bool Returning;
+
+    [DataField]
     public float WanderRange = 3f;
 
     [DataField]

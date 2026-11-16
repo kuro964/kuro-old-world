@@ -18,6 +18,7 @@ public sealed partial class STBrainSystem
     private static readonly TimeSpan FanTime = TimeSpan.FromSeconds(4);
     private const float FanInside = 0.6f;
     private const float FanArrive = 1.2f;
+    private const int ReachRings = 4;
     private const float SurroundRing = 3.5f;
     private const float ChargeMargin = 0.5f;
     private const float CrowdRange = 0.7f;
@@ -302,7 +303,7 @@ public sealed partial class STBrainSystem
         {
             RemComp<NPCMeleeCombatComponent>(uid);
             _mover.Stop(uid);
-            brain.Partial = _pathfinding.GetPartialPath(uid, Transform(uid).Coordinates, destination, 1f, System.Threading.CancellationToken.None, _pathfinding.GetFlags(blackboard));
+            brain.Partial = _pathfinding.GetPartialPath(uid, Transform(uid).Coordinates, Reachable(uid, destination), 1f, System.Threading.CancellationToken.None, _pathfinding.GetFlags(blackboard));
             return;
         }
 
@@ -331,6 +332,37 @@ public sealed partial class STBrainSystem
         _mover.MoveTo(uid, new EntityCoordinates(closest.GraphUid, closest.Box.Center), 0.5f);
         if (TryComp<NPCSteeringComponent>(uid, out var steering))
             steering.CurrentPath = new Queue<PathPoly>(path.Path);
+    }
+
+    private EntityCoordinates Reachable(EntityUid uid, EntityCoordinates destination)
+    {
+        if (_pathfinding.GetPoly(destination) != null)
+            return destination;
+
+        var parent = Transform(uid).ParentUid;
+        var here = _transform.GetWorldPosition(uid);
+        var goal = _transform.ToMapCoordinates(destination);
+        var best = destination;
+        var bestDistance = float.MaxValue;
+        for (var ring = 1; ring <= ReachRings; ring++)
+        {
+            for (var i = 0; i < 8; i++)
+            {
+                var spot = goal.Offset(Angle.FromDegrees(i * 45).ToVec() * ring);
+                var coords = _transform.ToCoordinates(parent, spot);
+                var distance = (spot.Position - here).Length();
+                if (distance >= bestDistance || _pathfinding.GetPoly(coords) == null)
+                    continue;
+
+                best = coords;
+                bestDistance = distance;
+            }
+
+            if (bestDistance < float.MaxValue)
+                break;
+        }
+
+        return best;
     }
 
     private void Orbit(EntityUid uid, STBrainComponent brain, MapCoordinates self, MapCoordinates to, System.Numerics.Vector2? biteSide, TimeSpan now)

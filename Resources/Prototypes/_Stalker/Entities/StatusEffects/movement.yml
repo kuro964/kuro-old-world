@@ -7,3 +7,8 @@
   parent: StatusEffectSlowdown
   id: JumpscareSlowdownStatusEffect
   name: fear slowdown
+
+- type: entity
+  parent: StatusEffectSlowdown
+  id: STRootStatusEffect
+  name: rooted in place

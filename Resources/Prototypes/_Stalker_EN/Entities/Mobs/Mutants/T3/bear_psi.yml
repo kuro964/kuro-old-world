@@ -19,6 +19,7 @@
       - FullAuto
     soundGunshot: /Audio/_Stalker/Mutants/controller_shot.ogg
   - type: STBrain
+    leash: 30
     rangeMin: 6
     rangeMax: 12
     chargeWhenShielded: true

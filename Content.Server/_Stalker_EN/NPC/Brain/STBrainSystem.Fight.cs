@@ -107,7 +107,11 @@ public sealed partial class STBrainSystem
             return;
         }
 
-        AimAt(uid, blackboard, target);
+        if (brain.FireRange > 0f && distance > brain.FireRange)
+            ClearAim(uid);
+        else
+            AimAt(uid, blackboard, target);
+
         GatherAllies(uid, self);
 
         var seen = awareness.Target == target

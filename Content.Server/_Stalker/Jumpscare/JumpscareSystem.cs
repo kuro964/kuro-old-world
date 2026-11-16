@@ -42,6 +42,7 @@ public sealed class JumpscareSystem : EntitySystem
     [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly STChasmAvoidanceSystem _chasms = default!;
+    [Dependency] private readonly Content.Server.NPC.Pathfinding.PathfindingSystem _pathfinding = default!;
 
     private static readonly TimeSpan TellRetry = TimeSpan.FromSeconds(1.5);
     private const float LungeOvershoot = 2f;
@@ -175,8 +176,19 @@ public sealed class JumpscareSystem : EntitySystem
         if (comp.HitKnockdown > TimeSpan.Zero)
             _stunSystem.TryKnockdown(victim, comp.HitKnockdown, false);
 
-        if (comp.HitThrow > 0f && offset.LengthSquared() > 0.0001f)
-            _throwing.TryThrow(victim, Vector2.Normalize(offset) * comp.HitThrow, 8f, uid, recoil: false);
+        if (comp.HitThrow <= 0f || offset.LengthSquared() <= 0.0001f || HasComp<ThrownItemComponent>(victim))
+            return;
+
+        var push = Vector2.Normalize(offset) * comp.HitThrow;
+        var from = _xform.GetMapCoordinates(victim);
+        var parent = Transform(victim).ParentUid;
+        if (_pathfinding.GetPoly(_xform.ToCoordinates(parent, from.Offset(push))) == null ||
+            _pathfinding.GetPoly(_xform.ToCoordinates(parent, from.Offset(push * 2f))) == null)
+        {
+            return;
+        }
+
+        _throwing.TryThrow(victim, push, 8f, uid, recoil: false);
     }
 
     private EntityUid? CheckHumanTarget(EntityUid uid, JumpscareComponent component)

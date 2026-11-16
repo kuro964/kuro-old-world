@@ -8,6 +8,7 @@
   - type: STAlertGroup
     group: Rodent
   - type: STBrain
+    leash: 25
     kind: Pack
     maxBiters: 6
     breakFraction: 0.34

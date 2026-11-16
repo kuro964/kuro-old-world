@@ -34,6 +34,7 @@
       AggroVisionRadius: !type:Single
         25
   - type: STBrain
+    leash: 35
     roots:
     - STGoshaCompound
     - STMonolith
@@ -252,6 +253,7 @@
     - type: InputMover
     - type: MobMover
     - type: STBrain
+      leash: 35
       roots:
       - STGoshaCompound
       - STMonolith

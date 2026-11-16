@@ -35,6 +35,9 @@ public sealed partial class STPulseComponent : Component
     public TimeSpan Knockdown;
 
     [DataField]
+    public TimeSpan Root;
+
+    [DataField]
     public float Knockback;
 
     [DataField]
@@ -78,6 +81,9 @@ public sealed class STPulseSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly Content.Shared.Movement.Systems.MovementModStatusSystem _movementMod = default!;
+
+    private static readonly Robust.Shared.Prototypes.EntProtoId RootEffect = "STRootStatusEffect";
 
     private static readonly TimeSpan ThinkInterval = TimeSpan.FromSeconds(0.25);
     private readonly HashSet<Entity<MobStateComponent>> _victims = new();
@@ -155,6 +161,9 @@ public sealed class STPulseSystem : EntitySystem
 
             if (comp.Knockdown > TimeSpan.Zero)
                 _stun.TryKnockdown(victim.Owner, comp.Knockdown, false);
+
+            if (comp.Root > TimeSpan.Zero)
+                _movementMod.TryUpdateMovementSpeedModDuration(victim.Owner, RootEffect, comp.Root, 0f);
 
             if (comp.Knockback <= 0f)
                 continue;
