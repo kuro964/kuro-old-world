@@ -568,7 +568,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
         _meleeSound.PlayHitSound(target.Value, user, GetHighestDamageSound(modifiedDamage, _protoManager), hitEvent.HitSoundOverride, component);
 
-        if (damageResult.GetTotal() > FixedPoint2.Zero)
+        if (damageResult.GetTotal() > FixedPoint2.Zero && !TerminatingOrDeleted(target.Value)) // ST:OW - upstream #42340, the hit may have deleted the target
         {
             DoDamageEffect(targets, user, targetXform);
         }
@@ -594,6 +594,11 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         var damage = GetDamage(meleeUid, user, component);
         var resistanceBypass = GetResistanceBypass(meleeUid, user, component);
         var entities = GetEntityList(ev.Entities);
+
+        // ST:OW begin - upstream #46299
+        var seenEntities = new HashSet<EntityUid>(entities.Count);
+        entities.RemoveAll(entity => !seenEntities.Add(entity));
+        // ST:OW end
 
         if (entities.Count == 0)
         {
@@ -627,7 +632,8 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         // Validate client
         for (var i = entities.Count - 1; i >= 0; i--)
         {
-            if (ArcRaySuccessful(entities[i],
+            if (!TerminatingOrDeleted(entities[i]) && // ST:OW - upstream #42340
+                ArcRaySuccessful(entities[i],
                     userPos,
                     direction.ToWorldAngle(),
                     component.Angle,
@@ -722,6 +728,11 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
                         $"{ToPrettyString(user):actor} melee attacked (heavy) {ToPrettyString(entity):subject} using {ToPrettyString(meleeUid):tool} and dealt {damageResult.GetTotal():damage} damage");
                 }
             }
+
+            // ST:OW begin - upstream #42340
+            if (TerminatingOrDeleted(entity))
+                targets.RemoveAt(i);
+            // ST:OW end
         }
 
         if (entities.Count != 0)
@@ -730,7 +741,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             _meleeSound.PlayHitSound(target, user, GetHighestDamageSound(appliedDamage, _protoManager), hitEvent.HitSoundOverride, component);
         }
 
-        if (appliedDamage.GetTotal() > FixedPoint2.Zero)
+        if (targets.Count > 0 && appliedDamage.GetTotal() > FixedPoint2.Zero) // ST:OW - upstream #42340, every target may be gone
         {
             DoDamageEffect(targets, user, Transform(targets[0]));
         }
