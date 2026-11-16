@@ -109,6 +109,7 @@
     Blunt: 5
     Slash: 5
     Bloodloss: 5
+    Heat: 8
 
 - type: damageModifierSet
   id: STMutantT4DamageModifierSet

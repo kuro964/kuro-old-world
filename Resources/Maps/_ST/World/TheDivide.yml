@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/15/2026 21:05:36
-  entityCount: 21511
+  time: 11/16/2026 00:18:52
+  entityCount: 21524
 maps:
 - 1
 grids:
@@ -25973,7 +25973,7 @@ entities:
       pos: -175.5,-62.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -111738.4
+      secondsUntilStateChange: -112413.9
       state: Opening
   - uid: 16721
     components:
@@ -25986,7 +25986,7 @@ entities:
       pos: -179.5,-65.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -111739.13
+      secondsUntilStateChange: -112414.63
       state: Opening
   - uid: 16762
     components:
@@ -25999,7 +25999,7 @@ entities:
       pos: -181.5,-65.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -63661.934
+      secondsUntilStateChange: -64337.438
       state: Opening
   - uid: 16766
     components:
@@ -36718,7 +36718,7 @@ entities:
       pos: -143.5,57.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -72035.664
+      secondsUntilStateChange: -72711.164
       state: Opening
   - uid: 18813
     components:
@@ -36907,6 +36907,45 @@ entities:
     - type: Transform
       pos: -86.5,135.5
       parent: 1
+  - uid: 21516
+    components:
+    - type: Transform
+      pos: -149.5,-40.5
+      parent: 1
+  - uid: 21517
+    components:
+    - type: Transform
+      pos: -221.5,-25.5
+      parent: 1
+  - uid: 21518
+    components:
+    - type: Transform
+      pos: -200.5,64.5
+      parent: 1
+  - uid: 21519
+    components:
+    - type: Transform
+      pos: -135.5,56.5
+      parent: 1
+- proto: MutantSpawnerBloodsucker_1to2_100
+  entities:
+  - uid: 20211
+    components:
+    - type: Transform
+      pos: -53.5,25.5
+      parent: 1
+  - uid: 21520
+    components:
+    - type: Transform
+      pos: -69.5,-89.5
+      parent: 1
+- proto: MutantSpawnerBloodsucker_1to2_25
+  entities:
+  - uid: 21521
+    components:
+    - type: Transform
+      pos: 9.5,-91.5
+      parent: 1
 - proto: MutantSpawnerBloodsucker_1to2_50
   entities:
   - uid: 20250
@@ -36940,6 +36979,11 @@ entities:
       parent: 1
 - proto: MutantSpawnerController_1_100
   entities:
+  - uid: 20216
+    components:
+    - type: Transform
+      pos: -112.5,57.5
+      parent: 1
   - uid: 20225
     components:
     - type: Transform
@@ -36950,32 +36994,17 @@ entities:
     - type: Transform
       pos: -217.5,8.5
       parent: 1
-- proto: MutantSpawnerKarlik_1to2_50
-  entities:
-  - uid: 20211
+  - uid: 21514
     components:
     - type: Transform
-      pos: -52.5,25.5
+      pos: -1.5,71.5
       parent: 1
+- proto: MutantSpawnerKarlik_1to2_50
+  entities:
   - uid: 20212
     components:
     - type: Transform
       pos: -104.5,50.5
-      parent: 1
-  - uid: 20213
-    components:
-    - type: Transform
-      pos: -14.5,44.5
-      parent: 1
-  - uid: 20216
-    components:
-    - type: Transform
-      pos: -108.5,21.5
-      parent: 1
-  - uid: 20238
-    components:
-    - type: Transform
-      pos: -71.5,149.5
       parent: 1
   - uid: 20239
     components:
@@ -37000,6 +37029,11 @@ entities:
     components:
     - type: Transform
       pos: -114.5,57.5
+      parent: 1
+  - uid: 20213
+    components:
+    - type: Transform
+      pos: -83.5,23.5
       parent: 1
   - uid: 20217
     components:
@@ -37093,6 +37127,23 @@ entities:
     - type: Transform
       pos: 0.5,84.5
       parent: 1
+- proto: MutantSpawnerSnork_1to2_50
+  entities:
+  - uid: 21522
+    components:
+    - type: Transform
+      pos: -240.5,-11.5
+      parent: 1
+  - uid: 21523
+    components:
+    - type: Transform
+      pos: -226.5,58.5
+      parent: 1
+  - uid: 21524
+    components:
+    - type: Transform
+      pos: -129.5,60.5
+      parent: 1
 - proto: MutantSpawnerZombie_1to2_100
   entities:
   - uid: 20220
@@ -37134,6 +37185,30 @@ entities:
     components:
     - type: Transform
       pos: -110.5,83.5
+      parent: 1
+- proto: MutantSpawnerZombie_1to2_75
+  entities:
+  - uid: 21513
+    components:
+    - type: Transform
+      pos: -4.5,70.5
+      parent: 1
+  - uid: 21515
+    components:
+    - type: Transform
+      pos: -113.5,83.5
+      parent: 1
+- proto: MutantSpawnerZombie_1to4_75
+  entities:
+  - uid: 20238
+    components:
+    - type: Transform
+      pos: -71.5,149.5
+      parent: 1
+  - uid: 21512
+    components:
+    - type: Transform
+      pos: -13.5,26.5
       parent: 1
 - proto: NPCIgorIvanovich
   entities:
@@ -46512,7 +46587,7 @@ entities:
       pos: -11.5,-72.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -113979.664
+      secondsUntilStateChange: -114655.164
       state: Opening
   - uid: 16454
     components:
@@ -132252,7 +132327,7 @@ entities:
       pos: -231.5,71.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -20149.408
+      secondsUntilStateChange: -20824.912
       state: Opening
   - uid: 11968
     components:

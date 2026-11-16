@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/14/2026 20:01:10
-  entityCount: 16398
+  time: 11/16/2026 00:21:12
+  entityCount: 16401
 maps:
 - 1
 grids:
@@ -36603,6 +36603,7 @@ entities:
   - uid: 608
     components:
     - type: Transform
+      rot: -1.5707963267948966 rad
       pos: 27.5,18.5
       parent: 1
   - uid: 609
@@ -37916,6 +37917,12 @@ entities:
     components:
     - type: Transform
       pos: 41.5,14.5
+      parent: 1
+  - uid: 8714
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 39.5,20.5
       parent: 1
   - uid: 10772
     components:
@@ -73041,7 +73048,7 @@ entities:
       pos: -166.5,-69.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -2649.2434
+      secondsUntilStateChange: -2918.016
       state: Opening
     - type: AccessReader
       accessListsOriginal:
@@ -73390,18 +73397,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -85.5,-32.5
       parent: 1
-- proto: MutantSpawnerBurer_1to2_100
-  entities:
-  - uid: 8615
-    components:
-    - type: Transform
-      pos: 56.5,16.5
-      parent: 1
-  - uid: 8638
-    components:
-    - type: Transform
-      pos: -112.5,-13.5
-      parent: 1
 - proto: MutantSpawnerCanineT2_1to3_25
   entities:
   - uid: 8611
@@ -73435,12 +73430,22 @@ entities:
     - type: Transform
       pos: 28.5,18.5
       parent: 1
-- proto: MutantSpawnerKarlik_1to4_50
-  entities:
   - uid: 8710
     components:
     - type: Transform
-      pos: 43.5,13.5
+      pos: 41.5,13.5
+      parent: 1
+- proto: MutantSpawnerKarlik_1to4_50
+  entities:
+  - uid: 8615
+    components:
+    - type: Transform
+      pos: 56.5,16.5
+      parent: 1
+  - uid: 8638
+    components:
+    - type: Transform
+      pos: -113.5,-13.5
       parent: 1
 - proto: MutantSpawnerMatureBear_1to2_01
   entities:
@@ -73964,6 +73969,12 @@ entities:
     components:
     - type: Transform
       pos: -173.5,-98.5
+      parent: 1
+  - uid: 8712
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 39.5,20.5
       parent: 1
   - uid: 8897
     components:
@@ -100722,6 +100733,12 @@ entities:
       parent: 1
 - proto: SteelBench
   entities:
+  - uid: 8713
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 39.5,19.5
+      parent: 1
   - uid: 12965
     components:
     - type: Transform
@@ -108932,6 +108949,12 @@ entities:
     - type: Transform
       pos: 24.5,14.5
       parent: 1
+  - uid: 8715
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 26.5,16.5
+      parent: 1
 - proto: STToxicBarrel2
   entities:
   - uid: 10924
@@ -111806,6 +111829,12 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -201.5,-136.5
       parent: 1
+  - uid: 8711
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 37.5,20.5
+      parent: 1
   - uid: 14968
     components:
     - type: Transform
@@ -112200,16 +112229,6 @@ entities:
     components:
     - type: Transform
       pos: 24.5,24.5
-      parent: 1
-  - uid: 15045
-    components:
-    - type: Transform
-      pos: 39.5,20.5
-      parent: 1
-  - uid: 15046
-    components:
-    - type: Transform
-      pos: 37.5,20.5
       parent: 1
   - uid: 15047
     components:
