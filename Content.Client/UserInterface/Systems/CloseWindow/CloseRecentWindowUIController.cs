@@ -27,6 +27,7 @@ public sealed class CloseRecentWindowUIController : UIController
         // (Does not need to be unlistened since UIControllers live forever)
         _uiManager.OnKeyBindDown += OnKeyBindDown;
         _uiManager.WindowRoot.OnChildAdded += OnRootChildAdded;
+        _uiManager.WindowRoot.OnChildRemoved += OnRootChildRemoved; // ST:OW - upstream #45399
 
         _inputManager.SetInputCommand(EngineKeyFunctions.WindowCloseRecent,
             InputCmdHandler.FromDelegate(session => CloseMostRecentWindow()));
@@ -121,6 +122,14 @@ public sealed class CloseRecentWindowUIController : UIController
             SetMostRecentlyInteractedWindow((BaseWindow) control);
         }
     }
+
+    // ST:OW begin - upstream #45399: stop tracking (and keeping alive) windows once they are closed
+    private void OnRootChildRemoved(Control control)
+    {
+        if (control is BaseWindow window)
+            recentlyInteractedWindows.Remove(window);
+    }
+    // ST:OW end
 
     /// <summary>
     /// Checks whether there are any windows that can be closed.

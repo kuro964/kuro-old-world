@@ -32,6 +32,8 @@ public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsCo
     {
         base.UpdateInternal(component);
 
+        DamageContainers.Clear(); // ST:OW - upstream #39288, drop filters left over from HUDs that are no longer worn
+
         foreach (var damageContainerId in component.Components.SelectMany(x => x.DamageContainers))
         {
             DamageContainers.Add(damageContainerId);

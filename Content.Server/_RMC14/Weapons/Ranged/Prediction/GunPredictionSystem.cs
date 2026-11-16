@@ -36,6 +36,7 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
     private float _aabbEnlargement;
 
     private EntityQuery<FixturesComponent> _fixturesQuery;
+    private EntityQuery<IgnorePredictionHitComponent> _ignorePredictionHitQuery; // ST:OW
     private EntityQuery<LagCompensationComponent> _lagCompensationQuery;
     private EntityQuery<PhysicsComponent> _physicsQuery;
     private EntityQuery<ProjectileComponent> _projectileQuery;
@@ -47,6 +48,7 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         base.Initialize();
 
         _fixturesQuery = GetEntityQuery<FixturesComponent>();
+        _ignorePredictionHitQuery = GetEntityQuery<IgnorePredictionHitComponent>(); // ST:OW
         _lagCompensationQuery = GetEntityQuery<LagCompensationComponent>();
         _physicsQuery = GetEntityQuery<PhysicsComponent>();
         _projectileQuery = GetEntityQuery<ProjectileComponent>();
@@ -219,6 +221,9 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         {
             if (GetEntity(netEnt) is not { Valid: true } hit)
                 continue;
+            
+            if (_ignorePredictionHitQuery.HasComp(hit)) // ST:OW
+                continue;
 
             if (!_lagCompensationQuery.TryComp(hit, out var otherLagComp) ||
                 !_fixturesQuery.TryComp(hit, out var otherFixtures) ||
@@ -243,6 +248,9 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
                 Log.Info("hit");
 
             _projectile.ProjectileCollide((projectile, projectileComp, projectilePhysics), hit, true);
+            
+            if (projectileComp.ProjectileSpent) // ST:OW
+                break;
         }
     }
 

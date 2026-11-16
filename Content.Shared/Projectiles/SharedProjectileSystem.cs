@@ -24,6 +24,7 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
+using Content.Shared.FixedPoint; // ST:OW
 
 namespace Content.Shared.Projectiles;
 
@@ -95,6 +96,12 @@ public abstract partial class SharedProjectileSystem : EntitySystem
 
         var coordinates = Transform(projectile).Coordinates;
         var otherName = ToPrettyString(target);
+
+        // ST:OW begin - Penetration compares the damage dealt against the health the target had before the hit
+        var damageRequired = FixedPoint2.Zero;
+        var canPenetrate = component.PenetrationThreshold != 0 && TryGetPenetrationHealth(target, out damageRequired);
+        // ST:OW end
+
         var modifiedDamage = _net.IsServer
             ? _damageableSystem.ChangeDamage(target,
                 ev.Damage,
@@ -115,7 +122,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
         //
 
         var filter = Filter.Pvs(coordinates, entityMan: EntityManager);
-        if (_guns.GunPrediction)
+        if (_guns.GunPrediction && predicted) // ST:OW
         {
             // TODO RMC14 clean this up once gun prediction is using new lag compensation
             if (TryComp(projectile, out PredictedProjectileServerComponent? serverProjectile) &&
@@ -126,77 +133,66 @@ public abstract partial class SharedProjectileSystem : EntitySystem
 
         }
 
-        if (modifiedDamage is not null && (EntityManager.EntityExists(component.Shooter) || EntityManager.EntityExists(component.Weapon)))
+        // ST:OW begin - Single hit implementation for normal and predicted collisions
+        // This is the logic that used to live in Content.Server ProjectileSystem.OnStartCollide
+        // On the server, the projectile is only spent when the hit was applied and the shooter still exists, and penetration is decided here
+        // A predicting client cannot know either, so its local projectile always ends at the first hit
+        var hitApplied = _net.IsClient || (!ev.Damage.Empty && Exists(component.Shooter));
+        if (hitApplied)
         {
-            if (modifiedDamage.AnyPositive() && !deleted)
-            {
+            if (!deleted)
                 _color.RaiseEffect(Color.Red, new List<EntityUid> { target }, filter);
+
+            if (Exists(component.Shooter))
+            {
+                _adminLogger.Add(LogType.BulletHit,
+                    LogImpact.Medium,
+                    $"Projectile {ToPrettyString(uid):projectile} shot by {ToPrettyString(component.Shooter.Value):user} hit {otherName:target} and dealt {modifiedDamage.GetTotal():damage} damage");
             }
+            
+            if (canPenetrate)
+            {
+                if (component.PenetrationDamageTypeRequirement != null)
+                {
+                    foreach (var requiredDamageType in component.PenetrationDamageTypeRequirement)
+                    {
+                        if (modifiedDamage.DamageDict.ContainsKey(requiredDamageType))
+                            continue;
 
-            var shooterOrWeapon = EntityManager.EntityExists(component.Shooter) ? component.Shooter!.Value : component.Weapon!.Value;
+                        component.ProjectileSpent = true;
+                        break;
+                    }
+                }
+                if (modifiedDamage.GetTotal() < damageRequired)
+                    component.ProjectileSpent = true;
 
-            _adminLogger.Add(LogType.BulletHit,
-                HasComp<ActorComponent>(target) ? LogImpact.Medium : LogImpact.Low,
-                $"Projectile {ToPrettyString(uid):projectile} shot by {ToPrettyString(shooterOrWeapon):source} hit {otherName:target} and dealt {modifiedDamage.GetTotal():damage} damage");
+                if (!component.ProjectileSpent)
+                {
+                    component.PenetrationAmount += damageRequired;
+                    if (component.PenetrationAmount >= component.PenetrationThreshold)
+                        component.ProjectileSpent = true;
+                }
+            }
+            else
+            {
+                component.ProjectileSpent = true;
+            }
         }
 
-        // TODO RMC14 move destructible to shared
-        // If penetration is to be considered, we need to do some checks to see if the projectile should stop.
-        // if (modifiedDamage is not null && component.PenetrationThreshold != 0)
-        // {
-        //     // If a damage type is required, stop the bullet if the hit entity doesn't have that type.
-        //     if (component.PenetrationDamageTypeRequirement != null)
-        //     {
-        //         var stopPenetration = false;
-        //         foreach (var requiredDamageType in component.PenetrationDamageTypeRequirement)
-        //         {
-        //             if (!modifiedDamage.DamageDict.Keys.Contains(requiredDamageType))
-        //             {
-        //                 stopPenetration = true;
-        //                 break;
-        //             }
-        //         }
-        //         if (stopPenetration)
-        //             component.ProjectileSpent = true;
-        //     }
-        //
-        //     var damageRequired = _destructible.DestroyedAt(target);
-        //     // If the object won't be destroyed, it "tanks" the penetration hit.
-        //     if (modifiedDamage.GetTotal() < damageRequired)
-        //     {
-        //         component.ProjectileSpent = true;
-        //     }
-        //
-        //     if (!component.ProjectileSpent)
-        //     {
-        //         component.PenetrationAmount += damageRequired;
-        //         // The projectile has dealt enough damage to be spent.
-        //         if (component.PenetrationAmount >= component.PenetrationThreshold)
-        //         {
-        //             component.ProjectileSpent = true;
-        //         }
-        //     }
-        // }
-        // else
-        // {
-        //     component.ProjectileSpent = true;
-        // }
-
-        if (!deleted && filter.Count > 0)
+        if (!deleted)
         {
             _guns.PlayImpactSound(target, modifiedDamage, component.SoundHit, component.ForceSound);
 
-            // if (!ourBody.LinearVelocity.IsLengthZero())
-            // {
-            //     var direction = ourBody.LinearVelocity.Normalized();
-            //     if (!float.IsNaN(direction.X))
-            //         _sharedCameraRecoil.KickCamera(target, direction);
-            // }
+            if (_net.IsServer && !ourBody.LinearVelocity.IsLengthZero())
+            {
+                var direction = ourBody.LinearVelocity.Normalized();
+                if (!float.IsNaN(direction.X))
+                    _sharedCameraRecoil.KickCamera(target, direction);
+            }
         }
 
-        component.ProjectileSpent = true;
         Dirty(uid, component);
-
+        // ST:OW end
 
         if ((_net.IsServer || IsClientSide(uid)) && component.ImpactEffect != null)
         {
@@ -207,11 +203,17 @@ public abstract partial class SharedProjectileSystem : EntitySystem
                 RaiseLocalEvent(impactEffectEv);
         }
 
-        if (!predicted && component.DeleteOnCollide && (_net.IsServer || IsClientSide(uid)))
-            Del(uid);
+        // ST:OW begin - A projectile that is not spent keeps flying
+        if (!component.DeleteOnCollide || !component.ProjectileSpent)
+            return;
 
-        else if (_net.IsServer && component.DeleteOnCollide)
+        if (predicted)
         {
+            // Server-side hit reported by the shooter's client
+            // Removal is deferred until the projectile has travelled to the target, so other clients don't see it vanish earlier than expected
+            if (!_net.IsServer)
+                return;
+
             var predictedComp = EnsureComp<PredictedProjectileHitComponent>(uid);
             predictedComp.Origin = _transform.GetMoverCoordinates(coordinates);
 
@@ -220,8 +222,21 @@ public abstract partial class SharedProjectileSystem : EntitySystem
                 predictedComp.Distance = distance;
 
             Dirty(uid, predictedComp);
+            return;
         }
+
+        if (_net.IsServer)
+            QueueDel(uid);
+        else if (IsClientSide(uid))
+            Del(uid);
     }
+    
+    protected virtual bool TryGetPenetrationHealth(EntityUid target, out FixedPoint2 damageRequired)
+    {
+        damageRequired = FixedPoint2.Zero;
+        return false;
+    }
+    // ST:OW end
 
     private void OnEmbedActivate(Entity<EmbeddableProjectileComponent> embeddable, ref ActivateInWorldEvent args)
     {

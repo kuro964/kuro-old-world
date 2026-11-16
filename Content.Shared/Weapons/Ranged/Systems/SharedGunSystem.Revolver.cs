@@ -149,7 +149,7 @@ public partial class SharedGunSystem
 
                 component.AmmoSlots[index] = ent.Value;
                 Containers.Insert(ent.Value, component.AmmoContainer);
-                SetChamber(index, component, uid);
+                SetChamber(index, component, ent.Value); // ST:OW - upstream #43259, check the inserted cartridge rather than the speedloader
 
                 if (ev.Ammo.Count == 0)
                     break;
