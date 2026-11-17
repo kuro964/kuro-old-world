@@ -528,21 +528,21 @@
     priority: 3
     items:
       # 7.25
-      725PSTBox: 1 # T3
+      725PSTBox: 2 # T3
       # 9.19
-      919PBMBox: 1 # T3
+      919PBMBox: 2 # T3
       # 9.18
-      918PBMBox: 1 # T3
+      918PBMBox: 2 # T3
       # 5.45
-      545PCBox: 1 # T3
+      545PCBox: 2 # T3
       # 5.56
-      556M855Box: 1 # T3
+      556M855Box: 2 # T3
       # 7.39
-      739FMJBox: 1 # T3
+      739FMJBox: 2 # T3
       # 7.54
-      754FMJBox: 2 # T3
+      754FMJBox: 4 # T3
       # .45
-      45ACPAPBox: 1 # T3
+      45ACPAPBox: 2 # T3
   - name: shop-category-medicine
     priority: 4
     items:
@@ -554,9 +554,9 @@
       # outerClothing
       STClothingOuterArmorLightPlateVestBasePSZ7rene: 28
       # head
-      STOWClothingHeadHelmetT3PVPAltMaskSkull: 6 # T3 Zenith
-      STOWClothingHeadHelmetT3PVPAltMaskSkull2: 6
-      STOWClothingHeadHelmetT3PVPAltMaskSkull3: 6
-      STOWClothingHeadHelmetT3PVEMaskRenegade:  6 # T3 Vityaz
+      STOWClothingHeadHelmetT3PVPAltMaskSkull: 8 # T3 Zenith
+      STOWClothingHeadHelmetT3PVPAltMaskSkull2: 8
+      STOWClothingHeadHelmetT3PVPAltMaskSkull3: 8
+      STOWClothingHeadHelmetT3PVEMaskRenegade:  8 # T3 Vityaz
       # misc
       ClothingNeckToothNecklace: 1

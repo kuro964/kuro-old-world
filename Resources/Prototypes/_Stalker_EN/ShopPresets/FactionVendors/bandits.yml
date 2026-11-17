@@ -555,3 +555,41 @@
         CigPackMarlboro: 200 #modest
         CigPackKosmos: 100 #squalid
         CigPackSuka: 100 #cheap cause bandit special
+
+- type: vendingMachineInventory
+  id: BanditInventorySTNW
+  # ST:OW begin
+  categoryGroups:
+
+    - category: armor
+      entries:
+        STClothingOuterArmorBandits: 999
+
+    - category: weapons
+      entries:
+        STWeaponRifleAKS74: 999
+
+    - category: magazines
+      entries:
+        545Mag30: 999
+
+    - category: ammo
+      entries:
+        545FMJBox: 999
+
+    - category: medicine
+      entries:
+        MedkitAI2: 999
+
+    - category: storage
+      entries:
+        ClothingBeltWebbingHolsterLoner: 999
+        ClothingBackpackTacticBlackStalker: 999
+
+    - category: utility
+      entries:
+        ClothingMaskGP5: 999
+        PowerCellHyper: 999
+        STFlashlightSeclite: 999
+        BoxZiptie: 999
+        ClothingHeatBagStalker: 999

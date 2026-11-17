@@ -6,13 +6,15 @@
 
 
   categories:
-#  - name: shop-category-weapons
-#    priority: 1
-#    items:
+  - name: shop-category-weapons
+    priority: 1
+    items:
+      STWeaponSniperSVDliturgy: 200
       #Special
-#  - name: shop-category-magazines
-#    priority: 2
-#    items:
+  - name: shop-category-magazines
+    priority: 2
+    items:
+      754Mag10: 5
       #Special
   - name: shop-category-ammunition
     priority: 3

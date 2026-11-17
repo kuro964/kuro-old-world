@@ -29,8 +29,8 @@
     relocatedStunDuration: 10
     relocatedFlashDuration: 10
     throwForce: 15
-    rewardedPerTier: 0  
-    rewardedPerTooth: 4
+    rewardedPerTier: 1  
+    rewardedPerTooth: 3
     relocatableEntities:
       components:
       - Body

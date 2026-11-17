@@ -1,0 +1,19 @@
+﻿- type: entity
+  parent: BaseItem
+  id: CasseteBoaDuvet
+  suffix: ST:NW, Cassette
+  name: Boa - Duvet
+  description: A cassette found in the zone. A small piece of paper says "Boa - Duvet"
+  components:
+    - type: STWeight
+      self: 0.15
+    - type: Cassete
+      sound: /Audio/_Stalker_NW/Music/Boa Duvet.ogg
+    - type: Tag
+      tags:
+        - Cassete
+    - type: Sprite
+      sprite: _Stalker/Objects/Misc/casete.rsi
+      state: c1
+    - type: RepositoryItem # stalker-en change
+      categoryName: repository-cassettes-category

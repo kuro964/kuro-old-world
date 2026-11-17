@@ -73,8 +73,8 @@
       projectileClass: 2
       damage:
         types:
-          Piercing: 35
-          Mutant: 150
+          Piercing: 20
+          Mutant: 200
     - type: BoltBallistics
       speedMultiplier: 1
       maxFlightTime: 1.2

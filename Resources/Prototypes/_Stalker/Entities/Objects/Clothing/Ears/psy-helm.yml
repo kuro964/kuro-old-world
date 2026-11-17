@@ -74,11 +74,15 @@
   components:
     - type: Sprite
       sprite: _Stalker/Objects/Clothing/hats/psyhelm.rsi
-    - type: Clothing
-      sprite: _Stalker/Objects/Clothing/hats/psyhelm.rsi
     - type: Tag
       tags:
         - ClothMade
+    - type: Clothing
+      equipSound: /Audio/Effects/rustle1.ogg
+      unequipSound: /Audio/Effects/rustle2.ogg
+      sprite: _Stalker/Objects/Clothing/hats/psyhelm.rsi
+      quickEquip: false
+      slots: [ HEAD ]
     - type: Armor
       armorClass: 0
       modifiers:

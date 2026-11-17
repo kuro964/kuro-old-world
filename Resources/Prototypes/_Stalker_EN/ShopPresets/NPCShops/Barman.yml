@@ -203,7 +203,6 @@
         # Snipers
         STWeaponSniperSKS: 1850 # T2
         STWeaponSniperMosin: 1500
-        STWeaponRifleM14: 3750 # OW
         # Crossbows - ST:OW
         STOWCrossbow: 1500
 

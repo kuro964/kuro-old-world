@@ -1,0 +1,37 @@
+﻿- type: entity
+  parent: VendingMachineBoxesPSZMilitary
+  id: VendingMachineBoxesBandits
+  name: Bandit Supply Cache
+  description: A collection of stolen low quality weapons and armor.
+  suffix: ST
+  components:
+    - type: AccessReader
+      access: [["Bandit"]]
+    - type: VendingMachine
+      ejectDelay: 0.1
+      pack: BanditInventorySTNW #EN
+      dispenseOnHitChance: 0.0
+      dispenseOnHitThreshold: 2
+      offState: off
+      brokenState: broken
+      autoEquipDispensed: true #ST:OW
+      prefillMagazines: false #ST:OW
+ 
+- type: entity
+  parent: BaseItem
+  id: BanditInventoryRestock
+  name: пополнительный ящик «Монолита»
+  description: Класть на склад.
+  categories: [ StSkipRestockTest ]
+  components:
+    - type: VendingMachineRestock
+      canRestock:
+        - MonolithInventory
+    - type: STWeight
+      self: 47.2
+    - type: Item
+      size: Ginormous
+    - type: MultiHandedItem
+    - type: Sprite
+      sprite: _Stalker/Structures/Furniture/Sets/military-box.rsi
+      state: icon

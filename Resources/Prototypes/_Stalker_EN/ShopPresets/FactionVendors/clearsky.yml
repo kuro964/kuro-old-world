@@ -541,6 +541,8 @@
   - name: shop-category-blueprints
     priority: 13
     items:
+      ClothingEarsPsyHelmBlueprint: 5000
+      ClothingEarsPsyHelmT3Blueprint: 7500
       STOWCSDetectorSeaDevilBlueprint: 40000
       STOWCSZoneArtifactDetectorBearBlueprint: 50000
       STOWCSZoneArtifactDetectorWolfhoundBlueprint: 80000

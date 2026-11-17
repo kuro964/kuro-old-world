@@ -1,0 +1,82 @@
+﻿<Document>
+    # Light Crafting
+    
+
+    For some recipes you're able to use an item on the object in order to craft something without a blueprint!
+    See the table below.
+
+    ## Details
+    - Once a modification is done, it cannot be reversed or removed
+    - Some recipes require you to hold both in your hand and click on the item with the armor in order to prevent it 
+    from going into the storage.
+
+    ## Armor Modification Recipes
+    <Table Columns="3" MinForcedColumnWidth="200">
+        <ColorBox Color="#994444">
+            <Box>
+                Armor
+            </Box>
+        </ColorBox>
+        <ColorBox Color="#449944">
+            <Box>
+                Item Or Blueprint
+            </Box>
+        </ColorBox>
+        <ColorBox Color="#444499">
+            <Box>
+                Modifications made
+            </Box>
+        </ColorBox>
+
+        <ColorBox>
+            <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
+                <GuideEntityEmbed Entity="ClothingOuterArmorZaryaStalker" Caption="Sunrise Coveralls"/>
+            </Box>
+        </ColorBox>
+        <ColorBox>
+            <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
+                <GuideEntityEmbed Entity="STCraftHideT2" Caption="T2 Hide"/>
+            </Box>
+        </ColorBox>
+        <ColorBox>
+            <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
+                <GuideEntityEmbed Entity="ClothingOuterArmorZaryaStalkerModifedType1" Caption="Sunrise 3 Coveralls(Mutant)"/>
+                
+            </Box>
+        </ColorBox>
+
+
+        <ColorBox>
+            <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
+                <GuideEntityEmbed Entity="ClothingOuterArmorZaryaStalker" Caption="Sunrise Coveralls"/>
+            </Box>
+        </ColorBox>
+        <ColorBox>
+            <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
+                <GuideEntityEmbed Entity="STCraftCoil" Caption="Coil"/>
+            </Box>
+        </ColorBox>
+        <ColorBox>
+            <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
+                <GuideEntityEmbed Entity="ClothingOuterArmorZaryaStalkerModifedType2" Caption="Sunrise 7 Coveralls(Anomaly)"/>
+            </Box>
+        </ColorBox>
+
+
+        <ColorBox>
+            <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
+                <GuideEntityEmbed Entity="ClothingOuterArmorAborigineStalker" Caption="Native Suit"/>
+            </Box>
+        </ColorBox>
+        <ColorBox>
+            <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
+                <GuideEntityEmbed Entity="STOWCraftBallisticPlateT3" Caption="T3 Ballistic Plates"/>
+            </Box>
+        </ColorBox>
+        <ColorBox>
+            <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
+                <GuideEntityEmbed Entity="ClothingOuterArmorStalker" Caption="Badger Armored Coveralls"/>
+            </Box>
+        </ColorBox>
+    </Table>
+</Document>
