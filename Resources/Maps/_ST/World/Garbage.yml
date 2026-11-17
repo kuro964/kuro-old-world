@@ -4,7 +4,7 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/16/2026 22:08:24
+  time: 11/17/2026 13:13:51
   entityCount: 30546
 maps:
 - 1
@@ -114117,7 +114117,7 @@ entities:
       pos: -76.5,214.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -28328.314
+      secondsUntilStateChange: -28352.057
       state: Opening
   - uid: 6601
     components:
@@ -114125,7 +114125,7 @@ entities:
       pos: -78.5,220.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -28326.713
+      secondsUntilStateChange: -28350.455
       state: Opening
   - uid: 6636
     components:
@@ -198071,13 +198071,6 @@ entities:
     - type: Transform
       pos: 13.5,388.5
       parent: 1
-- proto: TriggerBoxDrawer
-  entities:
-  - uid: 41860
-    components:
-    - type: Transform
-      pos: -135.5,369.5
-      parent: 1
 - proto: TrubaSoloStalker
   entities:
   - uid: 41705
@@ -210072,6 +210065,13 @@ entities:
     components:
     - type: Transform
       pos: 82.5,450.5
+      parent: 1
+- proto: VendingMachineBoxesBandits
+  entities:
+  - uid: 4835
+    components:
+    - type: Transform
+      pos: -135.5,369.5
       parent: 1
 - proto: WallBrickFallout
   entities:

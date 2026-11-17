@@ -1,0 +1,221 @@
+﻿- type: entity
+  parent: BaseMobMutant
+  id: MobMutantSandsucker
+  name: Sandsucker
+  suffix: ST, T3
+  description: What seems to be a mutated Bloodsucker..
+  components:
+    - type: STReveal
+    - type: STBrain
+      leash: 0
+      kind: Pack
+      stalk: true
+      skirmish: true
+      ringRadius: 8
+      stalkTime: 10
+      biteTime: 4
+      restTime: 5
+    - type: STAwareness
+      memoryTime: 20
+      trackTime: 15
+      pursueTime: 15
+    - type: STDrag
+    - type: HTN
+      rootTask:
+        task: STBloodsuckerCompound
+      blackboard:
+        VisionRadius: !type:Single
+          25
+        AggroVisionRadius: !type:Single
+          35
+        NavInteract: !type:Bool
+          true
+        NavPry: !type:Bool
+          true
+    - type: Tag
+      tags:
+        - CannotSuicide
+        - STMaterialOrganic
+        - FootstepSound
+        - DoorBumpOpener
+    - type: Prying
+      pryPowered: !type:Bool
+        true
+      force: !type:Bool
+        true
+    - type: Butcherable
+      spawned:
+        - id: MutantPartBloodsuckerHand #OW
+          maxAmount: 1
+          prob: 1
+        - id: MutantPartBloodsuckerHand #OW
+          maxAmount: 1
+          prob: 0.25
+        - id: MutantPartBloodsuckerEye #OW
+          maxAmount: 2
+          prob: 0.5
+        - id: MutantPartBloodsuckerTentacles #OW
+          maxAmount: 1
+          prob: 0.25
+        - id: CraftHideBloodSucker
+          maxAmount: 1
+          prob: 0.2
+        - id: MutantPartBloodsuckerHead
+          prob: 0.005
+          maxAmount: 1
+        - id: STJunkTag # EN
+          maxAmount: 1
+          prob: 0.025
+        - id: STJunkTagWhite # EN
+          maxAmount: 1
+          prob: 0.05
+        - id: STJunkTracker # EN
+          maxAmount: 1
+          prob: 0.01
+    - type: NPCBloodsucker
+      stunTime: 0
+      damageOnSuck:
+        types:
+          Bloodloss: 17
+        ModifyBloodLevel: -30
+      healOnSuck:
+        groups:
+          Brute: -125
+          Burn: -125
+          Airloss: -125
+        ModifyBloodLevel: 133
+    - type: DamageStateVisuals
+      states:
+        Alive:
+          Base: bloodsucker
+        Critical:
+          Base: dead
+        Dead:
+          Base: dead
+    - type: Damageable
+      damageModifierSet: STMutantT3DamageModifierSet
+    - type: Destructible
+      thresholds:
+        - trigger:
+            !type:DamageTrigger
+            damage: 700
+          behaviors:
+            - !type:PlaySoundBehavior
+              sound:
+                path: /Audio/_Stalker/Mutants/bloodsucker_die_1.ogg
+    - type: EmitSoundOnSpawn
+      sound:
+        path: /Audio/_Stalker/Mutants/bloodsucker_scream.ogg
+        params:
+          volume: 1
+          maxDistance: 20
+    - type: EmitSoundOnTrigger
+      sound:
+        path: /Audio/_Stalker/Mutants/bloodsucker_die_1.ogg
+        params:
+          variation: 0.125
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape:
+            !type:PhysShapeCircle
+            radius: 0.35
+          density: 1000
+          mask:
+            - MobMask
+          layer:
+            - MobLayer
+    - type: FootstepModifier
+      footstepSoundCollection:
+        path: /Audio/_Stalker/Mutants/bloodsucker_breath2.ogg
+        params:
+          volume: -30 # EN enough is enough
+    - type: MobThresholds
+      thresholds:
+        0: Alive
+        500: Dead
+    - type: MeleeWeapon
+      attackRate: 0.4
+      angle: 30
+      range: 1.5
+      soundHit:
+        path: /Audio/_Stalker/Mutants/bloodsucker_hit_3.ogg
+        params:
+          variation: 0.125
+      soundSwing:
+        path: /Audio/_Stalker/Mutants/bloodsucker_attack_3.ogg
+        params:
+          variation: 0.125
+      animation: WeaponArcClaw
+      wideAnimation: WeaponArcClaw
+      damage:
+        types:
+          Blunt: 35
+          Slash: 25
+    - type: BonusMeleeDamage
+      heavyDamageMultiplier: 1.5
+    - type: MovementSpeedModifier
+      baseWalkSpeed: 6
+      baseSprintSpeed: 7
+    - type: SlowOnDamage
+      speedModifierThresholds:
+        250: 0.9
+    - type: Sprite
+      layers:
+        - map: ["enum.DamageStateVisualLayers.Base"]
+          state: sandsucker
+          sprite: /Textures/_Stalker_OW/Mobs/Mutants/sandsucker.rsi
+          scale: 1.15, 1.15
+    - type: StaminaDamageOnHit
+      damage: 13
+    - type: STWeight
+      self: 96
+    # Stalker-EN start
+    - type: STMobVariantConfig
+      variants:
+        - chance: 0.08
+          quality: Uncommon
+          nameOverride: st-mob-variant-uncommon-bloodsucker
+          healthMultiplier: 1.1
+          damageMultiplier: 1.1
+          spriteScale: 1.05
+          spriteTint: "#800020FF"
+          spriteSaturation: 1.5
+          spriteBrightness: 0.7
+          minWeightMultiplier: 0.95
+          maxWeightMultiplier: 1.25
+          butcherSwaps:
+            MutantPartBloodsuckerHand: STMutantPartUncommonBloodsuckerHand
+            MutantPartBloodsuckerEye: STMutantPartUncommonBloodsuckerEye
+            MutantPartBloodsuckerTentacles: STMutantPartUncommonBloodsuckerTentacles
+        - chance: 0.02
+          quality: Rare
+          nameOverride: st-mob-variant-rare-bloodsucker
+          healthMultiplier: 1.15
+          damageMultiplier: 1.2
+          spriteScale: 1.1
+          spriteTint: "#E0E8FFFF"
+          spriteSaturation: 0.1
+          spriteBrightness: 1.6
+          minWeightMultiplier: 1.1
+          maxWeightMultiplier: 1.4
+          butcherSwaps:
+            MutantPartBloodsuckerHand: STMutantPartRareBloodsuckerHand
+            MutantPartBloodsuckerEye: STMutantPartRareBloodsuckerEye
+            MutantPartBloodsuckerTentacles: STMutantPartRareBloodsuckerTentacles
+        - chance: 0.001
+          quality: Legendary
+          nameOverride: st-mob-variant-legendary-bloodsucker
+          healthMultiplier: 1.25
+          damageMultiplier: 1.3
+          spriteScale: 1.15
+          spriteTint: "#FFC040FF"
+          spriteSaturation: 1.3
+          spriteBrightness: 1.4
+          minWeightMultiplier: 1.3
+          maxWeightMultiplier: 1.6
+          butcherSwaps:
+            MutantPartBloodsuckerHand: STMutantPartLegendaryBloodsuckerHand
+            MutantPartBloodsuckerEye: STMutantPartLegendaryBloodsuckerEye
+            MutantPartBloodsuckerTentacles: STMutantPartLegendaryBloodsuckerTentacles
+    # Stalker-EN end

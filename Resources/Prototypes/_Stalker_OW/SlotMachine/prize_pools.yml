@@ -41,6 +41,30 @@
     - { id: ClothingHeadBeretUN, rarity: Uncommon, category: Headwear }
     - { id: ClothingMaskBandBotany, rarity: Uncommon, category: Masks }
     - { id: ClothingNeckScarfBlack, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedLesbian, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedRed, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedBlue, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedGreen, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedBlack, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedBrown, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedLightBlue, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedOrange, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedPurple, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedSyndieGreen, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedSyndieRed, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedCentcom, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedZebra, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedAce, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedAro, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedAroace, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedBiSexual, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedGay, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedInter, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedPan, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedNonBinary, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedRainbow, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedTrans, rarity: Uncommon, category: Scarves }
+    - { id: ClothingNeckScarfStripedLesbianLong, rarity: Uncommon, category: Scarves }
     - { id: ClothingNeckMantle, rarity: Uncommon, category: Cloaks }
     - { id: ClothingCapeDeserters, rarity: Uncommon, category: Cloaks }
     - { id: ClothingEyesGlassesJensen, rarity: Uncommon, category: Glasses }
