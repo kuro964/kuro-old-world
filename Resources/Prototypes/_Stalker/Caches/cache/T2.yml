@@ -73,6 +73,7 @@
     - { id: ST751UNBoxCinkBlueprint, prob: 0.05 }
     - { id: ST739HPBoxCinkBlueprint, prob: 0.05 }
     - { id: ClothingOuterArmorZaryaHunterBlueprint, prob: 0.05 }
+    - { id: ClothingOuterArmorSparkBlueprint, prob: 0.05 }
     - { id: STClothingOuterArmor6B2Blueprint, prob: 0.05 }
     - { id: STClothingOuterArmorLightPlateVestBaseStalkerBlueprint, prob: 0.05 }
     - { id: ClothingOuterArmourJacketStalkerBlueprint, prob: 0.05 }
