@@ -1,12 +1,4 @@
 ﻿Entries:
-- author: LaCumbiaDelCoronavirus
-  changes:
-  - message: Light from flashlights and other things affected by player's rotation
-      will now rotate more smoothly in combat mode.
-    type: Tweak
-  id: 10
-  time: '2026-02-01T14:54:15.133593+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/363
 - author: crocodilecarousel
   changes:
   - message: Map changes
@@ -4518,5 +4510,12 @@
   id: 509
   time: '2026-11-16T23:14:18.440286+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/226
+- author: Boar332
+  changes:
+  - message: Knives now fit in most boots
+    type: Add
+  id: 510
+  time: '2026-11-17T11:38:16.805828+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/227
 Name: Stalker
 Order: -1
