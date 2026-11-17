@@ -504,8 +504,6 @@
         weight: 1
       
       # Psy
-      - protoId: ZoneAnomalyLamp
-        weight: 1
       - protoId: ZoneAnomalyBarabashka # Thief
         weight: 2
       
