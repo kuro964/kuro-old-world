@@ -1,11 +1,4 @@
 ﻿Entries:
-- author: crocodilecarousel
-  changes:
-  - message: Map changes
-    type: Tweak
-  id: 11
-  time: '2026-02-02T02:14:43.757655+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/367
 - author: teecoding
   changes:
   - message: Prevent emission lightning from spawning near players in safe zones
@@ -4517,5 +4510,12 @@
   id: 510
   time: '2026-11-17T11:38:16.805828+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/227
+- author: Remminia
+  changes:
+  - message: Removed Lamps from Spawning on the Divide
+    type: Add
+  id: 511
+  time: '2026-11-17T14:56:27.004015+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/230
 Name: Stalker
 Order: -1
