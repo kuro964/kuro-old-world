@@ -82,8 +82,8 @@
     - type: ArmorModuleEffect
       modifiers:
         coefficients:
-          Blunt: 0.9
-          Slash: 0.9
+          Blunt: 0.95
+          Slash: 0.95
         flatReductions:
           Blunt: 1
           Slash: 1
@@ -99,8 +99,8 @@
     - type: ArmorModuleEffect
       modifiers:
         coefficients:
-          Blunt: 0.8
-          Slash: 0.8
+          Blunt: 0.9
+          Slash: 0.9
         flatReductions:
           Blunt: 1
           Slash: 1
@@ -124,8 +124,8 @@
     - type: ArmorModuleEffect
       modifiers:
         coefficients:
-          Blunt: 0.6
-          Slash: 0.7
+          Blunt: 0.9
+          Slash: 0.9
         flatReductions:
           Blunt: 2
           Slash: 2
@@ -492,11 +492,9 @@
     - type: ArmorModuleEffect
       modifiers:
         coefficients:
-          Psy: 0.8
+          Psy: 0.9
           Heat: 1.2
           Cold: 1.2
-        flatReductions:
-          Psy: 1
       
 - type: entity
   parent: STOWDutyModuleBase
@@ -509,11 +507,11 @@
     - type: ArmorModuleEffect
       modifiers:
         coefficients:
-          Psy: 0.7
-          Heat: 1.3
-          Cold: 1.3
+          Psy: 0.85
+          Heat: 1.2
+          Cold: 1.2
         flatReductions:
-          Psy: 3
+          Psy: 1
       
 - type: entity
   parent: STOWDutyModuleBase
@@ -526,8 +524,8 @@
     - type: ArmorModuleEffect
       modifiers:
         coefficients:
-          Psy: 0.6
+          Psy: 0.8
           Heat: 1.3
           Cold: 1.3
         flatReductions:
-          Psy: 6
+          Psy: 1

@@ -333,20 +333,12 @@
         Radiation: 8 # EN
       coefficients:
         Blunt: 0.70
-        Slash: 0.55
+        Slash: 0.65
         Piercing: 0.7
         Radiation: 0.85
         Heat: 0.85
         Shock: 0.85
         Compression: 0.7
-  - type: PersonalDamage # EN
-    staminaDamage: -3 # EN same as a Battery
-    interval: 1
-    damage:
-      types:
-        Radiation: -0.2
-        Blunt: -2 #old world edit Same as Flame
-        Slash: -2 # old world edit Same as Flame
   - type: GrantsArtifactSlots
     slots: 0 # EN
   - type: Storage
