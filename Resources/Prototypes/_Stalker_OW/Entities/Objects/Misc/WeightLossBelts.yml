@@ -1,0 +1,40 @@
+﻿- type: entity
+  parent: BaseItem
+  id: STOWWeightLossBelts
+  name: High Quality Belts and Suspenders
+  description: 
+  suffix: ST, OO, STOW
+  components:
+    - type: Sprite
+      layers:
+        - map: [ base ]
+          sprite: _Stalker_OW/Objects/Misc/WeightLossBelts.rsi
+          state: icon
+          scale: 1, 1
+    - type: Item
+      size: Large
+      shape:
+        - 0,0,4,4
+    - type: STWeight
+      self: -35
+    - type: Clothing
+      quickEquip: true
+      slots:
+        - POCKET
+
+- type: entity
+  parent: STOWWeightLossBelts
+  id: STDutyTHOD
+  name: Professional Belts and Suspenders
+  description:
+  suffix: ST, OO, STOW
+  components:
+    - type: Sprite
+      layers:
+        - map: [ base ]
+          sprite: _Stalker_OW/Objects/Misc/DutyWeightLossBelts.rsi
+          state: icon
+          scale: 0.6, 0.6
+    - type: STWeight
+      self: -40
+  

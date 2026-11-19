@@ -632,6 +632,9 @@
         STCookingHrechanyky: 2000
         STCookingKebabMeat: 2000
         STCookingPickledSausage: 2000
+        #STOW START
+        STOWWeightLossBeltBlueprint: 8000
+        #STOW END
 
     - name: shop-category-tools
       priority: 16

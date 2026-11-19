@@ -1,0 +1,8 @@
+﻿- type: entity
+  parent: STBaseBlueprint
+  suffix: STOW, ST
+  id: STOWWeightLossBeltBlueprint
+  name: Belt and Suspender Blueprint
+  components:
+    - type: STBlueprint
+      blueprint: STOWWeightLossBeltRecipe

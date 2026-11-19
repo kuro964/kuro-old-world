@@ -1,0 +1,16 @@
+﻿- type: craftRecipe
+  id: STOWWeightLossBeltRecipe
+  resultProtos:
+    - STOWWeightLossBelts
+  craftTime: 10
+  items:
+    STOWWeightLossBeltBlueprint:
+      amount: 1
+      catalyzer: true
+    STCraftHideT2:
+      amount: 3
+    STCraftPlasticFittingT3:
+      amount: 1
+    STCraftSheetIronT2:
+      amount: 1
+  

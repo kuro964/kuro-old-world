@@ -203,6 +203,7 @@
         # --- OW changes start ---
         ClothingBeltMedicalStalker: 650
         STClothingBeltThrowingKnifes: 200
+        STDutyTHOD: 6000
         # --- OW changes stop ---
 
     - name: shop-category-raincoats-and-gasmasks
