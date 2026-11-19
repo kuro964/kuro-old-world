@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/17/2026 13:13:51
-  entityCount: 30546
+  time: 11/19/2026 01:58:23
+  entityCount: 30551
 maps:
 - 1
 grids:
@@ -114117,7 +114117,7 @@ entities:
       pos: -76.5,214.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -28352.057
+      secondsUntilStateChange: -28971.607
       state: Opening
   - uid: 6601
     components:
@@ -114125,7 +114125,7 @@ entities:
       pos: -78.5,220.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -28350.455
+      secondsUntilStateChange: -28970.006
       state: Opening
   - uid: 6636
     components:
@@ -114372,6 +114372,36 @@ entities:
       parent: 1
 - proto: MutantSpawnerBayun_1to2_50
   entities:
+  - uid: 776
+    components:
+    - type: Transform
+      pos: 97.5,209.5
+      parent: 1
+  - uid: 976
+    components:
+    - type: Transform
+      pos: -67.5,72.5
+      parent: 1
+  - uid: 2182
+    components:
+    - type: Transform
+      pos: -101.5,255.5
+      parent: 1
+  - uid: 2186
+    components:
+    - type: Transform
+      pos: -108.5,303.5
+      parent: 1
+  - uid: 4858
+    components:
+    - type: Transform
+      pos: -92.5,302.5
+      parent: 1
+  - uid: 4859
+    components:
+    - type: Transform
+      pos: -120.5,282.5
+      parent: 1
   - uid: 5563
     components:
     - type: Transform
@@ -114406,25 +114436,6 @@ entities:
     components:
     - type: Transform
       pos: 94.5,149.5
-      parent: 1
-- proto: MutantSpawnerBayun_1to4_25
-  entities:
-  - uid: 22920
-    components:
-    - type: Transform
-      pos: 96.5,209.5
-      parent: 1
-- proto: MutantSpawnerBayun_1to4_50
-  entities:
-  - uid: 7729
-    components:
-    - type: Transform
-      pos: -67.5,73.5
-      parent: 1
-  - uid: 7732
-    components:
-    - type: Transform
-      pos: -62.5,260.5
       parent: 1
 - proto: MutantSpawnerBlindDog_1to2_10
   entities:
@@ -114520,10 +114531,10 @@ entities:
       parent: 1
 - proto: MutantSpawnerBoar_1to4_50
   entities:
-  - uid: 7741
+  - uid: 1211
     components:
     - type: Transform
-      pos: -40.5,255.5
+      pos: -60.5,257.5
       parent: 1
 - proto: MutantSpawnerBush_1to2_25
   entities:
@@ -114819,11 +114830,6 @@ entities:
       parent: 1
 - proto: MutantSpawnerRodent_1to4_50
   entities:
-  - uid: 776
-    components:
-    - type: Transform
-      pos: -105.5,302.5
-      parent: 1
   - uid: 1237
     components:
     - type: Transform
@@ -166115,57 +166121,64 @@ entities:
     - type: Transform
       pos: -133.40005,352.50073
       parent: 1
+- proto: STCacheT1Spawner25
+  entities:
+  - uid: 4852
+    components:
+    - type: Transform
+      pos: -90.5,90.5
+      parent: 1
+  - uid: 4854
+    components:
+    - type: Transform
+      pos: 21.5,387.5
+      parent: 1
 - proto: STCacheT2Spawner25
   entities:
-  - uid: 976
-    components:
-    - type: Transform
-      pos: -108.5,304.5
-      parent: 1
-  - uid: 1211
-    components:
-    - type: Transform
-      pos: 69.5,325.5
-      parent: 1
   - uid: 1872
     components:
     - type: Transform
       pos: 55.5,319.5
       parent: 1
-  - uid: 2182
-    components:
-    - type: Transform
-      pos: -79.5,301.5
-      parent: 1
-  - uid: 2186
-    components:
-    - type: Transform
-      pos: -98.5,309.5
-      parent: 1
   - uid: 2583
     components:
     - type: Transform
-      pos: -119.5,309.5
+      pos: -83.5,305.5
+      parent: 1
+  - uid: 4839
+    components:
+    - type: Transform
+      pos: -103.5,304.5
+      parent: 1
+  - uid: 4841
+    components:
+    - type: Transform
+      pos: -109.5,288.5
+      parent: 1
+  - uid: 4842
+    components:
+    - type: Transform
+      pos: -118.5,283.5
+      parent: 1
+  - uid: 4846
+    components:
+    - type: Transform
+      pos: -0.5,446.5
+      parent: 1
+  - uid: 4849
+    components:
+    - type: Transform
+      pos: -120.5,307.5
+      parent: 1
+  - uid: 4851
+    components:
+    - type: Transform
+      pos: -80.5,301.5
       parent: 1
   - uid: 18319
     components:
     - type: Transform
       pos: 17.5,244.5
-      parent: 1
-  - uid: 18322
-    components:
-    - type: Transform
-      pos: -58.5,94.5
-      parent: 1
-  - uid: 27571
-    components:
-    - type: Transform
-      pos: -108.5,282.5
-      parent: 1
-  - uid: 27587
-    components:
-    - type: Transform
-      pos: -118.5,283.5
       parent: 1
   - uid: 27588
     components:
@@ -166177,72 +166190,17 @@ entities:
     - type: Transform
       pos: -56.5,282.5
       parent: 1
-  - uid: 37030
-    components:
-    - type: Transform
-      pos: 21.5,388.5
-      parent: 1
   - uid: 37470
     components:
     - type: Transform
       pos: 4.5,392.5
       parent: 1
-  - uid: 38336
-    components:
-    - type: Transform
-      pos: 23.5,402.5
-      parent: 1
-  - uid: 39924
-    components:
-    - type: Transform
-      pos: -123.5,438.5
-      parent: 1
 - proto: STCacheT2Spawner5
   entities:
-  - uid: 10960
+  - uid: 4857
     components:
     - type: Transform
-      pos: -17.5,444.5
-      parent: 1
-  - uid: 10961
-    components:
-    - type: Transform
-      pos: -0.5,446.5
-      parent: 1
-  - uid: 18325
-    components:
-    - type: Transform
-      pos: -102.5,302.5
-      parent: 1
-  - uid: 18326
-    components:
-    - type: Transform
-      pos: -124.5,286.5
-      parent: 1
-  - uid: 18327
-    components:
-    - type: Transform
-      pos: -98.5,285.5
-      parent: 1
-  - uid: 18328
-    components:
-    - type: Transform
-      pos: -109.5,288.5
-      parent: 1
-  - uid: 18332
-    components:
-    - type: Transform
-      pos: -90.5,90.5
-      parent: 1
-  - uid: 18333
-    components:
-    - type: Transform
-      pos: -78.5,92.5
-      parent: 1
-  - uid: 36921
-    components:
-    - type: Transform
-      pos: 21.5,387.5
+      pos: -102.5,277.5
       parent: 1
 - proto: STCarpetLarge1
   entities:
@@ -178421,12 +178379,83 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -143.5,381.5
       parent: 1
+- proto: STOWCacheT1Spawner100
+  entities:
+  - uid: 4855
+    components:
+    - type: Transform
+      pos: -91.5,103.5
+      parent: 1
 - proto: STOWCacheT1Spawner50
   entities:
   - uid: 2403
     components:
     - type: Transform
       pos: 67.5,312.5
+      parent: 1
+  - uid: 4840
+    components:
+    - type: Transform
+      pos: -58.5,94.5
+      parent: 1
+  - uid: 4843
+    components:
+    - type: Transform
+      pos: 21.5,388.5
+      parent: 1
+  - uid: 4844
+    components:
+    - type: Transform
+      pos: 23.5,402.5
+      parent: 1
+  - uid: 4853
+    components:
+    - type: Transform
+      pos: -78.5,92.5
+      parent: 1
+  - uid: 4856
+    components:
+    - type: Transform
+      pos: -20.5,95.5
+      parent: 1
+- proto: STOWCacheT2Spawner100
+  entities:
+  - uid: 4836
+    components:
+    - type: Transform
+      pos: 69.5,325.5
+      parent: 1
+  - uid: 4837
+    components:
+    - type: Transform
+      pos: -98.5,285.5
+      parent: 1
+  - uid: 4838
+    components:
+    - type: Transform
+      pos: -97.5,311.5
+      parent: 1
+  - uid: 4845
+    components:
+    - type: Transform
+      pos: -123.5,438.5
+      parent: 1
+  - uid: 4848
+    components:
+    - type: Transform
+      pos: -108.5,304.5
+      parent: 1
+  - uid: 4850
+    components:
+    - type: Transform
+      pos: -124.5,283.5
+      parent: 1
+- proto: STOWCacheT2Spawner50
+  entities:
+  - uid: 4847
+    components:
+    - type: Transform
+      pos: -17.5,444.5
       parent: 1
 - proto: STPoisonShroom
   entities:

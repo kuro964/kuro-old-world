@@ -67,8 +67,10 @@
     - { id: ClothingOuterArmorSevaStalkerBlueprint, prob: 0.03 }
     - { id: STClothingOuterArmorLightPlateVestBaseANAgrayBlueprint, prob: 0.03 }
     - { id: ClothingOuterArmorStalkerBlueprint, prob: 0.03 }
+    - { id: ClothingOuterArmorAborigineStalkerBlueprint, prob: 0.03 }
     - { id: ClothingHeadAssaultHelmetBlueprint, prob: 0.03 }
     - { id: ClothingHeadHelmetVityaz1CBlueprint, prob: 0.03 }
+    - { id: STGasMaskM50Blueprint, prob: 0.03 }
     - { id: STZoneArtifactDetectorSpruceBlueprint, prob: 0.02 }
     - { id: ClothingBeltSmugglerBlueprint, prob: 0.05 }
     - { id: ClothingBackpackSmugglerBlueprint, prob: 0.03 }

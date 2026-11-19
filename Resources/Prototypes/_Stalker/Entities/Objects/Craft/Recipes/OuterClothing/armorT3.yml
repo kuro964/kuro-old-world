@@ -9,18 +9,16 @@
     ClothingOuterArmorAborigineStalkerBlueprint:
       amount: 1
       catalyzer: true
-    ToolkitTearOne:
+    ToolkitTearThree:
       amount: 1
       catalyzer: true
     STCraftSturdyHideT3:
-      amount: 2
+      amount: 3
     STCraftGlueKitT3:
       amount: 2
-    STCraftQuartzCrystalT3:
-      amount: 1
-    STCraftSheetIronT2:
+    STCraftSheetBrassT3:
       amount: 2
-    STCraftPlasticFittingT2:
+    STCraftPlasticFittingT3:
       amount: 2
 
 # ПСЗ-7
@@ -39,7 +37,7 @@
       amount: 1
       catalyzer: true
     STOWCraftBallisticPlateT3:
-      amount: 7
+      amount: 4
     STCraftSturdyHideT3:
       amount: 4
     STCraftPlasticFittingT3:
@@ -58,18 +56,18 @@
     ClothingOuterArmorSevaStalkerBlueprint:
       amount: 1
       catalyzer: true
-    ToolkitTearOne:
+    ToolkitTearTwo:
       amount: 1
       catalyzer: true
-    STCraftSheetIronT2:
+    STCraftSheetBrassT3:
       amount: 1
-    STCraftSheetCopperT1:
+    STCraftSheetIronT2:
       amount: 1
     STCraftSturdyHideT3:
       amount: 2
     STCraftGlueKitT3:
       amount: 1
-    STCraftPlasticFittingT2:
+    STCraftPlasticFittingT3:
       amount: 2
     STCraftQuartzCrystalT3:
       amount: 4
@@ -133,14 +131,14 @@
     ClothingOuterArmorStalkerBlueprint:
       amount: 1
       catalyzer: true
-    ToolkitTearOne:
+    ToolkitTearThree:
       amount: 1
       catalyzer: true
-    STCraftSheetIronT2:
+    STOWCraftBallisticPlateT3:
       amount: 2
     STCraftSturdyHideT3:
       amount: 2
     STCraftGlueKitT3:
       amount: 1
-    STCraftPlasticFittingT2:
+    STCraftPlasticFittingT3:
       amount: 4
