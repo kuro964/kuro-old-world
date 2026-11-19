@@ -125,7 +125,7 @@
     factions:
     - Military
   - type: Trash
-    time: 6000
+    time: 900
   - type: Destructible
     thresholds:
     - trigger:
