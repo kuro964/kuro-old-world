@@ -1,13 +1,6 @@
 ﻿Entries:
 - author: teecoding
   changes:
-  - message: Prevent emission lightning from spawning near players in safe zones
-    type: Fix
-  id: 12
-  time: '2026-02-02T18:27:50.198569+00:00'
-  url: https://github.com/coolmankid12345/stalker-14-EN/pull/371
-- author: teecoding
-  changes:
   - message: Press N to quickly pull a bolt from your bags into your hand
     type: Add
   - message: all Stalker keybinds are now grouped together and rebindable
@@ -4517,5 +4510,12 @@
   id: 511
   time: '2026-11-17T14:56:27.004015+00:00'
   url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/230
+- author: Remminia
+  changes:
+  - message: Adds non artifact ways of decreasing weight.
+    type: Add
+  id: 512
+  time: '2026-11-19T09:11:25.303106+00:00'
+  url: https://github.com/Stalker-Old-World/Stalker14-Old-World/pull/233
 Name: Stalker
 Order: -1
