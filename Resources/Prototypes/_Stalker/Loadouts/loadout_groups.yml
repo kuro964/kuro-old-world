@@ -175,9 +175,10 @@
   minLimit: 1
   maxLimit: 1
   loadouts:
-  - STSuitstorageSTWeaponShotgunMP155T
+#STOW CHANGES START
   - STWeaponShotgunTOZ34
-
+#  - STSuitstorageSTWeaponShotgunMP155T
+#STOW CHANGES END
 - type: loadoutGroup
   id: STStorageTrinkets
   name: loadout-group-st-trinkets
