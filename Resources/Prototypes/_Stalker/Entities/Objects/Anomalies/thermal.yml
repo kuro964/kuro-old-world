@@ -104,10 +104,10 @@
           ratio: 400
         - id: ZoneArtifactFireball
           tier: 1
-          ratio: 25
+          ratio: 20
         - id: ZoneArtifactEye
           tier: 2
-          ratio: 15
+          ratio: 10
         - id: ZoneArtifactBunch
           tier: 3
           ratio: 5
@@ -125,7 +125,7 @@
           ratio: 5
         - id: ZoneArtifactFlame
           tier: 3
-          ratio: 10
+          ratio: 15
         - id: ZoneArtifactCristall
           tier: 4
           ratio: 5
@@ -258,16 +258,16 @@
           ratio: 600
         - id: ZoneArtifactFireball
           tier: 1
-          ratio: 40
+          ratio: 10
         - id: ZoneArtifactEye
           tier: 2
-          ratio: 20
+          ratio: 15
         - id: ZoneArtifactBunch
           tier: 3
           ratio: 10
         - id: ZoneArtifactFlame
           tier: 3
-          ratio: 15
+          ratio: 20
         - id: ZoneArtifactCristall
           tier: 4
           ratio: 10
@@ -383,7 +383,7 @@
         ratio: 400
       - id: ZoneArtifactFireball
         tier: 1
-        ratio: 25
+        ratio: 10
       - id: ZoneArtifactEye
         tier: 2
         ratio: 15
@@ -392,7 +392,7 @@
         ratio: 15
       - id: ZoneArtifactFlame
         tier: 3
-        ratio: 10
+        ratio: 20
       - id: ZoneArtifactCristall
         tier: 4
         ratio: 5
