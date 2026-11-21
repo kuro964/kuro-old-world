@@ -1,0 +1,14 @@
+﻿- type: entity
+  name: AK-74M "Rozvidka"
+  parent: STWeaponRifleAK74M
+  id: BoxArtcontEco
+  description: An experimental artifact container developed by scientists.
+  suffix: STOW, Artifact, Container
+  components:
+    - type: Clothing
+      sprite: _StalkerOW/Objects/Weapons/_Skins/Mil_AK74M.rsi
+    - type: Item
+      sprite: _StalkerOW/Objects/Weapons/_Skins/Mil_AK74M.rsi
+    - type: Sprite
+      sprite: _StalkerOW/Objects/Weapons/_Skins/Mil_AK74M.rsi
+  

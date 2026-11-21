@@ -1,0 +1,12 @@
+﻿- type: entity
+  parent: ClothingOuterCoatSmuggler
+  id: STOWClothingOuterCoatSmugglerMilitary
+  name: Military Veterans Coat
+  description: A high quality coat with many little pockets and pouches.
+  suffix: STOW, T3
+  components:
+    - type: Sprite
+      sprite: _Stalker_OW/Objects/Clothing/Coats/milsmuggler.rsi
+    - type: Clothing
+      sprite: _Stalker_OW/Objects/Clothing/Coats/milsmuggler.rsi
+  
