@@ -26,7 +26,7 @@
           Blunt: 0.8
           Slash: 0.9
           Piercing: 0.85
-          Heat: 0.50
+          Heat: 0.60
           Radiation: 0.7
           Caustic: 0.7
           Shock: 0.9
@@ -57,5 +57,5 @@
         Slash: 0.95
         Piercing: 0.95
         Compression: 0.95
-        Psy: 0.4
+        Psy: 0.6
   - type: PsyHelmet

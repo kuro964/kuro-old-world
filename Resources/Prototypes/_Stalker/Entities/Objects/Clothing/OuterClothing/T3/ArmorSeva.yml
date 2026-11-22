@@ -118,6 +118,28 @@
   name: белый костюм "Сева" Учёных
   description: "Разработанный Киевским НИИ костюм замкнутого цикла, предназначенный специально для работы в условиях Зоны со старым дизайном"
   components:
+#STOW CHANGES START
+    - type: Armor
+      armorClass: 1
+      modifiers:
+        flatReductions:
+          Blunt: 3
+          Slash: 2
+          Piercing: 1
+          Heat: 3
+          Radiation: 3
+          Caustic: 3
+          Shock: 2
+        coefficients:
+          Blunt: 0.8
+          Slash: 0.9
+          Piercing: 0.8
+          Heat: 0.55
+          Radiation: 0.6
+          Caustic: 0.60
+          Shock: 0.80
+          Compression: 0.7
+#STOW CHANGES END
     - type: Sprite
       sprite: _Stalker/Objects/Clothing/outerClothing/seva_sci.rsi
     - type: Clothing
@@ -133,6 +155,21 @@
   description: Несмотря, на преимущественно стеклянную состовляющую, довольно прочный.
   categories: [ HideSpawnMenu ]
   components:
+#STOW CHANGES START
+  - type: Armor
+    armorClass: 1
+    modifiers:
+      flatReductions:
+        Radiation: 4
+        Caustic: 1
+        Psy: 3
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.95
+        Compression: 0.95
+        Psy: 0.60
+#STOW CHANGES END
   - type: Sprite
     sprite: _Stalker/Objects/Clothing/hats/seva_sci_helm.rsi
   - type: Clothing
