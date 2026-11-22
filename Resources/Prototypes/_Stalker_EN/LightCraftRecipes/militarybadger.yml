@@ -9,3 +9,27 @@
     exactSecond: false
     time: 5
 
+##STOW START
+- type: lightCraftingRecipe
+  id: STClothingOuterArmorMilitarySmugglersCoatCraft
+  results:
+    - STOWClothingOuterCoatSmugglerMilitary
+  steps:
+    firstIngredient: STSkinsKitMilitary
+    secondIngredient: ClothingOuterCoatSmuggler
+    keepFirst: true
+    exactSecond: false
+    time: 5  
+  
+- type: lightCraftingRecipe
+  id: STOWWeaponCraftAK74Mil
+  results:
+    - STOWWeaponRifleAK74MMil
+  steps:
+    firstIngredient: STSkinsKitMilitary
+    secondIngredient: STWeaponRifleAK74M
+    keepFirst: true
+    exactSecond: false
+    time: 5
+
+##STOW END
