@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/16/2026 00:27:34
-  entityCount: 14010
+  time: 11/24/2026 10:20:39
+  entityCount: 14026
 maps:
 - 1
 grids:
@@ -2520,6 +2520,12 @@ entities:
             id: INTERRUPTION
           decals:
             76641: 223,102
+        - node:
+            color: '#FFFFFFFF'
+            id: INTERRUPTION
+          decals:
+            106720: 3.266099,18.096762
+            106721: 4.2244325,18.951523
         - node:
             color: '#FFFFFFFF'
             id: Monolit_graf
@@ -30014,17 +30020,32 @@ entities:
           decals:
             106710: 213.0976,135.05864
         - node:
+            color: '#FFFFFFFF'
+            id: StencilLetterE
+          decals:
+            106717: 4.3494554,17.952208
+        - node:
             cleanable: True
             color: '#FF0000FF'
             id: StencilLetterG
           decals:
             106712: 215.1601,135.05864
         - node:
+            color: '#FFFFFFFF'
+            id: StencilLetterH
+          decals:
+            106715: 3.3807054,19.140532
+        - node:
             cleanable: True
             color: '#FF0000FF'
             id: StencilLetterI
           decals:
             106707: 213.73822,135.043
+        - node:
+            color: '#FFFFFFFF'
+            id: StencilLetterL
+          decals:
+            106716: 3.9119554,18.671457
         - node:
             cleanable: True
             color: '#FF0000FF'
@@ -30041,6 +30062,16 @@ entities:
             id: StencilLetterR
           decals:
             91913: 38.94919,-71.84448
+        - node:
+            color: '#FFFFFFFF'
+            id: StencilLetterS
+          decals:
+            106714: 2.8494554,19.58876
+        - node:
+            color: '#FFFFFFFF'
+            id: StencilLetterY
+          decals:
+            106719: 4.6798425,17.581463
         - node:
             angle: 1.5707963267948966 rad
             color: '#A49FA1FF'
@@ -59525,6 +59556,127 @@ entities:
     - type: Transform
       pos: 56.5,20.5
       parent: 1
+- proto: GhostWarpPoint
+  entities:
+  - uid: 510
+    components:
+    - type: MetaData
+      name: Radar - Mono Base
+    - type: Transform
+      pos: 227.5,96.5
+      parent: 1
+  - uid: 511
+    components:
+    - type: MetaData
+      name: Radar - Uncle's Cabin
+    - type: Transform
+      pos: 90.5,-55.5
+      parent: 1
+  - uid: 516
+    components:
+    - type: MetaData
+      name: Radar - Labs
+    - type: Transform
+      pos: 106.5,75.5
+      parent: 1
+  - uid: 3190
+    components:
+    - type: MetaData
+      name: Radar - Monolith Stronghold
+    - type: Transform
+      pos: 98.5,94.5
+      parent: 1
+  - uid: 4625
+    components:
+    - type: MetaData
+      name: Radar - Junkyard
+    - type: Transform
+      pos: 141.5,105.5
+      parent: 1
+  - uid: 7008
+    components:
+    - type: MetaData
+      name: Radar - Cabins
+    - type: Transform
+      pos: 66.5,13.5
+      parent: 1
+  - uid: 7012
+    components:
+    - type: MetaData
+      name: Radar - Swamps
+    - type: Transform
+      pos: 85.5,-24.5
+      parent: 1
+  - uid: 7013
+    components:
+    - type: MetaData
+      name: Radar - Military Base
+    - type: Transform
+      pos: 30.5,-63.5
+      parent: 1
+  - uid: 7018
+    components:
+    - type: MetaData
+      name: Radar - Bush
+    - type: Transform
+      pos: 165.5,45.5
+      parent: 1
+  - uid: 7020
+    components:
+    - type: MetaData
+      name: Radar - Forest
+    - type: Transform
+      pos: 140.5,32.5
+      parent: 1
+  - uid: 7035
+    components:
+    - type: MetaData
+      name: Radar - Psi Bear Den
+    - type: Transform
+      pos: 26.5,72.5
+      parent: 1
+  - uid: 7036
+    components:
+    - type: MetaData
+      name: Radar - Eastern Red Forest
+    - type: Transform
+      pos: 68.5,57.5
+      parent: 1
+  - uid: 7066
+    components:
+    - type: MetaData
+      name: Radar - Gravity Fields
+    - type: Transform
+      pos: 151.5,-46.5
+      parent: 1
+  - uid: 7067
+    components:
+    - type: MetaData
+      name: Radar - Divide Entrance
+    - type: Transform
+      pos: 190.5,-35.5
+      parent: 1
+  - uid: 7068
+    components:
+    - type: MetaData
+      name: Radar - Brain Scorcher Entrance
+    - type: Transform
+      pos: 81.5,93.5
+      parent: 1
+  - uid: 7070
+    components:
+    - type: MetaData
+      name: Radar - Red Forest Entrance
+    - type: Transform
+      pos: 7.5,-3.5
+      parent: 1
+  - uid: 7071
+    components:
+    - type: MetaData
+      name: Radar - The Sarcophagus
+    - type: Transform
+      pos: 227.5,128.5
+      parent: 1
 - proto: GreenBox
   entities:
   - uid: 2591
@@ -59594,7 +59746,7 @@ entities:
       pos: 208.5,97.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -113471.48
+      secondsUntilStateChange: -120288.01
       state: Opening
     - type: AccessReader
       accessListsOriginal:
@@ -78861,7 +79013,7 @@ entities:
       accessListsOriginal:
       - - Monolith
     - type: Door
-      secondsUntilStateChange: -113473.71
+      secondsUntilStateChange: -120290.24
       state: Opening
 - proto: MetalDoorFallout
   entities:
@@ -78897,7 +79049,7 @@ entities:
       pos: 228.5,102.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -112564.21
+      secondsUntilStateChange: -119380.74
       state: Opening
   - uid: 2648
     components:
@@ -78990,7 +79142,7 @@ entities:
       pos: 87.5,95.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -29420.918
+      secondsUntilStateChange: -36237.45
       state: Opening
 - proto: MilitaryDoorLocked
   entities:
@@ -91427,7 +91579,7 @@ entities:
       accessListsOriginal:
       - - Monolith
     - type: Door
-      secondsUntilStateChange: -129142.99
+      secondsUntilStateChange: -135959.53
       state: Opening
   - uid: 3618
     components:
@@ -102498,17 +102650,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 83.5,89.5
       parent: 1
-- proto: WarpPointBeacon
-  entities:
-  - uid: 3190
-    components:
-    - type: MetaData
-      name: MAPPING NEW MONO BASE
-    - type: Transform
-      pos: 208.5,91.5
-      parent: 1
-    - type: WarpPoint
-      location: '!MAPPING NEW MONO BASE'
 - proto: WeaponPistolStalkerTT
   entities:
   - uid: 12815
@@ -103816,7 +103957,7 @@ entities:
       pos: 66.5,19.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -111604.45
+      secondsUntilStateChange: -118420.984
       state: Opening
   - uid: 9462
     components:
