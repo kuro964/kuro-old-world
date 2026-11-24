@@ -4,8 +4,8 @@ meta:
   engineVersion: 268.0.0
   forkId: ""
   forkVersion: ""
-  time: 11/21/2026 02:39:55
-  entityCount: 2234
+  time: 11/24/2026 10:19:16
+  entityCount: 2240
 maps:
 - 1
 grids:
@@ -3191,7 +3191,7 @@ entities:
       pos: 25.5,13.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -26155.95
+      secondsUntilStateChange: -33322.637
       state: Opening
 - proto: BookshelfStalker1
   entities:
@@ -6436,6 +6436,50 @@ entities:
     - type: Transform
       pos: 10.2563095,17.331715
       parent: 1
+- proto: GhostWarpPoint
+  entities:
+  - uid: 2156
+    components:
+    - type: MetaData
+      name: Brain Scorcher - Towers
+    - type: Transform
+      pos: -14.5,17.5
+      parent: 1
+  - uid: 2157
+    components:
+    - type: MetaData
+      name: Brain Scorcher - Cells
+    - type: Transform
+      pos: -45.5,37.5
+      parent: 1
+  - uid: 2237
+    components:
+    - type: MetaData
+      name: Brain Scorcher - Control Room
+    - type: Transform
+      pos: -27.5,9.5
+      parent: 1
+  - uid: 2238
+    components:
+    - type: MetaData
+      name: Brain Scorcher - Radar Entrance
+    - type: Transform
+      pos: 53.5,24.5
+      parent: 1
+  - uid: 2239
+    components:
+    - type: MetaData
+      name: Brain Scorcher - Monolith Base
+    - type: Transform
+      pos: -28.5,32.5
+      parent: 1
+  - uid: 2240
+    components:
+    - type: MetaData
+      name: Brain Scorcher -  Bar
+    - type: Transform
+      pos: 17.5,19.5
+      parent: 1
 - proto: GreenBox
   entities:
   - uid: 1709
@@ -8344,7 +8388,7 @@ entities:
       accessListsOriginal:
       - - Monolith
     - type: Door
-      secondsUntilStateChange: -27037.383
+      secondsUntilStateChange: -34204.07
       state: Opening
   - uid: 1142
     components:
@@ -8460,7 +8504,7 @@ entities:
       pos: -9.5,18.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -26201.85
+      secondsUntilStateChange: -33368.535
       state: Opening
   - uid: 1401
     components:
