@@ -1,0 +1,14 @@
+﻿- type: entity
+  parent: STClothingHeadBase
+  id: STOWMonolithCap
+  name: Monolith Officer's Cap
+  description: A Cap denoting His Elite Chosen.
+  components:
+  - type: Sprite
+    sprite: _Stalker_OW/Objects/Clothing/hats/monolith-cap
+  - type: Clothing
+    sprite: _Stalker_OW/Objects/Clothing/hats/monolith-cap
+  - type: PersonalDamage
+    damage:
+      types:
+        Radiation: 40

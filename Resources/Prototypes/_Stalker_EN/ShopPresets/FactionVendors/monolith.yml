@@ -156,6 +156,9 @@
         ClothingLegsskirtshort: 999
         ClothingLegsskirtmedium: 999
         ClothingLegsskirtlong: 999
+        STOWMonolithCap: 999
+        STOWCloakMonolith: 999
+        STOWCloakBlackMonolith: 999
         #ST:OW end
         
 - type: entity

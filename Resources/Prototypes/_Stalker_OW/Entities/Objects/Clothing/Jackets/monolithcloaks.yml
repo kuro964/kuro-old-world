@@ -1,0 +1,69 @@
+﻿- type: entity
+  parent: ClothingOuterCoatLoyalist
+  id: STOWCloakMonolith
+  name: Officer's Cloak
+  suffix: STOW, Monolith
+  description: A cloak usually worn by officers and elites of Monolith
+  components:
+    - type: Sprite
+      sprite: _Stalker/Objects/Clothing/cloak/coat_tihiy.rsi
+    - type: Clothing
+      sprite: _Stalker/Objects/Clothing/cloak/coat_tihiy.rsi
+    - type: ToggleableClothing
+      clothingPrototype: STClothingHeadHelmetTihiy
+    - type: Craftable
+    - type: PersonalDamage
+      damage:
+        types:
+          Radiation: 40
+
+- type: entity
+  parent: STClothingHeadHatBase
+  id: STOWCloakHeadMonolith
+  name: Officer's Hood
+  description: A cloak usually worn by officers and elites of Monolith
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: Sprite
+      sprite: _Stalker/Objects/Clothing/hats/coat_hat_tihiy.rsi
+    - type: Clothing
+      sprite: _Stalker/Objects/Clothing/hats/coat_hat_tihiy.rsi
+    - type: HideLayerClothing
+      slots:
+        - HeadTop
+  
+- type: entity
+  parent: ClothingOuterCoatLoyalist
+  id: STOWCloakBlackMonolith
+  name: Officer's Pride
+  suffix: STOW, Monolith
+  description: Another variant of a Monolith Officer's Cloak.
+  components:
+    - type: Craftable
+    - type: STWeight
+      self: 3.5
+    - type: Sprite
+      sprite: _Stalker/Objects/Clothing/cloak/coat_pahan.rsi
+    - type: Clothing
+      sprite: _Stalker/Objects/Clothing/cloak/coat_pahan.rsi
+    - type: ToggleableClothing
+      clothingPrototype: ClothingHeadHelmetBlackCoat
+    - type: PersonalDamage
+      damage:
+        types:
+          Radiation: 40
+
+- type: entity
+  parent: STClothingHeadHatBase
+  id: STOWCloakHeadBlackMonolith
+  name: Officer's Hood
+  categories: [ HideSpawnMenu ]
+  description: Покрывает вашу голову
+  components:
+    - type: Sprite
+      sprite: _Stalker/Objects/Clothing/hats/coat_hat_pahan.rsi
+    - type: Clothing
+      sprite: _Stalker/Objects/Clothing/hats/coat_hat_pahan.rsi
+    - type: HideLayerClothing
+      slots:
+        - HeadTop
