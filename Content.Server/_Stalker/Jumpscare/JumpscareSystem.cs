@@ -46,6 +46,7 @@ public sealed class JumpscareSystem : EntitySystem
 
     private static readonly TimeSpan TellRetry = TimeSpan.FromSeconds(1.5);
     private const float LungeOvershoot = 2f;
+    private const float ThrowCarry = 3f;
     private const float LandShort = 1.2f;
     private const float LandClose = 0.3f;
     private static readonly TimeSpan LandWait = TimeSpan.FromSeconds(1);
@@ -179,13 +180,15 @@ public sealed class JumpscareSystem : EntitySystem
         if (comp.HitThrow <= 0f || offset.LengthSquared() <= 0.0001f || HasComp<ThrownItemComponent>(victim))
             return;
 
-        var push = Vector2.Normalize(offset) * comp.HitThrow;
+        var dir = Vector2.Normalize(offset);
+        var push = dir * comp.HitThrow;
         var from = _xform.GetMapCoordinates(victim);
         var parent = Transform(victim).ParentUid;
-        if (_pathfinding.GetPoly(_xform.ToCoordinates(parent, from.Offset(push))) == null ||
-            _pathfinding.GetPoly(_xform.ToCoordinates(parent, from.Offset(push * 2f))) == null)
+        var flight = comp.HitThrow * ThrowCarry;
+        for (var step = 1f; step <= flight; step += 1f)
         {
-            return;
+            if (_pathfinding.GetPoly(_xform.ToCoordinates(parent, from.Offset(dir * step))) == null)
+                return;
         }
 
         _throwing.TryThrow(victim, push, 8f, uid, recoil: false);

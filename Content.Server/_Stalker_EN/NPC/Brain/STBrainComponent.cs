@@ -172,6 +172,18 @@ public sealed partial class STBrainComponent : Component
     [ViewVariables]
     public bool Returning;
 
+    [ViewVariables]
+    public EntityCoordinates? Anchor;
+
+    [ViewVariables]
+    public float AnchorLeash;
+
+    [ViewVariables]
+    public string AnchorDoing = string.Empty;
+
+    [ViewVariables]
+    public bool Rooted;
+
     [DataField]
     public float WanderRange = 3f;
 

@@ -23,6 +23,7 @@
   - type: STBrain
     leash: 40
     grenades: true
+  - type: STHiveCallable
   - type: HTN
     rootTask:
       task: STMonolith

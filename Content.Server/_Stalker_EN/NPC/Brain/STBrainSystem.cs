@@ -95,6 +95,8 @@ public sealed partial class STBrainSystem : EntitySystem
     private const float NearestSlack = 1.5f;
     private static readonly TimeSpan GiveUpStill = TimeSpan.FromSeconds(3.5);
     private static readonly TimeSpan LeashGrace = TimeSpan.FromSeconds(4);
+    private const float AnchorSlack = 1.2f;
+    private const float AnchorClose = 0.5f;
     private const string FollowKey = "FollowTarget";
     private const float FollowRange = 5f;
     private const float FollowClose = 2f;
@@ -315,6 +317,9 @@ public sealed partial class STBrainSystem : EntitySystem
             : awareness.State == STAwarenessState.Searching ? STBehaviour.Search
             : STBehaviour.Idle;
 
+        if (brain.Anchor != null && brain.AnchorLeash > 0f && next is STBehaviour.Investigate or STBehaviour.Search)
+            next = STBehaviour.Idle;
+
         if (next != brain.Behaviour)
         {
             brain.Behaviour = next;
@@ -348,7 +353,11 @@ public sealed partial class STBrainSystem : EntitySystem
         }
         else
         {
-            brain.FightOrigin ??= self;
+            if (brain.Anchor is { } anchor && brain.AnchorLeash > 0f)
+                brain.FightOrigin = _transform.ToMapCoordinates(anchor);
+            else
+                brain.FightOrigin ??= self;
+
             if (Leashed(uid, brain, awareness, blackboard, self, now))
                 return;
         }
@@ -371,8 +380,12 @@ public sealed partial class STBrainSystem : EntitySystem
             _physics.WakeBody(uid, body: stuckBody);
         }
 
-        var mobile = _actionBlocker.CanMove(uid) &&
+        var mobile = !brain.Rooted &&
+                     _actionBlocker.CanMove(uid) &&
                      !(TryComp<MovementSpeedModifierComponent>(uid, out var speed) && speed.CurrentSprintSpeed < MinSpeed);
+
+        if (brain.Rooted)
+            _mover.Stop(uid);
 
         switch (next)
         {
@@ -710,6 +723,18 @@ public sealed partial class STBrainSystem : EntitySystem
         if (!mobile)
             return;
 
+        if (brain.Anchor is { } post)
+        {
+            brain.Doing = brain.AnchorDoing;
+            var postAt = _transform.ToMapCoordinates(post);
+            if (postAt.MapId == self.MapId && (postAt.Position - self.Position).Length() > AnchorSlack)
+                _mover.MoveTo(uid, post, AnchorClose);
+            else
+                _mover.Stop(uid);
+
+            return;
+        }
+
         if (blackboard.TryGetValue<EntityCoordinates>(FollowKey, out var leader, EntityManager) && leader.IsValid(EntityManager))
         {
             var lead = _transform.ToMapCoordinates(leader);
@@ -806,11 +831,12 @@ public sealed partial class STBrainSystem : EntitySystem
 
     private bool Leashed(EntityUid uid, STBrainComponent brain, STAwarenessComponent awareness, NPCBlackboard blackboard, MapCoordinates self, TimeSpan now)
     {
-        if (brain.Leash <= 0f || brain.FightOrigin is not { } origin)
+        var leash = brain.Anchor != null && brain.AnchorLeash > 0f ? brain.AnchorLeash : brain.Leash;
+        if (leash <= 0f || brain.FightOrigin is not { } origin)
             return false;
 
         var away = (self.Position - origin.Position).Length();
-        if (origin.MapId != self.MapId || away <= brain.Leash)
+        if (origin.MapId != self.MapId || away <= leash)
         {
             brain.LeashSince = null;
             return false;

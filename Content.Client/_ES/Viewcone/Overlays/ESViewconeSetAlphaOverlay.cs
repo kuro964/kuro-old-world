@@ -1,4 +1,5 @@
 using Content.Client._ES.Viewcone.ComponentTree;
+using Content.Client._Stalker_EN.NPC.Hive;
 using Content.Shared._ES.Viewcone;
 using Content.Shared.MouseRotator;
 using Robust.Client.GameObjects;
@@ -22,6 +23,7 @@ public sealed class ESViewconeSetAlphaOverlay : Overlay
     private readonly ESViewconeOccludableTreeSystem _tree;
     private readonly TransformSystem _xform;
     private readonly SpriteSystem _sprite;
+    private readonly STHiveSightSystem _hive;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowEntities;
 
@@ -36,6 +38,7 @@ public sealed class ESViewconeSetAlphaOverlay : Overlay
         _tree = _ent.EntitySysManager.GetEntitySystem<ESViewconeOccludableTreeSystem>();
         _xform  = _ent.EntitySysManager.GetEntitySystem<TransformSystem>();
         _sprite = _ent.EntitySysManager.GetEntitySystem<SpriteSystem>();
+        _hive = _ent.EntitySysManager.GetEntitySystem<STHiveSightSystem>();
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
@@ -105,6 +108,8 @@ public sealed class ESViewconeSetAlphaOverlay : Overlay
             var angleAlpha = (float) Math.Clamp((Math.Abs(angleDist.Theta) - (radConeAngle * 0.5f)) + (radConeFeather * 0.5f), 0f, radConeFeather) / radConeFeather;
             var distAlpha = Math.Clamp((distLength - cone.ConeIgnoreRadius) + (cone.ConeIgnoreFeather * 0.5f), 0f, cone.ConeIgnoreFeather) / cone.ConeIgnoreFeather;
             var targetAlpha = Math.Max(1f - angleAlpha, 1f - distAlpha);
+            if (_hive.Lifted(uid, args.MapId, entPos))
+                targetAlpha = 1f;
 
             // save the results so we can use it in resetalpha overlay
             _cone.CachedBaseAlphas.Add(((uid, sprite), sprite.Color.A));

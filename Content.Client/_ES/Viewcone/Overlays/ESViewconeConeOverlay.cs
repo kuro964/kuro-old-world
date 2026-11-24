@@ -1,3 +1,5 @@
+using System.Numerics;
+using Content.Client._Stalker_EN.NPC.Hive;
 using Content.Client.Eye;
 using Content.Shared._ES.Viewcone;
 using Content.Shared.MouseRotator;
@@ -24,6 +26,8 @@ public sealed class ESViewconeConeOverlay : Overlay
 
     public static ProtoId<ShaderPrototype> ShaderPrototype = "Viewcone";
     private readonly ShaderInstance _viewconeShader;
+    private readonly STHiveSightSystem _hive;
+    private readonly Vector2[] _lifts = new Vector2[STHiveSightSystem.MaxLifts];
 
     private Entity<EyeComponent, ESViewconeComponent, TransformComponent>? _eyeEntity;
     private float _coneAngle;
@@ -35,6 +39,7 @@ public sealed class ESViewconeConeOverlay : Overlay
     {
         IoCManager.InjectDependencies(this);
         _viewconeShader = _proto.Index(ShaderPrototype).InstanceUnique();
+        _hive = _ent.System<STHiveSightSystem>();
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
@@ -77,6 +82,10 @@ public sealed class ESViewconeConeOverlay : Overlay
         _viewconeShader.SetParameter("ConeFeather", _coneFeather);
         _viewconeShader.SetParameter("ConeIgnoreRadius", _coneIgnoreRadius);
         _viewconeShader.SetParameter("ConeIgnoreFeather", _coneIgnoreFeather);
+        var lifts = _hive.LiftPoints(args.Viewport, args.MapId, _lifts, out var liftRadius);
+        _viewconeShader.SetParameter("LiftCount", lifts);
+        _viewconeShader.SetParameter("LiftRadius", liftRadius);
+        _viewconeShader.SetParameter("LiftPos", _lifts);
 
         worldHandle.UseShader(_viewconeShader);
         worldHandle.DrawRect(viewport, Color.White);

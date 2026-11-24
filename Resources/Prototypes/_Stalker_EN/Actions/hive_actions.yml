@@ -1,0 +1,41 @@
+- type: entity
+  parent: BaseAction
+  id: ActionSTHiveCall
+  name: Call the Faithful
+  description: Call nearby Monolith soldiers to follow you, or bring your held soldiers back to your side.
+  components:
+  - type: Action
+    icon:
+      sprite: _Stalker/Interface/Actions/psyonics.rsi
+      state: grab
+    useDelay: 2
+  - type: InstantAction
+    event: !type:STHiveCallActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionSTHiveHold
+  name: Hold Position
+  description: Your soldiers stay where they stand and fight from there.
+  components:
+  - type: Action
+    icon:
+      sprite: _Stalker/Interface/Actions/psyonics.rsi
+      state: meditation
+    useDelay: 2
+  - type: InstantAction
+    event: !type:STHiveHoldActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionSTHiveRelease
+  name: Release the Faithful
+  description: Your soldiers return to their posts.
+  components:
+  - type: Action
+    icon:
+      sprite: _Stalker/Interface/Actions/psyonics.rsi
+      state: rift
+    useDelay: 2
+  - type: InstantAction
+    event: !type:STHiveReleaseActionEvent

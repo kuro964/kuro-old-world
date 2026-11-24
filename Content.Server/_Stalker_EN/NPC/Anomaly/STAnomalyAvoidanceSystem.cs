@@ -102,6 +102,7 @@ public sealed class STAnomalyAvoidanceSystem : EntitySystem
             if (steering != null &&
                 (TryComp<HTNComponent>(uid, out var htn) && htn.Blackboard.ContainsKey(TargetKey) ||
                  !steering.Coordinates.IsValid(EntityManager) ||
+                 _transform.GetMapId(steering.Coordinates) != xform.MapID ||
                  !tiles.ContainsKey(_transform.WithEntityId(steering.Coordinates, grid).Position.Floored())))
             {
                 continue;

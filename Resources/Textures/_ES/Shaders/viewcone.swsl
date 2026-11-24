@@ -12,6 +12,10 @@ uniform highp float ConeIgnoreFeather; //= 0.1;
 
 uniform highp float ViewAngle;
 
+uniform lowp int LiftCount;
+uniform highp float LiftRadius;
+uniform highp vec2[10] LiftPos;
+
 const highp float grainMult = 0.35;
 const highp float grainBase = 0.6;
 
@@ -42,6 +46,11 @@ void fragment(){
     mask += clamp(deltaAngle, 0.0, 1.0);
 
     mask = 1.0 - clamp(mask, 0.0, 1.0);
+
+    for (int i = 0; i < 10 && i < LiftCount; i++) {
+        highp float liftDist = distance(FRAGCOORD.xy, LiftPos[i]);
+        mask *= smoothstep(LiftRadius * 0.75, LiftRadius, liftDist);
+    }
 
     // So grim.. so dark
     highp float grain = zRandom(FRAGCOORD.xy * sin(TIME * 0.01)).x;
