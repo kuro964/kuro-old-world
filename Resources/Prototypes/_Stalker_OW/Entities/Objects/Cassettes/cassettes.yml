@@ -17,3 +17,143 @@
       state: c1
     - type: RepositoryItem # stalker-en change
       categoryName: repository-cassettes-category
+      
+- type: entity
+  parent: BaseItem
+  id: CasseteAokigaharaForest
+  suffix: ST:NW, Cassette
+  name: AokigaharaForest - IO Echo
+  description: A cassette found in the zone. A small piece of paper says "AokigaharaForest - IO Echo"
+  components:
+    - type: STWeight
+      self: 0.15
+    - type: Cassete
+      sound: /Audio/_Stalker_NW/Music/Aokigahara Forest.ogg
+    - type: Tag
+      tags:
+        - Cassete
+    - type: Sprite
+      sprite: _Stalker/Objects/Misc/casete.rsi
+      state: c1
+    - type: RepositoryItem # stalker-en change
+      categoryName: repository-cassettes-category
+      
+- type: entity
+  parent: BaseItem
+  id: CasseteSingularityNewOrder
+  suffix: ST:NW, Cassette
+  name: Singularity - New Order
+  description: A cassette found in the zone. A small piece of paper says "Singularity - New Order"
+  components:
+    - type: STWeight
+      self: 0.15
+    - type: Cassete
+      sound: /Audio/_Stalker_NW/Music/New Order Singularity.ogg
+    - type: Tag
+      tags:
+        - Cassete
+    - type: Sprite
+      sprite: _Stalker/Objects/Misc/casete.rsi
+      state: c1
+    - type: RepositoryItem # stalker-en change
+      categoryName: repository-cassettes-category
+      
+- type: entity
+  parent: BaseItem
+  id: CasseteMolchatDoma
+  suffix: ST:NW, Cassette
+  name: Molchat Doma - Клетка
+  description: A cassette found in the zone. A small piece of paper says "Molchat Doma - Клетка"
+  components:
+    - type: STWeight
+      self: 0.15
+    - type: Cassete
+      sound: /Audio/_Stalker_NW/Music/Molchat Doma Клетка.ogg
+    - type: Tag
+      tags:
+        - Cassete
+    - type: Sprite
+      sprite: _Stalker/Objects/Misc/casete.rsi
+      state: c1
+    - type: RepositoryItem # stalker-en change
+      categoryName: repository-cassettes-category
+      
+- type: entity
+  parent: BaseItem
+  id: CasseteKino
+  suffix: ST:NW, Cassette
+  name: Пачка сигарет - Kino
+  description: A cassette found in the zone. A small piece of paper says "Пачка сигарет - Kino"
+  components:
+    - type: STWeight
+      self: 0.15
+    - type: Cassete
+      sound: /Audio/_Stalker_NW/Music/Пачка сигарет.ogg
+    - type: Tag
+      tags:
+        - Cassete
+    - type: Sprite
+      sprite: _Stalker/Objects/Misc/casete.rsi
+      state: c1
+    - type: RepositoryItem # stalker-en change
+      categoryName: repository-cassettes-category
+      
+- type: entity
+  parent: BaseItem
+  id: CasseteWeAreTheDead
+  suffix: ST:NW, Cassette
+  name: We are the Dead - Kazuma Jinnouchi
+  description: A cassette found in the zone. A small piece of paper says "We are the Dead - Kazuma Jinnouchi"
+  components:
+    - type: STWeight
+      self: 0.15
+    - type: Cassete
+      sound: /Audio/_Stalker_NW/Music/We are the Dead.ogg
+    - type: Tag
+      tags:
+        - Cassete
+    - type: Sprite
+      sprite: _Stalker/Objects/Misc/casete.rsi
+      state: c1
+    - type: RepositoryItem # stalker-en change
+      categoryName: repository-cassettes-category
+      
+- type: entity
+  parent: BaseItem
+  id: CasseteSupernatural
+  suffix: ST:NW, Cassette
+  name: Supernatural - Kazuma Jinnouchi
+  description: A cassette found in the zone. A small piece of paper says "Supernatural - Kazuma Jinnouchi"
+  components:
+    - type: STWeight
+      self: 0.15
+    - type: Cassete
+      sound: /Audio/_Stalker_NW/Music/Supernatural.ogg
+    - type: Tag
+      tags:
+        - Cassete
+    - type: Sprite
+      sprite: _Stalker/Objects/Misc/casete.rsi
+      state: c1
+    - type: RepositoryItem # stalker-en change
+      categoryName: repository-cassettes-category
+
+- type: entity
+  parent: BaseItem
+  id: CasseteOmnipotent
+  suffix: ST:NW, Cassette
+  name: Omnipotent - Kazuma Jinnouchi
+  description: A cassette found in the zone. A small piece of paper says "Omnipotent - Kazuma Jinnouchi"
+  components:
+    - type: STWeight
+      self: 0.15
+    - type: Cassete
+      sound: /Audio/_Stalker_NW/Music/Omnipotent.ogg
+    - type: Tag
+      tags:
+        - Cassete
+    - type: Sprite
+      sprite: _Stalker/Objects/Misc/casete.rsi
+      state: c1
+    - type: RepositoryItem # stalker-en change
+      categoryName: repository-cassettes-category
