@@ -87,7 +87,7 @@
      task: STChimeraHostileCompound
     blackboard:
       VisionRadius: !type:Single
-       80
+       40
       AggroVisionRadius: !type:Single
        80
   - type: Jumpscare

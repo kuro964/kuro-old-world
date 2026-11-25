@@ -19,7 +19,7 @@
         task: STGoshaCompound
       blackboard:
         VisionRadius: !type:Single
-          15.0
+          7.5
         AggroVisionRadius: !type:Single
           20
     - type: NpcFactionMember

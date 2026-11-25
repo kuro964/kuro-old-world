@@ -16,7 +16,7 @@
         task: STSimpleHostileCompound
       blackboard:
         VisionRadius: !type:Single
-          20
+          10
         AggroVisionRadius: !type:Single
           35
     - type: Damageable
@@ -89,7 +89,7 @@
       wideAnimation: WeaponArcClaw
       damage:
         types:
-          Blunt: 36
+          Blunt: 21.6
     - type: BonusMeleeDamage
       heavyDamageMultiplier: 1.5
     - type: MovementSpeedModifier
@@ -162,7 +162,7 @@
         path: /Audio/_Stalker/Mutants/boar_aggressive_3.ogg
       chargeDamage:
         types:
-          Blunt: 25
+          Blunt: 15
       jumpPower: 9
       jumpDistance: 5
       updateCooldown: 0.25

@@ -27,7 +27,7 @@
         task: STBlindDogRedCompound
       blackboard:
         VisionRadius: !type:Single
-          20
+          10
         AggroVisionRadius: !type:Single
           25
     - type: Butcherable
@@ -116,7 +116,7 @@
         task: STBlindDogSmallCompound
       blackboard:
         VisionRadius: !type:Single
-          20
+          10
         AggroVisionRadius: !type:Single
           25
         Roared: !type:Bool

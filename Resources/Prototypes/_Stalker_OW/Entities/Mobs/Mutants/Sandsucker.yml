@@ -25,7 +25,7 @@
         task: STBloodsuckerCompound
       blackboard:
         VisionRadius: !type:Single
-          25
+          12.5
         AggroVisionRadius: !type:Single
           35
         NavInteract: !type:Bool
