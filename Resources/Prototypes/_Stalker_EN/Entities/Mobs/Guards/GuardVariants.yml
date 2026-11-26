@@ -7,9 +7,9 @@
       task: STMonolith
     blackboard:
       VisionRadius: !type:Single
-        25
+        15
       AggroVisionRadius: !type:Single
-        30
+        20
       NavInteract: !type:Bool
         true
   - type: MovementSpeedModifier
