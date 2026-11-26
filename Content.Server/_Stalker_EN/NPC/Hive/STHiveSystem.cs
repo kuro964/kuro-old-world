@@ -1,7 +1,9 @@
 using System.Linq;
 using Content.Server._Stalker_EN.NPC.Awareness;
+using Content.Server._Stalker.Trash;
 using Content.Server._Stalker_EN.NPC.Brain;
 using Content.Server.Chat.Systems;
+using Robust.Shared.Containers;
 using Content.Server.NPC.Pathfinding;
 using Content.Shared._Stalker.Bands;
 using Content.Shared._Stalker_EN.NPC.Hive;
@@ -26,7 +28,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Stalker_EN.NPC.Hive;
 
-public sealed class STHiveSystem : EntitySystem
+public sealed partial class STHiveSystem : EntitySystem
 {
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
@@ -42,10 +44,12 @@ public sealed class STHiveSystem : EntitySystem
     [Dependency] private readonly PathfindingSystem _pathfinding = default!;
     [Dependency] private readonly Content.Shared.Examine.ExamineSystemShared _examine = default!;
     [Dependency] private readonly ViewSubscriberSystem _viewSubscriber = default!;
+    [Dependency] private readonly SharedContainerSystem _container = default!;
 
     private static readonly EntProtoId CallAction = "ActionSTHiveCall";
     private static readonly EntProtoId HoldAction = "ActionSTHiveHold";
     private static readonly EntProtoId ReleaseAction = "ActionSTHiveRelease";
+    private static readonly EntProtoId RecruitAction = "ActionSTHiveRecruit";
     private static readonly TimeSpan ThinkInterval = TimeSpan.FromSeconds(0.25);
     private static readonly TimeSpan RallyLock = TimeSpan.FromSeconds(3);
     private static readonly TimeSpan DirectTime = TimeSpan.FromSeconds(4);
@@ -88,6 +92,7 @@ public sealed class STHiveSystem : EntitySystem
         SubscribeLocalEvent<STHiveLeaderComponent, STHiveCallActionEvent>(OnCall);
         SubscribeLocalEvent<STHiveLeaderComponent, STHiveHoldActionEvent>(OnHold);
         SubscribeLocalEvent<STHiveLeaderComponent, STHiveReleaseActionEvent>(OnRelease);
+        SubscribeLocalEvent<STHiveLeaderComponent, STHiveRecruitActionEvent>(OnRecruit);
         SubscribeLocalEvent<STHiveLeaderComponent, DamageChangedEvent>(OnLeaderDamaged);
         SubscribeLocalEvent<STHiveLeaderComponent, MobStateChangedEvent>(OnLeaderMobState);
         SubscribeLocalEvent<BandsComponent, DamageChangedEvent>(OnBandsDamaged);
@@ -112,6 +117,7 @@ public sealed class STHiveSystem : EntitySystem
             return;
 
         RemCompDeferred<STHiveFollowerComponent>(ent);
+        RemCompDeferred<STHiveScatterComponent>(ent);
         GrantLeader(ent);
     }
 
@@ -128,12 +134,31 @@ public sealed class STHiveSystem : EntitySystem
         _actions.AddAction(uid, ref leader.CallAction, CallAction);
         _actions.AddAction(uid, ref leader.HoldAction, HoldAction);
         _actions.AddAction(uid, ref leader.ReleaseAction, ReleaseAction);
+        _actions.AddAction(uid, ref leader.RecruitAction, RecruitAction);
     }
 
     private void RevokeLeader(EntityUid uid)
     {
         RemCompDeferred<STHiveLeaderComponent>(uid);
         RemCompDeferred<STHiveSightComponent>(uid);
+        RestartTrash(uid);
+    }
+
+    private void RestartTrash(EntityUid uid)
+    {
+        if (TryComp<TrashComponent>(uid, out var trash) && trash.TimeToDelete > 0)
+            trash.DeletingTime = _timing.CurTime + TimeSpan.FromSeconds(trash.TimeToDelete);
+    }
+
+    private void HoldTrash(EntityUid uid)
+    {
+        if (TryComp<TrashComponent>(uid, out var trash))
+            trash.DeletingTime = null;
+    }
+
+    private EntityCoordinates GroundSpot(EntityUid uid)
+    {
+        return _transform.ToCoordinates(_transform.GetMapCoordinates(uid));
     }
 
     private void OnLeaderShutdown(Entity<STHiveLeaderComponent> ent, ref ComponentShutdown args)
@@ -155,6 +180,7 @@ public sealed class STHiveSystem : EntitySystem
         _actions.RemoveAction(ent.Owner, ent.Comp.CallAction);
         _actions.RemoveAction(ent.Owner, ent.Comp.HoldAction);
         _actions.RemoveAction(ent.Owner, ent.Comp.ReleaseAction);
+        _actions.RemoveAction(ent.Owner, ent.Comp.RecruitAction);
     }
 
     private void OnCall(Entity<STHiveLeaderComponent> ent, ref STHiveCallActionEvent args)
@@ -184,20 +210,10 @@ public sealed class STHiveSystem : EntitySystem
             if (ent.Comp.Followers.Count >= MaxFollowers)
                 break;
 
-            if (HasComp<STHiveFollowerComponent>(npc) ||
-                HasComp<STHiveLeaderComponent>(npc) ||
-                HasComp<ActorComponent>(npc) ||
-                !HasComp<STBrainComponent>(npc) ||
-                !_mobState.IsAlive(npc) ||
-                !Mobile(npc))
-            {
+            if (HasComp<STHiveFollowerComponent>(npc) || !Recruitable(npc))
                 continue;
-            }
 
-            var follower = AddComp<STHiveFollowerComponent>(npc);
-            follower.Leader = ent;
-            follower.Slot = FreeSlot(ent.Comp);
-            ent.Comp.Followers.Add(npc);
+            Enlist(ent, npc);
             joined++;
         }
 
@@ -213,6 +229,82 @@ public sealed class STHiveSystem : EntitySystem
             ? Loc.GetString("st-hive-full")
             : Loc.GetString("st-hive-answered", ("count", ent.Comp.Followers.Count));
         _popup.PopupEntity(message, ent, ent);
+    }
+
+    private void OnRecruit(Entity<STHiveLeaderComponent> ent, ref STHiveRecruitActionEvent args)
+    {
+        if (args.Handled)
+            return;
+
+        args.Handled = true;
+        var target = args.Target;
+        if (ent.Comp.Followers.Contains(target))
+        {
+            _popup.PopupEntity(Loc.GetString("st-hive-recruit-dismissed", ("name", target)), ent, ent);
+            ReturnToPost(target);
+            return;
+        }
+
+        if (!_mobState.IsAlive(ent))
+            return;
+
+        if (HasComp<STHiveFollowerComponent>(target))
+        {
+            _popup.PopupEntity(Loc.GetString("st-hive-recruit-taken"), ent, ent);
+            return;
+        }
+
+        if (!HasComp<STHiveCallableComponent>(target) || !Recruitable(target))
+        {
+            _popup.PopupEntity(Loc.GetString("st-hive-recruit-deaf"), ent, ent);
+            return;
+        }
+
+        if (ent.Comp.Followers.Count >= MaxFollowers)
+        {
+            _popup.PopupEntity(Loc.GetString("st-hive-full"), ent, ent);
+            return;
+        }
+
+        Enlist(ent, target);
+        SyncSight(ent, ent.Comp);
+        _popup.PopupEntity(Loc.GetString("st-hive-recruit-joined", ("name", target)), ent, ent);
+    }
+
+    private bool Recruitable(EntityUid npc)
+    {
+        return !HasComp<STHiveLeaderComponent>(npc) &&
+               !HasComp<ActorComponent>(npc) &&
+               HasComp<STBrainComponent>(npc) &&
+               _mobState.IsAlive(npc) &&
+               Mobile(npc);
+    }
+
+    private void Enlist(Entity<STHiveLeaderComponent> leader, EntityUid npc)
+    {
+        RemCompDeferred<STHiveScatterComponent>(npc);
+        if (TryComp<STBrainComponent>(npc, out var brain))
+        {
+            brain.Override = null;
+            brain.Returning = false;
+        }
+
+        var follower = AddComp<STHiveFollowerComponent>(npc);
+        follower.Leader = leader;
+        follower.Slot = FreeSlot(leader.Comp);
+        leader.Comp.Followers.Add(npc);
+        SetClaimer(npc, leader);
+    }
+
+    private void SetClaimer(EntityUid npc, EntityUid? leader)
+    {
+        if (TerminatingOrDeleted(npc) ||
+            !TryComp<STHiveCallableComponent>(npc, out var callable) ||
+            callable.Leader == leader)
+            return;
+
+        callable.Leader = leader;
+        Dirty(npc, callable);
     }
 
     private void OnHold(Entity<STHiveLeaderComponent> ent, ref STHiveHoldActionEvent args)
@@ -287,12 +379,22 @@ public sealed class STHiveSystem : EntitySystem
 
     private void OnLeaderMobState(Entity<STHiveLeaderComponent> ent, ref MobStateChangedEvent args)
     {
-        if (args.NewMobState != MobState.Dead || ent.Comp.Followers.Count == 0)
-            return;
-
-        Speak(ent.Comp, _transform.GetMapCoordinates(ent), "st-hive-fallen", 3);
-        foreach (var follower in ent.Comp.Followers.ToArray())
-            Scatter(follower);
+        ent.Comp.ReviveProgress = 0f;
+        switch (args.NewMobState)
+        {
+            case MobState.Alive:
+                ent.Comp.Medic = null;
+                ent.Comp.DiedAt = null;
+                break;
+            case MobState.Critical:
+                ent.Comp.DiedAt = null;
+                break;
+            case MobState.Dead:
+                ent.Comp.DiedAt = _timing.CurTime;
+                if (ent.Comp.Followers.Count > 0)
+                    Speak(ent.Comp, _transform.GetMapCoordinates(ent), "st-hive-fallen", 3);
+                break;
+        }
     }
 
     private void OnFollowerMobState(Entity<STHiveFollowerComponent> ent, ref MobStateChangedEvent args)
@@ -304,7 +406,14 @@ public sealed class STHiveSystem : EntitySystem
     private void OnFollowerShutdown(Entity<STHiveFollowerComponent> ent, ref ComponentShutdown args)
     {
         if (TryComp<STHiveLeaderComponent>(ent.Comp.Leader, out var leader))
+        {
             leader.Followers.Remove(ent);
+            if (leader.Medic == ent.Owner)
+                leader.Medic = null;
+        }
+
+        RestartTrash(ent);
+        SetClaimer(ent, null);
 
         if (TryComp<STBrainComponent>(ent, out var brain))
         {
@@ -348,6 +457,7 @@ public sealed class STHiveSystem : EntitySystem
                 continue;
 
             comp.NextShare = now + ShareInterval;
+            HoldTrash(leader);
             SyncSight(leader, comp);
             if (comp.Followers.Count == 0 || !_mobState.IsAlive(leader))
                 continue;
@@ -449,11 +559,15 @@ public sealed class STHiveSystem : EntitySystem
     private void Think(EntityUid uid, STHiveFollowerComponent follower, STBrainComponent brain, TimeSpan now)
     {
         var leader = follower.Leader;
-        if (TerminatingOrDeleted(leader) || !HasComp<STHiveLeaderComponent>(leader) || _mobState.IsDead(leader))
+        if (TerminatingOrDeleted(leader) ||
+            !TryComp<STHiveLeaderComponent>(leader, out var leaderComp) ||
+            _mobState.IsDead(leader) && !Savable(leader, leaderComp, now))
         {
             _lost.Add(uid);
             return;
         }
+
+        HoldTrash(uid);
 
         var self = _transform.GetMapCoordinates(uid);
         var at = _transform.GetMapCoordinates(leader);
@@ -471,7 +585,8 @@ public sealed class STHiveSystem : EntitySystem
         var jumped = follower.LastLeader is { } last &&
                      last.MapId == at.MapId &&
                      (at.Position - last.Position).Length() > JumpDistance;
-        if (at.MapId != self.MapId || jumped || (at.Position - self.Position).Length() > StragglerDistance)
+        if ((at.MapId != self.MapId || jumped || (at.Position - self.Position).Length() > StragglerDistance) &&
+            !_container.IsEntityInContainer(uid))
         {
             Bring(uid, brain, leader, follower.Slot, now);
             self = _transform.GetMapCoordinates(uid);
@@ -486,11 +601,21 @@ public sealed class STHiveSystem : EntitySystem
             return;
         }
 
-        if (_mobState.IsCritical(leader))
+        if (_mobState.IsIncapacitated(leader))
         {
-            follower.DownAt ??= Transform(uid).Coordinates;
-            brain.Rooted = true;
-            SetAnchor(brain, follower.DownAt.Value, 0f, "fighting over its fallen brother");
+            if (IsMedic(uid, leader, leaderComp) && !SquadFighting(leaderComp))
+            {
+                follower.DownAt = null;
+                brain.Rooted = false;
+                SetAnchor(brain, GroundSpot(leader), 0f, "tending its fallen brother");
+                Tend(uid, leader, leaderComp, now);
+            }
+            else
+            {
+                follower.DownAt ??= Transform(uid).Coordinates;
+                brain.Rooted = true;
+                SetAnchor(brain, follower.DownAt.Value, 0f, "fighting over its fallen brother");
+            }
         }
         else
         {
@@ -499,7 +624,7 @@ public sealed class STHiveSystem : EntitySystem
             if (_mover.NoPath(uid))
                 follower.DirectUntil = now + DirectTime;
 
-            var slot = now < follower.DirectUntil ? Transform(leader).Coordinates : SlotSpot(leader, at, follower.Slot);
+            var slot = now < follower.DirectUntil ? GroundSpot(leader) : SlotSpot(leader, at, follower.Slot);
             SetAnchor(brain, slot, FollowLeash, "following the Monolith's chosen");
         }
 
@@ -551,7 +676,7 @@ public sealed class STHiveSystem : EntitySystem
 
     private EntityCoordinates LandingSpot(EntityUid leader, int slot)
     {
-        var leaderSpot = Transform(leader).Coordinates;
+        var leaderSpot = GroundSpot(leader);
         var firstAngle = Angle.FromDegrees(slot * 137.5);
         foreach (var distance in LandingDistances)
         {
@@ -578,7 +703,7 @@ public sealed class STHiveSystem : EntitySystem
     {
         var radius = SlotRadius + slot / SlotsPerRing * SlotRing;
         var spot = _transform.ToCoordinates(at.Offset(Angle.FromDegrees(slot * 137.5).ToVec() * radius));
-        return Standable(spot) ? spot : Transform(leader).Coordinates;
+        return Standable(spot) ? spot : GroundSpot(leader);
     }
 
     private static void SetAnchor(STBrainComponent brain, EntityCoordinates anchor, float leash, string doing)
