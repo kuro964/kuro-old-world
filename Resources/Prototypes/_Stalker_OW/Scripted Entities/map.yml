@@ -61,6 +61,16 @@
   components:
     - type: Portal
       cooldown: 5
+
+#Divide to Nikolai's Den
+- type: entity
+  parent: MapTeleportBase
+  id: NikolaiDen-TeleportOW
+  name: Divide to NikolaiDen-TeleportOW
+  components:
+    - type: Portal
+      cooldown: 5
+
 #Radar to Brainscorcher
 - type: entity
   parent: MapTeleportBase
@@ -167,4 +177,6 @@
   components:
     - type: Portal
       cooldown: 5
+      
+
       

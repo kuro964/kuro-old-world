@@ -78,3 +78,15 @@
     - state: blue
   - type: MiracleMachineTeleports
     teleport: Yantar-DeadCity
+    
+##Nikolai's Den in the Divide
+- type: entity
+  id: MiracleMachineTeleporterSpawnerNikolaiDen
+  name: TheDivide-NikolaiDen Teleporter Spawner
+  parent: MiracleMachineTeleporterSpawnerBase
+  components:
+    - type: Sprite
+      layers:
+        - state: blue
+    - type: MiracleMachineTeleports
+      teleport: NikolaiDen-TeleportOW
