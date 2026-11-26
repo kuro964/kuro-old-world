@@ -21,3 +21,11 @@ st-hive-release-3 = Our vigil resumes.
 st-hive-fallen-1 = A brother has joined the Monolith. Spread out!
 st-hive-fallen-2 = The voice is silent. Scatter!
 st-hive-fallen-3 = He is one with the Monolith now.
+
+st-hive-recruit-joined = {CAPITALIZE(THE($name))} answers your call.
+st-hive-recruit-dismissed = {CAPITALIZE(THE($name))} returns to its post.
+st-hive-recruit-deaf = That one does not hear the Monolith.
+st-hive-recruit-taken = That one already serves another.
+st-hive-tending = {CAPITALIZE(THE($medic))} tends to {THE($leader)}'s wounds.
+st-hive-reviving = {CAPITALIZE(THE($medic))} works to bring {THE($leader)} back.
+st-hive-revived = {CAPITALIZE(THE($medic))} brings {THE($leader)} back from the brink.

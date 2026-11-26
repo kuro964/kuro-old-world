@@ -13,7 +13,7 @@
       task: STPsiHostileCompound
     blackboard:
       VisionRadius: !type:Single
-        20
+        10
       AggroVisionRadius: !type:Single
         25
   - type: Damageable

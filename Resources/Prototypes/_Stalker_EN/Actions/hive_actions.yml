@@ -39,3 +39,24 @@
     useDelay: 2
   - type: InstantAction
     event: !type:STHiveReleaseActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionSTHiveRecruit
+  name: Claim a Soldier
+  description: Pick one Monolith soldier to follow you. Pick one of your own to send it back to its post.
+  components:
+  - type: Action
+    icon:
+      sprite: _Stalker/Interface/Actions/psyonics.rsi
+      state: light
+    iconOn:
+      sprite: _Stalker_EN/Interface/Actions/hive_claim.rsi
+      state: light_on
+    useDelay: 0.5
+  - type: TargetAction
+    range: 15
+    checkCanAccess: false
+  - type: EntityTargetAction
+    canTargetSelf: false
+    event: !type:STHiveRecruitActionEvent

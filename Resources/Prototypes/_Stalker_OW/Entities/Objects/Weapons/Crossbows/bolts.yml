@@ -19,6 +19,7 @@
             - BulletImpassable
     - type: Ammo
       muzzleFlash: null
+    - type: ChemicalAmmo
     - type: Projectile
       deleteOnCollide: false
       onlyCollideWhenShot: true
@@ -77,7 +78,12 @@
           Mutant: 200
     - type: BoltBallistics
       speedMultiplier: 1
-      maxFlightTime: 1.2
+      maxFlightTime: 0.86
+    - type: CartridgeAmmo
+      proto: STOWBroadheadBolt
+      deleteOnSpawn: true
+      markSpentAsTrash: false
+      muzzleFlash: null
     - type: BoltBreakOnImpact
       brokenPrototype: STOWBrokenBolt
 
@@ -102,6 +108,11 @@
           Piercing: 60
     - type: BoltBallistics
       speedMultiplier: 1.2
-      maxFlightTime: 1.2
+      maxFlightTime: 0.86
+    - type: CartridgeAmmo
+      proto: STOWBodkinBolt
+      deleteOnSpawn: true
+      markSpentAsTrash: false
+      muzzleFlash: null
     - type: BoltBreakOnImpact
       brokenPrototype: STOWBrokenBoltAP

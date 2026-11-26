@@ -4,11 +4,6 @@ using Robust.Shared.Player;
 namespace Content.Server._Stalker_EN.NPC.Hive;
 
 [RegisterComponent]
-public sealed partial class STHiveCallableComponent : Component
-{
-}
-
-[RegisterComponent]
 public sealed partial class STHiveLeaderComponent : Component
 {
     [ViewVariables]
@@ -22,6 +17,21 @@ public sealed partial class STHiveLeaderComponent : Component
 
     [DataField]
     public EntityUid? ReleaseAction;
+
+    [DataField]
+    public EntityUid? RecruitAction;
+
+    [ViewVariables]
+    public EntityUid? Medic;
+
+    [ViewVariables]
+    public TimeSpan? DiedAt;
+
+    [ViewVariables]
+    public float ReviveProgress;
+
+    [ViewVariables]
+    public TimeSpan NextMedicPopup;
 
     [ViewVariables]
     public TimeSpan NextShare;

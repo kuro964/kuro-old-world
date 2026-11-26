@@ -52,7 +52,7 @@
       task: STSimpleRangedHostileCompound
     blackboard:
       VisionRadius: !type:Single
-        20
+        10
       AggroVisionRadius: !type:Single
         25
       STPreferredRangeMin: !type:Single

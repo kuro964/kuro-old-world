@@ -23,7 +23,7 @@
       task: STSimpleHostileCompound
     blackboard:
       VisionRadius: !type:Single
-        20
+        10
       AggroVisionRadius: !type:Single
         30
       NavInteract: !type:Bool

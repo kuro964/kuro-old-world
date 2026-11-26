@@ -6,6 +6,8 @@
   description: It's heavy, clunky, and smells of herbal oils, but it'll shred through mutants and people without a hitch.
   components:
     - type: Engraveable
+    - type: Gun
+      projectileSpeed: 35
     - type: RepositoryItem
       categoryName: repository-weapons-category
     - type: Clothing

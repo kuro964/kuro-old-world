@@ -40,7 +40,7 @@
       task: GoliathCompound
     blackboard:
       VisionRadius: !type:Single
-        6
+        3
       AggroVisionRadius: !type:Single
         10
   - type: NPCUseAction

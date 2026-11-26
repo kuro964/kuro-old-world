@@ -81,7 +81,7 @@
       wideAnimation: WeaponArcClaw
       damage:
         types:
-          Blunt: 26
+          Blunt: 15.6
     - type: BonusMeleeDamage
       heavyDamageMultiplier: 1.5
     - type: MovementSpeedModifier
@@ -154,7 +154,7 @@
         path: /Audio/_Stalker/Mutants/boar_aggressive_3.ogg
       chargeDamage:
         types:
-          Blunt: 25
+          Blunt: 15
       jumpPower: 7
       jumpDistance: 5
       updateCooldown: 0.25
